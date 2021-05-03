@@ -35,20 +35,18 @@ namespace Tavenem.Chemistry
             }
 
             var readerCopy = reader;
-            while (readerCopy.Read())
+            readerCopy.Read();
+            if (readerCopy.TokenType == JsonTokenType.PropertyName)
             {
-                if (readerCopy.TokenType == JsonTokenType.PropertyName)
+                var prop = readerCopy.GetString();
+                if (string.Equals(
+                    prop,
+                    nameof(Composite.Components),
+                    options.PropertyNameCaseInsensitive
+                        ? StringComparison.OrdinalIgnoreCase
+                        : StringComparison.Ordinal))
                 {
-                    var prop = readerCopy.GetString();
-                    if (string.Equals(
-                        prop,
-                        nameof(Composite.Components),
-                        options.PropertyNameCaseInsensitive
-                            ? StringComparison.OrdinalIgnoreCase
-                            : StringComparison.Ordinal))
-                    {
-                        return JsonSerializer.Deserialize<Composite>(ref reader, options);
-                    }
+                    return JsonSerializer.Deserialize<Composite>(ref reader, options);
                 }
             }
             return JsonSerializer.Deserialize<Material>(ref reader, options);

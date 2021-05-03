@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.4-preview
+### Fixed
+- Fix `Composite` JSON (de)serialization
+
 ## 0.1.1-preview - 0.1.3-preview
 ### Updated
 - Update dependencies
