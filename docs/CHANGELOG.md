@@ -1,8 +1,8 @@
 # Changelog
 
-## 0.1.1-preview - 0.1.2-preview
+## 0.1.1-preview - 0.1.3-preview
 ### Updated
-- Updated dependencies
+- Update dependencies
 
 ## 0.1.0-preview
 ### Added
