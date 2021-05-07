@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.5-preview
+### Fixed
+- Corrected values for cement
+
 ## 0.1.4-preview
 ### Fixed
 - Fix `Composite` JSON (de)serialization

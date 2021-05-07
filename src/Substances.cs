@@ -4087,9 +4087,8 @@ namespace Tavenem.Chemistry
                     (CalciumOxide.GetHomogeneousReference(), 0.008m),
                     },
                     "Cement",
-                    densitySolid: 400,
-                    isFlammable: true,
-                    youngsModulus: 9.72);
+                    densitySolid: 2320,
+                    youngsModulus: 27.5);
 
             /// <summary>
             /// Cotton Cloth
