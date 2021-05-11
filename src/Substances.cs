@@ -3601,6 +3601,7 @@ namespace Tavenem.Chemistry
                 Formula.Parse("C8H13O5N"),
                 "Chitin",
                 densitySolid: 1370,
+                hardness: 1000,
                 youngsModulus: 6);
 
             /// <summary>
