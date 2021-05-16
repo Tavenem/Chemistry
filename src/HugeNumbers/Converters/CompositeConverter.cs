@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 using Tavenem.HugeNumbers;
 using Tavenem.Mathematics.HugeNumbers;
 
-namespace Tavenem.Chemistry
+namespace Tavenem.Chemistry.HugeNumbers
 {
     /// <summary>
     /// Converts a <see cref="Composite"/> to or from JSON.

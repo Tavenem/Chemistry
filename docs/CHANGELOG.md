@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.2.0-preview
+### Changed
+- Separate `IMaterial`, `Material`, and `Composite` into `decimal`, `double`, and `HugeNumber`
+  variants (mirrors [Tavenem.Mathematics](https://github.com/Tavenem/Mathematics) structure). The
+  variants use these datatypes for `Mass` and `Shape`, but other properties use either `decimal` or
+  `double` for all variants (e.g. proportions always use `decimal` and density always uses
+  `double`).
+- Simplify constructor signatures for `Material`.
+- Simplify signature of `IMaterial` extension method `ScaleShape`.
+
 ## 0.1.6-preview
 ### Fixed
 - Corrected values for chitin

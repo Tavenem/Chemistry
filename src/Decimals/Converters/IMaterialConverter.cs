@@ -2,7 +2,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace Tavenem.Chemistry
+namespace Tavenem.Chemistry.Decimals
 {
     /// <summary>
     /// Converts an <see cref="IMaterial"/> to or from JSON.

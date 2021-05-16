@@ -7,7 +7,7 @@ using System.Runtime.Serialization;
 using Tavenem.HugeNumbers;
 using Tavenem.Mathematics.HugeNumbers;
 
-namespace Tavenem.Chemistry
+namespace Tavenem.Chemistry.HugeNumbers
 {
     /// <summary>
     /// A physical object composed of multiple individual materials in an overall shape.

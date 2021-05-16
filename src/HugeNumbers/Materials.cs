@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Tavenem.HugeNumbers;
 using Tavenem.Mathematics.HugeNumbers;
 
-namespace Tavenem.Chemistry
+namespace Tavenem.Chemistry.HugeNumbers
 {
     /// <summary>
     /// Extension methods related to <see cref="IMaterial"/>.
@@ -259,7 +259,7 @@ namespace Tavenem.Chemistry
         /// <param name="func">A function to extract a <see cref="double"/> value from an <see
         /// cref="ISubstance"/>.</param>
         /// <returns>The value.</returns>
-        public static async ValueTask<HugeNumber> GetOverallDoubleValueAwaitAsync(this IMaterial material, Func<ISubstance, ValueTask<HugeNumber>> func)
+        public static async ValueTask<HugeNumber> GetOverallNumberValueAwaitAsync(this IMaterial material, Func<ISubstance, ValueTask<HugeNumber>> func)
         {
             var sum = HugeNumber.Zero;
             foreach (var (substance, proportion) in material.Constituents)
@@ -393,85 +393,49 @@ namespace Tavenem.Chemistry
             => RemoveConstituents(material, x => x.Equals(substance));
 
         /// <summary>
-        /// <para>
-        /// Sets this instance's mass and density to the given values, and updates its shape such
-        /// that it is of an appropriate volume, given those values.
-        /// </para>
+        /// Sets this instance's properties to the given values, and updates its shape such that it
+        /// is of an appropriate volume.
         /// </summary>
         /// <param name="material">This instance.</param>
         /// <param name="mass">The new mass, in kg.</param>
         /// <param name="density">The new average density, in kg/m³.</param>
-        /// <returns>This instance.</returns>
-        public static T ScaleShape<T>(this T material, HugeNumber mass, double density) where T : IMaterial
-        {
-            material.Mass = mass;
-            material.Density = density;
-            var targetVolume = mass / density;
-            material.Shape = material.Shape.ScaleVolume(targetVolume / material.Shape.Volume);
-            return material;
-        }
-
-        /// <summary>
-        /// <para>
-        /// Sets this instance's density to the given value, and updates its shape such that it is
-        /// of an appropriate volume, given its mass.
-        /// </para>
-        /// </summary>
-        /// <param name="material">This instance.</param>
-        /// <param name="density">The new average density, in kg/m³.</param>
-        /// <returns>This instance.</returns>
-        public static T ScaleShape<T>(this T material, double density) where T : IMaterial
-            => material.ScaleShape(material.Mass, density);
-
-        /// <summary>
-        /// <para>
-        /// Sets this instance's mass to the given value, and updates its shape such that it is of a
-        /// volume appropriate to the given <paramref name="mass"/>.
-        /// </para>
-        /// <para>
-        /// The weighted average density of this instance's constituents under the given conditions
-        /// of <paramref name="temperature"/> and <paramref name="pressure"/> is used to make the
-        /// volume calculation. If the assigned value for density should be used instead, use the
-        /// overload which accepts a density parameter, and pass the current value.
-        /// </para>
-        /// </summary>
-        /// <param name="material">This instance.</param>
-        /// <param name="mass">The new mass, in kg.</param>
         /// <param name="temperature">The temperature at which to determine density, in K.</param>
         /// <param name="pressure">The pressure at which to determine density, in kPa.</param>
         /// <returns>This instance.</returns>
-        public static T ScaleShape<T>(this T material, HugeNumber mass, double temperature, double pressure) where T : IMaterial
-        {
-            var density = material.GetOverallDoubleValue(x => x.GetDensity(temperature, pressure));
-            return material.ScaleShape(mass, density);
-        }
-
-        /// <summary>
+        /// <remarks>
         /// <para>
-        /// Updates this instance's shape such that it is of a volume appropriate to its mass.
+        /// If any parameter is left <see langword="null"/> its value will be unchanged.
         /// </para>
         /// <para>
-        /// The weighted average density of this instance's constituents under the given conditions
-        /// of <paramref name="temperature"/> and <paramref name="pressure"/> is used to make the
-        /// volume calculation. If the assigned value for density should be used instead, use the
-        /// overload which accepts a density parameter, and pass the current value.
+        /// If <paramref name="density"/> is left <see langword="null"/> but <paramref
+        /// name="temperature"/> and <paramref name="pressure"/> are supplied, the weighted average
+        /// density of this instance's constituents under the given conditions of <paramref
+        /// name="temperature"/> and <paramref name="pressure"/> is used to make the volume
+        /// calculation, without changing the material's assigned density.
         /// </para>
-        /// </summary>
-        /// <param name="material">This instance.</param>
-        /// <param name="temperature">The temperature at which to determine density, in K.</param>
-        /// <param name="pressure">The pressure at which to determine density, in kPa.</param>
-        /// <returns>This instance.</returns>
-        public static T ScaleShape<T>(this T material, double temperature, double pressure) where T : IMaterial
-            => material.ScaleShape(material.Mass, temperature, pressure);
-
-        /// <summary>
-        /// Scales this material's shape according to its mass and density.
-        /// </summary>
-        /// <param name="material">This instance.</param>
-        /// <returns>This instance.</returns>
-        public static T ScaleShapeByDensityAndMass<T>(this T material) where T : IMaterial
+        /// </remarks>
+        public static T ScaleShape<T>(
+            this T material,
+            HugeNumber? mass = null,
+            double? density = null,
+            double? temperature = null,
+            double? pressure = null) where T : IMaterial
         {
-            material.Shape = material.Shape.ScaleVolume(material.Mass / material.Density / material.Shape.Volume);
+            if (mass.HasValue)
+            {
+                material.Mass = mass.Value;
+            }
+            if (density.HasValue)
+            {
+                material.Density = density.Value;
+            }
+            if (!density.HasValue
+                && temperature.HasValue
+                && pressure.HasValue)
+            {
+                density = material.GetOverallDoubleValue(x => x.GetDensity(temperature.Value, pressure.Value));
+            }
+            material.Shape = material.Shape.ScaleVolume((mass ?? material.Mass) / (density ?? material.Density) / material.Shape.Volume);
             return material;
         }
 

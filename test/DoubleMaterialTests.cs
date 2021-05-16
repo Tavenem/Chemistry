@@ -1,11 +1,12 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using Tavenem.Mathematics.HugeNumbers;
+using Tavenem.Mathematics.Doubles;
+using Tavenem.Chemistry.Doubles;
 
 namespace Tavenem.Chemistry.Test
 {
     [TestClass]
-    public class MaterialTests
+    public class DoubleMaterialTests
     {
         [TestMethod]
         public void ContainsTest()
@@ -18,7 +19,7 @@ namespace Tavenem.Chemistry.Test
         [TestMethod]
         public void ProportionTest()
         {
-            var material = new Material(new Sphere(1), null, (Substances.All.Water, 0.5m), (Substances.All.Seawater, 0.5m));
+            var material = new Material(new Sphere(1), null, null, null, (Substances.All.Water, 0.5m), (Substances.All.Seawater, 0.5m));
 
             Assert.AreEqual(0.5m, material.GetProportion(Substances.All.Seawater));
         }
@@ -72,7 +73,7 @@ namespace Tavenem.Chemistry.Test
             Assert.AreEqual(imaterial, System.Text.Json.JsonSerializer.Deserialize<IMaterial>(json));
 
             composite.Density = 10;
-            composite.Mass = new HugeNumbers.HugeNumber(5, 3);
+            composite.Mass = 5000;
             composite.Temperature = 100;
 
             json = System.Text.Json.JsonSerializer.Serialize(composite);
@@ -92,7 +93,7 @@ namespace Tavenem.Chemistry.Test
         [TestMethod]
         public void SplitTest()
         {
-            IMaterial material = new Material(new Sphere(1), 300, (Substances.All.Water, 0.5m), (Substances.All.Benzene, 0.5m));
+            IMaterial material = new Material(new Sphere(1), 300, null, null, (Substances.All.Water, 0.5m), (Substances.All.Benzene, 0.5m));
             material = material.Split(0.8m);
             Assert.AreEqual(0.5m, Math.Round(material.GetProportion(Substances.All.Water), 6));
         }

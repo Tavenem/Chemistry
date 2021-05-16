@@ -47,8 +47,8 @@ namespace Tavenem.Chemistry
 
         private ISubstance? _substance;
         /// <summary>
-        /// The referenced <see cref="ISubstance"/>. May be <see langword="null"/> if the key is
-        /// <see langword="null"/> or not found in the <see cref="Substances"/> registry.
+        /// The referenced <see cref="ISubstance"/>. May retrieve <see cref="Chemical.None"/> if the
+        /// key is <see langword="null"/> or not found in the <see cref="Substances"/> registry.
         /// </summary>
         public ISubstance Substance => _substance ??= (Substances.TryGetSubstance(Id, out var substance) ? substance : Chemical.None);
 

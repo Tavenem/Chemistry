@@ -786,7 +786,7 @@ namespace Tavenem.Chemistry
         /// <returns><see langword="true"/> if the current object is equal to the <paramref
         /// name="other">other</paramref> parameter; otherwise, <see langword="false"/>.</returns>
         public bool Equals(HomogeneousReference? other)
-            => other is not null && other.Equals(this);
+            => other?.Equals(this) == true;
 
         /// <summary>Indicates whether this instance and a specified object are equal.</summary>
         /// <param name="other">An object to compare with this object.</param>

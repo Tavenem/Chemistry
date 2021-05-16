@@ -35,9 +35,9 @@ namespace Tavenem.Chemistry
 
         private IHomogeneous? _homogeneous;
         /// <summary>
-        /// The referenced <see cref="IHomogeneous"/>. May be <see langword="null"/> if the key is
-        /// <see langword="null"/> or not found in the <see cref="Substances"/> registry, or is not
-        /// an <see cref="IHomogeneous"/> instance.
+        /// The referenced <see cref="IHomogeneous"/>. May retrieve <see cref="Chemical.None"/> if
+        /// the key is <see langword="null"/> or not found in the <see cref="Substances"/> registry,
+        /// or is not an <see cref="IHomogeneous"/> instance.
         /// </summary>
         public IHomogeneous Homogeneous => _homogeneous ??= ((Substances.TryGetSubstance(Id, out var substance) ? substance : Chemical.None) as IHomogeneous ?? Chemical.None);
 
@@ -54,8 +54,8 @@ namespace Tavenem.Chemistry
         public string ReferenceCode => "HR";
 
         /// <summary>
-        /// The referenced <see cref="ISubstance"/>. May be <see langword="null"/> if the key is
-        /// <see langword="null"/> or not found in the <see cref="Substances"/> registry.
+        /// The referenced <see cref="ISubstance"/>. May retrieve <see cref="Chemical.None"/> if the
+        /// key is <see langword="null"/> or not found in the <see cref="Substances"/> registry.
         /// </summary>
         public ISubstance Substance => Homogeneous;
 

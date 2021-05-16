@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Tavenem.HugeNumbers;
-using Tavenem.Mathematics.HugeNumbers;
+using Tavenem.Mathematics.Doubles;
 
-namespace Tavenem.Chemistry
+namespace Tavenem.Chemistry.Doubles
 {
     /// <summary>
     /// A physical object with a size and shape, temperature, and overall density. It may or may not
@@ -37,7 +36,7 @@ namespace Tavenem.Chemistry
         /// <summary>
         /// The mass of this material, in kg.
         /// </summary>
-        HugeNumber Mass { get; set; }
+        double Mass { get; set; }
 
         /// <summary>
         /// <para>

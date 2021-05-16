@@ -36,8 +36,8 @@ namespace Tavenem.Chemistry
         string ReferenceCode { get; }
 
         /// <summary>
-        /// The referenced <see cref="ISubstance"/>. May be <see langword="null"/> if the key is
-        /// <see langword="null"/> or not found in the <see cref="Substances"/> registry.
+        /// The referenced <see cref="ISubstance"/>. May retrieve <see cref="Chemical.None"/> if the
+        /// key is <see langword="null"/> or not found in the <see cref="Substances"/> registry.
         /// </summary>
         ISubstance Substance { get; }
     }
