@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.3.0-preview
+### Changed
+- Re-unify `IMaterial`, `Material`, and `Composite` using static abstract interfaces
+- Make structs readonly
+### Removed
+- Remove support for non-JSON serialization
+
 ## 0.2.0-preview
 ### Changed
 - Separate `IMaterial`, `Material`, and `Composite` into `decimal`, `double`, and `HugeNumber`

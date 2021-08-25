@@ -1,31 +1,64 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using Tavenem.HugeNumbers;
-using Tavenem.Mathematics.HugeNumbers;
+using Tavenem.Mathematics;
 
-namespace Tavenem.Chemistry.HugeNumbers
+namespace Tavenem.Chemistry;
+
+/// <summary>
+/// Converts a <see cref="Composite{TScalar}"/> to or from JSON.
+/// </summary>
+public class CompositeConverterFactory : JsonConverterFactory
 {
-    /// <summary>
-    /// Converts a <see cref="Composite"/> to or from JSON.
-    /// </summary>
-    public class CompositeConverter : JsonConverter<Composite>
+    /// <summary>Determines whether the specified type can be converted.</summary>
+    /// <param name="typeToConvert">The type to compare against.</param>
+    /// <returns>
+    /// <see langword="true" /> if the type can be converted; otherwise, <see langword="false" />.
+    /// </returns>
+    public override bool CanConvert(Type typeToConvert)
     {
-        /// <summary>Determines whether the specified type can be converted.</summary>
-        /// <param name="typeToConvert">The type to compare against.</param>
-        /// <returns>
-        /// <see langword="true" /> if the type can be converted; otherwise, <see langword="false"
-        /// />.
-        /// </returns>
-        public override bool CanConvert(Type typeToConvert) => typeToConvert == typeof(Composite);
+        if (!typeToConvert.IsGenericType)
+        {
+            return false;
+        }
 
-        /// <summary>Reads and converts the JSON to a <see cref="Composite"/>.</summary>
+        return typeToConvert.GetGenericTypeDefinition().IsAssignableFrom(typeof(Composite<>));
+    }
+
+    /// <summary>
+    /// Creates a converter for a specified type.
+    /// </summary>
+    /// <param name="typeToConvert">The type handled by the converter.</param>
+    /// <param name="options">The serialization options to use.</param>
+    /// <returns>
+    /// A converter for which T is compatible with <paramref name="typeToConvert" />.
+    /// </returns>
+    public override JsonConverter CreateConverter(
+        Type typeToConvert,
+        JsonSerializerOptions options)
+    {
+        var type = typeToConvert.GetGenericArguments()[0];
+
+        return (JsonConverter)Activator.CreateInstance(
+            typeof(CompositeConverter<>).MakeGenericType(
+                new Type[] { type }),
+            BindingFlags.Instance | BindingFlags.Public,
+            binder: null,
+            args: null,
+            culture: null)!;
+    }
+
+    private class CompositeConverter<TScalar> : JsonConverter<Composite<TScalar>>
+         where TScalar : IFloatingPoint<TScalar>
+    {
+        private const string HasMassPropertyName = "HasMass";
+
+        /// <summary>Reads and converts the JSON to a <see cref="Composite{TScalar}"/>.</summary>
         /// <param name="reader">The reader.</param>
         /// <param name="typeToConvert">The type to convert.</param>
         /// <param name="options">An object that specifies serialization options to use.</param>
         /// <returns>The converted value.</returns>
-        public override Composite? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+        public override Composite<TScalar>? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
             if (reader.TokenType != JsonTokenType.StartObject)
             {
@@ -40,7 +73,7 @@ namespace Tavenem.Chemistry.HugeNumbers
             var prop = reader.GetString();
             if (!string.Equals(
                 prop,
-                nameof(Composite.Components),
+                nameof(Composite<TScalar>.Components),
                 options.PropertyNameCaseInsensitive
                     ? StringComparison.OrdinalIgnoreCase
                     : StringComparison.Ordinal))
@@ -54,8 +87,8 @@ namespace Tavenem.Chemistry.HugeNumbers
                 throw new JsonException();
             }
 
-            var components = new List<IMaterial>();
-            var materialConverter = (JsonConverter<IMaterial>)options.GetConverter(typeof(IMaterial));
+            var components = new List<IMaterial<TScalar>>();
+            var materialConverter = (JsonConverter<IMaterial<TScalar>>)options.GetConverter(typeof(IMaterial<TScalar>));
 
             while (reader.Read())
             {
@@ -64,7 +97,7 @@ namespace Tavenem.Chemistry.HugeNumbers
                     break;
                 }
 
-                var component = materialConverter.Read(ref reader, typeof(IMaterial), options);
+                var component = materialConverter.Read(ref reader, typeof(IMaterial<TScalar>), options);
                 if (component is not null)
                 {
                     components.Add(component);
@@ -79,7 +112,7 @@ namespace Tavenem.Chemistry.HugeNumbers
             prop = reader.GetString();
             if (!string.Equals(
                 prop,
-                nameof(Composite.Density),
+                nameof(Composite<TScalar>.Density),
                 options.PropertyNameCaseInsensitive
                     ? StringComparison.OrdinalIgnoreCase
                     : StringComparison.Ordinal))
@@ -112,7 +145,7 @@ namespace Tavenem.Chemistry.HugeNumbers
             prop = reader.GetString();
             if (!string.Equals(
                 prop,
-                nameof(Composite.Mass),
+                HasMassPropertyName,
                 options.PropertyNameCaseInsensitive
                     ? StringComparison.OrdinalIgnoreCase
                     : StringComparison.Ordinal))
@@ -123,29 +156,46 @@ namespace Tavenem.Chemistry.HugeNumbers
             {
                 throw new JsonException();
             }
-            HugeNumber? mass;
-            if (reader.TokenType == JsonTokenType.Null)
-            {
-                mass = null;
-            }
-            else if (reader.TokenType != JsonTokenType.String)
+            var hasMass = reader.GetBoolean();
+
+            if (!reader.Read()
+                || reader.TokenType != JsonTokenType.PropertyName)
             {
                 throw new JsonException();
             }
+            prop = reader.GetString();
+            if (!string.Equals(
+                prop,
+                nameof(Composite<TScalar>.Mass),
+                options.PropertyNameCaseInsensitive
+                    ? StringComparison.OrdinalIgnoreCase
+                    : StringComparison.Ordinal))
+            {
+                throw new JsonException();
+            }
+            if (!reader.Read())
+            {
+                throw new JsonException();
+            }
+            TScalar? mass;
+            if (reader.TokenType == JsonTokenType.Null)
+            {
+                mass = default;
+            }
             else
             {
-                mass = JsonSerializer.Deserialize<HugeNumber>(ref reader, options);
+                mass = JsonSerializer.Deserialize<TScalar>(ref reader, options);
             }
 
             if (!reader.Read()
                 || reader.TokenType != JsonTokenType.PropertyName
-                || !reader.ValueTextEquals(nameof(Composite.Shape))
+                || !reader.ValueTextEquals(nameof(Composite<TScalar>.Shape))
                 || !reader.Read()
                 || reader.TokenType != JsonTokenType.StartObject)
             {
                 throw new JsonException();
             }
-            var shape = JsonSerializer.Deserialize<IShape>(ref reader, options);
+            var shape = JsonSerializer.Deserialize<IShape<TScalar>>(ref reader, options);
             if (shape is null)
             {
                 throw new JsonException();
@@ -163,7 +213,7 @@ namespace Tavenem.Chemistry.HugeNumbers
             prop = reader.GetString();
             if (!string.Equals(
                 prop,
-                nameof(Composite.Temperature),
+                nameof(Composite<TScalar>.Temperature),
                 options.PropertyNameCaseInsensitive
                     ? StringComparison.OrdinalIgnoreCase
                     : StringComparison.Ordinal))
@@ -193,23 +243,29 @@ namespace Tavenem.Chemistry.HugeNumbers
                 reader.Read();
             }
 
-            return new Composite(
-                components,
-                shape,
-                density,
-                mass,
-                temperature);
+            return hasMass && mass is not null
+                ? new Composite<TScalar>(
+                    components,
+                    shape,
+                    mass,
+                    density,
+                    temperature)
+                : new Composite<TScalar>(
+                    components,
+                    shape,
+                    density,
+                    temperature);
         }
 
-        /// <summary>Writes a <see cref="Composite"/> as JSON.</summary>
+        /// <summary>Writes a <see cref="Composite{TScalar}"/> as JSON.</summary>
         /// <param name="writer">The writer to write to.</param>
         /// <param name="value">The value to convert to JSON.</param>
         /// <param name="options">An object that specifies serialization options to use.</param>
-        public override void Write(Utf8JsonWriter writer, Composite value, JsonSerializerOptions options)
+        public override void Write(Utf8JsonWriter writer, Composite<TScalar> value, JsonSerializerOptions options)
         {
             writer.WriteStartObject();
 
-            writer.WriteStartArray(nameof(Composite.Components));
+            writer.WriteStartArray(nameof(Composite<TScalar>.Components));
             foreach (var component in value.Components)
             {
                 JsonSerializer.Serialize(writer, component, component.GetType(), options);
@@ -220,47 +276,52 @@ namespace Tavenem.Chemistry.HugeNumbers
             {
                 writer.WriteNumber(
                     options.PropertyNamingPolicy is null
-                        ? nameof(Composite.Density)
-                        : options.PropertyNamingPolicy.ConvertName(nameof(Composite.Density)),
+                        ? nameof(Composite<TScalar>.Density)
+                        : options.PropertyNamingPolicy.ConvertName(nameof(Composite<TScalar>.Density)),
                     value._density.Value);
             }
             else
             {
-                writer.WriteNull(nameof(Composite.Density));
+                writer.WriteNull(nameof(Composite<TScalar>.Density));
             }
 
-            if (value._mass.HasValue)
+            writer.WritePropertyName(options.PropertyNamingPolicy is null
+                ? HasMassPropertyName
+                : options.PropertyNamingPolicy.ConvertName(HasMassPropertyName));
+            JsonSerializer.Serialize(writer, value._hasMass, options);
+
+            if (value._hasMass && value._mass is not null)
             {
                 writer.WritePropertyName(options.PropertyNamingPolicy is null
-                    ? nameof(Composite.Mass)
-                    : options.PropertyNamingPolicy.ConvertName(nameof(Composite.Mass)));
-                JsonSerializer.Serialize(writer, value._mass.Value, options);
+                    ? nameof(Composite<TScalar>.Mass)
+                    : options.PropertyNamingPolicy.ConvertName(nameof(Composite<TScalar>.Mass)));
+                JsonSerializer.Serialize(writer, value._mass, options);
             }
             else
             {
                 writer.WriteNull(options.PropertyNamingPolicy is null
-                    ? nameof(Composite.Mass)
-                    : options.PropertyNamingPolicy.ConvertName(nameof(Composite.Mass)));
+                    ? nameof(Composite<TScalar>.Mass)
+                    : options.PropertyNamingPolicy.ConvertName(nameof(Composite<TScalar>.Mass)));
             }
 
             writer.WritePropertyName(options.PropertyNamingPolicy is null
-                ? nameof(Composite.Shape)
-                : options.PropertyNamingPolicy.ConvertName(nameof(Composite.Shape)));
+                ? nameof(Composite<TScalar>.Shape)
+                : options.PropertyNamingPolicy.ConvertName(nameof(Composite<TScalar>.Shape)));
             JsonSerializer.Serialize(writer, value.Shape, value.Shape.GetType(), options);
 
             if (value._temperature.HasValue)
             {
                 writer.WriteNumber(
                     options.PropertyNamingPolicy is null
-                        ? nameof(Composite.Temperature)
-                        : options.PropertyNamingPolicy.ConvertName(nameof(Composite.Temperature)),
+                        ? nameof(Composite<TScalar>.Temperature)
+                        : options.PropertyNamingPolicy.ConvertName(nameof(Composite<TScalar>.Temperature)),
                     value._temperature.Value);
             }
             else
             {
                 writer.WriteNull(options.PropertyNamingPolicy is null
-                    ? nameof(Composite.Temperature)
-                    : options.PropertyNamingPolicy.ConvertName(nameof(Composite.Temperature)));
+                    ? nameof(Composite<TScalar>.Temperature)
+                    : options.PropertyNamingPolicy.ConvertName(nameof(Composite<TScalar>.Temperature)));
             }
 
             writer.WriteEndObject();
