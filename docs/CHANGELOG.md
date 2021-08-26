@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.1-preview
+### Changed
+- Add `JsonPropertyOrder` to some elements
+
 ## 0.3.0-preview
 ### Changed
 - Re-unify `IMaterial`, `Material`, and `Composite` using static abstract interfaces

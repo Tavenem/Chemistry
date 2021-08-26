@@ -125,6 +125,7 @@ public class Solution : IHomogeneous, IEquatable<Solution>
     /// <summary>
     /// The ID of this item.
     /// </summary>
+    [JsonPropertyOrder(-2)]
     public string Id { get; }
 
     /// <summary>
@@ -134,6 +135,7 @@ public class Solution : IHomogeneous, IEquatable<Solution>
     /// <summary>
     /// A built-in, read-only type discriminator.
     /// </summary>
+    [JsonPropertyOrder(-1)]
     public string IdItemTypeName => SolutionIdItemTypeName;
 
     /// <summary>

@@ -79,6 +79,7 @@ public class Mixture : ISubstance, IEquatable<Mixture>
     /// <summary>
     /// The ID of this item.
     /// </summary>
+    [JsonPropertyOrder(-2)]
     public string Id { get; }
 
     /// <summary>
@@ -88,6 +89,7 @@ public class Mixture : ISubstance, IEquatable<Mixture>
     /// <summary>
     /// A built-in, read-only type discriminator.
     /// </summary>
+    [JsonPropertyOrder(-1)]
     public string IdItemTypeName => MixtureIdItemTypeName;
 
     /// <summary>
