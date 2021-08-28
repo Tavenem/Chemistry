@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.4-preview
+### Fixed
+- `Material` constructor
+
 ## 0.3.2-preview - 0.3.3-preview
 ### Updated
 - Update dependencies

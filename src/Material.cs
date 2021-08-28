@@ -158,10 +158,8 @@ public class Material<TScalar> : IMaterial<Material<TScalar>, TScalar>, IEquatab
     {
         Constituents = constituents;
         Shape = shape;
+        Mass = mass;
         Density = density ?? (mass / shape.Volume).Create<TScalar, double>();
-        Mass = Density == 0
-            ? TScalar.Zero
-            : TScalar.Create(Density) * shape.Volume;
         Temperature = temperature;
     }
 
@@ -542,10 +540,8 @@ public class Material<TScalar> : IMaterial<Material<TScalar>, TScalar>, IEquatab
         {
             Constituents = new ReadOnlyDictionary<ISubstanceReference, decimal>(new Dictionary<ISubstanceReference, decimal>());
         }
+        Mass = mass;
         Density = density ?? (mass / shape.Volume).Create<TScalar, double>();
-        Mass = Density == 0
-            ? TScalar.Zero
-            : TScalar.Create(Density) * shape.Volume;
         Temperature = temperature;
     }
 
