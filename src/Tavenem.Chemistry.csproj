@@ -34,7 +34,7 @@
     </PackageReference>
     <PackageReference Include="Tavenem.DataStore" Version="0.29.1-preview" />
     <PackageReference Include="Tavenem.Extensions" Version="2.0.0-preview.6" />
-    <PackageReference Include="Tavenem.Mathematics" Version="2.0.0-preview.7" />
+    <PackageReference Include="Tavenem.Mathematics" Version="2.0.0-preview.10" />
   </ItemGroup>
 
 </Project>
