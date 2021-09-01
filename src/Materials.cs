@@ -328,8 +328,7 @@ public static class Materials
     /// </summary>
     /// <param name="material">This instance.</param>
     /// <returns>This instance.</returns>
-    public static TSelf SetDensityFromMassAndShape<TSelf, TScalar>(this TSelf material)
-        where TSelf : IMaterial<TScalar>
+    public static IMaterial<TScalar> SetDensityFromMassAndShape<TScalar>(this IMaterial<TScalar> material)
         where TScalar : IFloatingPoint<TScalar>
     {
         material.Density = (material.Mass / material.Shape.Volume).Create<TScalar, double>();
@@ -341,8 +340,7 @@ public static class Materials
     /// </summary>
     /// <param name="material">This instance.</param>
     /// <returns>This instance.</returns>
-    public static TSelf SetMassFromDensityAndShape<TSelf, TScalar>(this TSelf material)
-        where TSelf : IMaterial<TScalar>
+    public static IMaterial<TScalar> SetMassFromDensityAndShape<TScalar>(this IMaterial<TScalar> material)
         where TScalar : IFloatingPoint<TScalar>
     {
         material.Mass = TScalar.Create(material.Density) * material.Shape.Volume;
@@ -355,8 +353,7 @@ public static class Materials
     /// <param name="material">This instance.</param>
     /// <param name="position">The new position.</param>
     /// <returns>This instance.</returns>
-    public static TSelf SetPosition<TSelf, TScalar>(this TSelf material, Vector3<TScalar> position)
-        where TSelf : IMaterial<TScalar>
+    public static IMaterial<TScalar> SetPosition<TScalar>(this IMaterial<TScalar> material, Vector3<TScalar> position)
         where TScalar : IFloatingPoint<TScalar>
     {
         material.Shape = material.Shape.GetCloneAtPosition(position);
@@ -369,8 +366,7 @@ public static class Materials
     /// <param name="material">This instance.</param>
     /// <param name="rotation">The new rotation.</param>
     /// <returns>This instance.</returns>
-    public static TSelf SetRotation<TSelf, TScalar>(this TSelf material, Quaternion<TScalar> rotation)
-        where TSelf : IMaterial<TScalar>
+    public static IMaterial<TScalar> SetRotation<TScalar>(this IMaterial<TScalar> material, Quaternion<TScalar> rotation)
         where TScalar : IFloatingPoint<TScalar>
     {
         material.Shape = material.Shape.GetCloneWithRotation(rotation);

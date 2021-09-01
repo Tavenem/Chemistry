@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.5-preview
+### Fixed
+- Excessive scope for `Material` extensions
+
 ## 0.3.4-preview
 ### Fixed
 - `Material` constructor
