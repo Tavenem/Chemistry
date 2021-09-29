@@ -1978,6 +1978,366 @@ public class Solution : IHomogeneous, IEquatable<Solution>
         YoungsModulus = youngsModulus;
     }
 
+    /// <summary>
+    /// Initializes a new instance of <see cref="Solution"/>.
+    /// </summary>
+    /// <param name="id">The unique ID of this substance.</param>
+    /// <param name="constituents">
+    /// <para>
+    /// One or more chemicals to add to the solution, along with their relative proportions (as
+    /// normalized values between zero and one).
+    /// </para>
+    /// <para>
+    /// If the proportion values are not normalized (do not sum to 1), they will be normalized
+    /// during initialization.
+    /// </para>
+    /// </param>
+    /// <param name="name">
+    /// <para>
+    /// A name for this solution.
+    /// </para>
+    /// <para>
+    /// If omitted a name based on the constituents will be generated in the following form:
+    /// "Oxygen:25.500%; Nitrogen:74.500%".
+    /// </para>
+    /// <para>
+    /// Note that chemical names may also be auto-generated from the Hill notation of their
+    /// chemical formula if not explicitly given, which may lead to a solution name such as:
+    /// "H₂O:96.240%; NaCl:3.760%".
+    /// </para>
+    /// </param>
+    /// <param name="antoineCoefficientA">
+    /// <para>
+    /// The "A" Antoine coefficient.
+    /// </para>
+    /// <para>
+    /// Whether the phase can be indicated as gaseous depends on whether the Antoine
+    /// coefficients, minimum and/or maximum temperatures have been defined.
+    /// </para>
+    /// <para>
+    /// When the Antoine coefficients are unknown, but a boiling point at STP is known, the
+    /// minimum and maximum may both be set to this temperature. This produces inaccurate
+    /// results at non-standard pressures, of course, but permits at least some separation
+    /// between the liquid and gas phases when a precise formula cannot be determined.
+    /// </para>
+    /// </param>
+    /// <param name="antoineCoefficientB">
+    /// The "B" Antoine coefficient.
+    /// </param>
+    /// <param name="antoineCoefficientC">
+    /// The "C" Antoine coefficient.
+    /// </param>
+    /// <param name="antoineMaximumTemperature">
+    /// <para>
+    /// A maximum Antoine temperature, in K. Can be omitted to default to that of the solvent.
+    /// </para>
+    /// <para>
+    /// A maximum temperature of <see cref="double.NegativeInfinity"/> may be defined to
+    /// indicate that a chemical is always gaseous. There is no need to specify the Antoine
+    /// coefficients in this case.
+    /// </para>
+    /// <para>
+    /// When the Antoine coefficients are unknown, but a boiling point at STP is known, the
+    /// minimum and maximum may both be set to this temperature. This produces inaccurate
+    /// results at non-standard pressures, of course, but permits at least some separation
+    /// between the liquid and gas phases when a precise formula cannot be determined.
+    /// </para>
+    /// </param>
+    /// <param name="antoineMinimumTemperature">
+    /// <para>
+    /// A minimum Antoine temperature, in K. Can be omitted to default to that of the solvent.
+    /// </para>
+    /// <para>
+    /// A minimum temperature of <see cref="double.PositiveInfinity"/> may be defined to
+    /// indicate that a chemical is never gaseous. There is no need to specify the Antoine
+    /// coefficients in this case.
+    /// </para>
+    /// <para>
+    /// When the Antoine coefficients are unknown, but a boiling point at STP is known, the
+    /// minimum and maximum may both be set to this temperature. This produces inaccurate
+    /// results at non-standard pressures, of course, but permits at least some separation
+    /// between the liquid and gas phases when a precise formula cannot be determined.
+    /// </para>
+    /// </param>
+    /// <param name="densityLiquid">The approximate density of the chemical in the liquid phase,
+    /// in kg/m³. If omitted, the weighted average value of the constituents is used.</param>
+    /// <param name="densitySolid">The approximate density of the chemical in the solid phase,
+    /// in kg/m³. If omitted, the weighted average value of the constituents is used.</param>
+    /// <param name="densitySpecial">The approximate density of this substance when its phase is
+    /// neither solid, liquid, nor gas, in kg/m³.</param>
+    /// <param name="hardness">The hardness of the chemical as a solid, in MPa. If omitted, the weighted average value of the constituents is used.</param>
+    /// <param name="isConductive">
+    /// <para>
+    /// Whether or not the chemical is conductive.
+    /// </para>
+    /// <para>
+    /// If unspecified, assumed to be <see langword="true"/> for metals.
+    /// </para>
+    /// </param>
+    /// <param name="isFlammable">Whether or not the chemical is flammable. If omitted, the weighted average value of the constituents is used.</param>
+    /// <param name="isGemstone">Whether this substance is considered a gemstone.</param>
+    /// <param name="meltingPoint">
+    /// A melting point, in K. If omitted, the weighted average value of the constituents is used.
+    /// </param>
+    /// <param name="fixedPhase">
+    /// <para>
+    /// If set, indicates an explicitly defined phase for this substance, which overrides the
+    /// usual phase calculations based on temperature and pressure.
+    /// </para>
+    /// <para>
+    /// This is expected to be utilized mainly for substances in exotic phases of matter, such
+    /// as plasma, glass, etc. These phases are not indicated using the standard <see
+    /// cref="IHomogeneous.GetPhase(double, double)"/> method.
+    /// </para>
+    /// </param>
+    /// <param name="youngsModulus">
+    /// <para>
+    /// The Young's Modulus of this chemical, in GPa.
+    /// </para>
+    /// <para>May be left <see langword="null"/> to indicate no known value.
+    /// </para>
+    /// </param>
+    internal Solution(
+        string id,
+        IEnumerable<(HomogeneousReference substance, decimal proportion)> constituents,
+        string? name = null,
+        double? antoineCoefficientA = null,
+        double? antoineCoefficientB = null,
+        double? antoineCoefficientC = null,
+        double? antoineMaximumTemperature = null,
+        double? antoineMinimumTemperature = null,
+        double? densityLiquid = null,
+        double? densitySolid = null,
+        double? densitySpecial = null,
+        double? hardness = null,
+        bool? isConductive = null,
+        bool? isFlammable = null,
+        bool isGemstone = false,
+        double? meltingPoint = null,
+        PhaseType? fixedPhase = null,
+        double? youngsModulus = null) : this(
+            id,
+            new ReadOnlyDictionary<HomogeneousReference, decimal>(
+                new Dictionary<HomogeneousReference, decimal>(constituents
+                    .GroupBy(x => x.substance.Id)
+                    .ToDictionary(x => x.First().substance, x => x.Sum(y => y.proportion / constituents.Sum(z => z.proportion))))),
+            name,
+            antoineCoefficientA,
+            antoineCoefficientB,
+            antoineCoefficientC,
+            antoineMaximumTemperature,
+            antoineMinimumTemperature,
+            densityLiquid,
+            densitySolid,
+            densitySpecial,
+            hardness ?? (constituents.Any(x => x.substance.Homogeneous.Hardness > 0)
+                ? constituents
+                    .Where(x => x.substance.Homogeneous.Hardness > 0)
+                    .Sum(x => x.substance.Homogeneous.Hardness * (double)x.proportion / constituents.Count())
+                : 0),
+            isConductive ?? constituents.Sum(x => x.substance.Homogeneous.IsMetal ? x.proportion / constituents.Count() : 0) >= 0.5m,
+            isFlammable ?? constituents.Sum(x => x.substance.Homogeneous.IsFlammable ? x.proportion / constituents.Count() : 0) >= 0.5m,
+            isGemstone,
+            meltingPoint,
+            fixedPhase,
+            youngsModulus ?? (constituents.Any(x => x.substance.Homogeneous.YoungsModulus.HasValue)
+                ? constituents
+                    .Where(x => x.substance.Homogeneous.YoungsModulus.HasValue)
+                    .Sum(x => x.substance.Homogeneous.YoungsModulus!.Value * (double)x.proportion / constituents.Count())
+                : (double?)null))
+    { }
+
+    /// <summary>
+    /// Initializes a new instance of <see cref="Solution"/>.
+    /// </summary>
+    /// <param name="id">The unique ID of this substance.</param>
+    /// <param name="substance">
+    /// A single chemical which will comprise the entire "solution."
+    /// </param>
+    /// <param name="name">
+    /// <para>
+    /// A name for this solution.
+    /// </para>
+    /// <para>
+    /// If omitted a name based on the constituents will be generated in the following form:
+    /// "Oxygen:25.500%; Nitrogen:74.500%".
+    /// </para>
+    /// <para>
+    /// Note that chemical names may also be auto-generated from the Hill notation of their
+    /// chemical formula if not explicitly given, which may lead to a solution name such as:
+    /// "H₂O:96.240%; NaCl:3.760%".
+    /// </para>
+    /// </param>
+    /// <param name="antoineCoefficientA">
+    /// <para>
+    /// The "A" Antoine coefficient.
+    /// </para>
+    /// <para>
+    /// Whether the phase can be indicated as gaseous depends on whether the Antoine
+    /// coefficients, minimum and/or maximum temperatures have been defined.
+    /// </para>
+    /// <para>
+    /// When the Antoine coefficients are unknown, but a boiling point at STP is known, the
+    /// minimum and maximum may both be set to this temperature. This produces inaccurate
+    /// results at non-standard pressures, of course, but permits at least some separation
+    /// between the liquid and gas phases when a precise formula cannot be determined.
+    /// </para>
+    /// </param>
+    /// <param name="antoineCoefficientB">
+    /// The "B" Antoine coefficient.
+    /// </param>
+    /// <param name="antoineCoefficientC">
+    /// The "C" Antoine coefficient.
+    /// </param>
+    /// <param name="antoineMaximumTemperature">
+    /// <para>
+    /// A maximum Antoine temperature, in K. Can be omitted to default to that of the solvent.
+    /// </para>
+    /// <para>
+    /// A maximum temperature of <see cref="double.NegativeInfinity"/> may be defined to
+    /// indicate that a chemical is always gaseous. There is no need to specify the Antoine
+    /// coefficients in this case.
+    /// </para>
+    /// <para>
+    /// When the Antoine coefficients are unknown, but a boiling point at STP is known, the
+    /// minimum and maximum may both be set to this temperature. This produces inaccurate
+    /// results at non-standard pressures, of course, but permits at least some separation
+    /// between the liquid and gas phases when a precise formula cannot be determined.
+    /// </para>
+    /// </param>
+    /// <param name="antoineMinimumTemperature">
+    /// <para>
+    /// A minimum Antoine temperature, in K. Can be omitted to default to that of the solvent.
+    /// </para>
+    /// <para>
+    /// A minimum temperature of <see cref="double.PositiveInfinity"/> may be defined to
+    /// indicate that a chemical is never gaseous. There is no need to specify the Antoine
+    /// coefficients in this case.
+    /// </para>
+    /// <para>
+    /// When the Antoine coefficients are unknown, but a boiling point at STP is known, the
+    /// minimum and maximum may both be set to this temperature. This produces inaccurate
+    /// results at non-standard pressures, of course, but permits at least some separation
+    /// between the liquid and gas phases when a precise formula cannot be determined.
+    /// </para>
+    /// </param>
+    /// <param name="densityLiquid">The approximate density of the chemical in the liquid phase,
+    /// in kg/m³. If omitted, the weighted average value of the constituents is used.</param>
+    /// <param name="densitySolid">The approximate density of the chemical in the solid phase,
+    /// in kg/m³. If omitted, the weighted average value of the constituents is used.</param>
+    /// <param name="densitySpecial">The approximate density of this substance when its phase is
+    /// neither solid, liquid, nor gas, in kg/m³.</param>
+    /// <param name="hardness">The hardness of the chemical as a solid, in MPa. If omitted, the weighted average value of the constituents is used.</param>
+    /// <param name="isConductive">
+    /// <para>
+    /// Whether or not the chemical is conductive.
+    /// </para>
+    /// <para>
+    /// If unspecified, assumed to be <see langword="true"/> for metals.
+    /// </para>
+    /// </param>
+    /// <param name="isFlammable">Whether or not the chemical is flammable. If omitted, the weighted average value of the constituents is used.</param>
+    /// <param name="isGemstone">Whether this substance is considered a gemstone.</param>
+    /// <param name="meltingPoint">
+    /// A melting point, in K. If omitted, the weighted average value of the constituents is used.
+    /// </param>
+    /// <param name="fixedPhase">
+    /// <para>
+    /// If set, indicates an explicitly defined phase for this substance, which overrides the
+    /// usual phase calculations based on temperature and pressure.
+    /// </para>
+    /// <para>
+    /// This is expected to be utilized mainly for substances in exotic phases of matter, such
+    /// as plasma, glass, etc. These phases are not indicated using the standard <see
+    /// cref="IHomogeneous.GetPhase(double, double)"/> method.
+    /// </para>
+    /// </param>
+    /// <param name="youngsModulus">
+    /// <para>
+    /// The Young's Modulus of this chemical, in GPa.
+    /// </para>
+    /// <para>May be left <see langword="null"/> to indicate no known value.
+    /// </para>
+    /// </param>
+    internal Solution(
+        string id,
+        HomogeneousReference substance,
+        string? name = null,
+        double? antoineCoefficientA = null,
+        double? antoineCoefficientB = null,
+        double? antoineCoefficientC = null,
+        double? antoineMaximumTemperature = null,
+        double? antoineMinimumTemperature = null,
+        double? densityLiquid = null,
+        double? densitySolid = null,
+        double? densitySpecial = null,
+        double? hardness = null,
+        bool? isConductive = null,
+        bool? isFlammable = null,
+        bool isGemstone = false,
+        double? meltingPoint = null,
+        PhaseType? fixedPhase = null,
+        double? youngsModulus = null) : this(
+            id,
+            new ReadOnlyDictionary<HomogeneousReference, decimal>(new Dictionary<HomogeneousReference, decimal> { { substance, 1 } }),
+            name,
+            antoineCoefficientA,
+            antoineCoefficientB,
+            antoineCoefficientC,
+            antoineMaximumTemperature,
+            antoineMinimumTemperature,
+            densityLiquid,
+            densitySolid,
+            densitySpecial,
+            hardness ?? substance.Homogeneous.Hardness,
+            isConductive ?? substance.Homogeneous.IsConductive,
+            isFlammable ?? substance.Homogeneous.IsFlammable,
+            isGemstone,
+            meltingPoint,
+            fixedPhase,
+            youngsModulus ?? substance.Homogeneous.YoungsModulus)
+    { }
+
+    private Solution(
+        string id,
+        IReadOnlyDictionary<HomogeneousReference, decimal> constituents,
+        string? name,
+        double? antoineCoefficientA,
+        double? antoineCoefficientB,
+        double? antoineCoefficientC,
+        double? antoineMaximumTemperature,
+        double? antoineMinimumTemperature,
+        double? densityLiquid,
+        double? densitySolid,
+        double? densitySpecial,
+        double hardness,
+        bool isConductive,
+        bool isFlammable,
+        bool isGemstone,
+        double? meltingPoint,
+        PhaseType? fixedPhase,
+        double? youngsModulus) : this(
+            id,
+            SolutionIdItemTypeName,
+            constituents,
+            name ?? GetName(constituents),
+            antoineCoefficientA,
+            antoineCoefficientB,
+            antoineCoefficientC,
+            antoineMaximumTemperature,
+            antoineMinimumTemperature,
+            densityLiquid,
+            densitySolid,
+            densitySpecial,
+            hardness,
+            isConductive,
+            isFlammable,
+            isGemstone,
+            meltingPoint,
+            fixedPhase,
+            youngsModulus)
+    { }
+
     private Solution(
         IReadOnlyDictionary<HomogeneousReference, decimal> constituents,
         string? name,

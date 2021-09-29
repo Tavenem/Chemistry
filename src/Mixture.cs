@@ -778,6 +778,73 @@ public class Mixture : ISubstance, IEquatable<Mixture>
         DensitySpecial = densitySpecial;
     }
 
+    /// <summary>
+    /// Initializes a new instance of <see cref="Mixture"/>.
+    /// </summary>
+    /// <param name="id">The unique ID of this substance.</param>
+    /// <param name="constituents">
+    /// <para>
+    /// One or more homogeneous constituents to add to the mixture, along with their relative
+    /// proportions (as normalized values between zero and one).
+    /// </para>
+    /// <para>
+    /// If the proportion values are not normalized (do not sum to 1), they will be normalized
+    /// during initialization.
+    /// </para>
+    /// </param>
+    /// <param name="name">
+    /// <para>
+    /// A name for this mixture.
+    /// </para>
+    /// <para>
+    /// If omitted a name based on the constituents will be generated in the following form:
+    /// "Oxygen:25.500%; Nitrogen:74.500%".
+    /// </para>
+    /// <para>
+    /// Note that chemical names may also be auto-generated from the Hill notation of their
+    /// chemical formula if not explicitly given, which may lead to a mixture name such as:
+    /// "H₂O:96.240%; NaCl:3.760%".
+    /// </para>
+    /// </param>
+    /// <param name="densityLiquid">The approximate density of the chemical in the liquid phase,
+    /// in kg/m³. If omitted, the weighted average value of the constituents is used.</param>
+    /// <param name="densitySolid">The approximate density of the chemical in the solid phase,
+    /// in kg/m³. If omitted, the weighted average value of the constituents is used.</param>
+    /// <param name="densitySpecial">The approximate density of this substance when its phase is
+    /// neither solid, liquid, nor gas, in kg/m³.</param>
+    internal Mixture(
+        string id,
+        IEnumerable<(HomogeneousReference constituent, decimal proportion)> constituents,
+        string? name = null,
+        double? densityLiquid = null,
+        double? densitySolid = null,
+        double? densitySpecial = null) : this(
+            id,
+            new ReadOnlyDictionary<HomogeneousReference, decimal>(
+                constituents.GroupBy(x => x.constituent.Id)
+                .ToDictionary(x => x.First().constituent, x => x.Sum(y => y.proportion / constituents.Sum(z => z.proportion)))),
+            name,
+            densityLiquid,
+            densitySolid,
+            densitySpecial)
+    { }
+
+    private Mixture(
+        string id,
+        IReadOnlyDictionary<HomogeneousReference, decimal> constituents,
+        string? name = null,
+        double? densityLiquid = null,
+        double? densitySolid = null,
+        double? densitySpecial = null) : this(
+            id,
+            MixtureIdItemTypeName,
+            constituents,
+            name ?? GetName(constituents),
+            densityLiquid,
+            densitySolid,
+            densitySpecial)
+    { }
+
     private Mixture(
         IReadOnlyDictionary<HomogeneousReference, decimal> constituents,
         string? name = null,
