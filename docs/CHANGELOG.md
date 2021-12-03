@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.4.1-preview
+### Updated
+- Update dependencies
+
 ## 0.4.0-preview
 ### Changed
 - Library substances will now have persistent Ids, which do not change between executions or library revisions.
