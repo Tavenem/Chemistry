@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.Numerics;
+using System.Text.Json.Serialization;
 using Tavenem.Mathematics;
 
 namespace Tavenem.Chemistry;
@@ -8,7 +9,7 @@ namespace Tavenem.Chemistry;
 /// also have a particular chemical composition.
 /// </summary>
 [JsonConverter(typeof(MaterialConverterFactory))]
-public interface IMaterial<TScalar> : ICloneable, IEquatable<IMaterial<TScalar>> where TScalar : IFloatingPoint<TScalar>
+public interface IMaterial<TScalar> : ICloneable, IEquatable<IMaterial<TScalar>> where TScalar : IFloatingPointIeee754<TScalar>
 {
     /// <summary>
     /// This material's constituent substances.

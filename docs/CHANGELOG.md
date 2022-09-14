@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.5.0-preview
+### Updated
+- Update to .NET 7
+- Remove dependency on preview features
+### Changed
+- Use native polymorphic (de)serialization for `ISubstance` and `IHomogenousSubstance`
+
 ## 0.4.1-preview
 ### Updated
 - Update dependencies

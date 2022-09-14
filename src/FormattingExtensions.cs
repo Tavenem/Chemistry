@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using System.Numerics;
 using System.Text;
 
 namespace Tavenem.Chemistry;
@@ -101,7 +102,8 @@ internal static class FormattingExtensions
     /// cananot be represented.
     /// </para>
     /// </remarks>
-    public static string ToSubscript<T>(this T value, string? format = null, IFormatProvider? formatProvider = null) where T : IFormattable
+    public static string ToSubscript<T>(this T value, string? format = null, IFormatProvider? formatProvider = null)
+        where T : INumberBase<T>, IFormattable
     {
         var s = value.ToString(format, formatProvider);
 
@@ -145,7 +147,8 @@ internal static class FormattingExtensions
     /// cananot be represented.
     /// </para>
     /// </remarks>
-    public static string ToSubscript<T>(this T value, IFormatProvider formatProvider) where T : IFormattable
+    public static string ToSubscript<T>(this T value, IFormatProvider formatProvider) where T
+        : INumberBase<T>, IFormattable
         => ToSubscript(value, null, formatProvider);
 
     /// <summary>
@@ -185,7 +188,7 @@ internal static class FormattingExtensions
         string? format = null,
         IFormatProvider? formatProvider = null,
         bool positiveSign = false,
-        bool postfixSign = false) where T : INumber<T>, IFormattable
+        bool postfixSign = false) where T : INumberBase<T>, IComparable<T>, IFormattable
     {
         var formatInfo = (NumberFormatInfo)NumberFormatInfo.GetInstance(formatProvider).Clone();
         if (postfixSign)
@@ -259,7 +262,7 @@ internal static class FormattingExtensions
         this T value,
         IFormatProvider formatProvider,
         bool positiveSign = false,
-        bool postfixSign = false) where T : INumber<T>, IFormattable
+        bool postfixSign = false) where T : INumberBase<T>, IComparable<T>, IFormattable
         => ToSuperscript(value, null, formatProvider, positiveSign, postfixSign);
 
     /// <summary>
@@ -288,7 +291,7 @@ internal static class FormattingExtensions
     public static string ToSuperscript<T>(
         this T value,
         bool positiveSign,
-        bool postfixSign = false) where T : INumber<T>, IFormattable
+        bool postfixSign = false) where T : INumberBase<T>, IComparable<T>, IFormattable
         => ToSuperscript(value, null, null, positiveSign, postfixSign);
 
     /// <summary>

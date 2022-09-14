@@ -126,7 +126,7 @@ public class HomogeneousSubstance : IHomogeneous, IEquatable<HomogeneousSubstanc
     /// <summary>
     /// The ID of this item.
     /// </summary>
-    [JsonPropertyOrder(-2)]
+    [JsonPropertyName("id"), JsonPropertyOrder(-1)]
     public string Id { get; }
 
     /// <summary>
@@ -136,7 +136,7 @@ public class HomogeneousSubstance : IHomogeneous, IEquatable<HomogeneousSubstanc
     /// <summary>
     /// A built-in, read-only type discriminator.
     /// </summary>
-    [JsonPropertyOrder(-1)]
+    [JsonPropertyName("$type"), JsonPropertyOrder(-2)]
     public string IdItemTypeName => HomogeneousSubstanceIdItemTypeName;
 
     /// <summary>
@@ -335,7 +335,6 @@ public class HomogeneousSubstance : IHomogeneous, IEquatable<HomogeneousSubstanc
         PhaseType? fixedPhase = null,
         double? youngsModulus = null) : this(
             Guid.NewGuid().ToString(),
-            HomogeneousSubstanceIdItemTypeName,
             name,
             antoineCoefficientA,
             antoineCoefficientB,
@@ -362,7 +361,6 @@ public class HomogeneousSubstance : IHomogeneous, IEquatable<HomogeneousSubstanc
     /// Initializes a new instance of <see cref="HomogeneousSubstance"/>.
     /// </summary>
     /// <param name="id">The unique ID of this substance.</param>
-    /// <param name="idItemTypeName">The type discriminator.</param>
     /// <param name="name">The name of this substance.</param>
     /// <param name="antoineCoefficientA">
     /// <para>
@@ -469,7 +467,6 @@ public class HomogeneousSubstance : IHomogeneous, IEquatable<HomogeneousSubstanc
     [JsonConstructor]
     public HomogeneousSubstance(
         string id,
-        string idItemTypeName,
         string name,
         double? antoineCoefficientA = null,
         double? antoineCoefficientB = null,

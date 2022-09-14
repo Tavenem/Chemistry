@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Numerics;
+using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -49,7 +50,7 @@ public class MaterialConverterFactory : JsonConverterFactory
     }
 
     private class MaterialConverter<TScalar> : JsonConverter<IMaterial<TScalar>>
-         where TScalar : IFloatingPoint<TScalar>
+         where TScalar : IFloatingPointIeee754<TScalar>
     {
         /// <summary>Reads and converts the JSON to an <see cref="IMaterial{TScalar}"/>.</summary>
         /// <param name="reader">The reader.</param>

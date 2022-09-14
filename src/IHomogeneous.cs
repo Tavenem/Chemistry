@@ -5,7 +5,10 @@ namespace Tavenem.Chemistry;
 /// <summary>
 /// A homogeneous substance, whether a single chemical compound, or a homogeneous solution.
 /// </summary>
-[JsonConverter(typeof(ISubstanceConverter))]
+[JsonPolymorphic(UnknownDerivedTypeHandling = JsonUnknownDerivedTypeHandling.FallBackToNearestAncestor)]
+[JsonDerivedType(typeof(Chemical), Chemical.ChemicalIdItemTypeName)]
+[JsonDerivedType(typeof(HomogeneousSubstance), HomogeneousSubstance.HomogeneousSubstanceIdItemTypeName)]
+[JsonDerivedType(typeof(Solution), Solution.SolutionIdItemTypeName)]
 public interface IHomogeneous : ISubstance, IEquatable<HomogeneousReference>
 {
     /// <summary>

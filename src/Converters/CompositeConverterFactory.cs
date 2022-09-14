@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Numerics;
+using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Tavenem.Mathematics;
@@ -49,7 +50,7 @@ public class CompositeConverterFactory : JsonConverterFactory
     }
 
     private class CompositeConverter<TScalar> : JsonConverter<Composite<TScalar>>
-         where TScalar : IFloatingPoint<TScalar>
+         where TScalar : IFloatingPointIeee754<TScalar>
     {
         private const string HasMassPropertyName = "HasMass";
 

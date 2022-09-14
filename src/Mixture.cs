@@ -2,8 +2,8 @@
 using System.ComponentModel;
 using System.Text;
 using System.Text.Json.Serialization;
-using Tavenem.Mathematics;
 using Tavenem.DataStorage;
+using Tavenem.Mathematics;
 
 namespace Tavenem.Chemistry;
 
@@ -79,7 +79,7 @@ public class Mixture : ISubstance, IEquatable<Mixture>
     /// <summary>
     /// The ID of this item.
     /// </summary>
-    [JsonPropertyOrder(-2)]
+    [JsonPropertyName("id"), JsonPropertyOrder(-1)]
     public string Id { get; }
 
     /// <summary>
@@ -89,7 +89,7 @@ public class Mixture : ISubstance, IEquatable<Mixture>
     /// <summary>
     /// A built-in, read-only type discriminator.
     /// </summary>
-    [JsonPropertyOrder(-1)]
+    [JsonPropertyName("$type"), JsonPropertyOrder(-2)]
     public string IdItemTypeName => MixtureIdItemTypeName;
 
     /// <summary>
@@ -729,7 +729,6 @@ public class Mixture : ISubstance, IEquatable<Mixture>
     /// Initializes a new instance of <see cref="Mixture"/>.
     /// </summary>
     /// <param name="id">The unique ID of this substance.</param>
-    /// <param name="idItemTypeName">The type discriminator.</param>
     /// <param name="constituents">
     /// <para>
     /// One or more homogeneous constituents to add to the mixture, along with their relative
@@ -763,7 +762,6 @@ public class Mixture : ISubstance, IEquatable<Mixture>
     [JsonConstructor]
     public Mixture(
         string id,
-        string idItemTypeName,
         IReadOnlyDictionary<HomogeneousReference, decimal> constituents,
         string name,
         double? densityLiquid = null,
@@ -819,10 +817,10 @@ public class Mixture : ISubstance, IEquatable<Mixture>
         double? densityLiquid = null,
         double? densitySolid = null,
         double? densitySpecial = null) : this(
-            id,
             new ReadOnlyDictionary<HomogeneousReference, decimal>(
                 constituents.GroupBy(x => x.constituent.Id)
                 .ToDictionary(x => x.First().constituent, x => x.Sum(y => y.proportion / constituents.Sum(z => z.proportion)))),
+            id,
             name,
             densityLiquid,
             densitySolid,
@@ -830,14 +828,13 @@ public class Mixture : ISubstance, IEquatable<Mixture>
     { }
 
     private Mixture(
-        string id,
         IReadOnlyDictionary<HomogeneousReference, decimal> constituents,
+        string id,
         string? name = null,
         double? densityLiquid = null,
         double? densitySolid = null,
         double? densitySpecial = null) : this(
             id,
-            MixtureIdItemTypeName,
             constituents,
             name ?? GetName(constituents),
             densityLiquid,
@@ -852,7 +849,6 @@ public class Mixture : ISubstance, IEquatable<Mixture>
         double? densitySolid = null,
         double? densitySpecial = null) : this(
             Guid.NewGuid().ToString(),
-            MixtureIdItemTypeName,
             constituents,
             name ?? GetName(constituents),
             densityLiquid,

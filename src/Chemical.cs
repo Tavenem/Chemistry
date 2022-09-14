@@ -15,7 +15,7 @@ public class Chemical : IHomogeneous, IEquatable<Chemical>
     /// <summary>
     /// An empty <see cref="Chemical"/> instance.
     /// </summary>
-    public static readonly Chemical None = new("CHEMICAL_NONE", ChemicalIdItemTypeName, Formula.Empty, "None");
+    public static readonly Chemical None = new("CHEMICAL_NONE", Formula.Empty, "None");
 
     /// <summary>
     /// The "A" Antoine coefficient which can be used to determine the vapor pressure of this substance.
@@ -118,7 +118,7 @@ public class Chemical : IHomogeneous, IEquatable<Chemical>
     /// <summary>
     /// The ID of this item.
     /// </summary>
-    [JsonPropertyOrder(-2)]
+    [JsonPropertyName("id"), JsonPropertyOrder(-1)]
     public string Id { get; }
 
     /// <summary>
@@ -128,7 +128,7 @@ public class Chemical : IHomogeneous, IEquatable<Chemical>
     /// <summary>
     /// A built-in, read-only type discriminator.
     /// </summary>
-    [JsonPropertyOrder(-1)]
+    [JsonPropertyName("$type"), JsonPropertyOrder(-2)]
     public string IdItemTypeName => ChemicalIdItemTypeName;
 
     /// <summary>
@@ -345,7 +345,6 @@ public class Chemical : IHomogeneous, IEquatable<Chemical>
         PhaseType? fixedPhase = null,
         double? youngsModulus = null) : this(
             Guid.NewGuid().ToString(),
-            ChemicalIdItemTypeName,
             formula,
             string.IsNullOrWhiteSpace(name)
                 ? formula.ToString()
@@ -376,7 +375,6 @@ public class Chemical : IHomogeneous, IEquatable<Chemical>
     /// Initializes a new instance of <see cref="Chemical"/>.
     /// </summary>
     /// <param name="id">The unique ID of this substance.</param>
-    /// <param name="idItemTypeName">The type discriminator.</param>
     /// <param name="formula">The formula of this chemical.</param>
     /// <param name="name">The name of this chemical. If omitted, the Hill notation of the
     /// formula is used.</param>
@@ -500,9 +498,6 @@ public class Chemical : IHomogeneous, IEquatable<Chemical>
     [JsonConstructor]
     public Chemical(
         string id,
-#pragma warning disable IDE0060 // Remove unused parameter: Used by deserializers.
-        string idItemTypeName,
-#pragma warning restore IDE0060 // Remove unused parameter
         Formula formula,
         string name,
         double? antoineCoefficientA = null,

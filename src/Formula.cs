@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using System.Numerics;
 using System.Text;
 using System.Text.Json.Serialization;
 using Tavenem.Chemistry.Elements;
@@ -1174,16 +1175,16 @@ public readonly struct Formula : IEquatable<Formula>
     {
         var combined = new Dictionary<string, ushort>(_isotopes);
         var key = IsotopeConverter.ConvertToString(isotope);
-        if (combined.ContainsKey(key))
+        if (combined.TryGetValue(key, out var value))
         {
-            var value = combined[key] - amount;
-            if (value <= 0)
+            var newValue = value - amount;
+            if (newValue <= 0)
             {
                 combined.Remove(key);
             }
             else
             {
-                combined[key] = (ushort)value;
+                combined[key] = (ushort)newValue;
             }
         }
         return new Formula(Charge, combined);
@@ -1290,9 +1291,9 @@ public readonly struct Formula : IEquatable<Formula>
                     if (isotope.HasValue)
                     {
                         var key = IsotopeConverter.ConvertToString(isotope.Value);
-                        if (isotopes.ContainsKey(key))
+                        if (isotopes.TryGetValue(key, out var value))
                         {
-                            var v = isotopes[key] + (ushort)(multiplier ?? 1);
+                            var v = value + (ushort)(multiplier ?? 1);
                             if (v > ushort.MaxValue)
                             {
                                 return false;
@@ -1317,9 +1318,9 @@ public readonly struct Formula : IEquatable<Formula>
                     if (isotope.HasValue)
                     {
                         var key = IsotopeConverter.ConvertToString(isotope.Value);
-                        if (isotopes.ContainsKey(key))
+                        if (isotopes.TryGetValue(key, out var value))
                         {
-                            var v = isotopes[key] + (ushort)(multiplier ?? 1);
+                            var v = value + (ushort)(multiplier ?? 1);
                             if (v > ushort.MaxValue)
                             {
                                 return false;
@@ -1344,9 +1345,9 @@ public readonly struct Formula : IEquatable<Formula>
                     if (isotope.HasValue)
                     {
                         var key = IsotopeConverter.ConvertToString(isotope.Value);
-                        if (isotopes.ContainsKey(key))
+                        if (isotopes.TryGetValue(key, out var value))
                         {
-                            var v = isotopes[key] + (ushort)(multiplier ?? 1);
+                            var v = value + (ushort)(multiplier ?? 1);
                             if (v > ushort.MaxValue)
                             {
                                 return false;
@@ -1477,9 +1478,9 @@ public readonly struct Formula : IEquatable<Formula>
                 if (isotope.HasValue)
                 {
                     var key = IsotopeConverter.ConvertToString(isotope.Value);
-                    if (isotopes.ContainsKey(key))
+                    if (isotopes.TryGetValue(key, out var value))
                     {
-                        var v = isotopes[key] + (ushort)(multiplier ?? 1);
+                        var v = value + (ushort)(multiplier ?? 1);
                         if (v > ushort.MaxValue)
                         {
                             return false;
@@ -1522,9 +1523,9 @@ public readonly struct Formula : IEquatable<Formula>
             if (isotope.HasValue)
             {
                 var key = IsotopeConverter.ConvertToString(isotope.Value);
-                if (isotopes.ContainsKey(key))
+                if (isotopes.TryGetValue(key, out var value))
                 {
-                    var v = isotopes[key] + (ushort)(multiplier ?? 1);
+                    var v = value + (ushort)(multiplier ?? 1);
                     if (v > ushort.MaxValue)
                     {
                         return false;
@@ -1544,9 +1545,9 @@ public readonly struct Formula : IEquatable<Formula>
         if (isotope.HasValue)
         {
             var key = IsotopeConverter.ConvertToString(isotope.Value);
-            if (isotopes.ContainsKey(key))
+            if (isotopes.TryGetValue(key, out var value))
             {
-                var v = isotopes[key] + (ushort)(multiplier ?? 1);
+                var v = value + (ushort)(multiplier ?? 1);
                 if (v > ushort.MaxValue)
                 {
                     return false;
@@ -1606,9 +1607,9 @@ public readonly struct Formula : IEquatable<Formula>
                 {
                     return false;
                 }
-                else if (isotopes.ContainsKey(item.Key))
+                else if (isotopes.TryGetValue(item.Key, out var isotopeValue))
                 {
-                    value += isotopes[item.Key];
+                    value += isotopeValue;
                     if (value > ushort.MaxValue)
                     {
                         return false;

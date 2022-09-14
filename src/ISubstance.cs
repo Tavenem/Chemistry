@@ -9,7 +9,11 @@ namespace Tavenem.Chemistry;
 /// of unmixed components.
 /// </summary>
 [TypeConverter(typeof(SubstanceConverter))]
-[JsonConverter(typeof(ISubstanceConverter))]
+[JsonPolymorphic(UnknownDerivedTypeHandling = JsonUnknownDerivedTypeHandling.FallBackToNearestAncestor)]
+[JsonDerivedType(typeof(Chemical), Chemical.ChemicalIdItemTypeName)]
+[JsonDerivedType(typeof(HomogeneousSubstance), HomogeneousSubstance.HomogeneousSubstanceIdItemTypeName)]
+[JsonDerivedType(typeof(Mixture), Mixture.MixtureIdItemTypeName)]
+[JsonDerivedType(typeof(Solution), Solution.SolutionIdItemTypeName)]
 public interface ISubstance : IIdItem, IEquatable<ISubstance>, IEquatable<ISubstanceReference>
 {
     /// <summary>

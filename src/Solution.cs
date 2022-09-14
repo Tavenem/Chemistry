@@ -1,6 +1,5 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Runtime.Serialization;
 using System.Text;
 using System.Text.Json.Serialization;
 using Tavenem.DataStorage;
@@ -125,7 +124,7 @@ public class Solution : IHomogeneous, IEquatable<Solution>
     /// <summary>
     /// The ID of this item.
     /// </summary>
-    [JsonPropertyOrder(-2)]
+    [JsonPropertyName("id"), JsonPropertyOrder(-1)]
     public string Id { get; }
 
     /// <summary>
@@ -135,7 +134,7 @@ public class Solution : IHomogeneous, IEquatable<Solution>
     /// <summary>
     /// A built-in, read-only type discriminator.
     /// </summary>
-    [JsonPropertyOrder(-1)]
+    [JsonPropertyName("$type"), JsonPropertyOrder(-2)]
     public string IdItemTypeName => SolutionIdItemTypeName;
 
     /// <summary>
@@ -1811,7 +1810,6 @@ public class Solution : IHomogeneous, IEquatable<Solution>
     /// Initializes a new instance of <see cref="Solution"/>.
     /// </summary>
     /// <param name="id">The unique ID of this substance.</param>
-    /// <param name="idItemTypeName">The type discriminator.</param>
     /// <param name="constituents">
     /// <para>
     /// One or more chemicals to add to the solution, along with their relative proportions (as
@@ -1930,7 +1928,6 @@ public class Solution : IHomogeneous, IEquatable<Solution>
     [JsonConstructor]
     public Solution(
         string id,
-        string idItemTypeName,
         IReadOnlyDictionary<HomogeneousReference, decimal> constituents,
         string name,
         double? antoineCoefficientA,
@@ -2116,11 +2113,11 @@ public class Solution : IHomogeneous, IEquatable<Solution>
         double? meltingPoint = null,
         PhaseType? fixedPhase = null,
         double? youngsModulus = null) : this(
-            id,
             new ReadOnlyDictionary<HomogeneousReference, decimal>(
                 new Dictionary<HomogeneousReference, decimal>(constituents
                     .GroupBy(x => x.substance.Id)
                     .ToDictionary(x => x.First().substance, x => x.Sum(y => y.proportion / constituents.Sum(z => z.proportion))))),
+            id,
             name,
             antoineCoefficientA,
             antoineCoefficientB,
@@ -2278,8 +2275,8 @@ public class Solution : IHomogeneous, IEquatable<Solution>
         double? meltingPoint = null,
         PhaseType? fixedPhase = null,
         double? youngsModulus = null) : this(
-            id,
             new ReadOnlyDictionary<HomogeneousReference, decimal>(new Dictionary<HomogeneousReference, decimal> { { substance, 1 } }),
+            id,
             name,
             antoineCoefficientA,
             antoineCoefficientB,
@@ -2299,8 +2296,8 @@ public class Solution : IHomogeneous, IEquatable<Solution>
     { }
 
     private Solution(
-        string id,
         IReadOnlyDictionary<HomogeneousReference, decimal> constituents,
+        string id,
         string? name,
         double? antoineCoefficientA,
         double? antoineCoefficientB,
@@ -2318,7 +2315,6 @@ public class Solution : IHomogeneous, IEquatable<Solution>
         PhaseType? fixedPhase,
         double? youngsModulus) : this(
             id,
-            SolutionIdItemTypeName,
             constituents,
             name ?? GetName(constituents),
             antoineCoefficientA,
@@ -2357,7 +2353,6 @@ public class Solution : IHomogeneous, IEquatable<Solution>
         PhaseType? fixedPhase,
         double? youngsModulus) : this(
             Guid.NewGuid().ToString(),
-            SolutionIdItemTypeName,
             constituents,
             name ?? GetName(constituents),
             antoineCoefficientA,

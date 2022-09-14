@@ -1,4 +1,5 @@
-﻿using Tavenem.Mathematics;
+﻿using System.Numerics;
+using Tavenem.Mathematics;
 
 namespace Tavenem.Chemistry;
 
@@ -17,7 +18,7 @@ public static class Materials
     /// <returns><see langword="true"/> if this material contains the given <paramref
     /// name="substance"/>; otherwise <see langword="false"/>.</returns>
     public static bool Contains<TScalar>(this IMaterial<TScalar> material, ISubstance substance)
-        where TScalar : IFloatingPoint<TScalar>
+        where TScalar : IFloatingPointIeee754<TScalar>
         => material.Constituents.Any(x => x.Key.Equals(substance))
         || material.Constituents.Any(x => x.Key.Substance.Constituents.Any(y => y.Equals(substance)));
 
@@ -31,7 +32,7 @@ public static class Materials
     /// <returns><see langword="true"/> if this material contains the given <paramref
     /// name="substance"/>; otherwise <see langword="false"/>.</returns>
     public static bool Contains<TScalar>(this IMaterial<TScalar> material, ISubstanceReference substance)
-        where TScalar : IFloatingPoint<TScalar>
+        where TScalar : IFloatingPointIeee754<TScalar>
         => material.Constituents.Any(x => x.Key.Equals(substance))
         || material.Constituents.Any(x => x.Key.Substance.Constituents.Any(y => y.Equals(substance)));
 
@@ -45,7 +46,7 @@ public static class Materials
     /// <returns><see langword="true"/> if this material contains constituent which satisfies
     /// the given <paramref name="condition"/>; otherwise <see langword="false"/>.</returns>
     public static bool Contains<TScalar>(this IMaterial<TScalar> material, Predicate<ISubstance> condition)
-        where TScalar : IFloatingPoint<TScalar>
+        where TScalar : IFloatingPointIeee754<TScalar>
         => material.Constituents.Any(x => condition.Invoke(x.Key.Substance))
         || material.Constituents.Any(x => x.Key.Substance.Constituents.Any(y => condition.Invoke(y.Key.Homogeneous)));
 
@@ -68,7 +69,7 @@ public static class Materials
         PhaseType phase,
         double temperature,
         double pressure)
-        where TScalar : IFloatingPoint<TScalar>
+        where TScalar : IFloatingPointIeee754<TScalar>
         => material.Constituents.Any(x => x.Key.Substance.Constituents
         .Any(y => y.Key.Equals(substance)
         && (y.Key.Homogeneous.GetPhase(temperature, pressure) & phase) != PhaseType.None));
@@ -92,7 +93,7 @@ public static class Materials
         PhaseType phase,
         double temperature,
         double pressure)
-        where TScalar : IFloatingPoint<TScalar>
+        where TScalar : IFloatingPointIeee754<TScalar>
         => material.Constituents.Any(x => x.Key.Substance.Constituents
         .Any(y => y.Key.Equals(substance)
         && (y.Key.Homogeneous.GetPhase(temperature, pressure) & phase) != PhaseType.None));
@@ -107,9 +108,9 @@ public static class Materials
     /// <param name="func">A function to extract a value from an <see cref="ISubstance"/>.</param>
     /// <returns>The value.</returns>
     public static TValue GetOverallValue<TScalar, TValue>(this IMaterial<TScalar> material, Func<ISubstance, TValue> func)
-        where TScalar : IFloatingPoint<TScalar>
+        where TScalar : IFloatingPointIeee754<TScalar>
         where TValue : INumber<TValue>
-        => material.Constituents.Sum(x => func(x.Key.Substance) * TValue.Create(x.Value));
+        => material.Constituents.Sum(x => func(x.Key.Substance) * TValue.CreateChecked(x.Value));
 
     /// <summary>
     /// Gets a value determined by the individual <see cref="IMaterial{TScalar}.Constituents"/> of
@@ -123,13 +124,13 @@ public static class Materials
     public static async ValueTask<TValue> GetOverallValueAwaitAsync<TScalar, TValue>(
         this IMaterial<TScalar> material,
         Func<ISubstance, ValueTask<TValue>> func)
-        where TScalar : IFloatingPoint<TScalar>
+        where TScalar : IFloatingPointIeee754<TScalar>
         where TValue : INumber<TValue>
     {
         var sum = TValue.Zero;
         foreach (var (substance, proportion) in material.Constituents)
         {
-            sum += await func(substance.Substance).ConfigureAwait(false) * TValue.Create(proportion);
+            sum += await func(substance.Substance).ConfigureAwait(false) * TValue.CreateChecked(proportion);
         }
         return sum;
     }
@@ -144,7 +145,7 @@ public static class Materials
     /// <returns>The overall proportion of the given <paramref name="constituent"/> in this
     /// material, as a value between 0 and 1.</returns>
     public static decimal GetProportion<TScalar>(this IMaterial<TScalar> material, IHomogeneous constituent)
-        where TScalar : IFloatingPoint<TScalar>
+        where TScalar : IFloatingPointIeee754<TScalar>
         => material.Constituents.Sum(x => x.Key.Substance.GetProportion(constituent) * x.Value);
 
     /// <summary>
@@ -157,7 +158,7 @@ public static class Materials
     /// <returns>The overall proportion of the given <paramref name="constituent"/> in this
     /// material, as a value between 0 and 1.</returns>
     public static decimal GetProportion<TScalar>(this IMaterial<TScalar> material, HomogeneousReference constituent)
-        where TScalar : IFloatingPoint<TScalar>
+        where TScalar : IFloatingPointIeee754<TScalar>
         => material.Constituents.Sum(x => x.Key.Substance.GetProportion(constituent) * x.Value);
 
     /// <summary>
@@ -170,7 +171,7 @@ public static class Materials
     /// <returns>The overall proportion of constituents of this material which satisfy the given
     /// <paramref name="condition"/>, as a value between 0 and 1.</returns>
     public static decimal GetProportion<TScalar>(this IMaterial<TScalar> material, Predicate<IHomogeneous> condition)
-        where TScalar : IFloatingPoint<TScalar>
+        where TScalar : IFloatingPointIeee754<TScalar>
         => material.Constituents.Sum(x => x.Key.Substance.GetProportion(condition) * x.Value);
 
     /// <summary>
@@ -183,7 +184,7 @@ public static class Materials
     /// radius of zero.
     /// </returns>
     public static TScalar GetSurfaceGravity<TScalar>(this IMaterial<TScalar> material)
-        where TScalar : IFloatingPoint<TScalar>
+        where TScalar : IFloatingPointIeee754<TScalar>
     {
         if (material.Mass.IsNearlyZero())
         {
@@ -212,7 +213,7 @@ public static class Materials
     /// Removes all copies of the substance, if more than one version happens to be present.
     /// </remarks>
     public static IMaterial<TScalar> Remove<TScalar>(this IMaterial<TScalar> material, ISubstance substance)
-        where TScalar : IFloatingPoint<TScalar>
+        where TScalar : IFloatingPointIeee754<TScalar>
         => material.Remove(x => x.Equals(substance));
 
     /// <summary>
@@ -231,7 +232,7 @@ public static class Materials
     /// Removes all copies of the substance, if more than one version happens to be present.
     /// </remarks>
     public static IMaterial<TScalar> Remove<TScalar>(this IMaterial<TScalar> material, ISubstanceReference substance)
-        where TScalar : IFloatingPoint<TScalar>
+        where TScalar : IFloatingPointIeee754<TScalar>
         => material.Remove(x => x.Equals(substance));
 
     /// <summary>
@@ -262,7 +263,7 @@ public static class Materials
         double? density = null,
         double? temperature = null,
         double? pressure = null)
-        where TScalar : IFloatingPoint<TScalar>
+        where TScalar : IFloatingPointIeee754<TScalar>
     {
         material.Mass = mass;
         if (density.HasValue)
@@ -276,7 +277,7 @@ public static class Materials
             density = material.GetOverallValue(x => x.GetDensity(temperature.Value, pressure.Value));
         }
         material.Shape = material.Shape
-            .GetScaledByVolume(mass / TScalar.Create(density ?? material.Density) / material.Shape.Volume);
+            .GetScaledByVolume(mass / TScalar.CreateChecked(density ?? material.Density) / material.Shape.Volume);
         return material;
     }
 
@@ -306,7 +307,7 @@ public static class Materials
         double? density = null,
         double? temperature = null,
         double? pressure = null)
-        where TScalar : IFloatingPoint<TScalar>
+        where TScalar : IFloatingPointIeee754<TScalar>
     {
         if (density.HasValue)
         {
@@ -319,7 +320,7 @@ public static class Materials
             density = material.GetOverallValue(x => x.GetDensity(temperature.Value, pressure.Value));
         }
         material.Shape = material.Shape
-            .GetScaledByVolume(material.Mass / TScalar.Create(density ?? material.Density) / material.Shape.Volume);
+            .GetScaledByVolume(material.Mass / TScalar.CreateChecked(density ?? material.Density) / material.Shape.Volume);
         return material;
     }
 
@@ -329,9 +330,9 @@ public static class Materials
     /// <param name="material">This instance.</param>
     /// <returns>This instance.</returns>
     public static IMaterial<TScalar> SetDensityFromMassAndShape<TScalar>(this IMaterial<TScalar> material)
-        where TScalar : IFloatingPoint<TScalar>
+        where TScalar : IFloatingPointIeee754<TScalar>
     {
-        material.Density = (material.Mass / material.Shape.Volume).Create<TScalar, double>();
+        material.Density = (material.Mass / material.Shape.Volume).CreateChecked<TScalar, double>();
         return material;
     }
 
@@ -341,9 +342,9 @@ public static class Materials
     /// <param name="material">This instance.</param>
     /// <returns>This instance.</returns>
     public static IMaterial<TScalar> SetMassFromDensityAndShape<TScalar>(this IMaterial<TScalar> material)
-        where TScalar : IFloatingPoint<TScalar>
+        where TScalar : IFloatingPointIeee754<TScalar>
     {
-        material.Mass = TScalar.Create(material.Density) * material.Shape.Volume;
+        material.Mass = TScalar.CreateChecked(material.Density) * material.Shape.Volume;
         return material;
     }
 
@@ -354,7 +355,7 @@ public static class Materials
     /// <param name="position">The new position.</param>
     /// <returns>This instance.</returns>
     public static IMaterial<TScalar> SetPosition<TScalar>(this IMaterial<TScalar> material, Vector3<TScalar> position)
-        where TScalar : IFloatingPoint<TScalar>
+        where TScalar : IFloatingPointIeee754<TScalar>
     {
         material.Shape = material.Shape.GetCloneAtPosition(position);
         return material;
@@ -367,7 +368,7 @@ public static class Materials
     /// <param name="rotation">The new rotation.</param>
     /// <returns>This instance.</returns>
     public static IMaterial<TScalar> SetRotation<TScalar>(this IMaterial<TScalar> material, Quaternion<TScalar> rotation)
-        where TScalar : IFloatingPoint<TScalar>
+        where TScalar : IFloatingPointIeee754<TScalar>
     {
         material.Shape = material.Shape.GetCloneWithRotation(rotation);
         return material;

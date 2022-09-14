@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Numerics;
 using System.Text.Json.Serialization;
 using Tavenem.Mathematics;
 
@@ -9,7 +10,7 @@ namespace Tavenem.Chemistry;
 /// also have a particular chemical composition.
 /// </summary>
 public class Material<TScalar> : IMaterial<Material<TScalar>, TScalar>, IEquatable<Material<TScalar>>
-    where TScalar : IFloatingPoint<TScalar>
+    where TScalar : IFloatingPointIeee754<TScalar>
 {
     /// <summary>
     /// An empty material, with zero mass and density, and a single point as a shape.
@@ -159,7 +160,7 @@ public class Material<TScalar> : IMaterial<Material<TScalar>, TScalar>, IEquatab
         Constituents = constituents;
         Shape = shape;
         Mass = mass;
-        Density = density ?? (mass / shape.Volume).Create<TScalar, double>();
+        Density = density ?? (mass / shape.Volume).CreateChecked<TScalar, double>();
         Temperature = temperature;
     }
 
@@ -211,7 +212,7 @@ public class Material<TScalar> : IMaterial<Material<TScalar>, TScalar>, IEquatab
                 * (double)x.Value);
         Mass = Density == 0
             ? TScalar.Zero
-            : TScalar.Create(Density) * shape.Volume;
+            : TScalar.CreateChecked(Density) * shape.Volume;
         Temperature = temperature;
     }
 
@@ -261,7 +262,8 @@ public class Material<TScalar> : IMaterial<Material<TScalar>, TScalar>, IEquatab
             shape,
             mass,
             density,
-            temperature) { }
+            temperature)
+    { }
 
     /// <summary>
     /// Initializes a new instance of <see cref="Material{TScalar}"/>.
@@ -541,7 +543,7 @@ public class Material<TScalar> : IMaterial<Material<TScalar>, TScalar>, IEquatab
             Constituents = new ReadOnlyDictionary<ISubstanceReference, decimal>(new Dictionary<ISubstanceReference, decimal>());
         }
         Mass = mass;
-        Density = density ?? (mass / shape.Volume).Create<TScalar, double>();
+        Density = density ?? (mass / shape.Volume).CreateChecked<TScalar, double>();
         Temperature = temperature;
     }
 
@@ -607,7 +609,7 @@ public class Material<TScalar> : IMaterial<Material<TScalar>, TScalar>, IEquatab
                 * (double)x.Value);
         Mass = Density == 0
             ? TScalar.Zero
-            : TScalar.Create(Density) * shape.Volume;
+            : TScalar.CreateChecked(Density) * shape.Volume;
         Temperature = temperature;
     }
 
@@ -1048,8 +1050,8 @@ public class Material<TScalar> : IMaterial<Material<TScalar>, TScalar>, IEquatab
         }
 
         var dictionary = Constituents.ToDictionary(x => x.Key, x => x.Value);
-        var ratio = dictionary.ContainsKey(substance)
-            ? 1 - (proportion - dictionary[substance])
+        var ratio = dictionary.TryGetValue(substance, out var value)
+            ? 1 - (proportion - value)
             : 1 - proportion;
         foreach (var key in dictionary.Keys)
         {

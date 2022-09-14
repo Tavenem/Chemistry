@@ -218,7 +218,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Ammonia = new(
             "Ammonia",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("NH3"),
             "Ammonia",
             antoineCoefficientA: 3.18757,
@@ -236,7 +235,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical AmmoniumHydrosulfide = new(
             "AmmoniumHydrosulfide",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("(NH4)HS"),
             "Ammonium Hydrosulfide",
             antoineCoefficientA: 6.09146,
@@ -254,7 +252,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical HydrogenSulfide = new(
             "HydrogenSulfide",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("H2S"),
             "Hydrogen Sulfide",
             antoineCoefficientA: 4.52887,
@@ -272,7 +269,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Phosphine = new(
             "Phosphine",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("PH3"),
             "Phosphine",
             antoineCoefficientA: 4.02591,
@@ -290,7 +286,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical SulphurDioxide = new(
             "SulphurDioxide",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("SO2"),
             "Sulphur Dioxide",
             antoineCoefficientA: 4.40718,
@@ -311,7 +306,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Hydrogen = new(
             "Hydrogen",
-            Chemical.ChemicalIdItemTypeName,
             new Formula((PeriodicTable.Instance[1], 2)),
             "Hydrogen",
             antoineCoefficientA: 3.54314,
@@ -329,7 +323,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical MetallicHydrogen = new(
             "MetallicHydrogen",
-            Chemical.ChemicalIdItemTypeName,
             new Formula((PeriodicTable.Instance[1], 1)),
             "Metallic Hydrogen",
             antoineCoefficientA: 3.54314,
@@ -348,7 +341,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Helium = new(
             "Helium",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[2]),
             "Helium",
             antoineMaximumTemperature: 0,
@@ -361,7 +353,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Lithium = new(
             "Lithium",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[3]),
             "Lithium",
             antoineCoefficientA: 4.98831,
@@ -381,7 +372,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Beryllium = new(
             "Beryllium",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[4]),
             "Beryllium",
             antoineMaximumTemperature: 2742,
@@ -398,7 +388,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Boron = new(
             "Boron",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[5]),
             "Boron",
             antoineMaximumTemperature: 4200,
@@ -414,7 +403,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical AmorphousCarbon = new(
             "AmorphousCarbon",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[6]),
             "Amorphous Carbon",
             antoineMaximumTemperature: 3915,
@@ -431,7 +419,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Diamond = new(
             "Diamond",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[6]),
             "Diamond",
             antoineMaximumTemperature: 3915,
@@ -448,7 +435,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Nitrogen = new(
             "Nitrogen",
-            Chemical.ChemicalIdItemTypeName,
             new Formula((PeriodicTable.Instance[7], 2)),
             "Nitrogen",
             antoineCoefficientA: 3.61947,
@@ -465,7 +451,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Oxygen = new(
             "Oxygen",
-            Chemical.ChemicalIdItemTypeName,
             new Formula((PeriodicTable.Instance[8], 2)),
             "Oxygen",
             antoineCoefficientA: 3.81634,
@@ -485,7 +470,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Ozone = new(
             "Ozone",
-            Chemical.ChemicalIdItemTypeName,
             new Formula((PeriodicTable.Instance[8], 3)),
             "Ozone",
             antoineCoefficientA: 4.23637,
@@ -504,7 +488,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Fluorine = new(
             "Fluorine",
-            Chemical.ChemicalIdItemTypeName,
             new Formula((PeriodicTable.Instance[9], 2)),
             "Fluorine",
             antoineCoefficientA: 4.02355,
@@ -523,7 +506,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Neon = new(
             "Neon",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[10]),
             "Neon",
             antoineCoefficientA: 3.75641,
@@ -540,7 +522,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Sodium = new(
             "Sodium",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[11]),
             "Sodium",
             antoineCoefficientA: 2.46077,
@@ -561,7 +542,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Magnesium = new(
             "Magnesium",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[12]),
             "Magnesium",
             antoineMaximumTemperature: 1363,
@@ -579,7 +559,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Aluminium = new(
             "Aluminium",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[13]),
             "Aluminium",
             antoineCoefficientA: 5.73623,
@@ -599,7 +578,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Silicon = new(
             "Silicon",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[14]),
             "Silicon",
             antoineCoefficientA: 9.56436,
@@ -618,7 +596,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical WhitePhosphorus = new(
             "WhitePhosphorus",
-            Chemical.ChemicalIdItemTypeName,
             new Formula((PeriodicTable.Instance[15], 4)),
             "White Phosphorus",
             antoineCoefficientA: 5.04162,
@@ -637,7 +614,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical RedPhosphorus = new(
             "RedPhosphorus",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[15]),
             "Red Phosphorus",
             antoineCoefficientA: 5.04162,
@@ -656,7 +632,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Sulfur = new(
             "Sulfur",
-            Chemical.ChemicalIdItemTypeName,
             new Formula((PeriodicTable.Instance[16], 8)),
             "Sulfur",
             antoineMaximumTemperature: 717.8,
@@ -673,7 +648,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Chlorine = new(
             "Chlorine",
-            Chemical.ChemicalIdItemTypeName,
             new Formula((PeriodicTable.Instance[17], 2)),
             "Chlorine",
             antoineCoefficientA: 3.0213,
@@ -692,7 +666,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Argon = new(
             "Argon",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[18]),
             "Argon",
             antoineCoefficientA: 3.29555,
@@ -709,7 +682,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Potassium = new(
             "Potassium",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[19]),
             "Potassium",
             antoineCoefficientA: 4.45718,
@@ -730,7 +702,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Calcium = new(
             "Calcium",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[20]),
             "Calcium",
             antoineCoefficientA: 2.78473,
@@ -751,7 +722,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Scandium = new(
             "Scandium",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[21]),
             "Scandium",
             antoineMaximumTemperature: 3109,
@@ -769,7 +739,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Titanium = new(
             "Titanium",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[22]),
             "Titanium",
             antoineMaximumTemperature: 3560,
@@ -786,7 +755,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Vanadium = new(
             "Vanadium",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[23]),
             "Vanadium",
             antoineMaximumTemperature: 3680,
@@ -803,7 +771,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Chromium = new(
             "Chromium",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[24]),
             "Chromium",
             antoineCoefficientA: 6.02371,
@@ -823,7 +790,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Manganese = new(
             "Manganese",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[25]),
             "Manganese",
             antoineMaximumTemperature: 2334,
@@ -840,7 +806,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Iron = new(
             "Iron",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[26]),
             "Iron",
             antoineMaximumTemperature: 3134,
@@ -857,7 +822,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Cobalt = new(
             "Cobalt",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[27]),
             "Cobalt",
             antoineMaximumTemperature: 3200,
@@ -874,7 +838,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Nickel = new(
             "Nickel",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[28]),
             "Nickel",
             antoineCoefficientA: 5.98183,
@@ -894,7 +857,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Copper = new(
             "Copper",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[29]),
             "Copper",
             antoineMaximumTemperature: 2835,
@@ -911,7 +873,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Zinc = new(
             "Zinc",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[30]),
             "Zinc",
             antoineMaximumTemperature: 1180,
@@ -928,7 +889,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Gallium = new(
             "Gallium",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[31]),
             "Gallium",
             antoineMaximumTemperature: 2673,
@@ -945,7 +905,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Germanium = new(
             "Germanium",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[32]),
             "Germanium",
             antoineMaximumTemperature: 3106,
@@ -961,7 +920,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Arsenic = new(
             "Arsenic",
-            Chemical.ChemicalIdItemTypeName,
             new Formula((PeriodicTable.Instance[33], 6)),
             "Arsenic",
             antoineMaximumTemperature: 887,
@@ -977,7 +935,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Selenium = new(
             "Selenium",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[34]),
             "Selenium",
             antoineCoefficientA: 6.33714,
@@ -996,7 +953,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Bromine = new(
             "Bromine",
-            Chemical.ChemicalIdItemTypeName,
             new Formula((PeriodicTable.Instance[35], 2)),
             "Bromine",
             antoineCoefficientA: 2.94529,
@@ -1012,7 +968,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Krypton = new(
             "Krypton",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[36]),
             "Krypton",
             antoineCoefficientA: 4.2064,
@@ -1028,7 +983,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Rubidium = new(
             "Rubidium",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[37]),
             "Rubidium",
             antoineMaximumTemperature: 961,
@@ -1046,7 +1000,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Strontium = new(
             "Strontium",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[38]),
             "Strontium",
             antoineMaximumTemperature: 1650,
@@ -1064,7 +1017,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Yttrium = new(
             "Yttrium",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[39]),
             "Yttrium",
             antoineMaximumTemperature: 3203,
@@ -1081,7 +1033,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Zirconium = new(
             "Zirconium",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[40]),
             "Zirconium",
             antoineMaximumTemperature: 4650,
@@ -1098,7 +1049,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Niobium = new(
             "Niobium",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[41]),
             "Niobium",
             antoineMaximumTemperature: 5017,
@@ -1114,7 +1064,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Molybdenum = new(
             "Molybdenum",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[42]),
             "Molybdenum",
             antoineMaximumTemperature: 4912,
@@ -1131,7 +1080,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Technetium = new(
             "Technetium",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[43]),
             "Technetium",
             antoineMaximumTemperature: 4538,
@@ -1146,7 +1094,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Ruthenium = new(
             "Ruthenium",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[44]),
             "Ruthenium",
             antoineMaximumTemperature: 4423,
@@ -1163,7 +1110,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Rhodium = new(
             "Rhodium",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[45]),
             "Rhodium",
             antoineMaximumTemperature: 3968,
@@ -1180,7 +1126,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Palladium = new(
             "Palladium",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[46]),
             "Palladium",
             antoineMaximumTemperature: 3236,
@@ -1197,7 +1142,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Silver = new(
             "Silver",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[47]),
             "Silver",
             antoineCoefficientA: 1.95303,
@@ -1217,7 +1161,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Cadmium = new(
             "Cadmium",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[48]),
             "Cadmium",
             antoineMaximumTemperature: 1040,
@@ -1234,7 +1177,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Indium = new(
             "Indium",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[49]),
             "Indium",
             antoineMaximumTemperature: 2345,
@@ -1251,7 +1193,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical WhiteTin = new(
             "WhiteTin",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[50]),
             "White Tin",
             antoineCoefficientA: 6.59594,
@@ -1271,7 +1212,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical GrayTin = new(
             "GrayTin",
-            Chemical.ChemicalIdItemTypeName,
             new Formula((PeriodicTable.Instance[50], 8)),
             "Gray Tin",
             antoineCoefficientA: 6.59594,
@@ -1289,7 +1229,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Antimony = new(
             "Antimony",
-            Chemical.ChemicalIdItemTypeName,
             new Formula((PeriodicTable.Instance[51], 6)),
             "Antimony",
             antoineCoefficientA: 2.26041,
@@ -1309,7 +1248,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Tellurium = new(
             "Tellurium",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[52]),
             "Tellurium",
             antoineMaximumTemperature: 1261,
@@ -1325,7 +1263,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Iodine = new(
             "Iodine",
-            Chemical.ChemicalIdItemTypeName,
             new Formula((PeriodicTable.Instance[53], 2)),
             "Iodine",
             antoineCoefficientA: 3.36429,
@@ -1342,7 +1279,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Xenon = new(
             "Xenon",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[54]),
             "Xenon",
             antoineCoefficientA: 3.80675,
@@ -1358,7 +1294,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Caesium = new(
             "Caesium",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[55]),
             "Caesium",
             antoineCoefficientA: 3.69576,
@@ -1379,7 +1314,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Barium = new(
             "Barium",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[56]),
             "Barium",
             antoineCoefficientA: 4.08188,
@@ -1400,7 +1334,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Lanthanum = new(
             "Lanthanum",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[57]),
             "Lanthanum",
             antoineMaximumTemperature: 3737,
@@ -1418,7 +1351,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Cerium = new(
             "Cerium",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[58]),
             "Cerium",
             antoineMaximumTemperature: 3716,
@@ -1436,7 +1368,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Praseodymium = new(
             "Praseodymium",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[59]),
             "Praseodymium",
             antoineMaximumTemperature: 3403,
@@ -1454,7 +1385,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Neodymium = new(
             "Neodymium",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[60]),
             "Neodymium",
             antoineMaximumTemperature: 3347,
@@ -1472,7 +1402,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Promethium = new(
             "Promethium",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[61]),
             "Promethium",
             antoineMaximumTemperature: 3273,
@@ -1488,7 +1417,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Samarium = new(
             "Samarium",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[62]),
             "Samarium",
             antoineMaximumTemperature: 2173,
@@ -1506,7 +1434,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Europium = new(
             "Europium",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[63]),
             "Europium",
             antoineMaximumTemperature: 1802,
@@ -1523,7 +1450,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Gadolinium = new(
             "Gadolinium",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[64]),
             "Gadolinium",
             antoineMaximumTemperature: 3273,
@@ -1540,7 +1466,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Terbium = new(
             "Terbium",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[65]),
             "Terbium",
             antoineMaximumTemperature: 3396,
@@ -1557,7 +1482,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Dysprosium = new(
             "Dysprosium",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[66]),
             "Dysprosium",
             antoineMaximumTemperature: 2840,
@@ -1575,7 +1499,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Holmium = new(
             "Holmium",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[67]),
             "Holmium",
             antoineMaximumTemperature: 2873,
@@ -1593,7 +1516,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Erbium = new(
             "Erbium",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[68]),
             "Erbium",
             antoineMaximumTemperature: 3141,
@@ -1611,7 +1533,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Thulium = new(
             "Thulium",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[69]),
             "Thulium",
             antoineMaximumTemperature: 2223,
@@ -1629,7 +1550,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Ytterbium = new(
             "Ytterbium",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[70]),
             "Ytterbium",
             antoineMaximumTemperature: 1469,
@@ -1647,7 +1567,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Lutetium = new(
             "Lutetium",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[71]),
             "Lutetium",
             antoineMaximumTemperature: 3675,
@@ -1665,7 +1584,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Hafnium = new(
             "Hafnium",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[72]),
             "Hafnium",
             antoineMaximumTemperature: 4876,
@@ -1683,7 +1601,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Tantalum = new(
             "Tantalum",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[73]),
             "Tantalum",
             antoineMaximumTemperature: 5731,
@@ -1700,7 +1617,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Tungsten = new(
             "Tungsten",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[74]),
             "Tungsten",
             antoineMaximumTemperature: 6203,
@@ -1717,7 +1633,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Rhenium = new(
             "Rhenium",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[75]),
             "Rhenium",
             antoineMaximumTemperature: 5903,
@@ -1734,7 +1649,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Osmium = new(
             "Osmium",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[76]),
             "Osmium",
             antoineMaximumTemperature: 5285,
@@ -1751,7 +1665,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Iridium = new(
             "Iridium",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[77]),
             "Iridium",
             antoineMaximumTemperature: 4403,
@@ -1768,7 +1681,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Platinum = new(
             "Platinum",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[78]),
             "Platinum",
             antoineCoefficientA: 4.80688,
@@ -1788,7 +1700,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Gold = new(
             "Gold",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[79]),
             "Gold",
             antoineCoefficientA: 5.46951,
@@ -1808,7 +1719,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Mercury = new(
             "Mercury",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[80]),
             "Mercury",
             antoineCoefficientA: 4.85767,
@@ -1826,7 +1736,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Thallium = new(
             "Thallium",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[81]),
             "Thallium",
             antoineMaximumTemperature: 1746,
@@ -1843,7 +1752,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Lead = new(
             "Lead",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[82]),
             "Lead",
             antoineMaximumTemperature: 2022,
@@ -1860,7 +1768,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Bismuth = new(
             "Bismuth",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[83]),
             "Bismuth",
             antoineMaximumTemperature: 1837,
@@ -1878,7 +1785,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Polonium = new(
             "Polonium",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[84]),
             "Polonium",
             antoineMaximumTemperature: 1235,
@@ -1893,7 +1799,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Astatine = new(
             "Astatine",
-            Chemical.ChemicalIdItemTypeName,
             new Formula((PeriodicTable.Instance[85], 2)),
             "Astatine",
             antoineMaximumTemperature: 610,
@@ -1906,7 +1811,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Radon = new(
             "Radon",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[86]),
             "Radon",
             antoineCoefficientA: 3.1908,
@@ -1922,7 +1826,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Francium = new(
             "Francium",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[87]),
             "Francium",
             antoineMaximumTemperature: 950,
@@ -1936,7 +1839,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Radium = new(
             "Radium",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[88]),
             "Radium",
             antoineMaximumTemperature: 2010,
@@ -1951,7 +1853,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Actinium = new(
             "Actinium",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[89]),
             "Actinium",
             antoineMaximumTemperature: 3500,
@@ -1966,7 +1867,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Thorium = new(
             "Thorium",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[90]),
             "Thorium",
             antoineMaximumTemperature: 5061,
@@ -1982,7 +1882,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Protactinium = new(
             "Protactinium",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[91]),
             "Protactinium",
             antoineMaximumTemperature: 4300,
@@ -1997,7 +1896,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Uranium = new(
             "Uranium",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[92]),
             "Uranium",
             antoineMaximumTemperature: 4404,
@@ -2014,7 +1912,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Neptunium = new(
             "Neptunium",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[93]),
             "Neptunium",
             antoineCoefficientA: 4.15718,
@@ -2032,7 +1929,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Plutonium = new(
             "Plutonium",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[94]),
             "Plutonium",
             antoineMaximumTemperature: 3505,
@@ -2048,7 +1944,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Americium = new(
             "Americium",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[95]),
             "Americium",
             antoineMaximumTemperature: 2880,
@@ -2062,7 +1957,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Curium = new(
             "Curium",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[96]),
             "Curium",
             antoineMaximumTemperature: 3383,
@@ -2076,7 +1970,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Berkelium = new(
             "Berkelium",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[97]),
             "Berkelium",
             antoineMaximumTemperature: 2900,
@@ -2089,7 +1982,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Californium = new(
             "Californium",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[98]),
             "Californium",
             antoineMaximumTemperature: 2900,
@@ -2102,7 +1994,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Einsteinium = new(
             "Einsteinium",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[99]),
             "Einsteinium",
             antoineMaximumTemperature: 1269,
@@ -2115,7 +2006,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Fermium = new(
             "Fermium",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[100]),
             "Fermium",
             densitySolid: 9710,
@@ -2126,7 +2016,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Mendelevium = new(
             "Mendelevium",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[101]),
             "Mendelevium",
             densitySolid: 10370,
@@ -2137,7 +2026,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Nobelium = new(
             "Nobelium",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[102]),
             "Nobelium",
             densitySolid: 9940,
@@ -2148,7 +2036,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Lawrencium = new(
             "Lawrencium",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[103]),
             "Lawrencium",
             densitySolid: 16100,
@@ -2159,7 +2046,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Rutherfordium = new(
             "Rutherfordium",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[104]),
             "Rutherfordium",
             antoineMaximumTemperature: 5800,
@@ -2172,7 +2058,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Dubnium = new(
             "Dubnium",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[105]),
             "Dubnium",
             densitySolid: 29300);
@@ -2182,7 +2067,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Seaborgium = new(
             "Seaborgium",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[106]),
             "Seaborgium",
             densitySolid: 35000);
@@ -2192,7 +2076,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Bohrium = new(
             "Bohrium",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[107]),
             "Bohrium",
             densitySolid: 37100);
@@ -2202,7 +2085,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Hassium = new(
             "Hassium",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[108]),
             "Hassium",
             densitySolid: 41000);
@@ -2212,7 +2094,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Meitnerium = new(
             "Meitnerium",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[109]),
             "Meitnerium",
             densitySolid: 37400);
@@ -2222,7 +2103,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Darmstadtium = new(
             "Darmstadtium",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[110]),
             "Darmstadtium",
             densitySolid: 34800);
@@ -2232,7 +2112,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Roentgenium = new(
             "Roentgenium",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[111]),
             "Roentgenium",
             densitySolid: 28700);
@@ -2242,7 +2121,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Copernicium = new(
             "Copernicium",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[112]),
             "Copernicium",
             antoineMaximumTemperature: 357,
@@ -2254,7 +2132,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Nihonium = new(
             "Nihonium",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[113]),
             "Nihonium",
             antoineMaximumTemperature: 1430,
@@ -2267,7 +2144,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Flerovium = new(
             "Flerovium",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[114]),
             "Flerovium",
             antoineMaximumTemperature: 210,
@@ -2279,7 +2155,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Moscovium = new(
             "Moscovium",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[115]),
             "Moscovium",
             antoineMaximumTemperature: 1400,
@@ -2292,7 +2167,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Livermorium = new(
             "Livermorium",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[116]),
             "Livermorium",
             antoineMaximumTemperature: 1085,
@@ -2305,7 +2179,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Tennessine = new(
             "Tennessine",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[117]),
             "Tennessine",
             antoineMaximumTemperature: 883,
@@ -2318,7 +2191,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Oganesson = new(
             "Oganesson",
-            Chemical.ChemicalIdItemTypeName,
             new Formula(PeriodicTable.Instance[118]),
             "Oganesson",
             antoineMaximumTemperature: 350,
@@ -2334,7 +2206,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Beryl = new(
             "Beryl",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("Be3Al2Si6O18"),
             "Beryl",
             densityLiquid: 2715,
@@ -2349,7 +2220,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Corundum = new(
             "Corundum",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("Al2O3"),
             "Corundum",
             densityLiquid: 4000,
@@ -2364,7 +2234,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Topaz = new(
             "Topaz",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("Al2SiO4(FOH)2"),
             "Topaz",
             densityLiquid: 3550,
@@ -2383,7 +2252,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Adamantane = new(
             "Adamantane",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("C10H16"),
             "Adamantane",
             antoineMaximumTemperature: 543,
@@ -2397,7 +2265,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Anthracene = new(
             "Anthracene",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("C14H10"),
             "Anthracene",
             antoineCoefficientA: 4.72997,
@@ -2415,7 +2282,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Benzene = new(
             "Benzene",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("C6H6"),
             "Benzene",
             antoineCoefficientA: 4.72583,
@@ -2432,7 +2298,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Biphenyl = new(
             "Biphenyl",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("C12H10"),
             "Biphenyl",
             antoineCoefficientA: 4.35685,
@@ -2449,7 +2314,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Butane = new(
             "Butane",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("C4H10"),
             "Butane",
             antoineCoefficientA: 4.35576,
@@ -2466,7 +2330,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical CarbonDioxide = new(
             "CarbonDioxide",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("CO2"),
             "Carbon Dioxide",
             antoineCoefficientA: 6.93556,
@@ -2484,7 +2347,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical CarbonMonoxide = new(
             "CarbonMonoxide",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("CO"),
             "Carbon Monoxide",
             antoineCoefficientA: 3.81912,
@@ -2502,7 +2364,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Cyclobutane = new(
             "Cyclobutane",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("C4H8"),
             "Cyclobutane",
             antoineCoefficientA: 4.07143,
@@ -2518,7 +2379,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Cyclodecane = new(
             "Cyclodecane",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("C10H20"),
             "Cyclodecane",
             antoineMaximumTemperature: 474,
@@ -2532,7 +2392,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Cyclododecane = new(
             "Cyclododecane",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("C12H24"),
             "Cyclododecane",
             antoineMaximumTemperature: 517,
@@ -2546,7 +2405,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Cycloheptane = new(
             "Cycloheptane",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("C7H14"),
             "Cycloheptane",
             antoineCoefficientA: 3.9771,
@@ -2563,7 +2421,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Cyclohexane = new(
             "Cyclohexane",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("C6H12"),
             "Cyclohexane",
             antoineCoefficientA: 3.96988,
@@ -2580,7 +2437,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Cyclononane = new(
             "Cyclononane",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("C9H18"),
             "Cyclononane",
             antoineMaximumTemperature: 448,
@@ -2594,7 +2450,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Cyclooctane = new(
             "Cyclooctane",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("C8H16"),
             "Cyclooctane",
             antoineCoefficientA: 3.98805,
@@ -2611,7 +2466,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Cyclopentane = new(
             "Cyclopentane",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("C5H10"),
             "Cyclopentane",
             antoineCoefficientA: 4.00288,
@@ -2628,7 +2482,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Cyclopropane = new(
             "Cyclopropane",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("C3H6"),
             "Cyclopropane",
             antoineCoefficientA: 4.05015,
@@ -2644,7 +2497,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Cyclotetradecane = new(
             "Cyclotetradecane",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("C14H28"),
             "Cyclotetradecane",
             antoineMaximumTemperature: 554.05,
@@ -2658,7 +2510,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Cyclotridecane = new(
             "Cyclotridecane",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("C13H26"),
             "Cyclotridecane",
             antoineMaximumTemperature: 534.15,
@@ -2672,7 +2523,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Cycloundecane = new(
             "Cycloundecane",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("C11H22"),
             "Cycloundecane",
             antoineMaximumTemperature: 491.55,
@@ -2686,7 +2536,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Cumene = new(
             "Cumene",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("C9H12"),
             "Cumene",
             antoineCoefficientA: 4.05419,
@@ -2703,7 +2552,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Decalin = new(
             "Decalin",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("C10H18"),
             "Decalin",
             antoineCoefficientA: 3.99304,
@@ -2720,7 +2568,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Decane = new(
             "Decane",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("C10H22"),
             "Decane",
             antoineCoefficientA: 4.07857,
@@ -2737,7 +2584,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Dodecane = new(
             "Dodecane",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("C12H26"),
             "Dodecane",
             antoineMaximumTemperature: 489,
@@ -2751,7 +2597,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Durene = new(
             "Durene",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("C10H14"),
             "Durene",
             antoineCoefficientA: 2.9204,
@@ -2768,7 +2613,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Ethane = new(
             "Ethane",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("C2H6"),
             "Ethane",
             antoineCoefficientA: 3.95405,
@@ -2786,7 +2630,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Ethylbenzene = new(
             "Ethylbenzene",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("C8H10"),
             "Ethylbenzene",
             antoineCoefficientA: 4.07488,
@@ -2803,7 +2646,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Ethylene = new(
             "Ethylene",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("C2H4"),
             "Ethylene",
             antoineCoefficientA: 3.87261,
@@ -2819,7 +2661,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Heptane = new(
             "Heptane",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("C7H16"),
             "Heptane",
             antoineCoefficientA: 4.02832,
@@ -2836,7 +2677,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Hexadecane = new(
             "Hexadecane",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("C16H34"),
             "Hexadecane",
             antoineMaximumTemperature: 560,
@@ -2850,7 +2690,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Hexane = new(
             "Hexane",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("C6H14"),
             "Hexane",
             antoineCoefficientA: 4.00266,
@@ -2867,7 +2706,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Hexene = new(
             "Hexene",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("C6H12"),
             "Hexene",
             antoineCoefficientA: 3.99063,
@@ -2884,7 +2722,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Indane = new(
             "Indane",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("C9H10"),
             "Indane",
             antoineMaximumTemperature: 449.6,
@@ -2898,7 +2735,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Indene = new(
             "Indene",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("C9H8"),
             "Indene",
             antoineCoefficientA: 5.33514,
@@ -2915,7 +2751,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Methane = new(
             "Methane",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("CH4"),
             "Methane",
             antoineCoefficientA: 3.7687,
@@ -2934,7 +2769,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical MXylene = new(
             "MXylene",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("C8H10"),
             "m-Xylene",
             antoineCoefficientA: 4.13607,
@@ -2951,7 +2785,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Naphthalene = new(
             "Naphthalene",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("C10H8"),
             "Naphthalene",
             antoineCoefficientA: 4.27117,
@@ -2969,7 +2802,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Nonane = new(
             "Nonane",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("C9H20"),
             "Nonane",
             antoineCoefficientA: 4.06245,
@@ -2986,7 +2818,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Octane = new(
             "Octane",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("C8H18"),
             "Octane",
             antoineCoefficientA: 4.04867,
@@ -3003,7 +2834,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical OXylene = new(
             "OXylene",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("C8H10"),
             "o-Xylene",
             antoineCoefficientA: 4.12928,
@@ -3020,7 +2850,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Pentadecane = new(
             "Pentadecane",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("C15H32"),
             "Pentadecane",
             antoineMaximumTemperature: 543.15,
@@ -3034,7 +2863,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Pentane = new(
             "Pentane",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("C5H12"),
             "Pentane",
             antoineCoefficientA: 3.9892,
@@ -3051,7 +2879,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Phenanthrene = new(
             "Phenanthrene",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("C5H12"),
             "Phenanthrene",
             antoineCoefficientA: 4.6894,
@@ -3068,7 +2895,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Propane = new(
             "Propane",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("C3H8"),
             "Propane",
             antoineCoefficientA: 3.98292,
@@ -3085,7 +2911,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical PXylene = new(
             "PXylene",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("C8H10"),
             "p-Xylene",
             antoineCoefficientA: 4.11138,
@@ -3102,7 +2927,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Tetradecane = new(
             "Tetradecane",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("C14H30"),
             "Tetradecane",
             antoineMaximumTemperature: 528,
@@ -3116,7 +2940,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Toluene = new(
             "Toluene",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("C7H8"),
             "Toluene",
             antoineCoefficientA: 4.07827,
@@ -3133,7 +2956,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Tridecane = new(
             "Tridecane",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("C13H28"),
             "Tridecane",
             antoineMaximumTemperature: 507,
@@ -3147,7 +2969,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Undecane = new(
             "Undecane",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("C11H24"),
             "Undecane",
             antoineMaximumTemperature: 468,
@@ -3165,7 +2986,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical AlphaParticle = new(
             "AlphaParticle",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("He+2"),
             "Alpha Particle",
             antoineMaximumTemperature: 0,
@@ -3180,7 +3000,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Bicarbonate = new(
             "Bicarbonate",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("HCO3-1"),
             "Bicarbonate",
             antoineMaximumTemperature: 520.06,
@@ -3193,7 +3012,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical C4Pos = new(
             "C4Pos",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("C+4"),
             "C⁴⁺",
             antoineMaximumTemperature: 3915,
@@ -3210,7 +3028,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Ca2Pos = new(
             "Ca2Pos",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("Ca+2"),
             "Ca²⁺",
             antoineCoefficientA: 2.78473,
@@ -3230,7 +3047,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Cl1Neg = new(
             "Cl1Neg",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("Cl-1"),
             "Cl⁻",
             antoineCoefficientA: 3.0213,
@@ -3248,7 +3064,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Cr3Pos = new(
             "Cr3Pos",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("Cr+3"),
             "Cr³⁺",
             antoineCoefficientA: 6.02371,
@@ -3267,7 +3082,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Fe2Pos = new(
             "Fe2Pos",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("Fe+2"),
             "Fe²⁺",
             antoineMaximumTemperature: 3134,
@@ -3283,7 +3097,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical HydrogenPlasma = new(
             "HydrogenPlasma",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("H+1"),
             "Hydrogen Plasma",
             antoineCoefficientA: 3.54314,
@@ -3303,7 +3116,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical K1Pos = new(
             "K1Pos",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("K+1"),
             "K⁺",
             antoineCoefficientA: 4.45718,
@@ -3323,7 +3135,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Mg2Pos = new(
             "Mg2Pos",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("Mg+2"),
             "Mg²⁺",
             antoineMaximumTemperature: 1363,
@@ -3340,7 +3151,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical N5Pos = new(
             "N5Pos",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("N+5"),
             "N⁵⁺",
             antoineCoefficientA: 3.61947,
@@ -3357,7 +3167,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Na1Pos = new(
             "Na1Pos",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("Na+1"),
             "Na⁺",
             antoineCoefficientA: 2.46077,
@@ -3377,7 +3186,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical O2Pos = new(
             "O2Pos",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("O+2"),
             "O²⁺",
             antoineCoefficientA: 3.81634,
@@ -3396,7 +3204,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical S6Pos = new(
             "S6Pos",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("S+6"),
             "S⁶⁺",
             antoineMaximumTemperature: 717.8,
@@ -3412,7 +3219,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Si4Pos = new(
             "Si4Pos",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("Si+4"),
             "Si⁴⁺",
             antoineCoefficientA: 9.56436,
@@ -3430,7 +3236,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Sulfate = new(
             "Sulfate",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("SO4-2"),
             "Sulfate",
             antoineMaximumTemperature: 897.04,
@@ -3442,7 +3247,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Ti4Pos = new(
             "Ti4Pos",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("Ti+2"),
             "Ti⁴⁺",
             antoineMaximumTemperature: 3560,
@@ -3462,7 +3266,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Acanthite = new(
             "Acanthite",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("Ag2S"),
             "Acanthite",
             antoineMaximumTemperature: 1233.15,
@@ -3476,7 +3279,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Albite = new(
             "Albite",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("AlNaO8Si3"),
             "Albite",
             densitySolid: 2620,
@@ -3489,7 +3291,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Anorthite = new(
             "Anorthite",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("Al2CaO8Si2"),
             "Anorthite",
             densitySolid: 2730,
@@ -3502,7 +3303,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Boehmite = new(
             "Boehmite",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("AlHO2"),
             "Boehmite",
             antoineMaximumTemperature: 3253.15,
@@ -3517,7 +3317,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical CalciumCarbonate = new(
             "CalciumCarbonate",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("CaCO3"),
             "Calcium Carbonate",
             antoineMaximumTemperature: 1098.15,
@@ -3533,7 +3332,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Cassiterite = new(
             "Cassiterite",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("SnO2"),
             "Cassiterite",
             antoineMaximumTemperature: 2120,
@@ -3547,7 +3345,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Chalcopyrite = new(
             "Chalcopyrite",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("CuFeS2"),
             "Chalcopyrite",
             densitySolid: 4200,
@@ -3559,7 +3356,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Chromite = new(
             "Chromite",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("FeCr2O4"),
             "Chromite",
             densitySolid: 4650,
@@ -3571,7 +3367,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Cinnabar = new(
             "Cinnabar",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("HgS"),
             "Cinnabar",
             densitySolid: 8176,
@@ -3583,7 +3378,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Diopside = new(
             "Diopside",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("CaFeO6Si2"),
             "Diopside",
             densitySolid: 3400,
@@ -3595,7 +3389,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Enstatite = new(
             "Enstatite",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("MgO3Si"),
             "Enstatite",
             densitySolid: 3200,
@@ -3608,7 +3401,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Fayalite = new(
             "Fayalite",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("Fe2O4Si"),
             "Fayalite",
             densitySolid: 3200,
@@ -3620,7 +3412,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Ferrosilite = new(
             "Ferrosilite",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("FeO3Si"),
             "Ferrosilite",
             densitySolid: 3200,
@@ -3632,7 +3423,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Forsterite = new(
             "Forsterite",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("Mg2O4Si"),
             "Forsterite",
             densitySolid: 3270,
@@ -3644,7 +3434,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Galena = new(
             "Galena",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("PbS"),
             "Galena",
             antoineMaximumTemperature: 1554,
@@ -3658,7 +3447,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Gibbsite = new(
             "Gibbsite",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("AlH3O3"),
             "Gibbsite",
             antoineMaximumTemperature: 2792,
@@ -3672,7 +3460,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Goethite = new(
             "Goethite",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("FeHO2"),
             "Goethite",
             densitySolid: 3550,
@@ -3684,7 +3471,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Gypsum = new(
             "Gypsum",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("CaH4O6S"),
             "Gypsum",
             densitySolid: 2317,
@@ -3696,7 +3482,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Hematite = new(
             "Hematite",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("Fe2O3"),
             "Hematite",
             densitySolid: 5300,
@@ -3708,7 +3493,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Hydroxyapatite = new(
             "Hydroxyapatite",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("Ca10H2O26P6"),
             "Hydroxyapatite",
             densitySolid: 3180,
@@ -3721,7 +3505,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Ilmenite = new(
             "Ilmenite",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("FeO3Ti"),
             "Ilmenite",
             densitySolid: 4745,
@@ -3733,7 +3516,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Kaolinite = new(
             "Kaolinite",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("Al2H4O9Si2"),
             "Kaolinite",
             densitySolid: 2650,
@@ -3746,7 +3528,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Magnetite = new(
             "Magnetite",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("Fe3O4"),
             "Magnetite",
             antoineMaximumTemperature: 2896,
@@ -3761,7 +3542,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Muscovite = new(
             "Muscovite",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("Al3F2H2KO12Si3"),
             "Muscovite",
             densitySolid: 2820,
@@ -3774,7 +3554,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Orthoclase = new(
             "Orthoclase",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("AlKSi3O8"),
             "Orthoclase",
             densitySolid: 2560,
@@ -3787,7 +3566,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical PotassiumNitrate = new(
             "PotassiumNitrate",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("KNO3"),
             "Potassium Nitrate",
             densityLiquid: 2109,
@@ -3800,7 +3578,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Pyrite = new(
             "Pyrite",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("FeS2"),
             "Pyrite",
             densitySolid: 4900,
@@ -3813,7 +3590,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical SiliconCarbide = new(
             "SiliconCarbide",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("CSi"),
             "Silicon Carbide",
             densitySolid: 3160,
@@ -3825,7 +3601,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical SiliconDioxide = new(
             "SiliconDioxide",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("SiO2"),
             "Silicon Dioxide",
             antoineMinimumTemperature: 3220,
@@ -3841,7 +3616,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical SodiumChloride = new(
             "SodiumChloride",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("ClNa"),
             "Sodium Chloride",
             antoineCoefficientA: 5.07184,
@@ -3859,7 +3633,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Sperrylite = new(
             "Sperrylite",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("PtAs2"),
             "Sperrylite",
             densitySolid: 10580,
@@ -3875,7 +3648,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical AluminiumOxide = new(
             "AluminiumOxide",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("Al2O3"),
             "Aluminium Oxide",
             antoineMaximumTemperature: 3250,
@@ -3888,7 +3660,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical CalciumHydroxide = new(
             "CalciumHydroxide",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("CaH2O2"),
             "Calcium Hydroxide",
             antoineMaximumTemperature: 3123.15,
@@ -3901,7 +3672,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical CalciumOxide = new(
             "CalciumOxide",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("CaO"),
             "Calcium Oxide",
             antoineCoefficientA: 4.92531,
@@ -3917,7 +3687,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical IronSulfide = new(
             "IronSulfide",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("FeS"),
             "Iron Sulfide",
             densitySolid: 4840,
@@ -3928,7 +3697,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical LeadOxide = new(
             "LeadOxide",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("PbO"),
             "Lead Oxide",
             antoineMaximumTemperature: 1750,
@@ -3941,7 +3709,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Lead206Oxide = new(
             "Lead206Oxide",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("{206}PbO"),
             "Lead-206 Oxide",
             antoineMaximumTemperature: 1750,
@@ -3954,7 +3721,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical PhosphoricAcid = new(
             "PhosphoricAcid",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("H3PO4"),
             "Phosphoric Acid",
             antoineMinimumTemperature: 431,
@@ -3968,7 +3734,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical SodiumOxide = new(
             "SodiumOxide",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("Na2O"),
             "Sodium Oxide",
             antoineMaximumTemperature: 2220,
@@ -3981,7 +3746,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical SulfuricAcid = new(
             "SulfuricAcid",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("H2SO4"),
             "Sulfuric Acid",
             antoineMaximumTemperature: 610,
@@ -3995,7 +3759,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Water = new(
             "Water",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("H2O"),
             "Water",
             antoineCoefficientA: 4.6543,
@@ -4015,7 +3778,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical ZincSulfide = new(
             "ZincSulfide",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("ZnS"),
             "Zinc Sulfide",
             antoineMaximumTemperature: 2120,
@@ -4029,7 +3791,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical UraniumDioxide = new(
             "UraniumDioxide",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("O2U"),
             "Uranium Dioxide",
             densitySolid: 10970,
@@ -4041,7 +3802,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Uranium235Dioxide = new(
             "Uranium235Dioxide",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("O2{235}U"),
             "Uranium-235 Dioxide",
             densitySolid: 10970,
@@ -4057,7 +3817,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Benzothiophene = new(
             "Benzothiophene",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("C8H6S"),
             "Benzothiophene",
             antoineMaximumTemperature: 494,
@@ -4070,7 +3829,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Cellulose = new(
             "Cellulose",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("C4800H8000O4000"),
             "Cellulose",
             densitySolid: 1500,
@@ -4082,7 +3840,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Chitin = new(
             "Chitin",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("C8H13O5N"),
             "Chitin",
             densitySolid: 1370,
@@ -4094,7 +3851,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Collagen = new(
             "Collagen",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("C57H91N19O16"),
             "Collagen",
             densitySolid: 1350,
@@ -4105,7 +3861,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Dibenzothiophene = new(
             "Dibenzothiophene",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("C12H8S"),
             "Dibenzothiophene",
             antoineMaximumTemperature: 605.5,
@@ -4118,7 +3873,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Elastin = new(
             "Elastin",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("C27H48N6O6"),
             "Elastin",
             antoineMaximumTemperature: 373.15,
@@ -4130,7 +3884,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Ethanol = new(
             "Ethanol",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("C2H6O"),
             "Ethanol",
             antoineCoefficientA: 4.92531,
@@ -4149,7 +3902,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Fructose = new(
             "Fructose",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("C6H12O6"),
             "Fructose",
             densitySolid: 1694,
@@ -4161,7 +3913,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Galactose = new(
             "Galactose",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("C6H12O6"),
             "Galactose",
             densitySolid: 1500,
@@ -4172,7 +3923,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Glucose = new(
             "Glucose",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("C6H12O6"),
             "Glucose",
             densitySolid: 1540,
@@ -4184,7 +3934,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Glycogen = new(
             "Glycogen",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("C24H42O21"),
             "Glycogen",
             densitySolid: 1630,
@@ -4196,7 +3945,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical IsopropylAlcohol = new(
             "IsopropylAlcohol",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("C3H8O"),
             "Isopropyl Alcohol",
             antoineCoefficientA: 4.8610,
@@ -4214,7 +3962,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Lactose = new(
             "Lactose",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("C12H22O11"),
             "Lactose",
             densitySolid: 1525,
@@ -4226,7 +3973,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Lignin = new(
             "Lignin",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("C1023H1122O363"),
             "Lignin",
             densitySolid: 1397,
@@ -4238,7 +3984,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Maltose = new(
             "Maltose",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("C12H22O11"),
             "Maltose",
             densitySolid: 1540,
@@ -4249,7 +3994,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Methanol = new(
             "Methanol",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("CH4O"),
             "Methanol",
             antoineCoefficientA: 5.20409,
@@ -4267,7 +4011,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical PotassiumCarbonate = new(
             "PotassiumCarbonate",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("K2CO3"),
             "Potassium Carbonate",
             densityLiquid: 2430,
@@ -4279,7 +4022,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical SodiumCarbonate = new(
             "SodiumCarbonate",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("Na2CO3"),
             "Sodium Carbonate",
             antoineMaximumTemperature: 1873.15,
@@ -4292,7 +4034,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Sucrose = new(
             "Sucrose",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("C12H22O11"),
             "Sucrose",
             densitySolid: 1587,
@@ -4303,7 +4044,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Triolein = new(
             "Triolein",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("C57H104O6"),
             "Triolein",
             antoineMaximumTemperature: 827.4,
@@ -4321,7 +4061,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Nylon = new(
             "Nylon",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("C12H22N2O2"),
             "Nylon",
             densitySolid: 1314,
@@ -4333,7 +4072,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Polycarbonate = new(
             "Polycarbonate",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("C15H16O2"),
             "Polycarbonate",
             densitySolid: 1210,
@@ -4345,7 +4083,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Polyester = new(
             "Polyester",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("C10H8O4"),
             "Polyester",
             antoineMaximumTemperature: 623,
@@ -4358,7 +4095,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Polyethylene = new(
             "Polyethylene",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("C2H4"),
             "Polyethylene",
             densitySolid: 920,
@@ -4370,7 +4106,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Polypropylene = new(
             "Polypropylene",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("C3H6"),
             "Polypropylene",
             densitySolid: 855,
@@ -4382,7 +4117,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical Polystyrene = new(
             "Polystyrene",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("C8H8"),
             "Polystyrene",
             densitySolid: 1000,
@@ -4394,7 +4128,6 @@ public static class Substances
         /// </summary>
         public static readonly Chemical PolyvinylChloride = new(
             "PolyvinylChloride",
-            Chemical.ChemicalIdItemTypeName,
             Formula.Parse("C2H3Cl"),
             "Polyvinyl Chloride",
             densitySolid: 1375,
@@ -4415,7 +4148,6 @@ public static class Substances
         /// </summary>
         public static readonly HomogeneousSubstance Fuzzball = new(
             "Fuzzball",
-            HomogeneousSubstance.HomogeneousSubstanceIdItemTypeName,
             "Fuzzball",
             antoineMaximumTemperature: 0,
             antoineMinimumTemperature: 0,
@@ -4426,7 +4158,6 @@ public static class Substances
         /// </summary>
         public static readonly HomogeneousSubstance NeutronDegenerateMatter = new(
             "NeutronDegenerateMatter",
-            HomogeneousSubstance.HomogeneousSubstanceIdItemTypeName,
             "Neutron Degenerate Matter",
             fixedPhase: PhaseType.NeutronDegenerateMatter,
             densitySpecial: 4e17);
@@ -4440,7 +4171,6 @@ public static class Substances
         /// </summary>
         public static readonly HomogeneousSubstance Blood = new(
             "Blood",
-            HomogeneousSubstance.HomogeneousSubstanceIdItemTypeName,
             "Blood",
             antoineCoefficientA: 4.6543,
             antoineCoefficientB: 1435.264,
@@ -4457,7 +4187,6 @@ public static class Substances
         /// </summary>
         public static readonly HomogeneousSubstance Flesh = new(
             "Flesh",
-            HomogeneousSubstance.HomogeneousSubstanceIdItemTypeName,
             "Flesh",
             densitySolid: 976,
             isFlammable: true,
@@ -4468,7 +4197,6 @@ public static class Substances
         /// </summary>
         public static readonly HomogeneousSubstance Keratin = new(
             "Keratin",
-            HomogeneousSubstance.HomogeneousSubstanceIdItemTypeName,
             "Keratin",
             densitySolid: 1170,
             hardness: 220,
@@ -4481,7 +4209,6 @@ public static class Substances
         /// </summary>
         public static readonly HomogeneousSubstance Protein = new(
             "Protein",
-            HomogeneousSubstance.HomogeneousSubstanceIdItemTypeName,
             "Protein",
             densitySolid: 1350,
             isFlammable: true,
