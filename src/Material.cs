@@ -160,7 +160,7 @@ public class Material<TScalar> : IMaterial<Material<TScalar>, TScalar>, IEquatab
         Constituents = constituents;
         Shape = shape;
         Mass = mass;
-        Density = density ?? (mass / shape.Volume).CreateChecked<TScalar, double>();
+        Density = density ?? double.CreateChecked(mass / shape.Volume);
         Temperature = temperature;
     }
 
@@ -543,7 +543,7 @@ public class Material<TScalar> : IMaterial<Material<TScalar>, TScalar>, IEquatab
             Constituents = new ReadOnlyDictionary<ISubstanceReference, decimal>(new Dictionary<ISubstanceReference, decimal>());
         }
         Mass = mass;
-        Density = density ?? (mass / shape.Volume).CreateChecked<TScalar, double>();
+        Density = density ?? double.CreateChecked(mass / shape.Volume);
         Temperature = temperature;
     }
 

@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.5.1-preview
+### Updated
+- Update dependencies
+
 ## 0.5.0-preview
 ### Updated
 - Update to .NET 7

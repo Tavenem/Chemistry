@@ -332,7 +332,7 @@ public static class Materials
     public static IMaterial<TScalar> SetDensityFromMassAndShape<TScalar>(this IMaterial<TScalar> material)
         where TScalar : IFloatingPointIeee754<TScalar>
     {
-        material.Density = (material.Mass / material.Shape.Volume).CreateChecked<TScalar, double>();
+        material.Density = double.CreateChecked(material.Mass / material.Shape.Volume);
         return material;
     }
 

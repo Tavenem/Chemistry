@@ -30,7 +30,7 @@ public class Composite<TScalar> : IMaterial<Composite<TScalar>, TScalar>, IEquat
             {
                 var ratio = Mass.IsNearlyZero()
                     ? 0
-                    : (component.Mass / Mass).CreateChecked<TScalar, decimal>();
+                    : decimal.CreateChecked(component.Mass / Mass);
                 foreach (var (substance, proportion) in component.Constituents)
                 {
                     if (constituents.ContainsKey(substance))
@@ -63,7 +63,7 @@ public class Composite<TScalar> : IMaterial<Composite<TScalar>, TScalar>, IEquat
     /// </summary>
     public double Density
     {
-        get => _density ?? (Components.Sum(x => x.Mass) / Components.Sum(x => x.Shape.Volume)).CreateChecked<TScalar, double>();
+        get => _density ?? double.CreateChecked(Components.Sum(x => x.Mass) / Components.Sum(x => x.Shape.Volume));
         set => _density = value;
     }
 
@@ -163,7 +163,7 @@ public class Composite<TScalar> : IMaterial<Composite<TScalar>, TScalar>, IEquat
             var massTotal = Components.Sum(x => x.Mass);
             return Components
                 .Where(x => x.Temperature.HasValue)
-                .Sum(x => x.Temperature * (x.Mass / massTotal).CreateChecked<TScalar, double>());
+                .Sum(x => x.Temperature * double.CreateChecked(x.Mass / massTotal));
         }
         set => _temperature = value;
     }
