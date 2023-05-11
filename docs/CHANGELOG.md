@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.6.0-preview
+### Added
+- Common names
+- Substance enumerations
+
 ## 0.5.2-preview
 ### Updated
 - Update to .NET 7
@@ -42,7 +47,7 @@
 ## 0.3.0-preview
 ### Changed
 - Re-unify `IMaterial`, `Material`, and `Composite` using static abstract interfaces
-- Make structs readonly
+- Make structs read-only
 ### Removed
 - Remove support for non-JSON serialization
 

@@ -17,6 +17,18 @@ namespace Tavenem.Chemistry;
 public interface ISubstance : IIdItem, IEquatable<ISubstance>, IEquatable<ISubstanceReference>
 {
     /// <summary>
+    /// An optional list of common names for this substance.
+    /// </summary>
+    /// <remarks>
+    /// The list may be arranged in order of most to least common, so that the first name in the
+    /// list (if a list is present at all) can be assumed to be the most recognizable name for the
+    /// substance. However, this is not a strict requirement. Names may appear in any order,
+    /// particularly if no specific usage data is available, or when various names are equally
+    /// common in different contexts.
+    /// </remarks>
+    IReadOnlyList<string>? CommonNames { get; }
+
+    /// <summary>
     /// <para>
     /// The collection of constituents that make up this substance, along with their relative
     /// proportions (as normalized values between zero and one).
@@ -146,7 +158,7 @@ public interface ISubstance : IIdItem, IEquatable<ISubstance>, IEquatable<ISubst
     /// </para>
     /// <para>
     /// The proportions of the other constituents of this substance will be reduced
-    /// proportionately to accomodate this value.
+    /// proportionately to accommodate this value.
     /// </para>
     /// <para>
     /// If less than or equal to zero, this instance is returned unchanged.
@@ -178,7 +190,7 @@ public interface ISubstance : IIdItem, IEquatable<ISubstance>, IEquatable<ISubst
     /// </para>
     /// <para>
     /// The proportions of the other constituents of this substance will be reduced
-    /// proportionately to accomodate this value.
+    /// proportionately to accommodate this value.
     /// </para>
     /// <para>
     /// If less than or equal to zero, this instance is returned unchanged.
@@ -203,7 +215,7 @@ public interface ISubstance : IIdItem, IEquatable<ISubstance>, IEquatable<ISubst
     /// </para>
     /// <para>
     /// The proportions of the individual constituents of each substance will be reduced
-    /// proportionately to accomodate this value.
+    /// proportionately to accommodate this value.
     /// </para>
     /// </param>
     /// <returns>A new <see cref="ISubstance"/> instance representing the combination of this
@@ -223,7 +235,7 @@ public interface ISubstance : IIdItem, IEquatable<ISubstance>, IEquatable<ISubst
     /// </para>
     /// <para>
     /// The proportions of the individual constituents of each substance will be reduced
-    /// proportionately to accomodate this value.
+    /// proportionately to accommodate this value.
     /// </para>
     /// </param>
     /// <returns>A new <see cref="ISubstance"/> instance representing the combination of this
@@ -404,6 +416,18 @@ public interface ISubstance : IIdItem, IEquatable<ISubstance>, IEquatable<ISubst
     /// Gets a copy of this instance with the given <paramref name="name"/>.
     /// </summary>
     /// <param name="name">A new name for this instance.</param>
+    /// <param name="commonNames">
+    /// <para>
+    /// An optional list of new common names for this substance.
+    /// </para>
+    /// <para>
+    /// The list may be arranged in order of most to least common, so that the first name in the
+    /// list (if a list is present at all) can be assumed to be the most recognizable name for the
+    /// substance. However, this is not a strict requirement. Names may appear in any order,
+    /// particularly if no specific usage data is available, or when various names are equally
+    /// common in different contexts.
+    /// </para>
+    /// </param>
     /// <returns>A version of this instance with the given name.</returns>
-    ISubstance WithSubstanceName(string name);
+    ISubstance WithSubstanceName(string name, params string[] commonNames);
 }

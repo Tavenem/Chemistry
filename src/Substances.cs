@@ -18,7 +18,7 @@ namespace Tavenem.Chemistry;
 /// footprint and versioning issues.
 /// </para>
 /// <para>
-/// The <c>TryGetX(string)</c> methods will retireve substances from the registry by id.
+/// The <c>TryGetX(string)</c> methods will retrieve substances from the registry by id.
 /// </para>
 /// <para>
 /// New substances can be added to the registry with the <c>Register(ISubstance)</c> method
@@ -282,12 +282,12 @@ public static class Substances
             meltingPoint: 140.35);
 
         /// <summary>
-        /// sulphur dioxide
+        /// sulfur dioxide
         /// </summary>
         public static readonly Chemical SulphurDioxide = new(
-            "SulphurDioxide",
+            "SulfurDioxide",
             Formula.Parse("SO2"),
-            "Sulphur Dioxide",
+            "Sulfur Dioxide",
             antoineCoefficientA: 4.40718,
             antoineCoefficientB: 999.90,
             antoineCoefficientC: -35.96,
@@ -296,6 +296,34 @@ public static class Substances
             densityLiquid: 1377,
             densitySolid: 1377,
             meltingPoint: 202.15);
+
+        /// <summary>
+        /// Enumerates the default set of chemicals.
+        /// </summary>
+        /// <returns>
+        /// An <see cref="IEnumerable{T}"/> of <see cref="Chemical"/> instances.
+        /// </returns>
+        /// <remarks>
+        /// <para>
+        /// For ease of use, substances are grouped into a few basic categories.
+        /// </para>
+        /// <para>
+        /// This enumeration includes substances categorized as "atmospheric." Also see <see
+        /// cref="GetAllChemicalsMetals"/>, <see cref="GetAllChemicalsNonMetals"/>, <see
+        /// cref="GetAllChemicalsGems"/>, <see cref="GetAllChemicalsHydrocarbons"/>, <see
+        /// cref="GetAllChemicalsIons"/>, <see cref="GetAllChemicalsMinerals"/>, <see
+        /// cref="GetAllChemicalsOrganics"/>, <see cref="GetAllChemicalsPlastics"/>, and <see
+        /// cref="GetAllChemicalsMisc"/>.
+        /// </para>
+        /// </remarks>
+        public static IEnumerable<Chemical> GetAllChemicalsAtmospheric()
+        {
+            yield return Ammonia;
+            yield return AmmoniumHydrosulfide;
+            yield return HydrogenSulfide;
+            yield return Phosphine;
+            yield return SulphurDioxide;
+        }
 
         #endregion Atmospheric
 
@@ -412,7 +440,8 @@ public static class Substances
             hardness: 310,
             isFlammable: true,
             meltingPoint: 3915,
-            youngsModulus: 15.85);
+            youngsModulus: 15.85,
+            commonNames: new string[] { "Graphite" });
 
         /// <summary>
         /// the diamond allotrope of the element Carbon
@@ -532,8 +561,8 @@ public static class Substances
             densityLiquid: 927,
             densitySolid: 968,
             hardness: 0.69,
-            isFlammable: true,
             isConductive: true,
+            isFlammable: true,
             meltingPoint: 370.944,
             youngsModulus: 6.8);
 
@@ -549,8 +578,8 @@ public static class Substances
             densityLiquid: 1584,
             densitySolid: 1738,
             hardness: 152,
-            isFlammable: true,
             isConductive: true,
+            isFlammable: true,
             meltingPoint: 370.944,
             youngsModulus: 44.7);
 
@@ -571,7 +600,8 @@ public static class Substances
             hardness: 255,
             isConductive: true,
             meltingPoint: 933.45,
-            youngsModulus: 70.2);
+            youngsModulus: 70.2,
+            commonNames: new string[] { "Aluminum" });
 
         /// <summary>
         /// the native form of the element Silicon
@@ -607,7 +637,8 @@ public static class Substances
             densitySolid: 1823,
             isFlammable: true,
             meltingPoint: 317.3,
-            youngsModulus: 30.4);
+            youngsModulus: 30.4,
+            commonNames: new string[] { "Phosphorus" });
 
         /// <summary>
         /// the red allotrope of the element Phosphorus
@@ -625,7 +656,8 @@ public static class Substances
             densitySolid: 2270,
             isFlammable: true,
             meltingPoint: 860,
-            youngsModulus: 30.4);
+            youngsModulus: 30.4,
+            commonNames: new string[] { "Phosphorus" });
 
         /// <summary>
         /// the native form of the element Sulfur
@@ -692,8 +724,8 @@ public static class Substances
             densityLiquid: 828,
             densitySolid: 862,
             hardness: 0.363,
-            isFlammable: true,
             isConductive: true,
+            isFlammable: true,
             meltingPoint: 336.7,
             youngsModulus: 3.175);
 
@@ -712,8 +744,8 @@ public static class Substances
             densityLiquid: 1378,
             densitySolid: 1550,
             hardness: 293,
-            isFlammable: true,
             isConductive: true,
+            isFlammable: true,
             meltingPoint: 1115,
             youngsModulus: 19.6);
 
@@ -729,8 +761,8 @@ public static class Substances
             densityLiquid: 2800,
             densitySolid: 2985,
             hardness: 968,
-            isFlammable: true,
             isConductive: true,
+            isFlammable: true,
             meltingPoint: 1814,
             youngsModulus: 74.4);
 
@@ -1205,7 +1237,8 @@ public static class Substances
             hardness: 245,
             isConductive: true,
             meltingPoint: 505.08,
-            youngsModulus: 49.9);
+            youngsModulus: 49.9,
+            commonNames: new string[] { "Tin" });
 
         /// <summary>
         /// the gray allotrope of the element Tin
@@ -1222,7 +1255,8 @@ public static class Substances
             densityLiquid: 6990,
             densitySolid: 5769,
             hardness: 245,
-            meltingPoint: 505.08);
+            meltingPoint: 505.08,
+            commonNames: new string[] { "Tin" });
 
         /// <summary>
         /// the native form of the element Antimony
@@ -1307,7 +1341,8 @@ public static class Substances
             isConductive: true,
             isFlammable: true,
             meltingPoint: 301.7,
-            youngsModulus: 1.69);
+            youngsModulus: 1.69,
+            commonNames: new string[] { "Cesium" });
 
         /// <summary>
         /// the native form of the element Barium
@@ -2197,6 +2232,175 @@ public static class Substances
             antoineMinimumTemperature: 350,
             densityLiquid: 5500);
 
+        /// <summary>
+        /// Enumerates the default set of chemicals.
+        /// </summary>
+        /// <returns>
+        /// An <see cref="IEnumerable{T}"/> of <see cref="Chemical"/> instances.
+        /// </returns>
+        /// <remarks>
+        /// <para>
+        /// For ease of use, substances are grouped into a few basic categories.
+        /// </para>
+        /// <para>
+        /// This enumeration includes substances categorized as "metals." Also see <see
+        /// cref="GetAllChemicalsAtmospheric"/>, <see cref="GetAllChemicalsNonMetals"/>, <see
+        /// cref="GetAllChemicalsGems"/>, <see cref="GetAllChemicalsHydrocarbons"/>, <see
+        /// cref="GetAllChemicalsIons"/>, <see cref="GetAllChemicalsMinerals"/>, <see
+        /// cref="GetAllChemicalsOrganics"/>, <see cref="GetAllChemicalsPlastics"/>, and <see
+        /// cref="GetAllChemicalsMisc"/>.
+        /// </para>
+        /// </remarks>
+        public static IEnumerable<Chemical> GetAllChemicalsMetals()
+        {
+            yield return MetallicHydrogen;
+            yield return Lithium;
+            yield return Beryllium;
+            yield return Sodium;
+            yield return Magnesium;
+            yield return Aluminium;
+            yield return Potassium;
+            yield return Calcium;
+            yield return Scandium;
+            yield return Titanium;
+            yield return Vanadium;
+            yield return Chromium;
+            yield return Manganese;
+            yield return Iron;
+            yield return Cobalt;
+            yield return Nickel;
+            yield return Copper;
+            yield return Zinc;
+            yield return Gallium;
+            yield return Rubidium;
+            yield return Strontium;
+            yield return Yttrium;
+            yield return Zirconium;
+            yield return Niobium;
+            yield return Molybdenum;
+            yield return Technetium;
+            yield return Ruthenium;
+            yield return Rhodium;
+            yield return Palladium;
+            yield return Silver;
+            yield return Cadmium;
+            yield return Indium;
+            yield return WhiteTin;
+            yield return GrayTin;
+            yield return Caesium;
+            yield return Barium;
+            yield return Lanthanum;
+            yield return Cerium;
+            yield return Praseodymium;
+            yield return Neodymium;
+            yield return Promethium;
+            yield return Samarium;
+            yield return Europium;
+            yield return Gadolinium;
+            yield return Terbium;
+            yield return Dysprosium;
+            yield return Holmium;
+            yield return Erbium;
+            yield return Thulium;
+            yield return Ytterbium;
+            yield return Lutetium;
+            yield return Hafnium;
+            yield return Tantalum;
+            yield return Tungsten;
+            yield return Rhenium;
+            yield return Osmium;
+            yield return Iridium;
+            yield return Platinum;
+            yield return Gold;
+            yield return Mercury;
+            yield return Thallium;
+            yield return Lead;
+            yield return Bismuth;
+            yield return Polonium;
+            yield return Francium;
+            yield return Radium;
+            yield return Actinium;
+            yield return Thorium;
+            yield return Protactinium;
+            yield return Uranium;
+            yield return Neptunium;
+            yield return Plutonium;
+            yield return Americium;
+            yield return Curium;
+            yield return Berkelium;
+            yield return Californium;
+            yield return Einsteinium;
+            yield return Fermium;
+            yield return Mendelevium;
+            yield return Nobelium;
+            yield return Lawrencium;
+            yield return Rutherfordium;
+            yield return Dubnium;
+            yield return Seaborgium;
+            yield return Bohrium;
+            yield return Hassium;
+            yield return Meitnerium;
+            yield return Darmstadtium;
+            yield return Roentgenium;
+            yield return Copernicium;
+            yield return Nihonium;
+            yield return Flerovium;
+            yield return Moscovium;
+            yield return Livermorium;
+        }
+
+        /// <summary>
+        /// Enumerates the default set of chemicals.
+        /// </summary>
+        /// <returns>
+        /// An <see cref="IEnumerable{T}"/> of <see cref="Chemical"/> instances.
+        /// </returns>
+        /// <remarks>
+        /// <para>
+        /// For ease of use, substances are grouped into a few basic categories.
+        /// </para>
+        /// <para>
+        /// This enumeration includes substances categorized as "non-metals." Also see <see
+        /// cref="GetAllChemicalsAtmospheric"/>, <see cref="GetAllChemicalsMetals"/>, <see
+        /// cref="GetAllChemicalsGems"/>, <see cref="GetAllChemicalsHydrocarbons"/>, <see
+        /// cref="GetAllChemicalsIons"/>, <see cref="GetAllChemicalsMinerals"/>, <see
+        /// cref="GetAllChemicalsOrganics"/>, <see cref="GetAllChemicalsPlastics"/>, and <see
+        /// cref="GetAllChemicalsMisc"/>.
+        /// </para>
+        /// </remarks>
+        public static IEnumerable<Chemical> GetAllChemicalsNonMetals()
+        {
+            yield return Hydrogen;
+            yield return Helium;
+            yield return Boron;
+            yield return AmorphousCarbon;
+            yield return Diamond;
+            yield return Nitrogen;
+            yield return Oxygen;
+            yield return Ozone;
+            yield return Fluorine;
+            yield return Neon;
+            yield return Silicon;
+            yield return WhitePhosphorus;
+            yield return RedPhosphorus;
+            yield return Sulfur;
+            yield return Chlorine;
+            yield return Argon;
+            yield return Germanium;
+            yield return Arsenic;
+            yield return Selenium;
+            yield return Bromine;
+            yield return Krypton;
+            yield return Antimony;
+            yield return Tellurium;
+            yield return Iodine;
+            yield return Xenon;
+            yield return Astatine;
+            yield return Radon;
+            yield return Tennessine;
+            yield return Oganesson;
+        }
+
         #endregion Elements
 
         #region Gems
@@ -2213,7 +2417,8 @@ public static class Substances
             hardness: 1500,
             isGemstone: true,
             meltingPoint: 2570,
-            youngsModulus: 211);
+            youngsModulus: 211,
+            commonNames: new string[] { "Aquamarine" });
 
         /// <summary>
         /// Corundum
@@ -2242,6 +2447,32 @@ public static class Substances
             isGemstone: true,
             meltingPoint: 688.45,
             youngsModulus: 290);
+
+        /// <summary>
+        /// Enumerates the default set of chemicals.
+        /// </summary>
+        /// <returns>
+        /// An <see cref="IEnumerable{T}"/> of <see cref="Chemical"/> instances.
+        /// </returns>
+        /// <remarks>
+        /// <para>
+        /// For ease of use, substances are grouped into a few basic categories.
+        /// </para>
+        /// <para>
+        /// This enumeration includes substances categorized as "gems." Also see <see
+        /// cref="GetAllChemicalsAtmospheric"/>, <see cref="GetAllChemicalsMetals"/>, <see
+        /// cref="GetAllChemicalsNonMetals"/>, <see cref="GetAllChemicalsHydrocarbons"/>, <see
+        /// cref="GetAllChemicalsIons"/>, <see cref="GetAllChemicalsMinerals"/>, <see
+        /// cref="GetAllChemicalsOrganics"/>, <see cref="GetAllChemicalsPlastics"/>, and <see
+        /// cref="GetAllChemicalsMisc"/>.
+        /// </para>
+        /// </remarks>
+        public static IEnumerable<Chemical> GetAllChemicalsGems()
+        {
+            yield return Beryl;
+            yield return Corundum;
+            yield return Topaz;
+        }
 
         #endregion Gems
 
@@ -2977,6 +3208,77 @@ public static class Substances
             isFlammable: true,
             meltingPoint: 247.4);
 
+        /// <summary>
+        /// Enumerates the default set of chemicals.
+        /// </summary>
+        /// <returns>
+        /// An <see cref="IEnumerable{T}"/> of <see cref="Chemical"/> instances.
+        /// </returns>
+        /// <remarks>
+        /// <para>
+        /// For ease of use, substances are grouped into a few basic categories.
+        /// </para>
+        /// <para>
+        /// This enumeration includes substances categorized as "hydrocarbons." Also see <see
+        /// cref="GetAllChemicalsAtmospheric"/>, <see cref="GetAllChemicalsMetals"/>, <see
+        /// cref="GetAllChemicalsNonMetals"/>, <see cref="GetAllChemicalsGems"/>, <see
+        /// cref="GetAllChemicalsIons"/>, <see cref="GetAllChemicalsMinerals"/>, <see
+        /// cref="GetAllChemicalsOrganics"/>, <see cref="GetAllChemicalsPlastics"/>, and <see
+        /// cref="GetAllChemicalsMisc"/>.
+        /// </para>
+        /// </remarks>
+        public static IEnumerable<Chemical> GetAllChemicalsHydrocarbons()
+        {
+            yield return Adamantane;
+            yield return Anthracene;
+            yield return Benzene;
+            yield return Biphenyl;
+            yield return Butane;
+            yield return CarbonDioxide;
+            yield return CarbonMonoxide;
+            yield return Cyclobutane;
+            yield return Cyclodecane;
+            yield return Cyclododecane;
+            yield return Cycloheptane;
+            yield return Cyclohexane;
+            yield return Cyclononane;
+            yield return Cyclooctane;
+            yield return Cyclopentane;
+            yield return Cyclopropane;
+            yield return Cyclotetradecane;
+            yield return Cyclotridecane;
+            yield return Cycloundecane;
+            yield return Cumene;
+            yield return Decalin;
+            yield return Decane;
+            yield return Dodecane;
+            yield return Durene;
+            yield return Ethane;
+            yield return Ethylbenzene;
+            yield return Ethylene;
+            yield return Heptane;
+            yield return Hexadecane;
+            yield return Hexane;
+            yield return Hexene;
+            yield return Indane;
+            yield return Indene;
+            yield return Methane;
+            yield return MXylene;
+            yield return Naphthalene;
+            yield return Nonane;
+            yield return Octane;
+            yield return OXylene;
+            yield return Pentadecane;
+            yield return Pentane;
+            yield return Phenanthrene;
+            yield return Propane;
+            yield return PXylene;
+            yield return Tetradecane;
+            yield return Toluene;
+            yield return Tridecane;
+            yield return Undecane;
+        }
+
         #endregion Hydrocarbons
 
         #region Ions
@@ -3019,8 +3321,8 @@ public static class Substances
             densityLiquid: 1950,
             densitySolid: 1950,
             hardness: 5,
-            isFlammable: true,
             isConductive: true,
+            isFlammable: true,
             meltingPoint: 3915);
 
         /// <summary>
@@ -3038,8 +3340,8 @@ public static class Substances
             densityLiquid: 1378,
             densitySolid: 1550,
             hardness: 293,
-            isFlammable: true,
             isConductive: true,
+            isFlammable: true,
             meltingPoint: 1115);
 
         /// <summary>
@@ -3126,8 +3428,8 @@ public static class Substances
             densityLiquid: 828,
             densitySolid: 862,
             hardness: 0.363,
-            isFlammable: true,
             isConductive: true,
+            isFlammable: true,
             meltingPoint: 336.7);
 
         /// <summary>
@@ -3142,8 +3444,8 @@ public static class Substances
             densityLiquid: 1584,
             densitySolid: 1738,
             hardness: 152,
-            isFlammable: true,
             isConductive: true,
+            isFlammable: true,
             meltingPoint: 370.944);
 
         /// <summary>
@@ -3177,8 +3479,8 @@ public static class Substances
             densityLiquid: 927,
             densitySolid: 968,
             hardness: 0.69,
-            isFlammable: true,
             isConductive: true,
+            isFlammable: true,
             meltingPoint: 370.944);
 
         /// <summary>
@@ -3257,6 +3559,46 @@ public static class Substances
             isConductive: true,
             meltingPoint: 1941);
 
+        /// <summary>
+        /// Enumerates the default set of chemicals.
+        /// </summary>
+        /// <returns>
+        /// An <see cref="IEnumerable{T}"/> of <see cref="Chemical"/> instances.
+        /// </returns>
+        /// <remarks>
+        /// <para>
+        /// For ease of use, substances are grouped into a few basic categories.
+        /// </para>
+        /// <para>
+        /// This enumeration includes substances categorized as "ions." Also see <see
+        /// cref="GetAllChemicalsAtmospheric"/>, <see cref="GetAllChemicalsMetals"/>, <see
+        /// cref="GetAllChemicalsNonMetals"/>, <see cref="GetAllChemicalsGems"/>, <see
+        /// cref="GetAllChemicalsHydrocarbons"/>, <see cref="GetAllChemicalsMinerals"/>, <see
+        /// cref="GetAllChemicalsOrganics"/>, <see cref="GetAllChemicalsPlastics"/>, and <see
+        /// cref="GetAllChemicalsMisc"/>.
+        /// </para>
+        /// </remarks>
+        public static IEnumerable<Chemical> GetAllChemicalsIons()
+        {
+            yield return AlphaParticle;
+            yield return Bicarbonate;
+            yield return C4Pos;
+            yield return Ca2Pos;
+            yield return Cl1Neg;
+            yield return Cr3Pos;
+            yield return Fe2Pos;
+            yield return HydrogenPlasma;
+            yield return K1Pos;
+            yield return Mg2Pos;
+            yield return N5Pos;
+            yield return Na1Pos;
+            yield return O2Pos;
+            yield return S6Pos;
+            yield return Si4Pos;
+            yield return Sulfate;
+            yield return Ti4Pos;
+        }
+
         #endregion Ions
 
         #region Minerals
@@ -3325,7 +3667,8 @@ public static class Substances
             densitySolid: 2711,
             hardness: 250,
             meltingPoint: 1612,
-            youngsModulus: 80.7);
+            youngsModulus: 80.7,
+            commonNames: new string[] { "Limestone", "Calcite", "Aragonite", "Limescale" });
 
         /// <summary>
         /// Cassiterite
@@ -3521,7 +3864,8 @@ public static class Substances
             densitySolid: 2650,
             hardness: 42,
             meltingPoint: 2023.15,
-            youngsModulus: 3.2);
+            youngsModulus: 3.2,
+            commonNames: new string[] { "Kaolin", "China Clay", "Lithomarge" });
 
         /// <summary>
         /// Magnetite
@@ -3583,7 +3927,8 @@ public static class Substances
             densitySolid: 4900,
             hardness: 1512.5,
             meltingPoint: 1455.65,
-            youngsModulus: 291.5);
+            youngsModulus: 291.5,
+            commonNames: new string[] { "Fool's Gold", "Iron Pyrite" });
 
         /// <summary>
         /// Silicon Carbide
@@ -3594,7 +3939,8 @@ public static class Substances
             "Silicon Carbide",
             densitySolid: 3160,
             hardness: 2500,
-            meltingPoint: 3100);
+            meltingPoint: 3100,
+            commonNames: new string[] { "Carborundum" });
 
         /// <summary>
         /// Silicon Dioxide
@@ -3603,13 +3949,14 @@ public static class Substances
             "SiliconDioxide",
             Formula.Parse("SiO2"),
             "Silicon Dioxide",
-            antoineMinimumTemperature: 3220,
             antoineMaximumTemperature: 3220,
+            antoineMinimumTemperature: 3220,
             densityLiquid: 2196,
             densitySolid: 2196,
             hardness: 10980,
             meltingPoint: 1923.15,
-            youngsModulus: 95.5);
+            youngsModulus: 95.5,
+            commonNames: new string[] { "Sand", "Quartz", "Silica" });
 
         /// <summary>
         /// Sodium Chloride
@@ -3626,7 +3973,8 @@ public static class Substances
             densitySolid: 2170,
             hardness: 20,
             meltingPoint: 1073.8,
-            youngsModulus: 39.98);
+            youngsModulus: 39.98,
+            commonNames: new string[] { "Salt" });
 
         /// <summary>
         /// Sperrylite
@@ -3638,6 +3986,60 @@ public static class Substances
             densitySolid: 10580,
             hardness: 1118.5,
             meltingPoint: 2041);
+
+        /// <summary>
+        /// Enumerates the default set of chemicals.
+        /// </summary>
+        /// <returns>
+        /// An <see cref="IEnumerable{T}"/> of <see cref="Chemical"/> instances.
+        /// </returns>
+        /// <remarks>
+        /// <para>
+        /// For ease of use, substances are grouped into a few basic categories.
+        /// </para>
+        /// <para>
+        /// This enumeration includes substances categorized as "minerals." Also see <see
+        /// cref="GetAllChemicalsAtmospheric"/>, <see cref="GetAllChemicalsMetals"/>, <see
+        /// cref="GetAllChemicalsNonMetals"/>, <see cref="GetAllChemicalsGems"/>, <see
+        /// cref="GetAllChemicalsHydrocarbons"/>, <see cref="GetAllChemicalsIons"/>, <see
+        /// cref="GetAllChemicalsOrganics"/>, <see cref="GetAllChemicalsPlastics"/>, and <see
+        /// cref="GetAllChemicalsMisc"/>.
+        /// </para>
+        /// </remarks>
+        public static IEnumerable<Chemical> GetAllChemicalsMinerals()
+        {
+            yield return Acanthite;
+            yield return Albite;
+            yield return Anorthite;
+            yield return Boehmite;
+            yield return CalciumCarbonate;
+            yield return Cassiterite;
+            yield return Chalcopyrite;
+            yield return Chromite;
+            yield return Cinnabar;
+            yield return Diopside;
+            yield return Enstatite;
+            yield return Fayalite;
+            yield return Ferrosilite;
+            yield return Forsterite;
+            yield return Galena;
+            yield return Gibbsite;
+            yield return Goethite;
+            yield return Gypsum;
+            yield return Hematite;
+            yield return Hydroxyapatite;
+            yield return Ilmenite;
+            yield return Kaolinite;
+            yield return Magnetite;
+            yield return Muscovite;
+            yield return Orthoclase;
+            yield return PotassiumNitrate;
+            yield return Pyrite;
+            yield return SiliconCarbide;
+            yield return SiliconDioxide;
+            yield return SodiumChloride;
+            yield return Sperrylite;
+        }
 
         #endregion Minerals
 
@@ -3653,7 +4055,8 @@ public static class Substances
             antoineMaximumTemperature: 3250,
             antoineMinimumTemperature: 3250,
             densitySolid: 3987,
-            meltingPoint: 2345);
+            meltingPoint: 2345,
+            commonNames: new string[] { "Alumina", "Aluminum Oxide", "Aloxide", "Aloxite", "Alundum" });
 
         /// <summary>
         /// Calcium Hydroxide
@@ -3665,7 +4068,8 @@ public static class Substances
             antoineMaximumTemperature: 3123.15,
             antoineMinimumTemperature: 3123.15,
             densitySolid: 2211,
-            meltingPoint: 853);
+            meltingPoint: 853,
+            commonNames: new string[] { "Hydrated Lime", "Caustic Lime", "Builders' Lime", "Slaked Lime", "Pickling Lime" });
 
         /// <summary>
         /// Calcium Oxide
@@ -3680,7 +4084,8 @@ public static class Substances
             antoineMaximumTemperature: 3120,
             antoineMinimumTemperature: 3120,
             densitySolid: 3340,
-            meltingPoint: 2886);
+            meltingPoint: 2886,
+            commonNames: new string[] { "Quicklime", "Burnt Lime" });
 
         /// <summary>
         /// Iron Sulfide
@@ -3723,8 +4128,8 @@ public static class Substances
             "PhosphoricAcid",
             Formula.Parse("H3PO4"),
             "Phosphoric Acid",
-            antoineMinimumTemperature: 431,
             antoineMaximumTemperature: 431,
+            antoineMinimumTemperature: 431,
             densityLiquid: 2030,
             densitySolid: 2030,
             meltingPoint: 315.45);
@@ -3752,7 +4157,8 @@ public static class Substances
             antoineMinimumTemperature: 610,
             densityLiquid: 1840,
             densitySolid: 1840,
-            meltingPoint: 283);
+            meltingPoint: 283,
+            commonNames: new string[] { "Sulphuric Acid", "Oil of Vitriol" });
 
         /// <summary>
         /// Water
@@ -3807,6 +4213,42 @@ public static class Substances
             densitySolid: 10970,
             hardness: 2128,
             meltingPoint: 3138);
+
+        /// <summary>
+        /// Enumerates the default set of chemicals.
+        /// </summary>
+        /// <returns>
+        /// An <see cref="IEnumerable{T}"/> of <see cref="Chemical"/> instances.
+        /// </returns>
+        /// <remarks>
+        /// <para>
+        /// For ease of use, substances are grouped into a few basic categories.
+        /// </para>
+        /// <para>
+        /// This enumeration includes substances categorized as "miscellaneous." Also see <see
+        /// cref="GetAllChemicalsAtmospheric"/>, <see cref="GetAllChemicalsMetals"/>, <see
+        /// cref="GetAllChemicalsNonMetals"/>, <see cref="GetAllChemicalsGems"/>, <see
+        /// cref="GetAllChemicalsHydrocarbons"/>, <see cref="GetAllChemicalsIons"/>, <see
+        /// cref="GetAllChemicalsMinerals"/>, <see cref="GetAllChemicalsOrganics"/>, and <see
+        /// cref="GetAllChemicalsPlastics"/>.
+        /// </para>
+        /// </remarks>
+        public static IEnumerable<Chemical> GetAllChemicalsMisc()
+        {
+            yield return AluminiumOxide;
+            yield return CalciumHydroxide;
+            yield return CalciumOxide;
+            yield return IronSulfide;
+            yield return LeadOxide;
+            yield return Lead206Oxide;
+            yield return PhosphoricAcid;
+            yield return SodiumOxide;
+            yield return SulfuricAcid;
+            yield return Water;
+            yield return ZincSulfide;
+            yield return UraniumDioxide;
+            yield return Uranium235Dioxide;
+        }
 
         #endregion Misc
 
@@ -3895,7 +4337,8 @@ public static class Substances
             densitySolid: 789.3,
             isConductive: true,
             isFlammable: true,
-            meltingPoint: 158.8);
+            meltingPoint: 158.8,
+            commonNames: new string[] { "Alcohol", "Ethyl Alcohol", "Grain Alcohol" });
 
         /// <summary>
         /// Fructose
@@ -3906,7 +4349,8 @@ public static class Substances
             "Fructose",
             densitySolid: 1694,
             isFlammable: true,
-            meltingPoint: 376);
+            meltingPoint: 376,
+            commonNames: new string[] { "Sugar", "Fruit Sugar" });
 
         /// <summary>
         /// Galactose
@@ -3927,7 +4371,8 @@ public static class Substances
             "Glucose",
             densitySolid: 1540,
             isFlammable: true,
-            meltingPoint: 423);
+            meltingPoint: 423,
+            commonNames: new string[] { "Sugar" });
 
         /// <summary>
         /// Glycogen
@@ -4004,7 +4449,8 @@ public static class Substances
             densityLiquid: 792,
             isConductive: true,
             isFlammable: true,
-            meltingPoint: 175.6);
+            meltingPoint: 175.6,
+            commonNames: new string[] { "Methyl Alcohol", "Wood Alcohol", "Wood Spirit", "Pyroxylic Spirit" });
 
         /// <summary>
         /// Potassium Carbonate
@@ -4027,7 +4473,8 @@ public static class Substances
             antoineMaximumTemperature: 1873.15,
             antoineMinimumTemperature: 1873.15,
             densitySolid: 2540,
-            meltingPoint: 1124);
+            meltingPoint: 1124,
+            commonNames: new string[] { "Washing Soda", "Soda Ash" });
 
         /// <summary>
         /// Sucrose
@@ -4037,7 +4484,8 @@ public static class Substances
             Formula.Parse("C12H22O11"),
             "Sucrose",
             densitySolid: 1587,
-            isFlammable: true);
+            isFlammable: true,
+            commonNames: new string[] { "Sugar" });
 
         /// <summary>
         /// Triolein
@@ -4051,6 +4499,49 @@ public static class Substances
             densityLiquid: 907.8,
             isFlammable: true,
             meltingPoint: 278);
+
+        /// <summary>
+        /// Enumerates the default set of chemicals.
+        /// </summary>
+        /// <returns>
+        /// An <see cref="IEnumerable{T}"/> of <see cref="Chemical"/> instances.
+        /// </returns>
+        /// <remarks>
+        /// <para>
+        /// For ease of use, substances are grouped into a few basic categories.
+        /// </para>
+        /// <para>
+        /// This enumeration includes substances categorized as "organics." Also see <see
+        /// cref="GetAllChemicalsAtmospheric"/>, <see cref="GetAllChemicalsMetals"/>, <see
+        /// cref="GetAllChemicalsNonMetals"/>, <see cref="GetAllChemicalsGems"/>, <see
+        /// cref="GetAllChemicalsHydrocarbons"/>, <see cref="GetAllChemicalsIons"/>, <see
+        /// cref="GetAllChemicalsMinerals"/>, <see cref="GetAllChemicalsPlastics"/>, and <see
+        /// cref="GetAllChemicalsMisc"/>.
+        /// </para>
+        /// </remarks>
+        public static IEnumerable<Chemical> GetAllChemicalsOrganics()
+        {
+            yield return Benzothiophene;
+            yield return Cellulose;
+            yield return Chitin;
+            yield return Collagen;
+            yield return Dibenzothiophene;
+            yield return Elastin;
+            yield return Ethanol;
+            yield return Fructose;
+            yield return Galactose;
+            yield return Glucose;
+            yield return Glycogen;
+            yield return IsopropylAlcohol;
+            yield return Lactose;
+            yield return Lignin;
+            yield return Maltose;
+            yield return Methanol;
+            yield return PotassiumCarbonate;
+            yield return SodiumCarbonate;
+            yield return Sucrose;
+            yield return Triolein;
+        }
 
         #endregion Organics
 
@@ -4134,7 +4625,87 @@ public static class Substances
             meltingPoint: 453.15,
             youngsModulus: 3.25);
 
+        /// <summary>
+        /// Enumerates the default set of chemicals.
+        /// </summary>
+        /// <returns>
+        /// An <see cref="IEnumerable{T}"/> of <see cref="Chemical"/> instances.
+        /// </returns>
+        /// <remarks>
+        /// <para>
+        /// For ease of use, substances are grouped into a few basic categories.
+        /// </para>
+        /// <para>
+        /// This enumeration includes substances categorized as "plastics." Also see <see
+        /// cref="GetAllChemicalsAtmospheric"/>, <see cref="GetAllChemicalsMetals"/>, <see
+        /// cref="GetAllChemicalsNonMetals"/>, <see cref="GetAllChemicalsGems"/>, <see
+        /// cref="GetAllChemicalsHydrocarbons"/>, <see cref="GetAllChemicalsIons"/>, <see
+        /// cref="GetAllChemicalsMinerals"/>, <see cref="GetAllChemicalsOrganics"/>, and <see
+        /// cref="GetAllChemicalsMisc"/>.
+        /// </para>
+        /// </remarks>
+        public static IEnumerable<Chemical> GetAllChemicalsPlastics()
+        {
+            yield return Nylon;
+            yield return Polycarbonate;
+            yield return Polyester;
+            yield return Polyethylene;
+            yield return Polypropylene;
+            yield return Polystyrene;
+            yield return PolyvinylChloride;
+        }
+
         #endregion Plastics
+
+        /// <summary>
+        /// Enumerates the default set of chemicals.
+        /// </summary>
+        /// <returns>
+        /// An <see cref="IEnumerable{T}"/> of <see cref="Chemical"/> instances.
+        /// </returns>
+        public static IEnumerable<Chemical> GetAllChemicals()
+        {
+            foreach (var substance in GetAllChemicalsAtmospheric())
+            {
+                yield return substance;
+            }
+            foreach (var substance in GetAllChemicalsGems())
+            {
+                yield return substance;
+            }
+            foreach (var substance in GetAllChemicalsHydrocarbons())
+            {
+                yield return substance;
+            }
+            foreach (var substance in GetAllChemicalsIons())
+            {
+                yield return substance;
+            }
+            foreach (var substance in GetAllChemicalsMetals())
+            {
+                yield return substance;
+            }
+            foreach (var substance in GetAllChemicalsNonMetals())
+            {
+                yield return substance;
+            }
+            foreach (var substance in GetAllChemicalsMinerals())
+            {
+                yield return substance;
+            }
+            foreach (var substance in GetAllChemicalsOrganics())
+            {
+                yield return substance;
+            }
+            foreach (var substance in GetAllChemicalsPlastics())
+            {
+                yield return substance;
+            }
+            foreach (var substance in GetAllChemicalsMisc())
+            {
+                yield return substance;
+            }
+        }
 
         #endregion Chemicals
 
@@ -4159,8 +4730,29 @@ public static class Substances
         public static readonly HomogeneousSubstance NeutronDegenerateMatter = new(
             "NeutronDegenerateMatter",
             "Neutron Degenerate Matter",
-            fixedPhase: PhaseType.NeutronDegenerateMatter,
-            densitySpecial: 4e17);
+            densitySpecial: 4e17,
+            fixedPhase: PhaseType.NeutronDegenerateMatter);
+
+        /// <summary>
+        /// Enumerates the default set of homogeneous substances.
+        /// </summary>
+        /// <returns>
+        /// An <see cref="IEnumerable{T}"/> of <see cref="HomogeneousSubstance"/> instances.
+        /// </returns>
+        /// <remarks>
+        /// <para>
+        /// For ease of use, substances are grouped into a few basic categories.
+        /// </para>
+        /// <para>
+        /// This enumeration includes substances categorized as "cosmic." Also see <see
+        /// cref="GetAllHomogeneousSubstancesOrganics"/>.
+        /// </para>
+        /// </remarks>
+        public static IEnumerable<HomogeneousSubstance> GetAllHomogeneousSubstancesCosmic()
+        {
+            yield return Fuzzball;
+            yield return NeutronDegenerateMatter;
+        }
 
         #endregion Cosmic
 
@@ -4215,7 +4807,48 @@ public static class Substances
             molarMass: 53,
             youngsModulus: 2);
 
+        /// <summary>
+        /// Enumerates the default set of homogeneous substances.
+        /// </summary>
+        /// <returns>
+        /// An <see cref="IEnumerable{T}"/> of <see cref="HomogeneousSubstance"/> instances.
+        /// </returns>
+        /// <remarks>
+        /// <para>
+        /// For ease of use, substances are grouped into a few basic categories.
+        /// </para>
+        /// <para>
+        /// This enumeration includes substances categorized as "organics." Also see <see
+        /// cref="GetAllHomogeneousSubstancesCosmic"/>.
+        /// </para>
+        /// </remarks>
+        public static IEnumerable<HomogeneousSubstance> GetAllHomogeneousSubstancesOrganics()
+        {
+            yield return Blood;
+            yield return Flesh;
+            yield return Keratin;
+            yield return Protein;
+        }
+
         #endregion Organics
+
+        /// <summary>
+        /// Enumerates the default set of homogeneous substances.
+        /// </summary>
+        /// <returns>
+        /// An <see cref="IEnumerable{T}"/> of <see cref="HomogeneousSubstance"/> instances.
+        /// </returns>
+        public static IEnumerable<HomogeneousSubstance> GetAllHomogeneousSubstances()
+        {
+            foreach (var substance in GetAllHomogeneousSubstancesCosmic())
+            {
+                yield return substance;
+            }
+            foreach (var substance in GetAllHomogeneousSubstancesOrganics())
+            {
+                yield return substance;
+            }
+        }
 
         #endregion HomogeneousSubstances
 
@@ -4271,7 +4904,8 @@ public static class Substances
             densitySolid: 7850,
             hardness: 1765,
             meltingPoint: 1643.15,
-            youngsModulus: 180);
+            youngsModulus: 180,
+            commonNames: new string[] { "Steel" });
 
         /// <summary>
         /// Ferrochrome
@@ -4296,7 +4930,7 @@ public static class Substances
                 (Iron.GetHomogeneousReference(), 0.945m),
                 (Nickel.GetHomogeneousReference(), 0.055m),
             },
-            "IronNickelAlloy");
+            "Iron-Nickel Alloy");
 
         /// <summary>
         /// Stainless Steel
@@ -4313,41 +4947,37 @@ public static class Substances
             densitySolid: 7850,
             hardness: 1765,
             meltingPoint: 1643.15,
-            youngsModulus: 180);
-
-        #endregion Alloys
-
-        #region Aqueous
+            youngsModulus: 180,
+            commonNames: new string[] { "Steel" });
 
         /// <summary>
-        /// Seawater
+        /// Enumerates the default set of solutions.
         /// </summary>
-        public static readonly Solution Seawater = new(
-            "Seawater",
-            new (HomogeneousReference, decimal)[]
-            {
-                (Water.GetHomogeneousReference(), 0.965m),
-                (Cl1Neg.GetHomogeneousReference(), 0.019354m),
-                (Na1Pos.GetHomogeneousReference(), 0.01077m),
-                (Sulfate.GetHomogeneousReference(), 0.002712m),
-                (Mg2Pos.GetHomogeneousReference(), 0.00129m),
-                (Ca2Pos.GetHomogeneousReference(), 0.0004121m),
-                (K1Pos.GetHomogeneousReference(), 0.000399m),
-                (Bicarbonate.GetHomogeneousReference(), 0.0001424m),
-            },
-            "Seawater",
-            antoineCoefficientA: 4.6543,
-            antoineCoefficientB: 1435.264,
-            antoineCoefficientC: -62.848,
-            antoineMaximumTemperature: 373.0,
-            antoineMinimumTemperature: 255.9,
-            densityLiquid: 1025,
-            densitySolid: 1025,
-            hardness: 8,
-            isConductive: true,
-            meltingPoint: 271.35);
+        /// <returns>
+        /// An <see cref="IEnumerable{T}"/> of <see cref="Solution"/> instances.
+        /// </returns>
+        /// <remarks>
+        /// <para>
+        /// For ease of use, substances are grouped into a few basic categories.
+        /// </para>
+        /// <para>
+        /// This enumeration includes substances categorized as "alloys." Also see <see
+        /// cref="GetAllSolutionsMisc"/>, <see cref="GetAllSolutionsArtificial"/>, <see
+        /// cref="GetAllSolutionsGems"/>, <see cref="GetAllSolutionsHydrocarbons"/>, <see
+        /// cref="GetAllSolutionsMinerals"/>, and <see cref="GetAllSolutionsOrganics"/>.
+        /// </para>
+        /// </remarks>
+        public static IEnumerable<Solution> GetAllSolutionsAlloys()
+        {
+            yield return Brass;
+            yield return Bronze;
+            yield return CarbonSteel;
+            yield return Ferrochrome;
+            yield return IronNickelAlloy;
+            yield return StainlessSteel;
+        }
 
-        #endregion Aqueous
+        #endregion Alloys
 
         #region Artificial
 
@@ -4380,7 +5010,8 @@ public static class Substances
             "Cotton Cloth",
             densitySolid: 400,
             isFlammable: true,
-            youngsModulus: 9.72);
+            youngsModulus: 9.72,
+            commonNames: new string[] { "Cloth" });
 
         /// <summary>
         /// Leather
@@ -4426,7 +5057,8 @@ public static class Substances
             hardness: 400,
             meltingPoint: 1923.15,
             fixedPhase: PhaseType.Glass,
-            youngsModulus: 70);
+            youngsModulus: 70,
+            commonNames: new string[] { "Glass" });
 
         /// <summary>
         /// Stoneware
@@ -4449,6 +5081,33 @@ public static class Substances
             meltingPoint: 2300,
             fixedPhase: PhaseType.Glass);
 
+        /// <summary>
+        /// Enumerates the default set of solutions.
+        /// </summary>
+        /// <returns>
+        /// An <see cref="IEnumerable{T}"/> of <see cref="Solution"/> instances.
+        /// </returns>
+        /// <remarks>
+        /// <para>
+        /// For ease of use, substances are grouped into a few basic categories.
+        /// </para>
+        /// <para>
+        /// This enumeration includes substances categorized as "artificial." Also see <see
+        /// cref="GetAllSolutionsAlloys"/>, <see cref="GetAllSolutionsMisc"/>, <see
+        /// cref="GetAllSolutionsGems"/>, <see cref="GetAllSolutionsHydrocarbons"/>, <see
+        /// cref="GetAllSolutionsMinerals"/>, and <see cref="GetAllSolutionsOrganics"/>.
+        /// </para>
+        /// </remarks>
+        public static IEnumerable<Solution> GetAllSolutionsArtificial()
+        {
+            yield return Cement;
+            yield return CottonCloth;
+            yield return Leather;
+            yield return Paper;
+            yield return SodaLimeGlass;
+            yield return Stoneware;
+        }
+
         #endregion Artificial
 
         #region Gems
@@ -4464,6 +5123,19 @@ public static class Substances
                 (Cr3Pos.GetHomogeneousReference(), 0.01m),
             },
             "Emerald",
+            isGemstone: true);
+
+        /// <summary>
+        /// Opal
+        /// </summary>
+        public static readonly Solution Opal = new(
+            "Opal",
+            new (HomogeneousReference, decimal)[]
+            {
+                (SiliconDioxide.GetHomogeneousReference(), 0.92m),
+                (Water.GetHomogeneousReference(), 0.08m),
+            },
+            "Opal",
             isGemstone: true);
 
         /// <summary>
@@ -4495,6 +5167,30 @@ public static class Substances
             isGemstone: true,
             youngsModulus: 345);
 
+        /// <summary>
+        /// Enumerates the default set of solutions.
+        /// </summary>
+        /// <returns>
+        /// An <see cref="IEnumerable{T}"/> of <see cref="Solution"/> instances.
+        /// </returns>
+        /// <remarks>
+        /// <para>
+        /// For ease of use, substances are grouped into a few basic categories.
+        /// </para>
+        /// <para>
+        /// This enumeration includes substances categorized as "gems." Also see <see
+        /// cref="GetAllSolutionsAlloys"/>, <see cref="GetAllSolutionsMisc"/>, <see
+        /// cref="GetAllSolutionsArtificial"/>, <see cref="GetAllSolutionsHydrocarbons"/>, <see
+        /// cref="GetAllSolutionsMinerals"/>, and <see cref="GetAllSolutionsOrganics"/>.
+        /// </para>
+        /// </remarks>
+        public static IEnumerable<Solution> GetAllSolutionsGems()
+        {
+            yield return Emerald;
+            yield return Ruby;
+            yield return Sapphire;
+        }
+
         #endregion Gems
 
         #region Hydrocarbons
@@ -4513,6 +5209,28 @@ public static class Substances
             "Vitrinite",
             densitySolid: 833,
             hardness: 245);
+
+        /// <summary>
+        /// Enumerates the default set of solutions.
+        /// </summary>
+        /// <returns>
+        /// An <see cref="IEnumerable{T}"/> of <see cref="Solution"/> instances.
+        /// </returns>
+        /// <remarks>
+        /// <para>
+        /// For ease of use, substances are grouped into a few basic categories.
+        /// </para>
+        /// <para>
+        /// This enumeration includes substances categorized as "hydrocarbons." Also see <see
+        /// cref="GetAllSolutionsAlloys"/>, <see cref="GetAllSolutionsMisc"/>, <see
+        /// cref="GetAllSolutionsArtificial"/>, <see cref="GetAllSolutionsGems"/>, <see
+        /// cref="GetAllSolutionsMinerals"/>, and <see cref="GetAllSolutionsOrganics"/>.
+        /// </para>
+        /// </remarks>
+        public static IEnumerable<Solution> GetAllSolutionsHydrocarbons()
+        {
+            yield return Vitrinite;
+        }
 
         #endregion Hydrocarbons
 
@@ -4611,7 +5329,88 @@ public static class Substances
             "Uraninite",
             densitySolid: 10790);
 
+        /// <summary>
+        /// Enumerates the default set of solutions.
+        /// </summary>
+        /// <returns>
+        /// An <see cref="IEnumerable{T}"/> of <see cref="Solution"/> instances.
+        /// </returns>
+        /// <remarks>
+        /// <para>
+        /// For ease of use, substances are grouped into a few basic categories.
+        /// </para>
+        /// <para>
+        /// This enumeration includes substances categorized as "minerals." Also see <see
+        /// cref="GetAllSolutionsAlloys"/>, <see cref="GetAllSolutionsMisc"/>, <see
+        /// cref="GetAllSolutionsArtificial"/>, <see cref="GetAllSolutionsGems"/>, <see
+        /// cref="GetAllSolutionsHydrocarbons"/>, and <see cref="GetAllSolutionsOrganics"/>.
+        /// </para>
+        /// </remarks>
+        public static IEnumerable<Solution> GetAllSolutionsMinerals()
+        {
+            yield return Olivine;
+            yield return CosmicDust;
+            yield return Orthopyroxene;
+            yield return Plagioclase;
+            yield return Sphalerite;
+            yield return Uraninite;
+        }
+
         #endregion Minerals
+
+        #region Misc
+
+        /// <summary>
+        /// Seawater
+        /// </summary>
+        public static readonly Solution Seawater = new(
+            "Seawater",
+            new (HomogeneousReference, decimal)[]
+            {
+                (Water.GetHomogeneousReference(), 0.965m),
+                (Cl1Neg.GetHomogeneousReference(), 0.019354m),
+                (Na1Pos.GetHomogeneousReference(), 0.01077m),
+                (Sulfate.GetHomogeneousReference(), 0.002712m),
+                (Mg2Pos.GetHomogeneousReference(), 0.00129m),
+                (Ca2Pos.GetHomogeneousReference(), 0.0004121m),
+                (K1Pos.GetHomogeneousReference(), 0.000399m),
+                (Bicarbonate.GetHomogeneousReference(), 0.0001424m),
+            },
+            "Seawater",
+            antoineCoefficientA: 4.6543,
+            antoineCoefficientB: 1435.264,
+            antoineCoefficientC: -62.848,
+            antoineMaximumTemperature: 373.0,
+            antoineMinimumTemperature: 255.9,
+            densityLiquid: 1025,
+            densitySolid: 1025,
+            hardness: 8,
+            isConductive: true,
+            meltingPoint: 271.35);
+
+        /// <summary>
+        /// Enumerates the default set of solutions.
+        /// </summary>
+        /// <returns>
+        /// An <see cref="IEnumerable{T}"/> of <see cref="Solution"/> instances.
+        /// </returns>
+        /// <remarks>
+        /// <para>
+        /// For ease of use, substances are grouped into a few basic categories.
+        /// </para>
+        /// <para>
+        /// This enumeration includes substances categorized as "aqueous." Also see <see
+        /// cref="GetAllSolutionsAlloys"/>, <see cref="GetAllSolutionsArtificial"/>, <see
+        /// cref="GetAllSolutionsGems"/>, <see cref="GetAllSolutionsHydrocarbons"/>, <see
+        /// cref="GetAllSolutionsMinerals"/>, and <see cref="GetAllSolutionsOrganics"/>.
+        /// </para>
+        /// </remarks>
+        public static IEnumerable<Solution> GetAllSolutionsMisc()
+        {
+            yield return Seawater;
+        }
+
+        #endregion Misc
 
         #region Organics
 
@@ -4644,9 +5443,71 @@ public static class Substances
                 (Methane.GetHomogeneousReference(), 0.014m),
                 (AmorphousCarbon.GetHomogeneousReference(), 0.005m),
             },
-            "Wood Smoke");
+            "Wood Smoke",
+            commonNames: new string[] { "Smoke" });
+
+        /// <summary>
+        /// Enumerates the default set of solutions.
+        /// </summary>
+        /// <returns>
+        /// An <see cref="IEnumerable{T}"/> of <see cref="Solution"/> instances.
+        /// </returns>
+        /// <remarks>
+        /// <para>
+        /// For ease of use, substances are grouped into a few basic categories.
+        /// </para>
+        /// <para>
+        /// This enumeration includes substances categorized as "organics." Also see <see
+        /// cref="GetAllSolutionsAlloys"/>, <see cref="GetAllSolutionsMisc"/>, <see
+        /// cref="GetAllSolutionsArtificial"/>, <see cref="GetAllSolutionsGems"/>, <see
+        /// cref="GetAllSolutionsHydrocarbons"/>, and <see cref="GetAllSolutionsMinerals"/>.
+        /// </para>
+        /// </remarks>
+        public static IEnumerable<Solution> GetAllSolutionsOrganics()
+        {
+            yield return Wood;
+            yield return WoodSmoke;
+        }
 
         #endregion Organics
+
+        /// <summary>
+        /// Enumerates the default set of solutions.
+        /// </summary>
+        /// <returns>
+        /// An <see cref="IEnumerable{T}"/> of <see cref="Solution"/> instances.
+        /// </returns>
+        public static IEnumerable<Solution> GetAllSolutions()
+        {
+            foreach (var substance in GetAllSolutionsAlloys())
+            {
+                yield return substance;
+            }
+            foreach (var substance in GetAllSolutionsArtificial())
+            {
+                yield return substance;
+            }
+            foreach (var substance in GetAllSolutionsGems())
+            {
+                yield return substance;
+            }
+            foreach (var substance in GetAllSolutionsHydrocarbons())
+            {
+                yield return substance;
+            }
+            foreach (var substance in GetAllSolutionsMinerals())
+            {
+                yield return substance;
+            }
+            foreach (var substance in GetAllSolutionsOrganics())
+            {
+                yield return substance;
+            }
+            foreach (var substance in GetAllSolutionsMisc())
+            {
+                yield return substance;
+            }
+        }
 
         #endregion Solutions
 
@@ -4714,6 +5575,31 @@ public static class Substances
                 (CarbonSteel.GetHomogeneousReference(), 0.0105m),
             },
             "Reinforced Concrete");
+
+        /// <summary>
+        /// Enumerates the default set of mixtures.
+        /// </summary>
+        /// <returns>
+        /// An <see cref="IEnumerable{T}"/> of <see cref="Mixture"/> instances.
+        /// </returns>
+        /// <remarks>
+        /// <para>
+        /// For ease of use, substances are grouped into a few basic categories.
+        /// </para>
+        /// <para>
+        /// This enumeration includes substances categorized as "artificial." Also see <see
+        /// cref="GetAllMixturesCosmic"/>, <see cref="GetAllMixturesHydrocarbons"/>, <see
+        /// cref="GetAllMixturesMinerals"/>, <see cref="GetAllMixturesOrganics"/>, and <see
+        /// cref="GetAllSolutionsMisc"/>.
+        /// </para>
+        /// </remarks>
+        public static IEnumerable<Mixture> GetAllMixturesArtificial()
+        {
+            yield return Brick;
+            yield return Concrete;
+            yield return Earthenware;
+            yield return ReinforcedConcrete;
+        }
 
         #endregion Artificial
 
@@ -4828,6 +5714,33 @@ public static class Substances
             },
             "Warm-Hot Intergalactic Medium");
 
+        /// <summary>
+        /// Enumerates the default set of mixtures.
+        /// </summary>
+        /// <returns>
+        /// An <see cref="IEnumerable{T}"/> of <see cref="Mixture"/> instances.
+        /// </returns>
+        /// <remarks>
+        /// <para>
+        /// For ease of use, substances are grouped into a few basic categories.
+        /// </para>
+        /// <para>
+        /// This enumeration includes substances categorized as "gems." Also see <see
+        /// cref="GetAllMixturesArtificial"/>, <see cref="GetAllMixturesCosmic"/>, <see
+        /// cref="GetAllMixturesHydrocarbons"/>, <see cref="GetAllMixturesMinerals"/>, <see
+        /// cref="GetAllMixturesOrganics"/>, and <see cref="GetAllSolutionsMisc"/>.
+        /// </para>
+        /// </remarks>
+        public static IEnumerable<Mixture> GetAllMixturesCosmic()
+        {
+            yield return InterplanetaryMedium;
+            yield return InterstellarMedium;
+            yield return IntraclusterMedium;
+            yield return IonizedCloud;
+            yield return MolecularCloud;
+            yield return WarmHotIntergalacticMedium;
+        }
+
         #endregion Cosmic
 
         #region Hydrocarbons
@@ -4854,7 +5767,8 @@ public static class Substances
                 (Ammonia.GetHomogeneousReference(), 0.002m)
             },
             "Anthracite",
-            densitySolid: 1350);
+            densitySolid: 1350,
+            commonNames: new string[] { "Coal", "Anthracite Coal" });
 
         /// <summary>
         /// Bituminous Coal
@@ -4879,7 +5793,8 @@ public static class Substances
             },
             "Bituminous Coal",
             densityLiquid: 1346,
-            densitySolid: 833);
+            densitySolid: 833,
+            commonNames: new string[] { "Coal" });
 
         /// <summary>
         /// Diesel
@@ -4962,7 +5877,8 @@ public static class Substances
                 (IsopropylAlcohol.GetHomogeneousReference(), 0.02m),
             },
             "Gasoline",
-            densityLiquid: 708);
+            densityLiquid: 708,
+            commonNames: new string[] { "Gas", "Petrol" });
 
         /// <summary>
         /// Kerosine
@@ -5025,7 +5941,8 @@ public static class Substances
                 (Nitrogen.GetHomogeneousReference(), 0.0354m),
                 (CarbonDioxide.GetHomogeneousReference(), 0.0004m),
             },
-            "Natural Gas");
+            "Natural Gas",
+            commonNames: new string[] { "Gas", "Fossil Gas" });
 
         /// <summary>
         /// Petroleum
@@ -5072,7 +5989,36 @@ public static class Substances
                 (PXylene.GetHomogeneousReference(), 0.005m),
             },
             "Petroleum",
-            densityLiquid: 800);
+            densityLiquid: 800,
+            commonNames: new string[] { "Oil" });
+
+        /// <summary>
+        /// Enumerates the default set of mixtures.
+        /// </summary>
+        /// <returns>
+        /// An <see cref="IEnumerable{T}"/> of <see cref="Mixture"/> instances.
+        /// </returns>
+        /// <remarks>
+        /// <para>
+        /// For ease of use, substances are grouped into a few basic categories.
+        /// </para>
+        /// <para>
+        /// This enumeration includes substances categorized as "hydrocarbons." Also see <see
+        /// cref="GetAllMixturesArtificial"/>, <see cref="GetAllMixturesCosmic"/>, <see
+        /// cref="GetAllMixturesMinerals"/>, <see cref="GetAllMixturesOrganics"/>, and <see
+        /// cref="GetAllSolutionsMisc"/>.
+        /// </para>
+        /// </remarks>
+        public static IEnumerable<Mixture> GetAllMixturesHydrocarbons()
+        {
+            yield return Anthracite;
+            yield return BituminousCoal;
+            yield return Diesel;
+            yield return Gasoline;
+            yield return Kerosine;
+            yield return NaturalGas;
+            yield return Petroleum;
+        }
 
         #endregion Hydrocarbons
 
@@ -5089,7 +6035,8 @@ public static class Substances
                 (SiliconDioxide.GetHomogeneousReference(), 0.295m),
                 (Muscovite.GetHomogeneousReference(), 0.175m),
             },
-            "Ball Clay");
+            "Ball Clay",
+            commonNames: new string[] { "Clay" });
 
         /// <summary>
         /// Basalt
@@ -5150,7 +6097,8 @@ public static class Substances
                 (Anorthite.GetHomogeneousReference(), 0.055m),
             },
             "Loam",
-            densitySolid: 1250);
+            densitySolid: 1250,
+            commonNames: new string[] { "Soil", "Dirt" });
 
         /// <summary>
         /// Peridotite
@@ -5194,6 +6142,35 @@ public static class Substances
             },
             "Silt");
 
+        /// <summary>
+        /// Enumerates the default set of mixtures.
+        /// </summary>
+        /// <returns>
+        /// An <see cref="IEnumerable{T}"/> of <see cref="Mixture"/> instances.
+        /// </returns>
+        /// <remarks>
+        /// <para>
+        /// For ease of use, substances are grouped into a few basic categories.
+        /// </para>
+        /// <para>
+        /// This enumeration includes substances categorized as "minerals." Also see <see
+        /// cref="GetAllMixturesArtificial"/>, <see cref="GetAllMixturesCosmic"/>, <see
+        /// cref="GetAllMixturesHydrocarbons"/>, <see cref="GetAllMixturesOrganics"/>, and <see
+        /// cref="GetAllSolutionsMisc"/>.
+        /// </para>
+        /// </remarks>
+        public static IEnumerable<Mixture> GetAllMixturesMinerals()
+        {
+            yield return BallClay;
+            yield return Basalt;
+            yield return Bauxite;
+            yield return Granite;
+            yield return Loam;
+            yield return Peridotite;
+            yield return Sandstone;
+            yield return Silt;
+        }
+
         #endregion Minerals
 
         #region Misc
@@ -5211,7 +6188,30 @@ public static class Substances
                 (CalciumOxide.GetHomogeneousReference(), 0.01m),
             },
             "Fly Ash",
-            densitySolid: 827);
+            densitySolid: 827,
+            commonNames: new string[] { "Flue ash", "Coal Ash", "Pulverised Fuel Ash" });
+
+        /// <summary>
+        /// Enumerates the default set of mixtures.
+        /// </summary>
+        /// <returns>
+        /// An <see cref="IEnumerable{T}"/> of <see cref="Mixture"/> instances.
+        /// </returns>
+        /// <remarks>
+        /// <para>
+        /// For ease of use, substances are grouped into a few basic categories.
+        /// </para>
+        /// <para>
+        /// This enumeration includes substances categorized as "aqueous." Also see <see
+        /// cref="GetAllMixturesArtificial"/>, <see cref="GetAllMixturesCosmic"/>, <see
+        /// cref="GetAllMixturesHydrocarbons"/>, <see cref="GetAllMixturesMinerals"/>, and <see
+        /// cref="GetAllMixturesOrganics"/>.
+        /// </para>
+        /// </remarks>
+        public static IEnumerable<Mixture> GetAllMixturesMisc()
+        {
+            yield return FlyAsh;
+        }
 
         #endregion Misc
 
@@ -5230,7 +6230,8 @@ public static class Substances
             },
             "Adipose Tissue",
             densityLiquid: 900,
-            densitySolid: 900);
+            densitySolid: 900,
+            commonNames: new string[] { "Fat" });
 
         /// <summary>
         /// Bone
@@ -5260,7 +6261,8 @@ public static class Substances
             },
             "Epithelial Tissue",
             densityLiquid: 1109,
-            densitySolid: 1109);
+            densitySolid: 1109,
+            commonNames: new string[] { "Skin" });
 
         /// <summary>
         /// Muscle Tissue
@@ -5276,7 +6278,8 @@ public static class Substances
             },
             "Muscle Tissue",
             densityLiquid: 1090,
-            densitySolid: 1090);
+            densitySolid: 1090,
+            commonNames: new string[] { "Muscle" });
 
         /// <summary>
         /// Nervous Tissue
@@ -5292,7 +6295,8 @@ public static class Substances
             },
             "Nervous Tissue",
             densityLiquid: 1075,
-            densitySolid: 1075);
+            densitySolid: 1075,
+            commonNames: new string[] { "Nerve" });
 
         /// <summary>
         /// Tooth
@@ -5322,9 +6326,72 @@ public static class Substances
                 (PhosphoricAcid.GetHomogeneousReference(), 0.01m),
             },
             "Wood Ash",
-            densitySolid: 827);
+            densitySolid: 827,
+            commonNames: new string[] { "Ash" });
+
+        /// <summary>
+        /// Enumerates the default set of mixtures.
+        /// </summary>
+        /// <returns>
+        /// An <see cref="IEnumerable{T}"/> of <see cref="Mixture"/> instances.
+        /// </returns>
+        /// <remarks>
+        /// <para>
+        /// For ease of use, substances are grouped into a few basic categories.
+        /// </para>
+        /// <para>
+        /// This enumeration includes substances categorized as "organics." Also see <see
+        /// cref="GetAllMixturesArtificial"/>, <see cref="GetAllMixturesCosmic"/>, <see
+        /// cref="GetAllMixturesHydrocarbons"/>, <see cref="GetAllMixturesMinerals"/>, and <see
+        /// cref="GetAllSolutionsMisc"/>.
+        /// </para>
+        /// </remarks>
+        public static IEnumerable<Mixture> GetAllMixturesOrganics()
+        {
+            yield return AdiposeTissue;
+            yield return Bone;
+            yield return EpithelialTissue;
+            yield return MuscleTissue;
+            yield return NervousTissue;
+            yield return Tooth;
+            yield return WoodAsh;
+        }
 
         #endregion Organics
+
+        /// <summary>
+        /// Enumerates the default set of mixtures.
+        /// </summary>
+        /// <returns>
+        /// An <see cref="IEnumerable{T}"/> of <see cref="Mixture"/> instances.
+        /// </returns>
+        public static IEnumerable<Mixture> GetAllMixtures()
+        {
+            foreach (var substance in GetAllMixturesArtificial())
+            {
+                yield return substance;
+            }
+            foreach (var substance in GetAllMixturesCosmic())
+            {
+                yield return substance;
+            }
+            foreach (var substance in GetAllMixturesHydrocarbons())
+            {
+                yield return substance;
+            }
+            foreach (var substance in GetAllMixturesMinerals())
+            {
+                yield return substance;
+            }
+            foreach (var substance in GetAllMixturesOrganics())
+            {
+                yield return substance;
+            }
+            foreach (var substance in GetAllMixturesMisc())
+            {
+                yield return substance;
+            }
+        }
 
         #endregion Mixtures
 
@@ -5352,7 +6419,7 @@ public static class Substances
         /// Manual retrieval of <see cref="ISubstance"/> instances via the usual methods of <see
         /// cref="IDataStore"/> would still be possible on a former <see cref="IDataStore"/>,
         /// but the internal <see cref="InMemoryDataStore"/>, if it had been used, would no
-        /// longer be accesible.
+        /// longer be accessible.
         /// </para>
         /// </remarks>
         public static void RegisterAll(IDataStore dataStore)
@@ -5365,472 +6432,22 @@ public static class Substances
 
         internal static void RegisterAllInternal(IDataStore dataStore)
         {
-            #region Chemicals
-
-            #region Atmospheric
-
-            Ammonia.Register(dataStore);
-            AmmoniumHydrosulfide.Register(dataStore);
-            HydrogenSulfide.Register(dataStore);
-            Phosphine.Register(dataStore);
-            SulphurDioxide.Register(dataStore);
-
-            #endregion Atmospheric
-
-            #region Elements
-
-            Hydrogen.Register(dataStore);
-            MetallicHydrogen.Register(dataStore);
-            Helium.Register(dataStore);
-            Lithium.Register(dataStore);
-            Beryllium.Register(dataStore);
-            Boron.Register(dataStore);
-            AmorphousCarbon.Register(dataStore);
-            Diamond.Register(dataStore);
-            Nitrogen.Register(dataStore);
-            Oxygen.Register(dataStore);
-            Ozone.Register(dataStore);
-            Fluorine.Register(dataStore);
-            Neon.Register(dataStore);
-            Sodium.Register(dataStore);
-            Magnesium.Register(dataStore);
-            Aluminium.Register(dataStore);
-            Silicon.Register(dataStore);
-            WhitePhosphorus.Register(dataStore);
-            RedPhosphorus.Register(dataStore);
-            Sulfur.Register(dataStore);
-            Chlorine.Register(dataStore);
-            Argon.Register(dataStore);
-            Potassium.Register(dataStore);
-            Calcium.Register(dataStore);
-            Scandium.Register(dataStore);
-            Titanium.Register(dataStore);
-            Vanadium.Register(dataStore);
-            Chromium.Register(dataStore);
-            Manganese.Register(dataStore);
-            Iron.Register(dataStore);
-            Cobalt.Register(dataStore);
-            Nickel.Register(dataStore);
-            Copper.Register(dataStore);
-            Zinc.Register(dataStore);
-            Gallium.Register(dataStore);
-            Germanium.Register(dataStore);
-            Arsenic.Register(dataStore);
-            Selenium.Register(dataStore);
-            Bromine.Register(dataStore);
-            Krypton.Register(dataStore);
-            Rubidium.Register(dataStore);
-            Strontium.Register(dataStore);
-            Yttrium.Register(dataStore);
-            Zirconium.Register(dataStore);
-            Niobium.Register(dataStore);
-            Molybdenum.Register(dataStore);
-            Technetium.Register(dataStore);
-            Ruthenium.Register(dataStore);
-            Rhodium.Register(dataStore);
-            Palladium.Register(dataStore);
-            Silver.Register(dataStore);
-            Cadmium.Register(dataStore);
-            Indium.Register(dataStore);
-            WhiteTin.Register(dataStore);
-            GrayTin.Register(dataStore);
-            Antimony.Register(dataStore);
-            Tellurium.Register(dataStore);
-            Iodine.Register(dataStore);
-            Xenon.Register(dataStore);
-            Caesium.Register(dataStore);
-            Barium.Register(dataStore);
-            Lanthanum.Register(dataStore);
-            Cerium.Register(dataStore);
-            Praseodymium.Register(dataStore);
-            Neodymium.Register(dataStore);
-            Promethium.Register(dataStore);
-            Samarium.Register(dataStore);
-            Europium.Register(dataStore);
-            Gadolinium.Register(dataStore);
-            Terbium.Register(dataStore);
-            Dysprosium.Register(dataStore);
-            Holmium.Register(dataStore);
-            Erbium.Register(dataStore);
-            Thulium.Register(dataStore);
-            Ytterbium.Register(dataStore);
-            Lutetium.Register(dataStore);
-            Hafnium.Register(dataStore);
-            Tantalum.Register(dataStore);
-            Tungsten.Register(dataStore);
-            Rhenium.Register(dataStore);
-            Osmium.Register(dataStore);
-            Iridium.Register(dataStore);
-            Platinum.Register(dataStore);
-            Gold.Register(dataStore);
-            Mercury.Register(dataStore);
-            Thallium.Register(dataStore);
-            Lead.Register(dataStore);
-            Bismuth.Register(dataStore);
-            Polonium.Register(dataStore);
-            Astatine.Register(dataStore);
-            Radon.Register(dataStore);
-            Francium.Register(dataStore);
-            Radium.Register(dataStore);
-            Actinium.Register(dataStore);
-            Thorium.Register(dataStore);
-            Protactinium.Register(dataStore);
-            Uranium.Register(dataStore);
-            Neptunium.Register(dataStore);
-            Plutonium.Register(dataStore);
-            Americium.Register(dataStore);
-            Curium.Register(dataStore);
-            Berkelium.Register(dataStore);
-            Californium.Register(dataStore);
-            Einsteinium.Register(dataStore);
-            Fermium.Register(dataStore);
-            Mendelevium.Register(dataStore);
-            Nobelium.Register(dataStore);
-            Lawrencium.Register(dataStore);
-            Rutherfordium.Register(dataStore);
-            Dubnium.Register(dataStore);
-            Seaborgium.Register(dataStore);
-            Bohrium.Register(dataStore);
-            Hassium.Register(dataStore);
-            Meitnerium.Register(dataStore);
-            Darmstadtium.Register(dataStore);
-            Roentgenium.Register(dataStore);
-            Copernicium.Register(dataStore);
-            Nihonium.Register(dataStore);
-            Flerovium.Register(dataStore);
-            Moscovium.Register(dataStore);
-            Livermorium.Register(dataStore);
-            Tennessine.Register(dataStore);
-            Oganesson.Register(dataStore);
-
-            #endregion Elements
-
-            #region Gems
-
-            Beryl.Register(dataStore);
-            Corundum.Register(dataStore);
-            Topaz.Register(dataStore);
-
-            #endregion Gems
-
-            #region Hydrocarbons
-
-            Adamantane.Register(dataStore);
-            Anthracene.Register(dataStore);
-            Benzene.Register(dataStore);
-            Biphenyl.Register(dataStore);
-            Butane.Register(dataStore);
-            CarbonDioxide.Register(dataStore);
-            CarbonMonoxide.Register(dataStore);
-            Cyclobutane.Register(dataStore);
-            Cyclodecane.Register(dataStore);
-            Cyclododecane.Register(dataStore);
-            Cycloheptane.Register(dataStore);
-            Cyclohexane.Register(dataStore);
-            Cyclononane.Register(dataStore);
-            Cyclooctane.Register(dataStore);
-            Cyclopentane.Register(dataStore);
-            Cyclopropane.Register(dataStore);
-            Cyclotetradecane.Register(dataStore);
-            Cyclotridecane.Register(dataStore);
-            Cycloundecane.Register(dataStore);
-            Cumene.Register(dataStore);
-            Decalin.Register(dataStore);
-            Decane.Register(dataStore);
-            Dodecane.Register(dataStore);
-            Durene.Register(dataStore);
-            Ethane.Register(dataStore);
-            Ethylbenzene.Register(dataStore);
-            Ethylene.Register(dataStore);
-            Heptane.Register(dataStore);
-            Hexadecane.Register(dataStore);
-            Hexane.Register(dataStore);
-            Hexene.Register(dataStore);
-            Indane.Register(dataStore);
-            Indene.Register(dataStore);
-            Methane.Register(dataStore);
-            MXylene.Register(dataStore);
-            Naphthalene.Register(dataStore);
-            Nonane.Register(dataStore);
-            Octane.Register(dataStore);
-            OXylene.Register(dataStore);
-            Pentadecane.Register(dataStore);
-            Pentane.Register(dataStore);
-            Phenanthrene.Register(dataStore);
-            Propane.Register(dataStore);
-            PXylene.Register(dataStore);
-            Tetradecane.Register(dataStore);
-            Toluene.Register(dataStore);
-            Tridecane.Register(dataStore);
-            Undecane.Register(dataStore);
-
-            #endregion Hydrocarbons
-
-            #region Ions
-
-            AlphaParticle.Register(dataStore);
-            Bicarbonate.Register(dataStore);
-            C4Pos.Register(dataStore);
-            Ca2Pos.Register(dataStore);
-            Cl1Neg.Register(dataStore);
-            Cr3Pos.Register(dataStore);
-            Fe2Pos.Register(dataStore);
-            HydrogenPlasma.Register(dataStore);
-            K1Pos.Register(dataStore);
-            Mg2Pos.Register(dataStore);
-            N5Pos.Register(dataStore);
-            Na1Pos.Register(dataStore);
-            O2Pos.Register(dataStore);
-            S6Pos.Register(dataStore);
-            Si4Pos.Register(dataStore);
-            Sulfate.Register(dataStore);
-            Ti4Pos.Register(dataStore);
-
-            #endregion Ions
-
-            #region Minerals
-
-            Acanthite.Register(dataStore);
-            Albite.Register(dataStore);
-            Anorthite.Register(dataStore);
-            Boehmite.Register(dataStore);
-            CalciumCarbonate.Register(dataStore);
-            Cassiterite.Register(dataStore);
-            Chalcopyrite.Register(dataStore);
-            Chromite.Register(dataStore);
-            Cinnabar.Register(dataStore);
-            Diopside.Register(dataStore);
-            Enstatite.Register(dataStore);
-            Fayalite.Register(dataStore);
-            Ferrosilite.Register(dataStore);
-            Forsterite.Register(dataStore);
-            Galena.Register(dataStore);
-            Gibbsite.Register(dataStore);
-            Goethite.Register(dataStore);
-            Gypsum.Register(dataStore);
-            Hematite.Register(dataStore);
-            Hydroxyapatite.Register(dataStore);
-            Ilmenite.Register(dataStore);
-            Kaolinite.Register(dataStore);
-            Magnetite.Register(dataStore);
-            Muscovite.Register(dataStore);
-            Orthoclase.Register(dataStore);
-            PotassiumNitrate.Register(dataStore);
-            Pyrite.Register(dataStore);
-            SiliconCarbide.Register(dataStore);
-            SiliconDioxide.Register(dataStore);
-            SodiumChloride.Register(dataStore);
-            Sperrylite.Register(dataStore);
-
-            #endregion Minerals
-
-            #region Misc
-
-            AluminiumOxide.Register(dataStore);
-            CalciumHydroxide.Register(dataStore);
-            CalciumOxide.Register(dataStore);
-            IronSulfide.Register(dataStore);
-            LeadOxide.Register(dataStore);
-            Lead206Oxide.Register(dataStore);
-            PhosphoricAcid.Register(dataStore);
-            SodiumOxide.Register(dataStore);
-            SulfuricAcid.Register(dataStore);
-            Water.Register(dataStore);
-            ZincSulfide.Register(dataStore);
-            UraniumDioxide.Register(dataStore);
-            Uranium235Dioxide.Register(dataStore);
-
-            #endregion Misc
-
-            #region Organics
-
-            Benzothiophene.Register(dataStore);
-            Cellulose.Register(dataStore);
-            Chitin.Register(dataStore);
-            Collagen.Register(dataStore);
-            Dibenzothiophene.Register(dataStore);
-            Elastin.Register(dataStore);
-            Ethanol.Register(dataStore);
-            Fructose.Register(dataStore);
-            Galactose.Register(dataStore);
-            Glucose.Register(dataStore);
-            Glycogen.Register(dataStore);
-            IsopropylAlcohol.Register(dataStore);
-            Lactose.Register(dataStore);
-            Lignin.Register(dataStore);
-            Maltose.Register(dataStore);
-            Methanol.Register(dataStore);
-            PotassiumCarbonate.Register(dataStore);
-            SodiumCarbonate.Register(dataStore);
-            Sucrose.Register(dataStore);
-            Triolein.Register(dataStore);
-
-            #endregion Organics
-
-            #region Plastics
-
-            Nylon.Register(dataStore);
-            Polycarbonate.Register(dataStore);
-            Polyester.Register(dataStore);
-            Polyethylene.Register(dataStore);
-            Polypropylene.Register(dataStore);
-            Polystyrene.Register(dataStore);
-            PolyvinylChloride.Register(dataStore);
-
-            #endregion Plastics
-
-            #endregion Chemicals
-
-            #region HomogeneousSubstances
-
-            #region Cosmic
-
-            Fuzzball.Register(dataStore);
-            NeutronDegenerateMatter.Register(dataStore);
-
-            #endregion Cosmic
-
-            #region Organics
-
-            Blood.Register(dataStore);
-            Flesh.Register(dataStore);
-            Keratin.Register(dataStore);
-            Protein.Register(dataStore);
-
-            #endregion Organics
-
-            #endregion HomogeneousSubstances
-
-            #region Solutions
-
-            #region Alloys
-
-            Brass.Register(dataStore);
-            Bronze.Register(dataStore);
-            CarbonSteel.Register(dataStore);
-            Ferrochrome.Register(dataStore);
-            IronNickelAlloy.Register(dataStore);
-            StainlessSteel.Register(dataStore);
-
-            #endregion Alloys
-
-            #region Aqueous
-
-            Seawater.Register(dataStore);
-
-            #endregion Aqueous
-
-            #region Artificial
-
-            Cement.Register(dataStore);
-            CottonCloth.Register(dataStore);
-            Leather.Register(dataStore);
-            Paper.Register(dataStore);
-            SodaLimeGlass.Register(dataStore);
-            Stoneware.Register(dataStore);
-
-            #endregion Artificial
-
-            #region Gems
-
-            Emerald.Register(dataStore);
-            Ruby.Register(dataStore);
-            Sapphire.Register(dataStore);
-
-            #endregion Gems
-
-            #region Hydrocarbons
-
-            Vitrinite.Register(dataStore);
-
-            #endregion Hydrocarbons
-
-            #region Minerals
-
-            Olivine.Register(dataStore);
-            CosmicDust.Register(dataStore);
-            Orthopyroxene.Register(dataStore);
-            Plagioclase.Register(dataStore);
-            Sphalerite.Register(dataStore);
-            Uraninite.Register(dataStore);
-
-            #endregion Minerals
-
-            #region Organics
-
-            Wood.Register(dataStore);
-            WoodSmoke.Register(dataStore);
-
-            #endregion Organics
-
-            #endregion Solutions
-
-            #region Mixtures
-
-            #region Artificial
-
-            Brick.Register(dataStore);
-            Concrete.Register(dataStore);
-            Earthenware.Register(dataStore);
-            ReinforcedConcrete.Register(dataStore);
-
-            #endregion Artificial
-
-            #region Cosmic
-
-            InterplanetaryMedium.Register(dataStore);
-            InterstellarMedium.Register(dataStore);
-            IntraclusterMedium.Register(dataStore);
-            IonizedCloud.Register(dataStore);
-            MolecularCloud.Register(dataStore);
-            WarmHotIntergalacticMedium.Register(dataStore);
-
-            #endregion Cosmic
-
-            #region Hydrocarbons
-
-            Anthracite.Register(dataStore);
-            BituminousCoal.Register(dataStore);
-            Diesel.Register(dataStore);
-            Gasoline.Register(dataStore);
-            Kerosine.Register(dataStore);
-            NaturalGas.Register(dataStore);
-            Petroleum.Register(dataStore);
-
-            #endregion Hydrocarbons
-
-            #region Minerals
-
-            BallClay.Register(dataStore);
-            Basalt.Register(dataStore);
-            Bauxite.Register(dataStore);
-            Granite.Register(dataStore);
-            Loam.Register(dataStore);
-            Peridotite.Register(dataStore);
-            Sandstone.Register(dataStore);
-            Silt.Register(dataStore);
-
-            #endregion Minerals
-
-            #region Misc
-
-            FlyAsh.Register(dataStore);
-
-            #endregion Misc
-
-            #region Organics
-
-            AdiposeTissue.Register(dataStore);
-            Bone.Register(dataStore);
-            EpithelialTissue.Register(dataStore);
-            MuscleTissue.Register(dataStore);
-            NervousTissue.Register(dataStore);
-            Tooth.Register(dataStore);
-            WoodAsh.Register(dataStore);
-
-            #endregion Organics
-
-            #endregion Mixtures
+            foreach (var substance in GetAllChemicals())
+            {
+                substance.Register(dataStore);
+            }
+            foreach (var substance in GetAllHomogeneousSubstances())
+            {
+                substance.Register(dataStore);
+            }
+            foreach (var substance in GetAllSolutions())
+            {
+                substance.Register(dataStore);
+            }
+            foreach (var substance in GetAllMixtures())
+            {
+                substance.Register(dataStore);
+            }
         }
     }
 

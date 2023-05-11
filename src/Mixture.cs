@@ -24,6 +24,18 @@ public class Mixture : ISubstance, IEquatable<Mixture>
     public static readonly Mixture Empty = new(Chemical.None);
 
     /// <summary>
+    /// An optional list of common names for this substance.
+    /// </summary>
+    /// <remarks>
+    /// The list may be arranged in order of most to least common, so that the first name in the
+    /// list (if a list is present at all) can be assumed to be the most recognizable name for the
+    /// substance. However, this is not a strict requirement. Names may appear in any order,
+    /// particularly if no specific usage data is available, or when various names are equally
+    /// common in different contexts.
+    /// </remarks>
+    public IReadOnlyList<string>? CommonNames { get; }
+
+    /// <summary>
     /// The collection of constituents that make up this mixture, along with their relative
     /// proportions (as normalized values between zero and one).
     /// </summary>
@@ -180,30 +192,50 @@ public class Mixture : ISubstance, IEquatable<Mixture>
     /// "Oxygen:25.500%; Nitrogen:74.500%".
     /// </para>
     /// <para>
-    /// Note that chemical names may also be auto-generated from the Hill notation of their
-    /// chemical formula if not explicitly given, which may lead to a mixture name such as:
-    /// "H₂O:96.240%; NaCl:3.760%".
+    /// Note that chemical names may also be auto-generated from the Hill notation of their chemical
+    /// formula if not explicitly given, which may lead to a mixture name such as: "H₂O:96.240%;
+    /// NaCl:3.760%".
     /// </para>
     /// </param>
-    /// <param name="densityLiquid">The approximate density of the chemical in the liquid phase,
-    /// in kg/m³. If omitted, the weighted average value of the constituents is used.</param>
-    /// <param name="densitySolid">The approximate density of the chemical in the solid phase,
-    /// in kg/m³. If omitted, the weighted average value of the constituents is used.</param>
-    /// <param name="densitySpecial">The approximate density of this substance when its phase is
-    /// neither solid, liquid, nor gas, in kg/m³.</param>
+    /// <param name="densityLiquid">
+    /// The approximate density of the chemical in the liquid phase, in kg/m³. If omitted, the
+    /// weighted average value of the constituents is used.
+    /// </param>
+    /// <param name="densitySolid">
+    /// The approximate density of the chemical in the solid phase, in kg/m³. If omitted, the
+    /// weighted average value of the constituents is used.
+    /// </param>
+    /// <param name="densitySpecial">
+    /// The approximate density of this substance when its phase is neither solid, liquid, nor gas,
+    /// in kg/m³.
+    /// </param>
+    /// <param name="commonNames">
+    /// <para>
+    /// An optional list of common names for this substance.
+    /// </para>
+    /// <para>
+    /// The list may be arranged in order of most to least common, so that the first name in the
+    /// list (if a list is present at all) can be assumed to be the most recognizable name for the
+    /// substance. However, this is not a strict requirement. Names may appear in any order,
+    /// particularly if no specific usage data is available, or when various names are equally
+    /// common in different contexts.
+    /// </para>
+    /// </param>
     public Mixture(
         IEnumerable<(IHomogeneous constituent, decimal proportion)> constituents,
         string? name = null,
         double? densityLiquid = null,
         double? densitySolid = null,
-        double? densitySpecial = null) : this(
+        double? densitySpecial = null,
+        params string[] commonNames) : this(
             new ReadOnlyDictionary<HomogeneousReference, decimal>(
                 constituents.GroupBy(x => x.constituent.Id)
                 .ToDictionary(x => x.First().constituent.GetHomogeneousReference(), x => x.Sum(y => y.proportion / constituents.Sum(z => z.proportion)))),
             name,
             densityLiquid,
             densitySolid,
-            densitySpecial)
+            densitySpecial,
+            commonNames)
     { }
 
     /// <summary>
@@ -228,30 +260,50 @@ public class Mixture : ISubstance, IEquatable<Mixture>
     /// "Oxygen:25.500%; Nitrogen:74.500%".
     /// </para>
     /// <para>
-    /// Note that chemical names may also be auto-generated from the Hill notation of their
-    /// chemical formula if not explicitly given, which may lead to a mixture name such as:
-    /// "H₂O:96.240%; NaCl:3.760%".
+    /// Note that chemical names may also be auto-generated from the Hill notation of their chemical
+    /// formula if not explicitly given, which may lead to a mixture name such as: "H₂O:96.240%;
+    /// NaCl:3.760%".
     /// </para>
     /// </param>
-    /// <param name="densityLiquid">The approximate density of the chemical in the liquid phase,
-    /// in kg/m³. If omitted, the weighted average value of the constituents is used.</param>
-    /// <param name="densitySolid">The approximate density of the chemical in the solid phase,
-    /// in kg/m³. If omitted, the weighted average value of the constituents is used.</param>
-    /// <param name="densitySpecial">The approximate density of this substance when its phase is
-    /// neither solid, liquid, nor gas, in kg/m³.</param>
+    /// <param name="densityLiquid">
+    /// The approximate density of the chemical in the liquid phase, in kg/m³. If omitted, the
+    /// weighted average value of the constituents is used.
+    /// </param>
+    /// <param name="densitySolid">
+    /// The approximate density of the chemical in the solid phase, in kg/m³. If omitted, the
+    /// weighted average value of the constituents is used.
+    /// </param>
+    /// <param name="densitySpecial">
+    /// The approximate density of this substance when its phase is neither solid, liquid, nor gas,
+    /// in kg/m³.
+    /// </param>
+    /// <param name="commonNames">
+    /// <para>
+    /// An optional list of common names for this substance.
+    /// </para>
+    /// <para>
+    /// The list may be arranged in order of most to least common, so that the first name in the
+    /// list (if a list is present at all) can be assumed to be the most recognizable name for the
+    /// substance. However, this is not a strict requirement. Names may appear in any order,
+    /// particularly if no specific usage data is available, or when various names are equally
+    /// common in different contexts.
+    /// </para>
+    /// </param>
     public Mixture(
         IEnumerable<(HomogeneousReference constituent, decimal proportion)> constituents,
         string? name = null,
         double? densityLiquid = null,
         double? densitySolid = null,
-        double? densitySpecial = null) : this(
+        double? densitySpecial = null,
+        params string[] commonNames) : this(
             new ReadOnlyDictionary<HomogeneousReference, decimal>(
                 constituents.GroupBy(x => x.constituent.Id)
                 .ToDictionary(x => x.First().constituent, x => x.Sum(y => y.proportion / constituents.Sum(z => z.proportion)))),
             name,
             densityLiquid,
             densitySolid,
-            densitySpecial)
+            densitySpecial,
+            commonNames)
     { }
 
     /// <summary>
@@ -270,29 +322,49 @@ public class Mixture : ISubstance, IEquatable<Mixture>
     /// "Oxygen:25.500%; Nitrogen:74.500%".
     /// </para>
     /// <para>
-    /// Note that chemical names may also be auto-generated from the Hill notation of their
-    /// chemical formula if not explicitly given, which may lead to a mixture name such as:
-    /// "H₂O:96.240%; NaCl:3.760%".
+    /// Note that chemical names may also be auto-generated from the Hill notation of their chemical
+    /// formula if not explicitly given, which may lead to a mixture name such as: "H₂O:96.240%;
+    /// NaCl:3.760%".
     /// </para>
     /// </param>
-    /// <param name="densityLiquid">The approximate density of the chemical in the liquid phase,
-    /// in kg/m³. If omitted, the weighted average value of the constituents is used.</param>
-    /// <param name="densitySolid">The approximate density of the chemical in the solid phase,
-    /// in kg/m³. If omitted, the weighted average value of the constituents is used.</param>
-    /// <param name="densitySpecial">The approximate density of this substance when its phase is
-    /// neither solid, liquid, nor gas, in kg/m³.</param>
+    /// <param name="densityLiquid">
+    /// The approximate density of the chemical in the liquid phase, in kg/m³. If omitted, the
+    /// weighted average value of the constituents is used.
+    /// </param>
+    /// <param name="densitySolid">
+    /// The approximate density of the chemical in the solid phase, in kg/m³. If omitted, the
+    /// weighted average value of the constituents is used.
+    /// </param>
+    /// <param name="densitySpecial">
+    /// The approximate density of this substance when its phase is neither solid, liquid, nor gas,
+    /// in kg/m³.
+    /// </param>
+    /// <param name="commonNames">
+    /// <para>
+    /// An optional list of common names for this substance.
+    /// </para>
+    /// <para>
+    /// The list may be arranged in order of most to least common, so that the first name in the
+    /// list (if a list is present at all) can be assumed to be the most recognizable name for the
+    /// substance. However, this is not a strict requirement. Names may appear in any order,
+    /// particularly if no specific usage data is available, or when various names are equally
+    /// common in different contexts.
+    /// </para>
+    /// </param>
     public Mixture(
         IEnumerable<IHomogeneous> constituents,
         string? name = null,
         double? densityLiquid = null,
         double? densitySolid = null,
-        double? densitySpecial = null) : this(
+        double? densitySpecial = null,
+        params string[] commonNames) : this(
             new ReadOnlyDictionary<HomogeneousReference, decimal>(
                 constituents.GroupBy(x => x.Id).ToDictionary(x => x.First().GetHomogeneousReference(), x => x.Sum(_ => 1m / constituents.Count()))),
             name,
             densityLiquid,
             densitySolid,
-            densitySpecial)
+            densitySpecial,
+            commonNames)
     { }
 
     /// <summary>
@@ -311,37 +383,57 @@ public class Mixture : ISubstance, IEquatable<Mixture>
     /// "Oxygen:25.500%; Nitrogen:74.500%".
     /// </para>
     /// <para>
-    /// Note that chemical names may also be auto-generated from the Hill notation of their
-    /// chemical formula if not explicitly given, which may lead to a mixture name such as:
-    /// "H₂O:96.240%; NaCl:3.760%".
+    /// Note that chemical names may also be auto-generated from the Hill notation of their chemical
+    /// formula if not explicitly given, which may lead to a mixture name such as: "H₂O:96.240%;
+    /// NaCl:3.760%".
     /// </para>
     /// </param>
-    /// <param name="densityLiquid">The approximate density of the chemical in the liquid phase,
-    /// in kg/m³. If omitted, the weighted average value of the constituents is used.</param>
-    /// <param name="densitySolid">The approximate density of the chemical in the solid phase,
-    /// in kg/m³. If omitted, the weighted average value of the constituents is used.</param>
-    /// <param name="densitySpecial">The approximate density of this substance when its phase is
-    /// neither solid, liquid, nor gas, in kg/m³.</param>
+    /// <param name="densityLiquid">
+    /// The approximate density of the chemical in the liquid phase, in kg/m³. If omitted, the
+    /// weighted average value of the constituents is used.
+    /// </param>
+    /// <param name="densitySolid">
+    /// The approximate density of the chemical in the solid phase, in kg/m³. If omitted, the
+    /// weighted average value of the constituents is used.
+    /// </param>
+    /// <param name="densitySpecial">
+    /// The approximate density of this substance when its phase is neither solid, liquid, nor gas,
+    /// in kg/m³.
+    /// </param>
+    /// <param name="commonNames">
+    /// <para>
+    /// An optional list of common names for this substance.
+    /// </para>
+    /// <para>
+    /// The list may be arranged in order of most to least common, so that the first name in the
+    /// list (if a list is present at all) can be assumed to be the most recognizable name for the
+    /// substance. However, this is not a strict requirement. Names may appear in any order,
+    /// particularly if no specific usage data is available, or when various names are equally
+    /// common in different contexts.
+    /// </para>
+    /// </param>
     public Mixture(
         IEnumerable<HomogeneousReference> constituents,
         string? name = null,
         double? densityLiquid = null,
         double? densitySolid = null,
-        double? densitySpecial = null) : this(
+        double? densitySpecial = null,
+        params string[] commonNames) : this(
             new ReadOnlyDictionary<HomogeneousReference, decimal>(
                 constituents.GroupBy(x => x.Id).ToDictionary(x => x.First(), x => x.Sum(_ => 1m / constituents.Count()))),
             name,
             densityLiquid,
             densitySolid,
-            densitySpecial)
+            densitySpecial,
+            commonNames)
     { }
 
     /// <summary>
     /// Initializes a new instance of <see cref="Mixture"/>.
     /// </summary>
     /// <param name="constituents">
-    /// One or more constituents to add to the mixture, along with their relative proportions
-    /// (as normalized values between zero and one).
+    /// One or more constituents to add to the mixture, along with their relative proportions (as
+    /// normalized values between zero and one).
     /// </param>
     /// <param name="name">
     /// <para>
@@ -352,29 +444,49 @@ public class Mixture : ISubstance, IEquatable<Mixture>
     /// "Oxygen:25.500%; Nitrogen:74.500%".
     /// </para>
     /// <para>
-    /// Note that chemical names may also be auto-generated from the Hill notation of their
-    /// chemical formula if not explicitly given, which may lead to a mixture name such as:
-    /// "H₂O:96.240%; NaCl:3.760%".
+    /// Note that chemical names may also be auto-generated from the Hill notation of their chemical
+    /// formula if not explicitly given, which may lead to a mixture name such as: "H₂O:96.240%;
+    /// NaCl:3.760%".
     /// </para>
     /// </param>
-    /// <param name="densityLiquid">The approximate density of the chemical in the liquid phase,
-    /// in kg/m³. If omitted, the weighted average value of the constituents is used.</param>
-    /// <param name="densitySolid">The approximate density of the chemical in the solid phase,
-    /// in kg/m³. If omitted, the weighted average value of the constituents is used.</param>
-    /// <param name="densitySpecial">The approximate density of this substance when its phase is
-    /// neither solid, liquid, nor gas, in kg/m³.</param>
+    /// <param name="densityLiquid">
+    /// The approximate density of the chemical in the liquid phase, in kg/m³. If omitted, the
+    /// weighted average value of the constituents is used.
+    /// </param>
+    /// <param name="densitySolid">
+    /// The approximate density of the chemical in the solid phase, in kg/m³. If omitted, the
+    /// weighted average value of the constituents is used.
+    /// </param>
+    /// <param name="densitySpecial">
+    /// The approximate density of this substance when its phase is neither solid, liquid, nor gas,
+    /// in kg/m³.
+    /// </param>
+    /// <param name="commonNames">
+    /// <para>
+    /// An optional list of common names for this substance.
+    /// </para>
+    /// <para>
+    /// The list may be arranged in order of most to least common, so that the first name in the
+    /// list (if a list is present at all) can be assumed to be the most recognizable name for the
+    /// substance. However, this is not a strict requirement. Names may appear in any order,
+    /// particularly if no specific usage data is available, or when various names are equally
+    /// common in different contexts.
+    /// </para>
+    /// </param>
     public Mixture(
         IEnumerable<Mixture> constituents,
         string? name = null,
         double? densityLiquid = null,
         double? densitySolid = null,
-        double? densitySpecial = null) : this(
+        double? densitySpecial = null,
+        params string[] commonNames) : this(
             new ReadOnlyDictionary<HomogeneousReference, decimal>(
                 constituents.SelectMany(x => x.Constituents).GroupBy(x => x.Key).ToDictionary(x => x.Key, x => x.Sum(y => y.Value / constituents.Count()))),
             name,
             densityLiquid,
             densitySolid,
-            densitySpecial)
+            densitySpecial,
+            commonNames)
     { }
 
     /// <summary>
@@ -389,17 +501,23 @@ public class Mixture : ISubstance, IEquatable<Mixture>
     /// "Oxygen:25.500%; Nitrogen:74.500%".
     /// </para>
     /// <para>
-    /// Note that chemical names may also be auto-generated from the Hill notation of their
-    /// chemical formula if not explicitly given, which may lead to a mixture name such as:
-    /// "H₂O:96.240%; NaCl:3.760%".
+    /// Note that chemical names may also be auto-generated from the Hill notation of their chemical
+    /// formula if not explicitly given, which may lead to a mixture name such as: "H₂O:96.240%;
+    /// NaCl:3.760%".
     /// </para>
     /// </param>
-    /// <param name="densityLiquid">The approximate density of the chemical in the liquid phase,
-    /// in kg/m³. If omitted, the weighted average value of the constituents is used.</param>
-    /// <param name="densitySolid">The approximate density of the chemical in the solid phase,
-    /// in kg/m³. If omitted, the weighted average value of the constituents is used.</param>
-    /// <param name="densitySpecial">The approximate density of this substance when its phase is
-    /// neither solid, liquid, nor gas, in kg/m³.</param>
+    /// <param name="densityLiquid">
+    /// The approximate density of the chemical in the liquid phase, in kg/m³. If omitted, the
+    /// weighted average value of the constituents is used.
+    /// </param>
+    /// <param name="densitySolid">
+    /// The approximate density of the chemical in the solid phase, in kg/m³. If omitted, the
+    /// weighted average value of the constituents is used.
+    /// </param>
+    /// <param name="densitySpecial">
+    /// The approximate density of this substance when its phase is neither solid, liquid, nor gas,
+    /// in kg/m³.
+    /// </param>
     /// <param name="constituents">
     /// <para>
     /// One or more homogeneous constituents to add to the mixture, along with their relative
@@ -437,17 +555,23 @@ public class Mixture : ISubstance, IEquatable<Mixture>
     /// "Oxygen:25.500%; Nitrogen:74.500%".
     /// </para>
     /// <para>
-    /// Note that chemical names may also be auto-generated from the Hill notation of their
-    /// chemical formula if not explicitly given, which may lead to a mixture name such as:
-    /// "H₂O:96.240%; NaCl:3.760%".
+    /// Note that chemical names may also be auto-generated from the Hill notation of their chemical
+    /// formula if not explicitly given, which may lead to a mixture name such as: "H₂O:96.240%;
+    /// NaCl:3.760%".
     /// </para>
     /// </param>
-    /// <param name="densityLiquid">The approximate density of the chemical in the liquid phase,
-    /// in kg/m³. If omitted, the weighted average value of the constituents is used.</param>
-    /// <param name="densitySolid">The approximate density of the chemical in the solid phase,
-    /// in kg/m³. If omitted, the weighted average value of the constituents is used.</param>
-    /// <param name="densitySpecial">The approximate density of this substance when its phase is
-    /// neither solid, liquid, nor gas, in kg/m³.</param>
+    /// <param name="densityLiquid">
+    /// The approximate density of the chemical in the liquid phase, in kg/m³. If omitted, the
+    /// weighted average value of the constituents is used.
+    /// </param>
+    /// <param name="densitySolid">
+    /// The approximate density of the chemical in the solid phase, in kg/m³. If omitted, the
+    /// weighted average value of the constituents is used.
+    /// </param>
+    /// <param name="densitySpecial">
+    /// The approximate density of this substance when its phase is neither solid, liquid, nor gas,
+    /// in kg/m³.
+    /// </param>
     /// <param name="constituents">
     /// <para>
     /// One or more homogeneous constituents to add to the mixture, along with their relative
@@ -485,21 +609,27 @@ public class Mixture : ISubstance, IEquatable<Mixture>
     /// "Oxygen:25.500%; Nitrogen:74.500%".
     /// </para>
     /// <para>
-    /// Note that chemical names may also be auto-generated from the Hill notation of their
-    /// chemical formula if not explicitly given, which may lead to a mixture name such as:
-    /// "H₂O:96.240%; NaCl:3.760%".
+    /// Note that chemical names may also be auto-generated from the Hill notation of their chemical
+    /// formula if not explicitly given, which may lead to a mixture name such as: "H₂O:96.240%;
+    /// NaCl:3.760%".
     /// </para>
     /// </param>
-    /// <param name="densityLiquid">The approximate density of the chemical in the liquid phase,
-    /// in kg/m³. If omitted, the weighted average value of the constituents is used.</param>
-    /// <param name="densitySolid">The approximate density of the chemical in the solid phase,
-    /// in kg/m³. If omitted, the weighted average value of the constituents is used.</param>
-    /// <param name="densitySpecial">The approximate density of this substance when its phase is
-    /// neither solid, liquid, nor gas, in kg/m³.</param>
+    /// <param name="densityLiquid">
+    /// The approximate density of the chemical in the liquid phase, in kg/m³. If omitted, the
+    /// weighted average value of the constituents is used.
+    /// </param>
+    /// <param name="densitySolid">
+    /// The approximate density of the chemical in the solid phase, in kg/m³. If omitted, the
+    /// weighted average value of the constituents is used.
+    /// </param>
+    /// <param name="densitySpecial">
+    /// The approximate density of this substance when its phase is neither solid, liquid, nor gas,
+    /// in kg/m³.
+    /// </param>
     /// <param name="constituents">
     /// <para>
-    /// One or more constituents to add to the mixture, along with their relative proportions
-    /// (as normalized values between zero and one).
+    /// One or more constituents to add to the mixture, along with their relative proportions (as
+    /// normalized values between zero and one).
     /// </para>
     /// <para>
     /// If the proportion values are not normalized (do not sum to 1), they will be normalized
@@ -534,21 +664,26 @@ public class Mixture : ISubstance, IEquatable<Mixture>
     /// "Oxygen:25.500%; Nitrogen:74.500%".
     /// </para>
     /// <para>
-    /// Note that chemical names may also be auto-generated from the Hill notation of their
-    /// chemical formula if not explicitly given, which may lead to a mixture name such as:
-    /// "H₂O:96.240%; NaCl:3.760%".
+    /// Note that chemical names may also be auto-generated from the Hill notation of their chemical
+    /// formula if not explicitly given, which may lead to a mixture name such as: "H₂O:96.240%;
+    /// NaCl:3.760%".
     /// </para>
     /// </param>
-    /// <param name="densityLiquid">The approximate density of the chemical in the liquid phase,
-    /// in kg/m³. If omitted, the weighted average value of the constituents is used.</param>
-    /// <param name="densitySolid">The approximate density of the chemical in the solid phase,
-    /// in kg/m³. If omitted, the weighted average value of the constituents is used.</param>
-    /// <param name="densitySpecial">The approximate density of this substance when its phase is
-    /// neither solid, liquid, nor gas, in kg/m³.</param>
+    /// <param name="densityLiquid">
+    /// The approximate density of the chemical in the liquid phase, in kg/m³. If omitted, the
+    /// weighted average value of the constituents is used.
+    /// </param>
+    /// <param name="densitySolid">
+    /// The approximate density of the chemical in the solid phase, in kg/m³. If omitted, the
+    /// weighted average value of the constituents is used.
+    /// </param>
+    /// <param name="densitySpecial">
+    /// The approximate density of this substance when its phase is neither solid, liquid, nor gas,
+    /// in kg/m³.
+    /// </param>
     /// <param name="constituents">
-    /// One or more homogeneous chemical constituents to add to the mixture, each of which will
-    /// be included in equal
-    /// proportions.
+    /// One or more homogeneous chemical constituents to add to the mixture, each of which will be
+    /// included in equal proportions.
     /// </param>
     public Mixture(
         string? name = null,
@@ -576,21 +711,26 @@ public class Mixture : ISubstance, IEquatable<Mixture>
     /// "Oxygen:25.500%; Nitrogen:74.500%".
     /// </para>
     /// <para>
-    /// Note that chemical names may also be auto-generated from the Hill notation of their
-    /// chemical formula if not explicitly given, which may lead to a mixture name such as:
-    /// "H₂O:96.240%; NaCl:3.760%".
+    /// Note that chemical names may also be auto-generated from the Hill notation of their chemical
+    /// formula if not explicitly given, which may lead to a mixture name such as: "H₂O:96.240%;
+    /// NaCl:3.760%".
     /// </para>
     /// </param>
-    /// <param name="densityLiquid">The approximate density of the chemical in the liquid phase,
-    /// in kg/m³. If omitted, the weighted average value of the constituents is used.</param>
-    /// <param name="densitySolid">The approximate density of the chemical in the solid phase,
-    /// in kg/m³. If omitted, the weighted average value of the constituents is used.</param>
-    /// <param name="densitySpecial">The approximate density of this substance when its phase is
-    /// neither solid, liquid, nor gas, in kg/m³.</param>
+    /// <param name="densityLiquid">
+    /// The approximate density of the chemical in the liquid phase, in kg/m³. If omitted, the
+    /// weighted average value of the constituents is used.
+    /// </param>
+    /// <param name="densitySolid">
+    /// The approximate density of the chemical in the solid phase, in kg/m³. If omitted, the
+    /// weighted average value of the constituents is used.
+    /// </param>
+    /// <param name="densitySpecial">
+    /// The approximate density of this substance when its phase is neither solid, liquid, nor gas,
+    /// in kg/m³.
+    /// </param>
     /// <param name="constituents">
-    /// One or more homogeneous chemical constituents to add to the mixture, each of which will
-    /// be included in equal
-    /// proportions.
+    /// One or more homogeneous chemical constituents to add to the mixture, each of which will be
+    /// included in equal proportions.
     /// </param>
     public Mixture(
         string? name = null,
@@ -618,17 +758,23 @@ public class Mixture : ISubstance, IEquatable<Mixture>
     /// "Oxygen:25.500%; Nitrogen:74.500%".
     /// </para>
     /// <para>
-    /// Note that chemical names may also be auto-generated from the Hill notation of their
-    /// chemical formula if not explicitly given, which may lead to a mixture name such as:
-    /// "H₂O:96.240%; NaCl:3.760%".
+    /// Note that chemical names may also be auto-generated from the Hill notation of their chemical
+    /// formula if not explicitly given, which may lead to a mixture name such as: "H₂O:96.240%;
+    /// NaCl:3.760%".
     /// </para>
     /// </param>
-    /// <param name="densityLiquid">The approximate density of the chemical in the liquid phase,
-    /// in kg/m³. If omitted, the weighted average value of the constituents is used.</param>
-    /// <param name="densitySolid">The approximate density of the chemical in the solid phase,
-    /// in kg/m³. If omitted, the weighted average value of the constituents is used.</param>
-    /// <param name="densitySpecial">The approximate density of this substance when its phase is
-    /// neither solid, liquid, nor gas, in kg/m³.</param>
+    /// <param name="densityLiquid">
+    /// The approximate density of the chemical in the liquid phase, in kg/m³. If omitted, the
+    /// weighted average value of the constituents is used.
+    /// </param>
+    /// <param name="densitySolid">
+    /// The approximate density of the chemical in the solid phase, in kg/m³. If omitted, the
+    /// weighted average value of the constituents is used.
+    /// </param>
+    /// <param name="densitySpecial">
+    /// The approximate density of this substance when its phase is neither solid, liquid, nor gas,
+    /// in kg/m³.
+    /// </param>
     /// <param name="constituents">
     /// One or more constituents to add to the mixture, each of which will be included in equal
     /// proportions.
@@ -662,28 +808,48 @@ public class Mixture : ISubstance, IEquatable<Mixture>
     /// "Oxygen:25.500%; Nitrogen:74.500%".
     /// </para>
     /// <para>
-    /// Note that chemical names may also be auto-generated from the Hill notation of their
-    /// chemical formula if not explicitly given, which may lead to a mixture name such as:
-    /// "H₂O:96.240%; NaCl:3.760%".
+    /// Note that chemical names may also be auto-generated from the Hill notation of their chemical
+    /// formula if not explicitly given, which may lead to a mixture name such as: "H₂O:96.240%;
+    /// NaCl:3.760%".
     /// </para>
     /// </param>
-    /// <param name="densityLiquid">The approximate density of the chemical in the liquid phase,
-    /// in kg/m³. If omitted, the weighted average value of the constituents is used.</param>
-    /// <param name="densitySolid">The approximate density of the chemical in the solid phase,
-    /// in kg/m³. If omitted, the weighted average value of the constituents is used.</param>
-    /// <param name="densitySpecial">The approximate density of this substance when its phase is
-    /// neither solid, liquid, nor gas, in kg/m³.</param>
+    /// <param name="densityLiquid">
+    /// The approximate density of the chemical in the liquid phase, in kg/m³. If omitted, the
+    /// weighted average value of the constituents is used.
+    /// </param>
+    /// <param name="densitySolid">
+    /// The approximate density of the chemical in the solid phase, in kg/m³. If omitted, the
+    /// weighted average value of the constituents is used.
+    /// </param>
+    /// <param name="densitySpecial">
+    /// The approximate density of this substance when its phase is neither solid, liquid, nor gas,
+    /// in kg/m³.
+    /// </param>
+    /// <param name="commonNames">
+    /// <para>
+    /// An optional list of common names for this substance.
+    /// </para>
+    /// <para>
+    /// The list may be arranged in order of most to least common, so that the first name in the
+    /// list (if a list is present at all) can be assumed to be the most recognizable name for the
+    /// substance. However, this is not a strict requirement. Names may appear in any order,
+    /// particularly if no specific usage data is available, or when various names are equally
+    /// common in different contexts.
+    /// </para>
+    /// </param>
     public Mixture(
         IHomogeneous constituent,
         string? name = null,
         double? densityLiquid = null,
         double? densitySolid = null,
-        double? densitySpecial = null) : this(
+        double? densitySpecial = null,
+        params string[] commonNames) : this(
             new ReadOnlyDictionary<HomogeneousReference, decimal>(new Dictionary<HomogeneousReference, decimal> { { constituent.GetHomogeneousReference(), 1 } }),
             name,
             densityLiquid,
             densitySolid,
-            densitySpecial)
+            densitySpecial,
+            commonNames)
     { }
 
     /// <summary>
@@ -701,28 +867,48 @@ public class Mixture : ISubstance, IEquatable<Mixture>
     /// "Oxygen:25.500%; Nitrogen:74.500%".
     /// </para>
     /// <para>
-    /// Note that chemical names may also be auto-generated from the Hill notation of their
-    /// chemical formula if not explicitly given, which may lead to a mixture name such as:
-    /// "H₂O:96.240%; NaCl:3.760%".
+    /// Note that chemical names may also be auto-generated from the Hill notation of their chemical
+    /// formula if not explicitly given, which may lead to a mixture name such as: "H₂O:96.240%;
+    /// NaCl:3.760%".
     /// </para>
     /// </param>
-    /// <param name="densityLiquid">The approximate density of the chemical in the liquid phase,
-    /// in kg/m³. If omitted, the weighted average value of the constituents is used.</param>
-    /// <param name="densitySolid">The approximate density of the chemical in the solid phase,
-    /// in kg/m³. If omitted, the weighted average value of the constituents is used.</param>
-    /// <param name="densitySpecial">The approximate density of this substance when its phase is
-    /// neither solid, liquid, nor gas, in kg/m³.</param>
+    /// <param name="densityLiquid">
+    /// The approximate density of the chemical in the liquid phase, in kg/m³. If omitted, the
+    /// weighted average value of the constituents is used.
+    /// </param>
+    /// <param name="densitySolid">
+    /// The approximate density of the chemical in the solid phase, in kg/m³. If omitted, the
+    /// weighted average value of the constituents is used.
+    /// </param>
+    /// <param name="densitySpecial">
+    /// The approximate density of this substance when its phase is neither solid, liquid, nor gas,
+    /// in kg/m³.
+    /// </param>
+    /// <param name="commonNames">
+    /// <para>
+    /// An optional list of common names for this substance.
+    /// </para>
+    /// <para>
+    /// The list may be arranged in order of most to least common, so that the first name in the
+    /// list (if a list is present at all) can be assumed to be the most recognizable name for the
+    /// substance. However, this is not a strict requirement. Names may appear in any order,
+    /// particularly if no specific usage data is available, or when various names are equally
+    /// common in different contexts.
+    /// </para>
+    /// </param>
     public Mixture(
         HomogeneousReference constituent,
         string? name = null,
         double? densityLiquid = null,
         double? densitySolid = null,
-        double? densitySpecial = null) : this(
+        double? densitySpecial = null,
+        params string[] commonNames) : this(
             new ReadOnlyDictionary<HomogeneousReference, decimal>(new Dictionary<HomogeneousReference, decimal> { { constituent, 1 } }),
             name,
             densityLiquid,
             densitySolid,
-            densitySpecial)
+            densitySpecial,
+            commonNames)
     { }
 
     /// <summary>
@@ -748,17 +934,35 @@ public class Mixture : ISubstance, IEquatable<Mixture>
     /// "Oxygen:25.500%; Nitrogen:74.500%".
     /// </para>
     /// <para>
-    /// Note that chemical names may also be auto-generated from the Hill notation of their
-    /// chemical formula if not explicitly given, which may lead to a mixture name such as:
-    /// "H₂O:96.240%; NaCl:3.760%".
+    /// Note that chemical names may also be auto-generated from the Hill notation of their chemical
+    /// formula if not explicitly given, which may lead to a mixture name such as: "H₂O:96.240%;
+    /// NaCl:3.760%".
     /// </para>
     /// </param>
-    /// <param name="densityLiquid">The approximate density of the chemical in the liquid phase,
-    /// in kg/m³. If omitted, the weighted average value of the constituents is used.</param>
-    /// <param name="densitySolid">The approximate density of the chemical in the solid phase,
-    /// in kg/m³. If omitted, the weighted average value of the constituents is used.</param>
-    /// <param name="densitySpecial">The approximate density of this substance when its phase is
-    /// neither solid, liquid, nor gas, in kg/m³.</param>
+    /// <param name="densityLiquid">
+    /// The approximate density of the chemical in the liquid phase, in kg/m³. If omitted, the
+    /// weighted average value of the constituents is used.
+    /// </param>
+    /// <param name="densitySolid">
+    /// The approximate density of the chemical in the solid phase, in kg/m³. If omitted, the
+    /// weighted average value of the constituents is used.
+    /// </param>
+    /// <param name="densitySpecial">
+    /// The approximate density of this substance when its phase is neither solid, liquid, nor gas,
+    /// in kg/m³.
+    /// </param>
+    /// <param name="commonNames">
+    /// <para>
+    /// An optional list of common names for this substance.
+    /// </para>
+    /// <para>
+    /// The list may be arranged in order of most to least common, so that the first name in the
+    /// list (if a list is present at all) can be assumed to be the most recognizable name for the
+    /// substance. However, this is not a strict requirement. Names may appear in any order,
+    /// particularly if no specific usage data is available, or when various names are equally
+    /// common in different contexts.
+    /// </para>
+    /// </param>
     [JsonConstructor]
     public Mixture(
         string id,
@@ -766,7 +970,8 @@ public class Mixture : ISubstance, IEquatable<Mixture>
         string name,
         double? densityLiquid = null,
         double? densitySolid = null,
-        double? densitySpecial = null)
+        double? densitySpecial = null,
+        IReadOnlyList<string>? commonNames = null)
     {
         Id = id;
         Constituents = constituents;
@@ -774,6 +979,7 @@ public class Mixture : ISubstance, IEquatable<Mixture>
         DensityLiquid = densityLiquid;
         DensitySolid = densitySolid;
         DensitySpecial = densitySpecial;
+        CommonNames = commonNames;
     }
 
     /// <summary>
@@ -799,24 +1005,43 @@ public class Mixture : ISubstance, IEquatable<Mixture>
     /// "Oxygen:25.500%; Nitrogen:74.500%".
     /// </para>
     /// <para>
-    /// Note that chemical names may also be auto-generated from the Hill notation of their
-    /// chemical formula if not explicitly given, which may lead to a mixture name such as:
-    /// "H₂O:96.240%; NaCl:3.760%".
+    /// Note that chemical names may also be auto-generated from the Hill notation of their chemical
+    /// formula if not explicitly given, which may lead to a mixture name such as: "H₂O:96.240%;
+    /// NaCl:3.760%".
     /// </para>
     /// </param>
-    /// <param name="densityLiquid">The approximate density of the chemical in the liquid phase,
-    /// in kg/m³. If omitted, the weighted average value of the constituents is used.</param>
-    /// <param name="densitySolid">The approximate density of the chemical in the solid phase,
-    /// in kg/m³. If omitted, the weighted average value of the constituents is used.</param>
-    /// <param name="densitySpecial">The approximate density of this substance when its phase is
-    /// neither solid, liquid, nor gas, in kg/m³.</param>
+    /// <param name="densityLiquid">
+    /// The approximate density of the chemical in the liquid phase, in kg/m³. If omitted, the
+    /// weighted average value of the constituents is used.
+    /// </param>
+    /// <param name="densitySolid">
+    /// The approximate density of the chemical in the solid phase, in kg/m³. If omitted, the
+    /// weighted average value of the constituents is used.
+    /// </param>
+    /// <param name="densitySpecial">
+    /// The approximate density of this substance when its phase is neither solid, liquid, nor gas,
+    /// in kg/m³.
+    /// </param>
+    /// <param name="commonNames">
+    /// <para>
+    /// An optional list of common names for this substance.
+    /// </para>
+    /// <para>
+    /// The list may be arranged in order of most to least common, so that the first name in the
+    /// list (if a list is present at all) can be assumed to be the most recognizable name for the
+    /// substance. However, this is not a strict requirement. Names may appear in any order,
+    /// particularly if no specific usage data is available, or when various names are equally
+    /// common in different contexts.
+    /// </para>
+    /// </param>
     internal Mixture(
         string id,
         IEnumerable<(HomogeneousReference constituent, decimal proportion)> constituents,
         string? name = null,
         double? densityLiquid = null,
         double? densitySolid = null,
-        double? densitySpecial = null) : this(
+        double? densitySpecial = null,
+        IReadOnlyList<string>? commonNames = null) : this(
             new ReadOnlyDictionary<HomogeneousReference, decimal>(
                 constituents.GroupBy(x => x.constituent.Id)
                 .ToDictionary(x => x.First().constituent, x => x.Sum(y => y.proportion / constituents.Sum(z => z.proportion)))),
@@ -824,7 +1049,8 @@ public class Mixture : ISubstance, IEquatable<Mixture>
             name,
             densityLiquid,
             densitySolid,
-            densitySpecial)
+            densitySpecial,
+            commonNames)
     { }
 
     private Mixture(
@@ -833,13 +1059,15 @@ public class Mixture : ISubstance, IEquatable<Mixture>
         string? name = null,
         double? densityLiquid = null,
         double? densitySolid = null,
-        double? densitySpecial = null) : this(
+        double? densitySpecial = null,
+        IReadOnlyList<string>? commonNames = null) : this(
             id,
             constituents,
             name ?? GetName(constituents),
             densityLiquid,
             densitySolid,
-            densitySpecial)
+            densitySpecial,
+            commonNames)
     { }
 
     private Mixture(
@@ -847,13 +1075,15 @@ public class Mixture : ISubstance, IEquatable<Mixture>
         string? name = null,
         double? densityLiquid = null,
         double? densitySolid = null,
-        double? densitySpecial = null) : this(
+        double? densitySpecial = null,
+        IReadOnlyList<string>? commonNames = null) : this(
             Guid.NewGuid().ToString(),
             constituents,
             name ?? GetName(constituents),
             densityLiquid,
             densitySolid,
-            densitySpecial)
+            densitySpecial,
+            commonNames)
     { }
 
     /// <summary>
@@ -876,7 +1106,7 @@ public class Mixture : ISubstance, IEquatable<Mixture>
     /// </para>
     /// <para>
     /// The proportions of the other constituents of this substance will be reduced
-    /// proportionately to accomodate this value.
+    /// proportionately to accommodate this value.
     /// </para>
     /// <para>
     /// If less than or equal to zero, this instance is returned unchanged.
@@ -900,23 +1130,23 @@ public class Mixture : ISubstance, IEquatable<Mixture>
         var match = included ? Constituents.First(x => x.Key.Equals(constituent)) : (KeyValuePair<HomogeneousReference, decimal>?)null;
         var p = proportion.Clamp(0, 1);
         var ratio = included ? 1 - (p - match!.Value.Value) : 1 - p;
-        var constuituents = new List<(HomogeneousReference, decimal)>();
+        var constituents = new List<(HomogeneousReference, decimal)>();
         foreach (var keyValuePair in Constituents.ToList())
         {
             if (included && keyValuePair.Key.Equals(match!.Value.Key))
             {
-                constuituents.Add((keyValuePair.Key, p));
+                constituents.Add((keyValuePair.Key, p));
             }
             else
             {
-                constuituents.Add((keyValuePair.Key, keyValuePair.Value * ratio));
+                constituents.Add((keyValuePair.Key, keyValuePair.Value * ratio));
             }
         }
         if (!included)
         {
-            constuituents.Add((constituent, p));
+            constituents.Add((constituent, p));
         }
-        return new Mixture(constuituents);
+        return new Mixture(constituents);
     }
 
     /// <summary>
@@ -939,7 +1169,7 @@ public class Mixture : ISubstance, IEquatable<Mixture>
     /// </para>
     /// <para>
     /// The proportions of the other constituents of this substance will be reduced
-    /// proportionately to accomodate this value.
+    /// proportionately to accommodate this value.
     /// </para>
     /// <para>
     /// If less than or equal to zero, this instance is returned unchanged.
@@ -963,23 +1193,23 @@ public class Mixture : ISubstance, IEquatable<Mixture>
         var match = included ? Constituents.First(x => x.Key.Equals(constituent)) : (KeyValuePair<HomogeneousReference, decimal>?)null;
         var p = proportion.Clamp(0, 1);
         var ratio = included ? 1 - (p - match!.Value.Value) : 1 - p;
-        var constuituents = new List<(HomogeneousReference, decimal)>();
+        var constituents = new List<(HomogeneousReference, decimal)>();
         foreach (var keyValuePair in Constituents.ToList())
         {
             if (included && keyValuePair.Key.Equals(match!.Value.Key))
             {
-                constuituents.Add((keyValuePair.Key, p));
+                constituents.Add((keyValuePair.Key, p));
             }
             else
             {
-                constuituents.Add((keyValuePair.Key, keyValuePair.Value * ratio));
+                constituents.Add((keyValuePair.Key, keyValuePair.Value * ratio));
             }
         }
         if (!included)
         {
-            constuituents.Add((constituent.GetHomogeneousReference(), p));
+            constituents.Add((constituent.GetHomogeneousReference(), p));
         }
-        return new Mixture(constuituents);
+        return new Mixture(constituents);
     }
 
     /// <summary>
@@ -995,7 +1225,7 @@ public class Mixture : ISubstance, IEquatable<Mixture>
     /// </para>
     /// <para>
     /// The proportions of the individual constituents of each substance will be reduced
-    /// proportionately to accomodate this value.
+    /// proportionately to accommodate this value.
     /// </para>
     /// </param>
     /// <returns>A new <see cref="ISubstance"/> instance representing the combination of this
@@ -1078,7 +1308,7 @@ public class Mixture : ISubstance, IEquatable<Mixture>
     /// </para>
     /// <para>
     /// The proportions of the individual constituents of each substance will be reduced
-    /// proportionately to accomodate this value.
+    /// proportionately to accommodate this value.
     /// </para>
     /// </param>
     /// <returns>A new <see cref="ISubstance"/> instance representing the combination of this
@@ -1519,8 +1749,26 @@ public class Mixture : ISubstance, IEquatable<Mixture>
     /// Gets a copy of this instance with the given <paramref name="name"/>.
     /// </summary>
     /// <param name="name">A new name for this instance.</param>
+    /// <param name="commonNames">
+    /// <para>
+    /// An optional list of new common names for this substance.
+    /// </para>
+    /// <para>
+    /// The list may be arranged in order of most to least common, so that the first name in the
+    /// list (if a list is present at all) can be assumed to be the most recognizable name for the
+    /// substance. However, this is not a strict requirement. Names may appear in any order,
+    /// particularly if no specific usage data is available, or when various names are equally
+    /// common in different contexts.
+    /// </para>
+    /// </param>
     /// <returns>A version of this instance with the given name.</returns>
-    public ISubstance WithSubstanceName(string name) => new Mixture(Constituents, name, DensityLiquid, DensitySolid, DensitySpecial);
+    public ISubstance WithSubstanceName(string name, params string[] commonNames) => new Mixture(
+        Constituents,
+        name,
+        DensityLiquid,
+        DensitySolid,
+        DensitySpecial,
+        commonNames);
 
     private static string GetName(IReadOnlyDictionary<HomogeneousReference, decimal> constituents)
     {

@@ -58,6 +58,18 @@ public class HomogeneousSubstance : IHomogeneous, IEquatable<HomogeneousSubstanc
     public double? AntoineMinimumTemperature { get; }
 
     /// <summary>
+    /// An optional list of common names for this substance.
+    /// </summary>
+    /// <remarks>
+    /// The list may be arranged in order of most to least common, so that the first name in the
+    /// list (if a list is present at all) can be assumed to be the most recognizable name for the
+    /// substance. However, this is not a strict requirement. Names may appear in any order,
+    /// particularly if no specific usage data is available, or when various names are equally
+    /// common in different contexts.
+    /// </remarks>
+    public IReadOnlyList<string>? CommonNames { get; }
+
+    /// <summary>
     /// <para>
     /// The collection of constituents that make up this substance, along with their relative
     /// proportions (as normalized values between zero and one).
@@ -283,7 +295,7 @@ public class HomogeneousSubstance : IHomogeneous, IEquatable<HomogeneousSubstanc
     /// <param name="isFlammable">Whether or not the substance is flammable.</param>
     /// <param name="isGemstone">Whether this substance is considered a gemstone.</param>
     /// <param name="isMetal">Whether or not the substance is a metal.</param>
-    /// <param name="isRadioactive">Indicates whether this substance is radoiactive.</param>
+    /// <param name="isRadioactive">Indicates whether this substance is radioactive.</param>
     /// <param name="meltingPoint">
     /// <para>
     /// A melting point, in K.
@@ -313,6 +325,18 @@ public class HomogeneousSubstance : IHomogeneous, IEquatable<HomogeneousSubstanc
     /// <para>May be left <see langword="null"/> to indicate no known value.
     /// </para>
     /// </param>
+    /// <param name="commonNames">
+    /// <para>
+    /// An optional list of common names for this substance.
+    /// </para>
+    /// <para>
+    /// The list may be arranged in order of most to least common, so that the first name in the
+    /// list (if a list is present at all) can be assumed to be the most recognizable name for the
+    /// substance. However, this is not a strict requirement. Names may appear in any order,
+    /// particularly if no specific usage data is available, or when various names are equally
+    /// common in different contexts.
+    /// </para>
+    /// </param>
     public HomogeneousSubstance(
         string name,
         double? antoineCoefficientA = null,
@@ -333,7 +357,8 @@ public class HomogeneousSubstance : IHomogeneous, IEquatable<HomogeneousSubstanc
         double? meltingPoint = null,
         double? molarMass = null,
         PhaseType? fixedPhase = null,
-        double? youngsModulus = null) : this(
+        double? youngsModulus = null,
+        params string[] commonNames) : this(
             Guid.NewGuid().ToString(),
             name,
             antoineCoefficientA,
@@ -354,7 +379,8 @@ public class HomogeneousSubstance : IHomogeneous, IEquatable<HomogeneousSubstanc
             meltingPoint,
             molarMass ?? 0,
             fixedPhase,
-            youngsModulus)
+            youngsModulus,
+            commonNames)
     { }
 
     /// <summary>
@@ -434,7 +460,7 @@ public class HomogeneousSubstance : IHomogeneous, IEquatable<HomogeneousSubstanc
     /// <param name="isFlammable">Whether or not the substance is flammable.</param>
     /// <param name="isGemstone">Whether this substance is considered a gemstone.</param>
     /// <param name="isMetal">Whether or not the substance is a metal.</param>
-    /// <param name="isRadioactive">Indicates whether this substance is radoiactive.</param>
+    /// <param name="isRadioactive">Indicates whether this substance is radioactive.</param>
     /// <param name="meltingPoint">
     /// <para>
     /// A melting point, in K.
@@ -464,6 +490,18 @@ public class HomogeneousSubstance : IHomogeneous, IEquatable<HomogeneousSubstanc
     /// <para>May be left <see langword="null"/> to indicate no known value.
     /// </para>
     /// </param>
+    /// <param name="commonNames">
+    /// <para>
+    /// An optional list of common names for this substance.
+    /// </para>
+    /// <para>
+    /// The list may be arranged in order of most to least common, so that the first name in the
+    /// list (if a list is present at all) can be assumed to be the most recognizable name for the
+    /// substance. However, this is not a strict requirement. Names may appear in any order,
+    /// particularly if no specific usage data is available, or when various names are equally
+    /// common in different contexts.
+    /// </para>
+    /// </param>
     [JsonConstructor]
     public HomogeneousSubstance(
         string id,
@@ -486,7 +524,8 @@ public class HomogeneousSubstance : IHomogeneous, IEquatable<HomogeneousSubstanc
         double? meltingPoint = null,
         double molarMass = 0,
         PhaseType? fixedPhase = null,
-        double? youngsModulus = null)
+        double? youngsModulus = null,
+        IReadOnlyList<string>? commonNames = null)
     {
         Id = id;
         if (string.IsNullOrWhiteSpace(name))
@@ -519,6 +558,7 @@ public class HomogeneousSubstance : IHomogeneous, IEquatable<HomogeneousSubstanc
         MolarMass = molarMass;
         FixedPhase = fixedPhase;
         YoungsModulus = youngsModulus;
+        CommonNames = commonNames;
     }
 
     /// <summary>
@@ -541,7 +581,7 @@ public class HomogeneousSubstance : IHomogeneous, IEquatable<HomogeneousSubstanc
     /// </para>
     /// <para>
     /// The proportions of the other constituents of this substance will be reduced
-    /// proportionately to accomodate this value.
+    /// proportionately to accommodate this value.
     /// </para>
     /// <para>
     /// If less than or equal to zero, this instance is returned unchanged.
@@ -585,7 +625,7 @@ public class HomogeneousSubstance : IHomogeneous, IEquatable<HomogeneousSubstanc
     /// </para>
     /// <para>
     /// The proportions of the other constituents of this substance will be reduced
-    /// proportionately to accomodate this value.
+    /// proportionately to accommodate this value.
     /// </para>
     /// <para>
     /// If less than or equal to zero, this instance is returned unchanged.
@@ -622,7 +662,7 @@ public class HomogeneousSubstance : IHomogeneous, IEquatable<HomogeneousSubstanc
     /// </para>
     /// <para>
     /// The proportions of the individual constituents of each substance will be reduced
-    /// proportionately to accomodate this value.
+    /// proportionately to accommodate this value.
     /// </para>
     /// </param>
     /// <returns>A new <see cref="ISubstance"/> instance representing the combination of this
@@ -659,7 +699,7 @@ public class HomogeneousSubstance : IHomogeneous, IEquatable<HomogeneousSubstanc
     /// </para>
     /// <para>
     /// The proportions of the individual constituents of each substance will be reduced
-    /// proportionately to accomodate this value.
+    /// proportionately to accommodate this value.
     /// </para>
     /// </param>
     /// <returns>A new <see cref="ISubstance"/> instance representing the combination of this
@@ -990,8 +1030,20 @@ public class HomogeneousSubstance : IHomogeneous, IEquatable<HomogeneousSubstanc
     /// Gets a copy of this instance with the given <paramref name="name"/>.
     /// </summary>
     /// <param name="name">A new name for this instance.</param>
+    /// <param name="commonNames">
+    /// <para>
+    /// An optional list of new common names for this substance.
+    /// </para>
+    /// <para>
+    /// The list may be arranged in order of most to least common, so that the first name in the
+    /// list (if a list is present at all) can be assumed to be the most recognizable name for the
+    /// substance. However, this is not a strict requirement. Names may appear in any order,
+    /// particularly if no specific usage data is available, or when various names are equally
+    /// common in different contexts.
+    /// </para>
+    /// </param>
     /// <returns>A version of this instance with the given name.</returns>
-    public ISubstance WithSubstanceName(string name) => new HomogeneousSubstance(
+    public ISubstance WithSubstanceName(string name, params string[] commonNames) => new HomogeneousSubstance(
         name,
         AntoineCoefficientA,
         AntoineCoefficientB,
@@ -1011,7 +1063,8 @@ public class HomogeneousSubstance : IHomogeneous, IEquatable<HomogeneousSubstanc
         MeltingPoint,
         MolarMass,
         FixedPhase,
-        YoungsModulus);
+        YoungsModulus,
+        commonNames);
 
     /// <summary>
     /// Indicates whether two substances are equal.

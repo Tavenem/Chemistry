@@ -45,6 +45,18 @@ public class Chemical : IHomogeneous, IEquatable<Chemical>
     public double? AntoineMinimumTemperature { get; }
 
     /// <summary>
+    /// An optional list of common names for this substance.
+    /// </summary>
+    /// <remarks>
+    /// The list may be arranged in order of most to least common, so that the first name in the
+    /// list (if a list is present at all) can be assumed to be the most recognizable name for the
+    /// substance. However, this is not a strict requirement. Names may appear in any order,
+    /// particularly if no specific usage data is available, or when various names are equally
+    /// common in different contexts.
+    /// </remarks>
+    public IReadOnlyList<string>? CommonNames { get; }
+
+    /// <summary>
     /// <para>
     /// The collection of constituents that make up this substance, along with their relative
     /// proportions (as normalized values between zero and one).
@@ -204,21 +216,21 @@ public class Chemical : IHomogeneous, IEquatable<Chemical>
     /// Initializes a new instance of <see cref="Chemical"/>.
     /// </summary>
     /// <param name="formula">The formula of this chemical.</param>
-    /// <param name="name">The name of this chemical. If omitted, the Hill notation of the
-    /// formula is used.</param>
+    /// <param name="name">The name of this chemical. If omitted, the Hill notation of the formula
+    /// is used.</param>
     /// <param name="antoineCoefficientA">
     /// <para>
     /// The "A" Antoine coefficient.
     /// </para>
     /// <para>
-    /// Whether the phase can be indicated as gaseous depends on whether the Antoine
-    /// coefficients, minimum and/or maximum temperatures have been defined.
+    /// Whether the phase can be indicated as gaseous depends on whether the Antoine coefficients,
+    /// minimum and/or maximum temperatures have been defined.
     /// </para>
     /// <para>
-    /// When the Antoine coefficients are unknown, but a boiling point at STP is known, the
-    /// minimum and maximum may both be set to this temperature. This produces inaccurate
-    /// results at non-standard pressures, of course, but permits at least some separation
-    /// between the liquid and gas phases when a precise formula cannot be determined.
+    /// When the Antoine coefficients are unknown, but a boiling point at STP is known, the minimum
+    /// and maximum may both be set to this temperature. This produces inaccurate results at
+    /// non-standard pressures, of course, but permits at least some separation between the liquid
+    /// and gas phases when a precise formula cannot be determined.
     /// </para>
     /// </param>
     /// <param name="antoineCoefficientB">
@@ -232,15 +244,15 @@ public class Chemical : IHomogeneous, IEquatable<Chemical>
     /// A maximum Antoine temperature, in K.
     /// </para>
     /// <para>
-    /// A maximum temperature of <see cref="double.NegativeInfinity"/> may be defined to
-    /// indicate that a chemical is always gaseous. There is no need to specify the Antoine
-    /// coefficients in this case.
+    /// A maximum temperature of <see cref="double.NegativeInfinity"/> may be defined to indicate
+    /// that a chemical is always gaseous. There is no need to specify the Antoine coefficients in
+    /// this case.
     /// </para>
     /// <para>
-    /// When the Antoine coefficients are unknown, but a boiling point at STP is known, the
-    /// minimum and maximum may both be set to this temperature. This produces inaccurate
-    /// results at non-standard pressures, of course, but permits at least some separation
-    /// between the liquid and gas phases when a precise formula cannot be determined.
+    /// When the Antoine coefficients are unknown, but a boiling point at STP is known, the minimum
+    /// and maximum may both be set to this temperature. This produces inaccurate results at
+    /// non-standard pressures, of course, but permits at least some separation between the liquid
+    /// and gas phases when a precise formula cannot be determined.
     /// </para>
     /// </param>
     /// <param name="antoineMinimumTemperature">
@@ -248,21 +260,21 @@ public class Chemical : IHomogeneous, IEquatable<Chemical>
     /// A minimum Antoine temperature, in K.
     /// </para>
     /// <para>
-    /// A minimum temperature of <see cref="double.PositiveInfinity"/> may be defined to
-    /// indicate that a chemical is never gaseous. There is no need to specify the Antoine
-    /// coefficients in this case.
+    /// A minimum temperature of <see cref="double.PositiveInfinity"/> may be defined to indicate
+    /// that a chemical is never gaseous. There is no need to specify the Antoine coefficients in
+    /// this case.
     /// </para>
     /// <para>
-    /// When the Antoine coefficients are unknown, but a boiling point at STP is known, the
-    /// minimum and maximum may both be set to this temperature. This produces inaccurate
-    /// results at non-standard pressures, of course, but permits at least some separation
-    /// between the liquid and gas phases when a precise formula cannot be determined.
+    /// When the Antoine coefficients are unknown, but a boiling point at STP is known, the minimum
+    /// and maximum may both be set to this temperature. This produces inaccurate results at
+    /// non-standard pressures, of course, but permits at least some separation between the liquid
+    /// and gas phases when a precise formula cannot be determined.
     /// </para>
     /// </param>
-    /// <param name="densityLiquid">The approximate density of the chemical in the liquid phase,
-    /// in kg/m³.</param>
-    /// <param name="densitySolid">The approximate density of the chemical in the solid phase,
-    /// in kg/m³.</param>
+    /// <param name="densityLiquid">The approximate density of the chemical in the liquid phase, in
+    /// kg/m³.</param>
+    /// <param name="densitySolid">The approximate density of the chemical in the solid phase, in
+    /// kg/m³.</param>
     /// <param name="densitySpecial">The approximate density of this substance when its phase is
     /// neither solid, liquid, nor gas, in kg/m³.</param>
     /// <param name="greenhousePotential">A greenhouse potential.</param>
@@ -282,17 +294,17 @@ public class Chemical : IHomogeneous, IEquatable<Chemical>
     /// Whether or not the chemical is a metal.
     /// </para>
     /// <para>
-    /// When not set explicitly, this is indicated by the inclusion in its chemical formula of
-    /// at least as many metallic elements as non-metallic, not counting metalloids.
+    /// When not set explicitly, this is indicated by the inclusion in its chemical formula of at
+    /// least as many metallic elements as non-metallic, not counting metalloids.
     /// </para>
     /// </param>
     /// <param name="isRadioactive">
     /// <para>
-    /// Indicates whether this substance is radoiactive.
+    /// Indicates whether this substance is radioactive.
     /// </para>
     /// <para>
-    /// When not set explicitly, this is indicated by the inclusion in its chemical formula of
-    /// any radioactive isotopes.
+    /// When not set explicitly, this is indicated by the inclusion in its chemical formula of any
+    /// radioactive isotopes.
     /// </para>
     /// </param>
     /// <param name="meltingPoint">
@@ -300,19 +312,19 @@ public class Chemical : IHomogeneous, IEquatable<Chemical>
     /// A melting point, in K.
     /// </para>
     /// <para>
-    /// If the melting point of the chemical is not indicated, the phase will never be indicated
-    /// as liquid. A melting point of <see cref="double.NegativeInfinity"/> may be given to
-    /// indicate that a chemical is always liquid.
+    /// If the melting point of the chemical is not indicated, the phase will never be indicated as
+    /// liquid. A melting point of <see cref="double.NegativeInfinity"/> may be given to indicate
+    /// that a chemical is always liquid.
     /// </para>
     /// </param>
     /// <param name="fixedPhase">
     /// <para>
-    /// If set, indicates an explicitly defined phase for this substance, which overrides the
-    /// usual phase calculations based on temperature and pressure.
+    /// If set, indicates an explicitly defined phase for this substance, which overrides the usual
+    /// phase calculations based on temperature and pressure.
     /// </para>
     /// <para>
-    /// This is expected to be utilized mainly for substances in exotic phases of matter, such
-    /// as plasma, glass, etc. These phases are not indicated using the standard <see
+    /// This is expected to be utilized mainly for substances in exotic phases of matter, such as
+    /// plasma, glass, etc. These phases are not indicated using the standard <see
     /// cref="IHomogeneous.GetPhase(double, double)"/> method.
     /// </para>
     /// </param>
@@ -321,6 +333,18 @@ public class Chemical : IHomogeneous, IEquatable<Chemical>
     /// The Young's Modulus of this chemical, in GPa.
     /// </para>
     /// <para>May be left <see langword="null"/> to indicate no known value.
+    /// </para>
+    /// </param>
+    /// <param name="commonNames">
+    /// <para>
+    /// An optional list of common names for this substance.
+    /// </para>
+    /// <para>
+    /// The list may be arranged in order of most to least common, so that the first name in the
+    /// list (if a list is present at all) can be assumed to be the most recognizable name for the
+    /// substance. However, this is not a strict requirement. Names may appear in any order,
+    /// particularly if no specific usage data is available, or when various names are equally
+    /// common in different contexts.
     /// </para>
     /// </param>
     public Chemical(
@@ -343,7 +367,8 @@ public class Chemical : IHomogeneous, IEquatable<Chemical>
         bool? isRadioactive = null,
         double? meltingPoint = null,
         PhaseType? fixedPhase = null,
-        double? youngsModulus = null) : this(
+        double? youngsModulus = null,
+        params string[] commonNames) : this(
             Guid.NewGuid().ToString(),
             formula,
             string.IsNullOrWhiteSpace(name)
@@ -368,7 +393,8 @@ public class Chemical : IHomogeneous, IEquatable<Chemical>
             isRadioactive ?? formula.Isotopes.Any(x => x.IsRadioactive),
             meltingPoint,
             fixedPhase,
-            youngsModulus)
+            youngsModulus,
+            commonNames)
     { }
 
     /// <summary>
@@ -460,7 +486,7 @@ public class Chemical : IHomogeneous, IEquatable<Chemical>
     /// </param>
     /// <param name="isRadioactive">
     /// <para>
-    /// Indicates whether this substance is radoiactive.
+    /// Indicates whether this substance is radioactive.
     /// </para>
     /// <para>
     /// When not set explicitly, this is indicated by the inclusion in its chemical formula of
@@ -495,6 +521,18 @@ public class Chemical : IHomogeneous, IEquatable<Chemical>
     /// <para>May be left <see langword="null"/> to indicate no known value.
     /// </para>
     /// </param>
+    /// <param name="commonNames">
+    /// <para>
+    /// An optional list of common names for this substance.
+    /// </para>
+    /// <para>
+    /// The list may be arranged in order of most to least common, so that the first name in the
+    /// list (if a list is present at all) can be assumed to be the most recognizable name for the
+    /// substance. However, this is not a strict requirement. Names may appear in any order,
+    /// particularly if no specific usage data is available, or when various names are equally
+    /// common in different contexts.
+    /// </para>
+    /// </param>
     [JsonConstructor]
     public Chemical(
         string id,
@@ -517,7 +555,8 @@ public class Chemical : IHomogeneous, IEquatable<Chemical>
         bool isRadioactive = false,
         double? meltingPoint = null,
         PhaseType? fixedPhase = null,
-        double? youngsModulus = null)
+        double? youngsModulus = null,
+        IReadOnlyList<string>? commonNames = null)
     {
         Id = id;
         Name = name;
@@ -546,6 +585,7 @@ public class Chemical : IHomogeneous, IEquatable<Chemical>
         IsConductive = isConductive;
         FixedPhase = fixedPhase;
         YoungsModulus = youngsModulus;
+        CommonNames = commonNames;
     }
 
     /// <summary>
@@ -568,7 +608,7 @@ public class Chemical : IHomogeneous, IEquatable<Chemical>
     /// </para>
     /// <para>
     /// The proportions of the other constituents of this substance will be reduced
-    /// proportionately to accomodate this value.
+    /// proportionately to accommodate this value.
     /// </para>
     /// <para>
     /// If less than or equal to zero, this instance is returned unchanged.
@@ -612,7 +652,7 @@ public class Chemical : IHomogeneous, IEquatable<Chemical>
     /// </para>
     /// <para>
     /// The proportions of the other constituents of this substance will be reduced
-    /// proportionately to accomodate this value.
+    /// proportionately to accommodate this value.
     /// </para>
     /// <para>
     /// If less than or equal to zero, this instance is returned unchanged.
@@ -654,7 +694,7 @@ public class Chemical : IHomogeneous, IEquatable<Chemical>
     /// </para>
     /// <para>
     /// The proportions of the individual constituents of each substance will be reduced
-    /// proportionately to accomodate this value.
+    /// proportionately to accommodate this value.
     /// </para>
     /// </param>
     /// <returns>A new <see cref="ISubstance"/> instance representing the combination of this
@@ -680,7 +720,7 @@ public class Chemical : IHomogeneous, IEquatable<Chemical>
     /// </para>
     /// <para>
     /// The proportions of the individual constituents of each substance will be reduced
-    /// proportionately to accomodate this value.
+    /// proportionately to accommodate this value.
     /// </para>
     /// </param>
     /// <returns>A new <see cref="ISubstance"/> instance representing the combination of this
@@ -980,8 +1020,20 @@ public class Chemical : IHomogeneous, IEquatable<Chemical>
     /// Gets a copy of this instance with the given <paramref name="name"/>.
     /// </summary>
     /// <param name="name">A new name for this instance.</param>
+    /// <param name="commonNames">
+    /// <para>
+    /// An optional list of new common names for this substance.
+    /// </para>
+    /// <para>
+    /// The list may be arranged in order of most to least common, so that the first name in the
+    /// list (if a list is present at all) can be assumed to be the most recognizable name for the
+    /// substance. However, this is not a strict requirement. Names may appear in any order,
+    /// particularly if no specific usage data is available, or when various names are equally
+    /// common in different contexts.
+    /// </para>
+    /// </param>
     /// <returns>A version of this instance with the given name.</returns>
-    public ISubstance WithSubstanceName(string name)
+    public ISubstance WithSubstanceName(string name, params string[] commonNames)
         => new Chemical(
             Formula,
             name,
@@ -1002,7 +1054,8 @@ public class Chemical : IHomogeneous, IEquatable<Chemical>
             IsRadioactive,
             MeltingPoint,
             FixedPhase,
-            YoungsModulus);
+            YoungsModulus,
+            commonNames);
 
     /// <summary>
     /// Indicates whether two substances are equal.

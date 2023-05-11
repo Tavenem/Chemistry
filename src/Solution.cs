@@ -61,6 +61,18 @@ public class Solution : IHomogeneous, IEquatable<Solution>
     public double? AntoineMinimumTemperature { get; }
 
     /// <summary>
+    /// An optional list of common names for this substance.
+    /// </summary>
+    /// <remarks>
+    /// The list may be arranged in order of most to least common, so that the first name in the
+    /// list (if a list is present at all) can be assumed to be the most recognizable name for the
+    /// substance. However, this is not a strict requirement. Names may appear in any order,
+    /// particularly if no specific usage data is available, or when various names are equally
+    /// common in different contexts.
+    /// </remarks>
+    public IReadOnlyList<string>? CommonNames { get; }
+
+    /// <summary>
     /// The collection of constituents that make up this solution, along with their relative
     /// proportions (as normalized values between zero and one).
     /// </summary>
@@ -324,6 +336,18 @@ public class Solution : IHomogeneous, IEquatable<Solution>
     /// <para>May be left <see langword="null"/> to indicate no known value.
     /// </para>
     /// </param>
+    /// <param name="commonNames">
+    /// <para>
+    /// An optional list of common names for this substance.
+    /// </para>
+    /// <para>
+    /// The list may be arranged in order of most to least common, so that the first name in the
+    /// list (if a list is present at all) can be assumed to be the most recognizable name for the
+    /// substance. However, this is not a strict requirement. Names may appear in any order,
+    /// particularly if no specific usage data is available, or when various names are equally
+    /// common in different contexts.
+    /// </para>
+    /// </param>
     public Solution(
         IEnumerable<(IHomogeneous substance, decimal proportion)> constituents,
         string? name = null,
@@ -341,7 +365,8 @@ public class Solution : IHomogeneous, IEquatable<Solution>
         bool isGemstone = false,
         double? meltingPoint = null,
         PhaseType? fixedPhase = null,
-        double? youngsModulus = null) : this(
+        double? youngsModulus = null,
+        params string[] commonNames) : this(
             new ReadOnlyDictionary<HomogeneousReference, decimal>(
                 new Dictionary<HomogeneousReference, decimal>(constituents
                     .GroupBy(x => x.substance.Id)
@@ -369,7 +394,8 @@ public class Solution : IHomogeneous, IEquatable<Solution>
                 ? constituents
                     .Where(x => x.substance.YoungsModulus.HasValue)
                     .Sum(x => x.substance.YoungsModulus!.Value * (double)x.proportion / constituents.Count())
-                : (double?)null))
+                : null),
+            commonNames)
     { }
 
     /// <summary>
@@ -490,6 +516,18 @@ public class Solution : IHomogeneous, IEquatable<Solution>
     /// <para>May be left <see langword="null"/> to indicate no known value.
     /// </para>
     /// </param>
+    /// <param name="commonNames">
+    /// <para>
+    /// An optional list of common names for this substance.
+    /// </para>
+    /// <para>
+    /// The list may be arranged in order of most to least common, so that the first name in the
+    /// list (if a list is present at all) can be assumed to be the most recognizable name for the
+    /// substance. However, this is not a strict requirement. Names may appear in any order,
+    /// particularly if no specific usage data is available, or when various names are equally
+    /// common in different contexts.
+    /// </para>
+    /// </param>
     public Solution(
         IEnumerable<(HomogeneousReference substance, decimal proportion)> constituents,
         string? name = null,
@@ -507,7 +545,8 @@ public class Solution : IHomogeneous, IEquatable<Solution>
         bool isGemstone = false,
         double? meltingPoint = null,
         PhaseType? fixedPhase = null,
-        double? youngsModulus = null) : this(
+        double? youngsModulus = null,
+        params string[] commonNames) : this(
             new ReadOnlyDictionary<HomogeneousReference, decimal>(
                 new Dictionary<HomogeneousReference, decimal>(constituents
                     .GroupBy(x => x.substance.Id)
@@ -535,7 +574,8 @@ public class Solution : IHomogeneous, IEquatable<Solution>
                 ? constituents
                     .Where(x => x.substance.Homogeneous.YoungsModulus.HasValue)
                     .Sum(x => x.substance.Homogeneous.YoungsModulus!.Value * (double)x.proportion / constituents.Count())
-                : (double?)null))
+                : null),
+            commonNames)
     { }
 
     /// <summary>
@@ -650,6 +690,18 @@ public class Solution : IHomogeneous, IEquatable<Solution>
     /// <para>May be left <see langword="null"/> to indicate no known value.
     /// </para>
     /// </param>
+    /// <param name="commonNames">
+    /// <para>
+    /// An optional list of common names for this substance.
+    /// </para>
+    /// <para>
+    /// The list may be arranged in order of most to least common, so that the first name in the
+    /// list (if a list is present at all) can be assumed to be the most recognizable name for the
+    /// substance. However, this is not a strict requirement. Names may appear in any order,
+    /// particularly if no specific usage data is available, or when various names are equally
+    /// common in different contexts.
+    /// </para>
+    /// </param>
     public Solution(
         IEnumerable<IHomogeneous> constituents,
         string? name = null,
@@ -667,7 +719,8 @@ public class Solution : IHomogeneous, IEquatable<Solution>
         bool isGemstone = false,
         double? meltingPoint = null,
         PhaseType? fixedPhase = null,
-        double? youngsModulus = null) : this(
+        double? youngsModulus = null,
+        params string[] commonNames) : this(
             new ReadOnlyDictionary<HomogeneousReference, decimal>(
                 new Dictionary<HomogeneousReference, decimal>(constituents
                     .GroupBy(x => x.Id)
@@ -695,7 +748,8 @@ public class Solution : IHomogeneous, IEquatable<Solution>
                 ? constituents
                     .Where(x => x.YoungsModulus.HasValue)
                     .Sum(x => x.YoungsModulus!.Value / constituents.Count())
-                : (double?)null))
+                : null),
+            commonNames)
     { }
 
     /// <summary>
@@ -810,6 +864,18 @@ public class Solution : IHomogeneous, IEquatable<Solution>
     /// <para>May be left <see langword="null"/> to indicate no known value.
     /// </para>
     /// </param>
+    /// <param name="commonNames">
+    /// <para>
+    /// An optional list of common names for this substance.
+    /// </para>
+    /// <para>
+    /// The list may be arranged in order of most to least common, so that the first name in the
+    /// list (if a list is present at all) can be assumed to be the most recognizable name for the
+    /// substance. However, this is not a strict requirement. Names may appear in any order,
+    /// particularly if no specific usage data is available, or when various names are equally
+    /// common in different contexts.
+    /// </para>
+    /// </param>
     public Solution(
         IEnumerable<HomogeneousReference> constituents,
         string? name = null,
@@ -827,7 +893,8 @@ public class Solution : IHomogeneous, IEquatable<Solution>
         bool isGemstone = false,
         double? meltingPoint = null,
         PhaseType? fixedPhase = null,
-        double? youngsModulus = null) : this(
+        double? youngsModulus = null,
+        params string[] commonNames) : this(
             new ReadOnlyDictionary<HomogeneousReference, decimal>(
                 new Dictionary<HomogeneousReference, decimal>(constituents
                     .GroupBy(x => x.Id)
@@ -855,7 +922,8 @@ public class Solution : IHomogeneous, IEquatable<Solution>
                 ? constituents
                     .Where(x => x.Homogeneous.YoungsModulus.HasValue)
                     .Sum(x => x.Homogeneous.YoungsModulus!.Value / constituents.Count())
-                : (double?)null))
+                : null),
+            commonNames)
     { }
 
     /// <summary>
@@ -1621,6 +1689,18 @@ public class Solution : IHomogeneous, IEquatable<Solution>
     /// <para>May be left <see langword="null"/> to indicate no known value.
     /// </para>
     /// </param>
+    /// <param name="commonNames">
+    /// <para>
+    /// An optional list of common names for this substance.
+    /// </para>
+    /// <para>
+    /// The list may be arranged in order of most to least common, so that the first name in the
+    /// list (if a list is present at all) can be assumed to be the most recognizable name for the
+    /// substance. However, this is not a strict requirement. Names may appear in any order,
+    /// particularly if no specific usage data is available, or when various names are equally
+    /// common in different contexts.
+    /// </para>
+    /// </param>
     public Solution(
         IHomogeneous substance,
         string? name = null,
@@ -1638,7 +1718,8 @@ public class Solution : IHomogeneous, IEquatable<Solution>
         bool isGemstone = false,
         double? meltingPoint = null,
         PhaseType? fixedPhase = null,
-        double? youngsModulus = null) : this(
+        double? youngsModulus = null,
+        params string[] commonNames) : this(
             new ReadOnlyDictionary<HomogeneousReference, decimal>(new Dictionary<HomogeneousReference, decimal> { { substance.GetHomogeneousReference(), 1 } }),
             name,
             antoineCoefficientA,
@@ -1655,7 +1736,8 @@ public class Solution : IHomogeneous, IEquatable<Solution>
             isGemstone,
             meltingPoint,
             fixedPhase,
-            youngsModulus ?? substance.YoungsModulus)
+            youngsModulus ?? substance.YoungsModulus,
+            commonNames)
     { }
 
     /// <summary>
@@ -1769,6 +1851,18 @@ public class Solution : IHomogeneous, IEquatable<Solution>
     /// <para>May be left <see langword="null"/> to indicate no known value.
     /// </para>
     /// </param>
+    /// <param name="commonNames">
+    /// <para>
+    /// An optional list of common names for this substance.
+    /// </para>
+    /// <para>
+    /// The list may be arranged in order of most to least common, so that the first name in the
+    /// list (if a list is present at all) can be assumed to be the most recognizable name for the
+    /// substance. However, this is not a strict requirement. Names may appear in any order,
+    /// particularly if no specific usage data is available, or when various names are equally
+    /// common in different contexts.
+    /// </para>
+    /// </param>
     public Solution(
         HomogeneousReference substance,
         string? name = null,
@@ -1786,7 +1880,8 @@ public class Solution : IHomogeneous, IEquatable<Solution>
         bool isGemstone = false,
         double? meltingPoint = null,
         PhaseType? fixedPhase = null,
-        double? youngsModulus = null) : this(
+        double? youngsModulus = null,
+        params string[] commonNames) : this(
             new ReadOnlyDictionary<HomogeneousReference, decimal>(new Dictionary<HomogeneousReference, decimal> { { substance, 1 } }),
             name,
             antoineCoefficientA,
@@ -1803,7 +1898,8 @@ public class Solution : IHomogeneous, IEquatable<Solution>
             isGemstone,
             meltingPoint,
             fixedPhase,
-            youngsModulus ?? substance.Homogeneous.YoungsModulus)
+            youngsModulus ?? substance.Homogeneous.YoungsModulus,
+            commonNames)
     { }
 
     /// <summary>
@@ -1925,6 +2021,18 @@ public class Solution : IHomogeneous, IEquatable<Solution>
     /// <para>May be left <see langword="null"/> to indicate no known value.
     /// </para>
     /// </param>
+    /// <param name="commonNames">
+    /// <para>
+    /// An optional list of common names for this substance.
+    /// </para>
+    /// <para>
+    /// The list may be arranged in order of most to least common, so that the first name in the
+    /// list (if a list is present at all) can be assumed to be the most recognizable name for the
+    /// substance. However, this is not a strict requirement. Names may appear in any order,
+    /// particularly if no specific usage data is available, or when various names are equally
+    /// common in different contexts.
+    /// </para>
+    /// </param>
     [JsonConstructor]
     public Solution(
         string id,
@@ -1944,7 +2052,8 @@ public class Solution : IHomogeneous, IEquatable<Solution>
         bool isGemstone,
         double? meltingPoint,
         PhaseType? fixedPhase,
-        double? youngsModulus)
+        double? youngsModulus,
+        IReadOnlyList<string>? commonNames = null)
     {
         Id = id;
         Constituents = constituents;
@@ -1973,6 +2082,7 @@ public class Solution : IHomogeneous, IEquatable<Solution>
             ? HomogeneousReference.Empty
             : Constituents.OrderByDescending(x => x.Value).First().Key;
         YoungsModulus = youngsModulus;
+        CommonNames = commonNames;
     }
 
     /// <summary>
@@ -2094,6 +2204,18 @@ public class Solution : IHomogeneous, IEquatable<Solution>
     /// <para>May be left <see langword="null"/> to indicate no known value.
     /// </para>
     /// </param>
+    /// <param name="commonNames">
+    /// <para>
+    /// An optional list of common names for this substance.
+    /// </para>
+    /// <para>
+    /// The list may be arranged in order of most to least common, so that the first name in the
+    /// list (if a list is present at all) can be assumed to be the most recognizable name for the
+    /// substance. However, this is not a strict requirement. Names may appear in any order,
+    /// particularly if no specific usage data is available, or when various names are equally
+    /// common in different contexts.
+    /// </para>
+    /// </param>
     internal Solution(
         string id,
         IEnumerable<(HomogeneousReference substance, decimal proportion)> constituents,
@@ -2112,7 +2234,8 @@ public class Solution : IHomogeneous, IEquatable<Solution>
         bool isGemstone = false,
         double? meltingPoint = null,
         PhaseType? fixedPhase = null,
-        double? youngsModulus = null) : this(
+        double? youngsModulus = null,
+        IReadOnlyList<string>? commonNames = null) : this(
             new ReadOnlyDictionary<HomogeneousReference, decimal>(
                 new Dictionary<HomogeneousReference, decimal>(constituents
                     .GroupBy(x => x.substance.Id)
@@ -2141,7 +2264,8 @@ public class Solution : IHomogeneous, IEquatable<Solution>
                 ? constituents
                     .Where(x => x.substance.Homogeneous.YoungsModulus.HasValue)
                     .Sum(x => x.substance.Homogeneous.YoungsModulus!.Value * (double)x.proportion / constituents.Count())
-                : (double?)null))
+                : null),
+            commonNames)
     { }
 
     /// <summary>
@@ -2256,6 +2380,18 @@ public class Solution : IHomogeneous, IEquatable<Solution>
     /// <para>May be left <see langword="null"/> to indicate no known value.
     /// </para>
     /// </param>
+    /// <param name="commonNames">
+    /// <para>
+    /// An optional list of common names for this substance.
+    /// </para>
+    /// <para>
+    /// The list may be arranged in order of most to least common, so that the first name in the
+    /// list (if a list is present at all) can be assumed to be the most recognizable name for the
+    /// substance. However, this is not a strict requirement. Names may appear in any order,
+    /// particularly if no specific usage data is available, or when various names are equally
+    /// common in different contexts.
+    /// </para>
+    /// </param>
     internal Solution(
         string id,
         HomogeneousReference substance,
@@ -2274,7 +2410,8 @@ public class Solution : IHomogeneous, IEquatable<Solution>
         bool isGemstone = false,
         double? meltingPoint = null,
         PhaseType? fixedPhase = null,
-        double? youngsModulus = null) : this(
+        double? youngsModulus = null,
+        IReadOnlyList<string>? commonNames = null) : this(
             new ReadOnlyDictionary<HomogeneousReference, decimal>(new Dictionary<HomogeneousReference, decimal> { { substance, 1 } }),
             id,
             name,
@@ -2292,7 +2429,8 @@ public class Solution : IHomogeneous, IEquatable<Solution>
             isGemstone,
             meltingPoint,
             fixedPhase,
-            youngsModulus ?? substance.Homogeneous.YoungsModulus)
+            youngsModulus ?? substance.Homogeneous.YoungsModulus,
+            commonNames)
     { }
 
     private Solution(
@@ -2313,7 +2451,8 @@ public class Solution : IHomogeneous, IEquatable<Solution>
         bool isGemstone,
         double? meltingPoint,
         PhaseType? fixedPhase,
-        double? youngsModulus) : this(
+        double? youngsModulus,
+        IReadOnlyList<string>? commonNames = null) : this(
             id,
             constituents,
             name ?? GetName(constituents),
@@ -2331,7 +2470,8 @@ public class Solution : IHomogeneous, IEquatable<Solution>
             isGemstone,
             meltingPoint,
             fixedPhase,
-            youngsModulus)
+            youngsModulus,
+            commonNames)
     { }
 
     private Solution(
@@ -2351,7 +2491,8 @@ public class Solution : IHomogeneous, IEquatable<Solution>
         bool isGemstone,
         double? meltingPoint,
         PhaseType? fixedPhase,
-        double? youngsModulus) : this(
+        double? youngsModulus,
+        IReadOnlyList<string>? commonNames = null) : this(
             Guid.NewGuid().ToString(),
             constituents,
             name ?? GetName(constituents),
@@ -2369,7 +2510,8 @@ public class Solution : IHomogeneous, IEquatable<Solution>
             isGemstone,
             meltingPoint,
             fixedPhase,
-            youngsModulus)
+            youngsModulus,
+            commonNames)
     { }
 
     /// <summary>
@@ -2392,7 +2534,7 @@ public class Solution : IHomogeneous, IEquatable<Solution>
     /// </para>
     /// <para>
     /// The proportions of the other constituents of this substance will be reduced
-    /// proportionately to accomodate this value.
+    /// proportionately to accommodate this value.
     /// </para>
     /// <para>
     /// If less than or equal to zero, this instance is returned unchanged.
@@ -2454,7 +2596,7 @@ public class Solution : IHomogeneous, IEquatable<Solution>
     /// </para>
     /// <para>
     /// The proportions of the other constituents of this substance will be reduced
-    /// proportionately to accomodate this value.
+    /// proportionately to accommodate this value.
     /// </para>
     /// <para>
     /// If less than or equal to zero, this instance is returned unchanged.
@@ -2510,7 +2652,7 @@ public class Solution : IHomogeneous, IEquatable<Solution>
     /// </para>
     /// <para>
     /// The proportions of the individual constituents of each substance will be reduced
-    /// proportionately to accomodate this value.
+    /// proportionately to accommodate this value.
     /// </para>
     /// </param>
     /// <returns>A new <see cref="ISubstance"/> instance representing the combination of this
@@ -2566,7 +2708,7 @@ public class Solution : IHomogeneous, IEquatable<Solution>
     /// </para>
     /// <para>
     /// The proportions of the individual constituents of each substance will be reduced
-    /// proportionately to accomodate this value.
+    /// proportionately to accommodate this value.
     /// </para>
     /// </param>
     /// <returns>A new <see cref="ISubstance"/> instance representing the combination of this
@@ -2645,7 +2787,7 @@ public class Solution : IHomogeneous, IEquatable<Solution>
     /// </para>
     /// <para>
     /// The proportions of the individual constituents of each substance will be reduced
-    /// proportionately to accomodate this value. Note that dissolving another substance at too
+    /// proportionately to accommodate this value. Note that dissolving another substance at too
     /// high a proportion may result in a new constituent becoming the de facto solvent.
     /// </para>
     /// </param>
@@ -2698,7 +2840,7 @@ public class Solution : IHomogeneous, IEquatable<Solution>
     /// </para>
     /// <para>
     /// The proportions of the individual constituents of each substance will be reduced
-    /// proportionately to accomodate this value. Note that dissolving another substance at too
+    /// proportionately to accommodate this value. Note that dissolving another substance at too
     /// high a proportion may result in a new constituent becoming the de facto solvent.
     /// </para>
     /// </param>
@@ -3131,8 +3273,20 @@ public class Solution : IHomogeneous, IEquatable<Solution>
     /// Gets a copy of this instance with the given <paramref name="name"/>.
     /// </summary>
     /// <param name="name">A new name for this instance.</param>
+    /// <param name="commonNames">
+    /// <para>
+    /// An optional list of new common names for this substance.
+    /// </para>
+    /// <para>
+    /// The list may be arranged in order of most to least common, so that the first name in the
+    /// list (if a list is present at all) can be assumed to be the most recognizable name for the
+    /// substance. However, this is not a strict requirement. Names may appear in any order,
+    /// particularly if no specific usage data is available, or when various names are equally
+    /// common in different contexts.
+    /// </para>
+    /// </param>
     /// <returns>A version of this instance with the given name.</returns>
-    public ISubstance WithSubstanceName(string name) => new Solution(
+    public ISubstance WithSubstanceName(string name, params string[] commonNames) => new Solution(
         Constituents,
         name,
         AntoineCoefficientA,
@@ -3149,7 +3303,8 @@ public class Solution : IHomogeneous, IEquatable<Solution>
         IsGemstone,
         MeltingPoint,
         FixedPhase,
-        YoungsModulus);
+        YoungsModulus,
+        commonNames);
 
     private static string GetName(IReadOnlyDictionary<HomogeneousReference, decimal> chemicals)
     {
