@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.7.0-preview
+### Added
+- Categories
+### Changed
+- Init properties
+### Removed
+- IsGemstone (replaced by a category)
+
 ## 0.6.0-preview
 ### Added
 - Common names

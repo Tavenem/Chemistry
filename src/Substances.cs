@@ -34,6 +34,83 @@ namespace Tavenem.Chemistry;
 /// </remarks>
 public static class Substances
 {
+    /// <summary>
+    /// A category assigned to aqueous substances.
+    /// </summary>
+    public const string Category_Aqueous = "Aqueous";
+    /// <summary>
+    /// A category assigned to artificial substances.
+    /// </summary>
+    public const string Category_Artificial = "Artificial";
+    /// <summary>
+    /// A category assigned to substances commonly found in planetary atmospheres.
+    /// </summary>
+    public const string Category_Atmospheric = "Atmospheric";
+    /// <summary>
+    /// A category assigned to substances which are commonly referred to as "clay."
+    /// </summary>
+    public const string Category_Clay = "Clay";
+    /// <summary>
+    /// A category assigned to substances which may be consumed by humans.
+    /// </summary>
+    public const string Category_Consumable = "Consumable";
+    /// <summary>
+    /// A category assigned to substances commonly found beyond planet Earth.
+    /// </summary>
+    public const string Category_Cosmic = "Cosmic";
+    /// <summary>
+    /// A category assigned to substances commonly referred to as "dirt" or "earth."
+    /// </summary>
+    public const string Category_Dirt = "Dirt";
+    /// <summary>
+    /// A category assigned to chemical elements.
+    /// </summary>
+    public const string Category_Elements = "Elements";
+    /// <summary>
+    /// A category assigned to substances commonly used in textiles.
+    /// </summary>
+    public const string Category_Fabric = "Fabric";
+    /// <summary>
+    /// A category assigned to hydrocarbons.
+    /// </summary>
+    public const string Category_Hydrocarbon = "Hydrocarbon";
+    /// <summary>
+    /// A category assigned to ions.
+    /// </summary>
+    public const string Category_Ion = "Ion";
+    /// <summary>
+    /// A category assigned to substances commonly considered gemstones.
+    /// </summary>
+    public const string Category_Gem = "Gem";
+    /// <summary>
+    /// A category assigned to metals.
+    /// </summary>
+    public const string Category_Metal = "Metal";
+    /// <summary>
+    /// A category assigned to metalloids.
+    /// </summary>
+    public const string Category_Metalloid = "Metalloid";
+    /// <summary>
+    /// A category assigned to minerals.
+    /// </summary>
+    public const string Category_Mineral = "Mineral";
+    /// <summary>
+    /// A category assigned to organic substances.
+    /// </summary>
+    public const string Category_Organic = "Organic";
+    /// <summary>
+    /// A category assigned to plasma.
+    /// </summary>
+    public const string Category_Plasma = "Plasma";
+    /// <summary>
+    /// A category assigned to plastics.
+    /// </summary>
+    public const string Category_Plastic = "Plastic";
+    /// <summary>
+    /// A category assigned to substances commonly referred to as "rocks" or "stones."
+    /// </summary>
+    public const string Category_Stone = "Stone";
+
     private static readonly SemaphoreSlim _Lock = new(1);
 
     private static InMemoryDataStore _InternalDataStore = new();
@@ -228,7 +305,10 @@ public static class Substances
             densityLiquid: 681.9,
             densitySolid: 817,
             isFlammable: true,
-            meltingPoint: 195.42);
+            meltingPoint: 195.42)
+        {
+            Categories = new[] { Category_Atmospheric }
+        };
 
         /// <summary>
         /// ammonium hydrosulfide
@@ -245,7 +325,10 @@ public static class Substances
             densityLiquid: 1170,
             densitySolid: 1170,
             isFlammable: true,
-            meltingPoint: 329.8);
+            meltingPoint: 329.8)
+        {
+            Categories = new[] { Category_Atmospheric }
+        };
 
         /// <summary>
         /// hydrogen sulfide
@@ -262,7 +345,10 @@ public static class Substances
             densityLiquid: 993,
             densitySolid: 1120,
             isFlammable: true,
-            meltingPoint: 191.15);
+            meltingPoint: 191.15)
+        {
+            Categories = new[] { Category_Atmospheric }
+        };
 
         /// <summary>
         /// phosphine
@@ -279,7 +365,10 @@ public static class Substances
             densityLiquid: 568.7,
             densitySolid: 568.7,
             isFlammable: true,
-            meltingPoint: 140.35);
+            meltingPoint: 140.35)
+        {
+            Categories = new[] { Category_Atmospheric }
+        };
 
         /// <summary>
         /// sulfur dioxide
@@ -295,7 +384,10 @@ public static class Substances
             antoineMinimumTemperature: 210.0,
             densityLiquid: 1377,
             densitySolid: 1377,
-            meltingPoint: 202.15);
+            meltingPoint: 202.15)
+        {
+            Categories = new[] { Category_Atmospheric }
+        };
 
         /// <summary>
         /// Enumerates the default set of chemicals.
@@ -344,7 +436,10 @@ public static class Substances
             densityLiquid: 70,
             densitySolid: 70,
             isFlammable: true,
-            meltingPoint: 14.01);
+            meltingPoint: 14.01)
+        {
+            Categories = new[] { Category_Elements, Category_Atmospheric }
+        };
 
         /// <summary>
         /// metallic Hydrogen
@@ -362,7 +457,10 @@ public static class Substances
             densitySolid: 600,
             isConductive: true,
             isFlammable: true,
-            meltingPoint: 14.01);
+            meltingPoint: 14.01)
+        {
+            Categories = new[] { Category_Elements, Category_Cosmic }
+        };
 
         /// <summary>
         /// the native form of the element Helium
@@ -374,7 +472,10 @@ public static class Substances
             antoineMaximumTemperature: 0,
             densityLiquid: 145,
             densitySolid: 145,
-            meltingPoint: 0.95);
+            meltingPoint: 0.95)
+        {
+            Categories = new[] { Category_Elements, Category_Atmospheric }
+        };
 
         /// <summary>
         /// the native form of the element Lithium
@@ -393,7 +494,10 @@ public static class Substances
             hardness: 5,
             isFlammable: true,
             meltingPoint: 453.65,
-            youngsModulus: 4.91);
+            youngsModulus: 4.91)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Beryllium
@@ -409,7 +513,10 @@ public static class Substances
             hardness: 955,
             isFlammable: true,
             meltingPoint: 1560,
-            youngsModulus: 318);
+            youngsModulus: 318)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Boron
@@ -424,7 +531,10 @@ public static class Substances
             densitySolid: 2080,
             hardness: 4900,
             meltingPoint: 2349,
-            youngsModulus: 440);
+            youngsModulus: 440)
+        {
+            Categories = new[] { Category_Elements, Category_Metalloid }
+        };
 
         /// <summary>
         /// the amorphous allotrope form of the element Carbon
@@ -441,7 +551,10 @@ public static class Substances
             isFlammable: true,
             meltingPoint: 3915,
             youngsModulus: 15.85,
-            commonNames: new string[] { "Graphite" });
+            commonNames: new string[] { "Graphite" })
+        {
+            Categories = new[] { Category_Elements }
+        };
 
         /// <summary>
         /// the diamond allotrope of the element Carbon
@@ -455,9 +568,11 @@ public static class Substances
             densityLiquid: 3515,
             densitySolid: 3515,
             hardness: 45500,
-            isGemstone: true,
             meltingPoint: 3915,
-            youngsModulus: 1220);
+            youngsModulus: 1220)
+        {
+            Categories = new[] { Category_Elements, Category_Gem }
+        };
 
         /// <summary>
         /// the native form of the element Nitrogen
@@ -473,7 +588,10 @@ public static class Substances
             antoineMinimumTemperature: 63.2,
             densityLiquid: 808,
             densitySolid: 808,
-            meltingPoint: 63.15);
+            meltingPoint: 63.15)
+        {
+            Categories = new[] { Category_Elements, Category_Atmospheric }
+        };
 
         /// <summary>
         /// the native form of the element Oxygen
@@ -492,7 +610,10 @@ public static class Substances
             // Oxygen is not really flammable: it's an oxidizer; but the difference in practice
             // is considered unimportant for this library's purposes.
             isFlammable: true,
-            meltingPoint: 54.36);
+            meltingPoint: 54.36)
+        {
+            Categories = new[] { Category_Elements, Category_Atmospheric }
+        };
 
         /// <summary>
         /// the ozone form of the element Oxygen
@@ -510,7 +631,10 @@ public static class Substances
             densitySolid: 1354,
             // Like oxygen, ozone is not really flammable, but an oxidizer.
             isFlammable: true,
-            meltingPoint: 81.15);
+            meltingPoint: 81.15)
+        {
+            Categories = new[] { Category_Elements, Category_Atmospheric }
+        };
 
         /// <summary>
         /// the native form of the element Fluorine
@@ -528,7 +652,10 @@ public static class Substances
             densitySolid: 1696,
             // Like oxygen, fluorine is not really flammable, but an oxidizer.
             isFlammable: true,
-            meltingPoint: 53.48);
+            meltingPoint: 53.48)
+        {
+            Categories = new[] { Category_Elements }
+        };
 
         /// <summary>
         /// the native form of the element Neon
@@ -544,7 +671,10 @@ public static class Substances
             antoineMinimumTemperature: 15.9,
             densityLiquid: 1207,
             densitySolid: 1207,
-            meltingPoint: 24.55);
+            meltingPoint: 24.55)
+        {
+            Categories = new[] { Category_Elements, Category_Atmospheric }
+        };
 
         /// <summary>
         /// the native form of the element Sodium
@@ -564,7 +694,10 @@ public static class Substances
             isConductive: true,
             isFlammable: true,
             meltingPoint: 370.944,
-            youngsModulus: 6.8);
+            youngsModulus: 6.8)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Magnesium
@@ -581,7 +714,10 @@ public static class Substances
             isConductive: true,
             isFlammable: true,
             meltingPoint: 370.944,
-            youngsModulus: 44.7);
+            youngsModulus: 44.7)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Aluminium
@@ -601,7 +737,10 @@ public static class Substances
             isConductive: true,
             meltingPoint: 933.45,
             youngsModulus: 70.2,
-            commonNames: new string[] { "Aluminum" });
+            commonNames: new string[] { "Aluminum" })
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Silicon
@@ -619,7 +758,10 @@ public static class Substances
             densitySolid: 2329,
             hardness: 1224,
             meltingPoint: 1687,
-            youngsModulus: 113);
+            youngsModulus: 113)
+        {
+            Categories = new[] { Category_Elements, Category_Metalloid }
+        };
 
         /// <summary>
         /// the white allotrope of the element Phosphorus
@@ -638,7 +780,10 @@ public static class Substances
             isFlammable: true,
             meltingPoint: 317.3,
             youngsModulus: 30.4,
-            commonNames: new string[] { "Phosphorus" });
+            commonNames: new string[] { "Phosphorus" })
+        {
+            Categories = new[] { Category_Elements }
+        };
 
         /// <summary>
         /// the red allotrope of the element Phosphorus
@@ -657,7 +802,10 @@ public static class Substances
             isFlammable: true,
             meltingPoint: 860,
             youngsModulus: 30.4,
-            commonNames: new string[] { "Phosphorus" });
+            commonNames: new string[] { "Phosphorus" })
+        {
+            Categories = new[] { Category_Elements }
+        };
 
         /// <summary>
         /// the native form of the element Sulfur
@@ -673,7 +821,10 @@ public static class Substances
             hardness: 16,
             isFlammable: true,
             meltingPoint: 388.36,
-            youngsModulus: 17.8);
+            youngsModulus: 17.8)
+        {
+            Categories = new[] { Category_Elements }
+        };
 
         /// <summary>
         /// the native form of the element Chlorine
@@ -691,7 +842,10 @@ public static class Substances
             densitySolid: 1562.5,
             // Like oxygen, chlorine is not really flammable, but an oxidizer.
             isFlammable: true,
-            meltingPoint: 171.6);
+            meltingPoint: 171.6)
+        {
+            Categories = new[] { Category_Elements }
+        };
 
         /// <summary>
         /// the native form of the element Argon
@@ -707,7 +861,10 @@ public static class Substances
             antoineMinimumTemperature: 83.78,
             densityLiquid: 1395.4,
             densitySolid: 1395.4,
-            meltingPoint: 83.8);
+            meltingPoint: 83.8)
+        {
+            Categories = new[] { Category_Elements, Category_Atmospheric }
+        };
 
         /// <summary>
         /// the native form of the element Potassium
@@ -727,7 +884,10 @@ public static class Substances
             isConductive: true,
             isFlammable: true,
             meltingPoint: 336.7,
-            youngsModulus: 3.175);
+            youngsModulus: 3.175)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Calcium
@@ -747,7 +907,10 @@ public static class Substances
             isConductive: true,
             isFlammable: true,
             meltingPoint: 1115,
-            youngsModulus: 19.6);
+            youngsModulus: 19.6)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Scandium
@@ -764,7 +927,10 @@ public static class Substances
             isConductive: true,
             isFlammable: true,
             meltingPoint: 1814,
-            youngsModulus: 74.4);
+            youngsModulus: 74.4)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Titanium
@@ -780,7 +946,10 @@ public static class Substances
             hardness: 2125,
             isConductive: true,
             meltingPoint: 1941,
-            youngsModulus: 120.2);
+            youngsModulus: 120.2)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Vanadium
@@ -796,7 +965,10 @@ public static class Substances
             hardness: 671,
             isConductive: true,
             meltingPoint: 2183,
-            youngsModulus: 127.6);
+            youngsModulus: 127.6)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Chromium
@@ -815,7 +987,10 @@ public static class Substances
             hardness: 1060,
             isConductive: true,
             meltingPoint: 2180,
-            youngsModulus: 279);
+            youngsModulus: 279)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Manganese
@@ -831,7 +1006,10 @@ public static class Substances
             hardness: 196,
             isConductive: true,
             meltingPoint: 1519,
-            youngsModulus: 191);
+            youngsModulus: 191)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Iron
@@ -847,7 +1025,10 @@ public static class Substances
             hardness: 608,
             isConductive: true,
             meltingPoint: 1811.15,
-            youngsModulus: 208.2);
+            youngsModulus: 208.2)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Cobalt
@@ -863,7 +1044,10 @@ public static class Substances
             hardness: 1043,
             isConductive: true,
             meltingPoint: 1768,
-            youngsModulus: 211);
+            youngsModulus: 211)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Nickel
@@ -882,7 +1066,10 @@ public static class Substances
             hardness: 638,
             isConductive: true,
             meltingPoint: 1728.15,
-            youngsModulus: 199.5);
+            youngsModulus: 199.5)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Copper
@@ -898,7 +1085,10 @@ public static class Substances
             hardness: 356,
             isConductive: true,
             meltingPoint: 1357.95,
-            youngsModulus: 129.8);
+            youngsModulus: 129.8)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Zinc
@@ -914,7 +1104,10 @@ public static class Substances
             hardness: 369.5,
             isConductive: true,
             meltingPoint: 692.68,
-            youngsModulus: 104.5);
+            youngsModulus: 104.5)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Gallium
@@ -930,7 +1123,10 @@ public static class Substances
             hardness: 62.75,
             isConductive: true,
             meltingPoint: 302.9146,
-            youngsModulus: 9.81);
+            youngsModulus: 9.81)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Germanium
@@ -945,7 +1141,10 @@ public static class Substances
             densitySolid: 5323,
             hardness: 2125,
             meltingPoint: 1211.40,
-            youngsModulus: 79.9);
+            youngsModulus: 79.9)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Arsenic
@@ -960,7 +1159,10 @@ public static class Substances
             densitySolid: 5727,
             hardness: 1440,
             meltingPoint: 887,
-            youngsModulus: 22);
+            youngsModulus: 22)
+        {
+            Categories = new[] { Category_Elements, Category_Metalloid }
+        };
 
         /// <summary>
         /// the native form of the element Selenium
@@ -978,7 +1180,10 @@ public static class Substances
             densitySolid: 4810,
             hardness: 736,
             meltingPoint: 494,
-            youngsModulus: 58);
+            youngsModulus: 58)
+        {
+            Categories = new[] { Category_Elements }
+        };
 
         /// <summary>
         /// the native form of the element Bromine
@@ -993,7 +1198,10 @@ public static class Substances
             antoineMaximumTemperature: 331.4,
             antoineMinimumTemperature: 224.5,
             densityLiquid: 3102.8,
-            meltingPoint: 265.8);
+            meltingPoint: 265.8)
+        {
+            Categories = new[] { Category_Elements }
+        };
 
         /// <summary>
         /// the native form of the element Krypton
@@ -1008,7 +1216,10 @@ public static class Substances
             antoineMaximumTemperature: 208.0,
             antoineMinimumTemperature: 126.68,
             densityLiquid: 2413,
-            meltingPoint: 115.75);
+            meltingPoint: 115.75)
+        {
+            Categories = new[] { Category_Elements, Category_Atmospheric }
+        };
 
         /// <summary>
         /// the native form of the element Rubidium
@@ -1025,7 +1236,10 @@ public static class Substances
             isConductive: true,
             isFlammable: true,
             meltingPoint: 312.45,
-            youngsModulus: 2.35);
+            youngsModulus: 2.35)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Strontium
@@ -1042,7 +1256,10 @@ public static class Substances
             isConductive: true,
             isFlammable: true,
             meltingPoint: 1050,
-            youngsModulus: 15.7);
+            youngsModulus: 15.7)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Yttrium
@@ -1058,7 +1275,10 @@ public static class Substances
             hardness: 394.5,
             isConductive: true,
             meltingPoint: 1799,
-            youngsModulus: 63.5);
+            youngsModulus: 63.5)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Zirconium
@@ -1074,7 +1294,10 @@ public static class Substances
             hardness: 1310,
             isConductive: true,
             meltingPoint: 2128,
-            youngsModulus: 97.1);
+            youngsModulus: 97.1)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Niobium
@@ -1089,7 +1312,10 @@ public static class Substances
             hardness: 1095,
             isConductive: true,
             meltingPoint: 2750,
-            youngsModulus: 104.9);
+            youngsModulus: 104.9)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Molybdenum
@@ -1105,7 +1331,10 @@ public static class Substances
             hardness: 2070,
             isConductive: true,
             meltingPoint: 2896,
-            youngsModulus: 324.8);
+            youngsModulus: 324.8)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Technetium
@@ -1119,7 +1348,10 @@ public static class Substances
             densitySolid: 11000,
             isConductive: true,
             meltingPoint: 2430,
-            youngsModulus: 407);
+            youngsModulus: 407)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Ruthenium
@@ -1135,7 +1367,10 @@ public static class Substances
             hardness: 2160,
             isConductive: true,
             meltingPoint: 2607,
-            youngsModulus: 432);
+            youngsModulus: 432)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Rhodium
@@ -1151,7 +1386,10 @@ public static class Substances
             hardness: 1225,
             isConductive: true,
             meltingPoint: 2237,
-            youngsModulus: 379);
+            youngsModulus: 379)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Palladium
@@ -1167,7 +1405,10 @@ public static class Substances
             hardness: 500,
             isConductive: true,
             meltingPoint: 1828.05,
-            youngsModulus: 121);
+            youngsModulus: 121)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Silver
@@ -1186,7 +1427,10 @@ public static class Substances
             hardness: 251,
             isConductive: true,
             meltingPoint: 1234.95,
-            youngsModulus: 82.7);
+            youngsModulus: 82.7)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Cadmium
@@ -1202,7 +1446,10 @@ public static class Substances
             hardness: 211.5,
             isConductive: true,
             meltingPoint: 594.22,
-            youngsModulus: 62.6);
+            youngsModulus: 62.6)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Indium
@@ -1218,7 +1465,10 @@ public static class Substances
             hardness: 9.4,
             isConductive: true,
             meltingPoint: 429.7485,
-            youngsModulus: 10.6);
+            youngsModulus: 10.6)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the white allotrope of the element Tin
@@ -1238,7 +1488,10 @@ public static class Substances
             isConductive: true,
             meltingPoint: 505.08,
             youngsModulus: 49.9,
-            commonNames: new string[] { "Tin" });
+            commonNames: new string[] { "Tin" })
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the gray allotrope of the element Tin
@@ -1256,7 +1509,10 @@ public static class Substances
             densitySolid: 5769,
             hardness: 245,
             meltingPoint: 505.08,
-            commonNames: new string[] { "Tin" });
+            commonNames: new string[] { "Tin" })
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Antimony
@@ -1275,7 +1531,10 @@ public static class Substances
             hardness: 339,
             isConductive: true,
             meltingPoint: 903.78,
-            youngsModulus: 54.7);
+            youngsModulus: 54.7)
+        {
+            Categories = new[] { Category_Elements, Category_Metalloid }
+        };
 
         /// <summary>
         /// the native form of the element Tellurium
@@ -1290,7 +1549,10 @@ public static class Substances
             densitySolid: 6240,
             hardness: 225,
             meltingPoint: 722.66,
-            youngsModulus: 47.1);
+            youngsModulus: 47.1)
+        {
+            Categories = new[] { Category_Elements, Category_Metalloid }
+        };
 
         /// <summary>
         /// the native form of the element Iodine
@@ -1306,7 +1568,10 @@ public static class Substances
             antoineMinimumTemperature: 311.9,
             densityLiquid: 3960,
             densitySolid: 4933,
-            meltingPoint: 386.85);
+            meltingPoint: 386.85)
+        {
+            Categories = new[] { Category_Elements }
+        };
 
         /// <summary>
         /// the native form of the element Xenon
@@ -1321,7 +1586,10 @@ public static class Substances
             antoineMaximumTemperature: 184.70,
             antoineMinimumTemperature: 161.70,
             densityLiquid: 2942,
-            meltingPoint: 161.35);
+            meltingPoint: 161.35)
+        {
+            Categories = new[] { Category_Elements, Category_Atmospheric }
+        };
 
         /// <summary>
         /// the native form of the element Caesium
@@ -1342,7 +1610,10 @@ public static class Substances
             isFlammable: true,
             meltingPoint: 301.7,
             youngsModulus: 1.69,
-            commonNames: new string[] { "Cesium" });
+            commonNames: new string[] { "Cesium" })
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Barium
@@ -1362,7 +1633,10 @@ public static class Substances
             isConductive: true,
             isFlammable: true,
             meltingPoint: 1000,
-            youngsModulus: 12.8);
+            youngsModulus: 12.8)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Lanthanum
@@ -1379,7 +1653,10 @@ public static class Substances
             isConductive: true,
             isFlammable: true,
             meltingPoint: 1193,
-            youngsModulus: 36.6);
+            youngsModulus: 36.6)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Cerium
@@ -1396,7 +1673,10 @@ public static class Substances
             isConductive: true,
             isFlammable: true,
             meltingPoint: 1068,
-            youngsModulus: 33.6);
+            youngsModulus: 33.6)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Praseodymium
@@ -1413,7 +1693,10 @@ public static class Substances
             isConductive: true,
             isFlammable: true,
             meltingPoint: 1208,
-            youngsModulus: 37.3);
+            youngsModulus: 37.3)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Neodymium
@@ -1430,7 +1713,10 @@ public static class Substances
             isConductive: true,
             isFlammable: true,
             meltingPoint: 1297,
-            youngsModulus: 41.4);
+            youngsModulus: 41.4)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Promethium
@@ -1445,7 +1731,10 @@ public static class Substances
             hardness: 617.8,
             isConductive: true,
             meltingPoint: 1315,
-            youngsModulus: 46);
+            youngsModulus: 46)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Samarium
@@ -1462,7 +1751,10 @@ public static class Substances
             isConductive: true,
             isFlammable: true,
             meltingPoint: 1345,
-            youngsModulus: 49.7);
+            youngsModulus: 49.7)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Europium
@@ -1478,7 +1770,10 @@ public static class Substances
             isConductive: true,
             isFlammable: true,
             meltingPoint: 1099,
-            youngsModulus: 18.2);
+            youngsModulus: 18.2)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Gadolinium
@@ -1494,7 +1789,10 @@ public static class Substances
             hardness: 730,
             isConductive: true,
             meltingPoint: 1585,
-            youngsModulus: 54.8);
+            youngsModulus: 54.8)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Terbium
@@ -1510,7 +1808,10 @@ public static class Substances
             hardness: 770,
             isConductive: true,
             meltingPoint: 1629,
-            youngsModulus: 55.7);
+            youngsModulus: 55.7)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Dysprosium
@@ -1527,7 +1828,10 @@ public static class Substances
             isConductive: true,
             isFlammable: true,
             meltingPoint: 1680,
-            youngsModulus: 61.4);
+            youngsModulus: 61.4)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Holmium
@@ -1544,7 +1848,10 @@ public static class Substances
             isConductive: true,
             isFlammable: true,
             meltingPoint: 1734,
-            youngsModulus: 64.8);
+            youngsModulus: 64.8)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Erbium
@@ -1561,7 +1868,10 @@ public static class Substances
             isConductive: true,
             isFlammable: true,
             meltingPoint: 1802,
-            youngsModulus: 69.9);
+            youngsModulus: 69.9)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Thulium
@@ -1578,7 +1888,10 @@ public static class Substances
             isConductive: true,
             isFlammable: true,
             meltingPoint: 1818,
-            youngsModulus: 74);
+            youngsModulus: 74)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Ytterbium
@@ -1595,7 +1908,10 @@ public static class Substances
             isConductive: true,
             isFlammable: true,
             meltingPoint: 1097,
-            youngsModulus: 23.9);
+            youngsModulus: 23.9)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Lutetium
@@ -1612,7 +1928,10 @@ public static class Substances
             isConductive: true,
             isFlammable: true,
             meltingPoint: 1925,
-            youngsModulus: 68.6);
+            youngsModulus: 68.6)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Hafnium
@@ -1629,7 +1948,10 @@ public static class Substances
             isConductive: true,
             isFlammable: true,
             meltingPoint: 2506,
-            youngsModulus: 141);
+            youngsModulus: 141)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Tantalum
@@ -1645,7 +1967,10 @@ public static class Substances
             hardness: 1035,
             isConductive: true,
             meltingPoint: 3290,
-            youngsModulus: 185.7);
+            youngsModulus: 185.7)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Tungsten
@@ -1661,7 +1986,10 @@ public static class Substances
             hardness: 3715,
             isConductive: true,
             meltingPoint: 3695,
-            youngsModulus: 411);
+            youngsModulus: 411)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Rhenium
@@ -1677,7 +2005,10 @@ public static class Substances
             hardness: 1925,
             isConductive: true,
             meltingPoint: 3459,
-            youngsModulus: 520);
+            youngsModulus: 520)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Osmium
@@ -1693,7 +2024,10 @@ public static class Substances
             hardness: 296.5,
             isConductive: true,
             meltingPoint: 3306,
-            youngsModulus: 558.6);
+            youngsModulus: 558.6)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Iridium
@@ -1709,7 +2043,10 @@ public static class Substances
             hardness: 1760,
             isConductive: true,
             meltingPoint: 2719,
-            youngsModulus: 528);
+            youngsModulus: 528)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Platinum
@@ -1728,7 +2065,10 @@ public static class Substances
             hardness: 450,
             isConductive: true,
             meltingPoint: 2041.15,
-            youngsModulus: 172.4);
+            youngsModulus: 172.4)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Gold
@@ -1747,7 +2087,10 @@ public static class Substances
             hardness: 202,
             isConductive: true,
             meltingPoint: 1337.15,
-            youngsModulus: 78.5);
+            youngsModulus: 78.5)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Mercury
@@ -1764,7 +2107,10 @@ public static class Substances
             densityLiquid: 13534,
             densitySolid: 14184,
             isConductive: true,
-            meltingPoint: 234.321);
+            meltingPoint: 234.321)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Thallium
@@ -1780,7 +2126,10 @@ public static class Substances
             hardness: 35.6,
             isConductive: true,
             meltingPoint: 577,
-            youngsModulus: 7.9);
+            youngsModulus: 7.9)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Lead
@@ -1796,7 +2145,10 @@ public static class Substances
             hardness: 44,
             isConductive: true,
             meltingPoint: 600.61,
-            youngsModulus: 16.1);
+            youngsModulus: 16.1)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Bismuth
@@ -1813,7 +2165,10 @@ public static class Substances
             isConductive: true,
             isFlammable: true,
             meltingPoint: 544.7,
-            youngsModulus: 34);
+            youngsModulus: 34)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Polonium
@@ -1827,7 +2182,10 @@ public static class Substances
             densitySolid: 9196,
             isConductive: true,
             meltingPoint: 527,
-            youngsModulus: 26);
+            youngsModulus: 26)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Astatine
@@ -1839,7 +2197,10 @@ public static class Substances
             antoineMaximumTemperature: 610,
             antoineMinimumTemperature: 610,
             densitySolid: 6350,
-            meltingPoint: 575);
+            meltingPoint: 575)
+        {
+            Categories = new[] { Category_Elements }
+        };
 
         /// <summary>
         /// the native form of the element Radon
@@ -1854,7 +2215,10 @@ public static class Substances
             antoineMaximumTemperature: 211.8,
             antoineMinimumTemperature: 129.0,
             densityLiquid: 4400,
-            meltingPoint: 544.7);
+            meltingPoint: 544.7)
+        {
+            Categories = new[] { Category_Elements }
+        };
 
         /// <summary>
         /// the native form of the element Francium
@@ -1867,7 +2231,10 @@ public static class Substances
             antoineMinimumTemperature: 950,
             densitySolid: 2900,
             isConductive: true,
-            meltingPoint: 300);
+            meltingPoint: 300)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Radium
@@ -1881,7 +2248,10 @@ public static class Substances
             densitySolid: 5500,
             isConductive: true,
             meltingPoint: 973,
-            youngsModulus: 13.2);
+            youngsModulus: 13.2)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Actinium
@@ -1895,7 +2265,10 @@ public static class Substances
             densitySolid: 10000,
             isConductive: true,
             meltingPoint: 1500,
-            youngsModulus: 25);
+            youngsModulus: 25)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Thorium
@@ -1910,7 +2283,10 @@ public static class Substances
             hardness: 537.5,
             isConductive: true,
             meltingPoint: 2023,
-            youngsModulus: 78.3);
+            youngsModulus: 78.3)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Protactinium
@@ -1924,7 +2300,10 @@ public static class Substances
             densitySolid: 15370,
             isConductive: true,
             meltingPoint: 1841,
-            youngsModulus: 76);
+            youngsModulus: 76)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Uranium
@@ -1940,7 +2319,10 @@ public static class Substances
             hardness: 2425,
             isConductive: true,
             meltingPoint: 1405.3,
-            youngsModulus: 177);
+            youngsModulus: 177)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Neptunium
@@ -1957,7 +2339,10 @@ public static class Substances
             densitySolid: 19380,
             isConductive: true,
             meltingPoint: 912,
-            youngsModulus: 68);
+            youngsModulus: 68)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Plutonium
@@ -1972,7 +2357,10 @@ public static class Substances
             densitySolid: 19816,
             isConductive: true,
             meltingPoint: 912.5,
-            youngsModulus: 87.5);
+            youngsModulus: 87.5)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Americium
@@ -1985,7 +2373,10 @@ public static class Substances
             antoineMinimumTemperature: 2880,
             densitySolid: 12000,
             isConductive: true,
-            meltingPoint: 1449);
+            meltingPoint: 1449)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Curium
@@ -1998,7 +2389,10 @@ public static class Substances
             antoineMinimumTemperature: 3383,
             densitySolid: 13510,
             isConductive: true,
-            meltingPoint: 1613);
+            meltingPoint: 1613)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Berkelium
@@ -2010,7 +2404,10 @@ public static class Substances
             antoineMaximumTemperature: 2900,
             antoineMinimumTemperature: 2900,
             densitySolid: 13250,
-            meltingPoint: 1259);
+            meltingPoint: 1259)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Californium
@@ -2022,7 +2419,10 @@ public static class Substances
             antoineMaximumTemperature: 2900,
             antoineMinimumTemperature: 2900,
             densitySolid: 13250,
-            meltingPoint: 1259);
+            meltingPoint: 1259)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Einsteinium
@@ -2044,7 +2444,10 @@ public static class Substances
             new Formula(PeriodicTable.Instance[100]),
             "Fermium",
             densitySolid: 9710,
-            meltingPoint: 1800);
+            meltingPoint: 1800)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Mendelevium
@@ -2054,7 +2457,10 @@ public static class Substances
             new Formula(PeriodicTable.Instance[101]),
             "Mendelevium",
             densitySolid: 10370,
-            meltingPoint: 1100);
+            meltingPoint: 1100)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Nobelium
@@ -2064,7 +2470,10 @@ public static class Substances
             new Formula(PeriodicTable.Instance[102]),
             "Nobelium",
             densitySolid: 9940,
-            meltingPoint: 1100);
+            meltingPoint: 1100)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Lawrencium
@@ -2074,7 +2483,10 @@ public static class Substances
             new Formula(PeriodicTable.Instance[103]),
             "Lawrencium",
             densitySolid: 16100,
-            meltingPoint: 1900);
+            meltingPoint: 1900)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Rutherfordium
@@ -2086,7 +2498,10 @@ public static class Substances
             antoineMaximumTemperature: 5800,
             antoineMinimumTemperature: 5800,
             densitySolid: 23200,
-            meltingPoint: 2400);
+            meltingPoint: 2400)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Dubnium
@@ -2095,7 +2510,10 @@ public static class Substances
             "Dubnium",
             new Formula(PeriodicTable.Instance[105]),
             "Dubnium",
-            densitySolid: 29300);
+            densitySolid: 29300)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Seaborgium
@@ -2104,7 +2522,10 @@ public static class Substances
             "Seaborgium",
             new Formula(PeriodicTable.Instance[106]),
             "Seaborgium",
-            densitySolid: 35000);
+            densitySolid: 35000)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Bohrium
@@ -2113,7 +2534,10 @@ public static class Substances
             "Bohrium",
             new Formula(PeriodicTable.Instance[107]),
             "Bohrium",
-            densitySolid: 37100);
+            densitySolid: 37100)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Hassium
@@ -2122,7 +2546,10 @@ public static class Substances
             "Hassium",
             new Formula(PeriodicTable.Instance[108]),
             "Hassium",
-            densitySolid: 41000);
+            densitySolid: 41000)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Meitnerium
@@ -2131,7 +2558,10 @@ public static class Substances
             "Meitnerium",
             new Formula(PeriodicTable.Instance[109]),
             "Meitnerium",
-            densitySolid: 37400);
+            densitySolid: 37400)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Darmstadtium
@@ -2140,7 +2570,10 @@ public static class Substances
             "Darmstadtium",
             new Formula(PeriodicTable.Instance[110]),
             "Darmstadtium",
-            densitySolid: 34800);
+            densitySolid: 34800)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Roentgenium
@@ -2149,7 +2582,10 @@ public static class Substances
             "Roentgenium",
             new Formula(PeriodicTable.Instance[111]),
             "Roentgenium",
-            densitySolid: 28700);
+            densitySolid: 28700)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Copernicium
@@ -2160,7 +2596,10 @@ public static class Substances
             "Copernicium",
             antoineMaximumTemperature: 357,
             antoineMinimumTemperature: 357,
-            densityLiquid: 23700);
+            densityLiquid: 23700)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Nihonium
@@ -2172,7 +2611,10 @@ public static class Substances
             antoineMaximumTemperature: 1430,
             antoineMinimumTemperature: 1430,
             densitySolid: 16000,
-            meltingPoint: 700);
+            meltingPoint: 700)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Flerovium
@@ -2183,7 +2625,10 @@ public static class Substances
             "Flerovium",
             antoineMaximumTemperature: 210,
             antoineMinimumTemperature: 210,
-            densityLiquid: 14000);
+            densityLiquid: 14000)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Moscovium
@@ -2195,7 +2640,10 @@ public static class Substances
             antoineMaximumTemperature: 1400,
             antoineMinimumTemperature: 1400,
             densitySolid: 13500,
-            meltingPoint: 670);
+            meltingPoint: 670)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Livermorium
@@ -2207,7 +2655,10 @@ public static class Substances
             antoineMaximumTemperature: 1085,
             antoineMinimumTemperature: 1085,
             densitySolid: 12900,
-            meltingPoint: 708.5);
+            meltingPoint: 708.5)
+        {
+            Categories = new[] { Category_Elements, Category_Metal }
+        };
 
         /// <summary>
         /// the native form of the element Tennessine
@@ -2219,7 +2670,10 @@ public static class Substances
             antoineMaximumTemperature: 883,
             antoineMinimumTemperature: 883,
             densitySolid: 7250,
-            meltingPoint: 723);
+            meltingPoint: 723)
+        {
+            Categories = new[] { Category_Elements }
+        };
 
         /// <summary>
         /// the native form of the element Oganesson
@@ -2230,7 +2684,10 @@ public static class Substances
             "Oganesson",
             antoineMaximumTemperature: 350,
             antoineMinimumTemperature: 350,
-            densityLiquid: 5500);
+            densityLiquid: 5500)
+        {
+            Categories = new[] { Category_Elements }
+        };
 
         /// <summary>
         /// Enumerates the default set of chemicals.
@@ -2415,10 +2872,12 @@ public static class Substances
             densityLiquid: 2715,
             densitySolid: 2715,
             hardness: 1500,
-            isGemstone: true,
             meltingPoint: 2570,
             youngsModulus: 211,
-            commonNames: new string[] { "Aquamarine" });
+            commonNames: new string[] { "Aquamarine" })
+        {
+            Categories = new[] { Category_Gem }
+        };
 
         /// <summary>
         /// Corundum
@@ -2430,9 +2889,11 @@ public static class Substances
             densityLiquid: 4000,
             densitySolid: 4000,
             hardness: 2750,
-            isGemstone: true,
             meltingPoint: 2323.15,
-            youngsModulus: 400);
+            youngsModulus: 400)
+        {
+            Categories = new[] { Category_Gem, Category_Mineral, Category_Stone }
+        };
 
         /// <summary>
         /// Topaz
@@ -2444,9 +2905,11 @@ public static class Substances
             densityLiquid: 3550,
             densitySolid: 3550,
             hardness: 1648,
-            isGemstone: true,
             meltingPoint: 688.45,
-            youngsModulus: 290);
+            youngsModulus: 290)
+        {
+            Categories = new[] { Category_Gem }
+        };
 
         /// <summary>
         /// Enumerates the default set of chemicals.
@@ -2489,7 +2952,10 @@ public static class Substances
             antoineMinimumTemperature: 543,
             densitySolid: 1080,
             isFlammable: true,
-            meltingPoint: 543);
+            meltingPoint: 543)
+        {
+            Categories = new[] { Category_Hydrocarbon }
+        };
 
         /// <summary>
         /// Anthracene
@@ -2506,7 +2972,10 @@ public static class Substances
             densityLiquid: 969,
             densitySolid: 1280,
             isFlammable: true,
-            meltingPoint: 489);
+            meltingPoint: 489)
+        {
+            Categories = new[] { Category_Hydrocarbon }
+        };
 
         /// <summary>
         /// Benzene
@@ -2522,7 +2991,10 @@ public static class Substances
             antoineMinimumTemperature: 333.4,
             densityLiquid: 876.5,
             isFlammable: true,
-            meltingPoint: 278.68);
+            meltingPoint: 278.68)
+        {
+            Categories = new[] { Category_Hydrocarbon }
+        };
 
         /// <summary>
         /// Biphenyl
@@ -2538,7 +3010,10 @@ public static class Substances
             antoineMinimumTemperature: 342.3,
             densitySolid: 1040,
             isFlammable: true,
-            meltingPoint: 342.3);
+            meltingPoint: 342.3)
+        {
+            Categories = new[] { Category_Hydrocarbon }
+        };
 
         /// <summary>
         /// Butane
@@ -2554,7 +3029,10 @@ public static class Substances
             antoineMinimumTemperature: 272.66,
             densityLiquid: 625,
             isFlammable: true,
-            meltingPoint: 136);
+            meltingPoint: 136)
+        {
+            Categories = new[] { Category_Hydrocarbon }
+        };
 
         /// <summary>
         /// Carbon Dioxide
@@ -2571,7 +3049,10 @@ public static class Substances
             densityLiquid: 1101,
             densitySolid: 1562,
             greenhousePotential: 1,
-            meltingPoint: 195.15);
+            meltingPoint: 195.15)
+        {
+            Categories = new[] { Category_Hydrocarbon, Category_Atmospheric }
+        };
 
         /// <summary>
         /// Carbon Monoxide
@@ -2588,7 +3069,10 @@ public static class Substances
             densityLiquid: 789,
             densitySolid: 789,
             isFlammable: true,
-            meltingPoint: 68.15);
+            meltingPoint: 68.15)
+        {
+            Categories = new[] { Category_Hydrocarbon, Category_Atmospheric }
+        };
 
         /// <summary>
         /// Cyclobutane
@@ -2603,7 +3087,10 @@ public static class Substances
             antoineMaximumTemperature: 285.34,
             antoineMinimumTemperature: 213.22,
             isFlammable: true,
-            meltingPoint: 182);
+            meltingPoint: 182)
+        {
+            Categories = new[] { Category_Hydrocarbon }
+        };
 
         /// <summary>
         /// Cyclodecane
@@ -2616,7 +3103,10 @@ public static class Substances
             antoineMinimumTemperature: 474,
             densityLiquid: 871,
             isFlammable: true,
-            meltingPoint: 282.5);
+            meltingPoint: 282.5)
+        {
+            Categories = new[] { Category_Hydrocarbon }
+        };
 
         /// <summary>
         /// Cyclododecane
@@ -2629,7 +3119,10 @@ public static class Substances
             antoineMinimumTemperature: 517,
             densitySolid: 790,
             isFlammable: true,
-            meltingPoint: 333.9);
+            meltingPoint: 333.9)
+        {
+            Categories = new[] { Category_Hydrocarbon }
+        };
 
         /// <summary>
         /// Cycloheptane
@@ -2645,7 +3138,10 @@ public static class Substances
             antoineMinimumTemperature: 341.3,
             densityLiquid: 811,
             isFlammable: true,
-            meltingPoint: 261);
+            meltingPoint: 261)
+        {
+            Categories = new[] { Category_Hydrocarbon }
+        };
 
         /// <summary>
         /// Cyclohexane
@@ -2661,7 +3157,10 @@ public static class Substances
             antoineMinimumTemperature: 293.06,
             densityLiquid: 778.1,
             isFlammable: true,
-            meltingPoint: 279.62);
+            meltingPoint: 279.62)
+        {
+            Categories = new[] { Category_Hydrocarbon }
+        };
 
         /// <summary>
         /// Cyclononane
@@ -2674,7 +3173,10 @@ public static class Substances
             antoineMinimumTemperature: 448,
             densityLiquid: 853.4,
             isFlammable: true,
-            meltingPoint: 283.65);
+            meltingPoint: 283.65)
+        {
+            Categories = new[] { Category_Hydrocarbon }
+        };
 
         /// <summary>
         /// Cyclooctane
@@ -2690,7 +3192,10 @@ public static class Substances
             antoineMinimumTemperature: 369.86,
             densityLiquid: 834,
             isFlammable: true,
-            meltingPoint: 287.74);
+            meltingPoint: 287.74)
+        {
+            Categories = new[] { Category_Hydrocarbon }
+        };
 
         /// <summary>
         /// Cyclopentane
@@ -2706,7 +3211,10 @@ public static class Substances
             antoineMinimumTemperature: 288.86,
             densityLiquid: 751,
             isFlammable: true,
-            meltingPoint: 179.2);
+            meltingPoint: 179.2)
+        {
+            Categories = new[] { Category_Hydrocarbon }
+        };
 
         /// <summary>
         /// Cyclopropane
@@ -2721,7 +3229,10 @@ public static class Substances
             antoineMaximumTemperature: 241.07,
             antoineMinimumTemperature: 183.12,
             isFlammable: true,
-            meltingPoint: 145);
+            meltingPoint: 145)
+        {
+            Categories = new[] { Category_Hydrocarbon }
+        };
 
         /// <summary>
         /// Cyclotetradecane
@@ -2734,7 +3245,10 @@ public static class Substances
             antoineMinimumTemperature: 554.05,
             densitySolid: 800,
             isFlammable: true,
-            meltingPoint: 327.15);
+            meltingPoint: 327.15)
+        {
+            Categories = new[] { Category_Hydrocarbon }
+        };
 
         /// <summary>
         /// Cyclotridecane
@@ -2747,7 +3261,10 @@ public static class Substances
             antoineMinimumTemperature: 534.15,
             densitySolid: 800,
             isFlammable: true,
-            meltingPoint: 296.15);
+            meltingPoint: 296.15)
+        {
+            Categories = new[] { Category_Hydrocarbon }
+        };
 
         /// <summary>
         /// Cycloundecane
@@ -2760,7 +3277,10 @@ public static class Substances
             antoineMinimumTemperature: 491.55,
             densityLiquid: 800,
             isFlammable: true,
-            meltingPoint: 266.15);
+            meltingPoint: 266.15)
+        {
+            Categories = new[] { Category_Hydrocarbon }
+        };
 
         /// <summary>
         /// Cumene
@@ -2776,7 +3296,10 @@ public static class Substances
             antoineMinimumTemperature: 343.17,
             densityLiquid: 862,
             isFlammable: true,
-            meltingPoint: 177);
+            meltingPoint: 177)
+        {
+            Categories = new[] { Category_Hydrocarbon }
+        };
 
         /// <summary>
         /// Decalin
@@ -2792,7 +3315,10 @@ public static class Substances
             antoineMinimumTemperature: 365.51,
             densityLiquid: 896,
             isFlammable: true,
-            meltingPoint: 242.7);
+            meltingPoint: 242.7)
+        {
+            Categories = new[] { Category_Hydrocarbon }
+        };
 
         /// <summary>
         /// Decane
@@ -2808,7 +3334,10 @@ public static class Substances
             antoineMinimumTemperature: 367.63,
             densityLiquid: 730,
             isFlammable: true,
-            meltingPoint: 243.3);
+            meltingPoint: 243.3)
+        {
+            Categories = new[] { Category_Hydrocarbon }
+        };
 
         /// <summary>
         /// Dodecane
@@ -2821,7 +3350,10 @@ public static class Substances
             antoineMinimumTemperature: 489,
             densityLiquid: 749.5,
             isFlammable: true,
-            meltingPoint: 263.5);
+            meltingPoint: 263.5)
+        {
+            Categories = new[] { Category_Hydrocarbon }
+        };
 
         /// <summary>
         /// Durene
@@ -2837,7 +3369,10 @@ public static class Substances
             antoineMinimumTemperature: 318,
             densityLiquid: 868,
             isFlammable: true,
-            meltingPoint: 352.3);
+            meltingPoint: 352.3)
+        {
+            Categories = new[] { Category_Hydrocarbon }
+        };
 
         /// <summary>
         /// Ethane
@@ -2854,7 +3389,10 @@ public static class Substances
             densityLiquid: 554,
             densitySolid: 554,
             isFlammable: true,
-            meltingPoint: 90.15);
+            meltingPoint: 90.15)
+        {
+            Categories = new[] { Category_Hydrocarbon }
+        };
 
         /// <summary>
         /// Ethylbenzene
@@ -2870,7 +3408,10 @@ public static class Substances
             antoineMinimumTemperature: 329.74,
             densityLiquid: 866.5,
             isFlammable: true,
-            meltingPoint: 178);
+            meltingPoint: 178)
+        {
+            Categories = new[] { Category_Hydrocarbon }
+        };
 
         /// <summary>
         /// Ethylene
@@ -2885,7 +3426,10 @@ public static class Substances
             antoineMaximumTemperature: 188.57,
             antoineMinimumTemperature: 149.37,
             isFlammable: true,
-            meltingPoint: 104);
+            meltingPoint: 104)
+        {
+            Categories = new[] { Category_Hydrocarbon }
+        };
 
         /// <summary>
         /// Heptane
@@ -2901,7 +3445,10 @@ public static class Substances
             antoineMinimumTemperature: 299.07,
             densityLiquid: 679.5,
             isFlammable: true,
-            meltingPoint: 182.601);
+            meltingPoint: 182.601)
+        {
+            Categories = new[] { Category_Hydrocarbon }
+        };
 
         /// <summary>
         /// Hexadecane
@@ -2914,7 +3461,10 @@ public static class Substances
             antoineMinimumTemperature: 560,
             densityLiquid: 770,
             isFlammable: true,
-            meltingPoint: 291);
+            meltingPoint: 291)
+        {
+            Categories = new[] { Category_Hydrocarbon }
+        };
 
         /// <summary>
         /// Hexane
@@ -2930,7 +3480,10 @@ public static class Substances
             antoineMinimumTemperature: 286.18,
             densityLiquid: 660.6,
             isFlammable: true,
-            meltingPoint: 178);
+            meltingPoint: 178)
+        {
+            Categories = new[] { Category_Hydrocarbon }
+        };
 
         /// <summary>
         /// Hexene
@@ -2946,7 +3499,10 @@ public static class Substances
             antoineMinimumTemperature: 289.04,
             densityLiquid: 673,
             isFlammable: true,
-            meltingPoint: 133.3);
+            meltingPoint: 133.3)
+        {
+            Categories = new[] { Category_Hydrocarbon }
+        };
 
         /// <summary>
         /// Indane
@@ -2959,7 +3515,10 @@ public static class Substances
             antoineMinimumTemperature: 449.6,
             densityLiquid: 964.5,
             isFlammable: true,
-            meltingPoint: 221.8);
+            meltingPoint: 221.8)
+        {
+            Categories = new[] { Category_Hydrocarbon }
+        };
 
         /// <summary>
         /// Indene
@@ -2975,7 +3534,10 @@ public static class Substances
             antoineMinimumTemperature: 289.6,
             densityLiquid: 997,
             isFlammable: true,
-            meltingPoint: 271.3);
+            meltingPoint: 271.3)
+        {
+            Categories = new[] { Category_Hydrocarbon }
+        };
 
         /// <summary>
         /// Methane
@@ -2993,7 +3555,10 @@ public static class Substances
             densitySolid: 422.62,
             greenhousePotential: 34,
             isFlammable: true,
-            meltingPoint: 91.15);
+            meltingPoint: 91.15)
+        {
+            Categories = new[] { Category_Hydrocarbon, Category_Atmospheric }
+        };
 
         /// <summary>
         /// m-Xylene
@@ -3009,7 +3574,10 @@ public static class Substances
             antoineMinimumTemperature: 273,
             densityLiquid: 860,
             isFlammable: true,
-            meltingPoint: 225);
+            meltingPoint: 225)
+        {
+            Categories = new[] { Category_Hydrocarbon }
+        };
 
         /// <summary>
         /// Naphthalene
@@ -3026,7 +3594,10 @@ public static class Substances
             densityLiquid: 962.5,
             densitySolid: 1025.3,
             isFlammable: true,
-            meltingPoint: 351.3);
+            meltingPoint: 351.3)
+        {
+            Categories = new[] { Category_Hydrocarbon }
+        };
 
         /// <summary>
         /// Nonane
@@ -3042,7 +3613,10 @@ public static class Substances
             antoineMinimumTemperature: 343.49,
             densityLiquid: 718,
             isFlammable: true,
-            meltingPoint: 219.5);
+            meltingPoint: 219.5)
+        {
+            Categories = new[] { Category_Hydrocarbon }
+        };
 
         /// <summary>
         /// Octane
@@ -3058,7 +3632,10 @@ public static class Substances
             antoineMinimumTemperature: 326.08,
             densityLiquid: 703,
             isFlammable: true,
-            meltingPoint: 216.3);
+            meltingPoint: 216.3)
+        {
+            Categories = new[] { Category_Hydrocarbon }
+        };
 
         /// <summary>
         /// o-Xylene
@@ -3074,7 +3651,10 @@ public static class Substances
             antoineMinimumTemperature: 336.61,
             densityLiquid: 880,
             isFlammable: true,
-            meltingPoint: 249);
+            meltingPoint: 249)
+        {
+            Categories = new[] { Category_Hydrocarbon }
+        };
 
         /// <summary>
         /// Pentadecane
@@ -3087,7 +3667,10 @@ public static class Substances
             antoineMinimumTemperature: 543.15,
             densityLiquid: 769,
             isFlammable: true,
-            meltingPoint: 290);
+            meltingPoint: 290)
+        {
+            Categories = new[] { Category_Hydrocarbon }
+        };
 
         /// <summary>
         /// Pentane
@@ -3103,7 +3686,10 @@ public static class Substances
             antoineMinimumTemperature: 268.8,
             densityLiquid: 620,
             isFlammable: true,
-            meltingPoint: 143.4);
+            meltingPoint: 143.4)
+        {
+            Categories = new[] { Category_Hydrocarbon }
+        };
 
         /// <summary>
         /// Phenanthrene
@@ -3119,7 +3705,10 @@ public static class Substances
             antoineMinimumTemperature: 476.8,
             densitySolid: 1180,
             isFlammable: true,
-            meltingPoint: 374);
+            meltingPoint: 374)
+        {
+            Categories = new[] { Category_Hydrocarbon }
+        };
 
         /// <summary>
         /// Propane
@@ -3135,7 +3724,10 @@ public static class Substances
             antoineMinimumTemperature: 230.6,
             densityLiquid: 493,
             isFlammable: true,
-            meltingPoint: 85.5);
+            meltingPoint: 85.5)
+        {
+            Categories = new[] { Category_Hydrocarbon }
+        };
 
         /// <summary>
         /// p-Xylene
@@ -3151,7 +3743,10 @@ public static class Substances
             antoineMinimumTemperature: 331.44,
             densityLiquid: 861,
             isFlammable: true,
-            meltingPoint: 286.3);
+            meltingPoint: 286.3)
+        {
+            Categories = new[] { Category_Hydrocarbon }
+        };
 
         /// <summary>
         /// Tetradecane
@@ -3164,7 +3759,10 @@ public static class Substances
             antoineMinimumTemperature: 528,
             densityLiquid: 762,
             isFlammable: true,
-            meltingPoint: 278);
+            meltingPoint: 278)
+        {
+            Categories = new[] { Category_Hydrocarbon }
+        };
 
         /// <summary>
         /// Toluene
@@ -3180,7 +3778,10 @@ public static class Substances
             antoineMinimumTemperature: 308.52,
             densityLiquid: 870,
             isFlammable: true,
-            meltingPoint: 178);
+            meltingPoint: 178)
+        {
+            Categories = new[] { Category_Hydrocarbon }
+        };
 
         /// <summary>
         /// Tridecane
@@ -3193,7 +3794,10 @@ public static class Substances
             antoineMinimumTemperature: 507,
             densityLiquid: 756,
             isFlammable: true,
-            meltingPoint: 268);
+            meltingPoint: 268)
+        {
+            Categories = new[] { Category_Hydrocarbon }
+        };
 
         /// <summary>
         /// Undecane
@@ -3206,7 +3810,10 @@ public static class Substances
             antoineMinimumTemperature: 468,
             densityLiquid: 740,
             isFlammable: true,
-            meltingPoint: 247.4);
+            meltingPoint: 247.4)
+        {
+            Categories = new[] { Category_Hydrocarbon }
+        };
 
         /// <summary>
         /// Enumerates the default set of chemicals.
@@ -3295,7 +3902,10 @@ public static class Substances
             densitySolid: 145,
             isConductive: true,
             meltingPoint: 0.95,
-            fixedPhase: PhaseType.Plasma);
+            fixedPhase: PhaseType.Plasma)
+        {
+            Categories = new[] { Category_Ion, Category_Plasma }
+        };
 
         /// <summary>
         /// Bicarbonate
@@ -3307,7 +3917,10 @@ public static class Substances
             antoineMaximumTemperature: 520.06,
             antoineMinimumTemperature: 520.06,
             densitySolid: 2200,
-            meltingPoint: 336.12);
+            meltingPoint: 336.12)
+        {
+            Categories = new[] { Category_Ion }
+        };
 
         /// <summary>
         /// C⁴⁺
@@ -3323,7 +3936,10 @@ public static class Substances
             hardness: 5,
             isConductive: true,
             isFlammable: true,
-            meltingPoint: 3915);
+            meltingPoint: 3915)
+        {
+            Categories = new[] { Category_Ion }
+        };
 
         /// <summary>
         /// Ca²⁺
@@ -3342,7 +3958,10 @@ public static class Substances
             hardness: 293,
             isConductive: true,
             isFlammable: true,
-            meltingPoint: 1115);
+            meltingPoint: 1115)
+        {
+            Categories = new[] { Category_Ion }
+        };
 
         /// <summary>
         /// Cl⁻
@@ -3359,7 +3978,10 @@ public static class Substances
             densityLiquid: 1562.5,
             densitySolid: 1562.5,
             isFlammable: true,
-            meltingPoint: 171.6);
+            meltingPoint: 171.6)
+        {
+            Categories = new[] { Category_Ion }
+        };
 
         /// <summary>
         /// Cr³⁺
@@ -3377,7 +3999,10 @@ public static class Substances
             densitySolid: 7190,
             hardness: 1060,
             isConductive: true,
-            meltingPoint: 2180);
+            meltingPoint: 2180)
+        {
+            Categories = new[] { Category_Ion }
+        };
 
         /// <summary>
         /// Fe²⁺
@@ -3392,7 +4017,10 @@ public static class Substances
             densitySolid: 7874,
             hardness: 608,
             isConductive: true,
-            meltingPoint: 1811.15);
+            meltingPoint: 1811.15)
+        {
+            Categories = new[] { Category_Ion }
+        };
 
         /// <summary>
         /// Hydrogen Plasma (H⁺, i.e. a proton)
@@ -3411,7 +4039,10 @@ public static class Substances
             isConductive: true,
             isFlammable: true,
             meltingPoint: 14.15,
-            fixedPhase: PhaseType.Plasma);
+            fixedPhase: PhaseType.Plasma)
+        {
+            Categories = new[] { Category_Ion, Category_Plasma }
+        };
 
         /// <summary>
         /// K⁺
@@ -3430,7 +4061,10 @@ public static class Substances
             hardness: 0.363,
             isConductive: true,
             isFlammable: true,
-            meltingPoint: 336.7);
+            meltingPoint: 336.7)
+        {
+            Categories = new[] { Category_Ion }
+        };
 
         /// <summary>
         /// Mg²⁺
@@ -3446,7 +4080,10 @@ public static class Substances
             hardness: 152,
             isConductive: true,
             isFlammable: true,
-            meltingPoint: 370.944);
+            meltingPoint: 370.944)
+        {
+            Categories = new[] { Category_Ion }
+        };
 
         /// <summary>
         /// N⁵⁺
@@ -3462,7 +4099,10 @@ public static class Substances
             antoineMinimumTemperature: 63.2,
             densityLiquid: 808,
             densitySolid: 808,
-            meltingPoint: 63.15);
+            meltingPoint: 63.15)
+        {
+            Categories = new[] { Category_Ion }
+        };
 
         /// <summary>
         /// Na⁺
@@ -3481,7 +4121,10 @@ public static class Substances
             hardness: 0.69,
             isConductive: true,
             isFlammable: true,
-            meltingPoint: 370.944);
+            meltingPoint: 370.944)
+        {
+            Categories = new[] { Category_Ion }
+        };
 
         /// <summary>
         /// O²⁺
@@ -3499,7 +4142,10 @@ public static class Substances
             densitySolid: 1141,
             isConductive: true,
             isFlammable: true,
-            meltingPoint: 54.36);
+            meltingPoint: 54.36)
+        {
+            Categories = new[] { Category_Ion }
+        };
 
         /// <summary>
         /// S⁶⁺
@@ -3514,7 +4160,10 @@ public static class Substances
             densitySolid: 1960,
             hardness: 16,
             isFlammable: true,
-            meltingPoint: 388.36);
+            meltingPoint: 388.36)
+        {
+            Categories = new[] { Category_Ion }
+        };
 
         /// <summary>
         /// Si⁴⁺
@@ -3531,7 +4180,10 @@ public static class Substances
             densityLiquid: 2570,
             densitySolid: 2329,
             hardness: 1224,
-            meltingPoint: 1687);
+            meltingPoint: 1687)
+        {
+            Categories = new[] { Category_Ion }
+        };
 
         /// <summary>
         /// Sulfate
@@ -3542,7 +4194,10 @@ public static class Substances
             "Sulfate",
             antoineMaximumTemperature: 897.04,
             antoineMinimumTemperature: 897.04,
-            meltingPoint: 543.62);
+            meltingPoint: 543.62)
+        {
+            Categories = new[] { Category_Ion }
+        };
 
         /// <summary>
         /// Ti⁴⁺
@@ -3557,7 +4212,10 @@ public static class Substances
             densitySolid: 6000,
             hardness: 2125,
             isConductive: true,
-            meltingPoint: 1941);
+            meltingPoint: 1941)
+        {
+            Categories = new[] { Category_Ion }
+        };
 
         /// <summary>
         /// Enumerates the default set of chemicals.
@@ -3614,7 +4272,10 @@ public static class Substances
             antoineMinimumTemperature: 1233.15,
             densitySolid: 7300,
             hardness: 226,
-            meltingPoint: 1109);
+            meltingPoint: 1109)
+        {
+            Categories = new[] { Category_Mineral }
+        };
 
         /// <summary>
         /// Albite
@@ -3626,7 +4287,10 @@ public static class Substances
             densitySolid: 2620,
             hardness: 1000,
             meltingPoint: 1110,
-            youngsModulus: 73.4);
+            youngsModulus: 73.4)
+        {
+            Categories = new[] { Category_Mineral, Category_Stone }
+        };
 
         /// <summary>
         /// Anorthite
@@ -3638,7 +4302,10 @@ public static class Substances
             densitySolid: 2730,
             hardness: 817,
             meltingPoint: 1110,
-            youngsModulus: 100);
+            youngsModulus: 100)
+        {
+            Categories = new[] { Category_Mineral, Category_Stone }
+        };
 
         /// <summary>
         /// Boehmite
@@ -3652,7 +4319,10 @@ public static class Substances
             densitySolid: 3040,
             hardness: 1961,
             meltingPoint: 2323.15,
-            youngsModulus: 140);
+            youngsModulus: 140)
+        {
+            Categories = new[] { Category_Mineral }
+        };
 
         /// <summary>
         /// Calcium Carbonate
@@ -3668,7 +4338,10 @@ public static class Substances
             hardness: 250,
             meltingPoint: 1612,
             youngsModulus: 80.7,
-            commonNames: new string[] { "Limestone", "Calcite", "Aragonite", "Limescale" });
+            commonNames: new string[] { "Limestone", "Calcite", "Aragonite", "Limescale" })
+        {
+            Categories = new[] { Category_Mineral, Category_Stone }
+        };
 
         /// <summary>
         /// Cassiterite
@@ -3681,7 +4354,10 @@ public static class Substances
             antoineMinimumTemperature: 2120,
             densitySolid: 6995,
             hardness: 13268,
-            meltingPoint: 1900);
+            meltingPoint: 1900)
+        {
+            Categories = new[] { Category_Mineral }
+        };
 
         /// <summary>
         /// Chalcopyrite
@@ -3692,7 +4368,10 @@ public static class Substances
             "Chalcopyrite",
             densitySolid: 4200,
             hardness: 1834,
-            meltingPoint: 1223.15);
+            meltingPoint: 1223.15)
+        {
+            Categories = new[] { Category_Mineral }
+        };
 
         /// <summary>
         /// Chromite
@@ -3703,7 +4382,10 @@ public static class Substances
             "Chromite",
             densitySolid: 4650,
             hardness: 13405,
-            meltingPoint: 2500);
+            meltingPoint: 2500)
+        {
+            Categories = new[] { Category_Mineral }
+        };
 
         /// <summary>
         /// Cinnabar
@@ -3714,7 +4396,10 @@ public static class Substances
             "Cinnabar",
             densitySolid: 8176,
             hardness: 554,
-            meltingPoint: 853);
+            meltingPoint: 853)
+        {
+            Categories = new[] { Category_Mineral }
+        };
 
         /// <summary>
         /// Diopside
@@ -3725,7 +4410,10 @@ public static class Substances
             "Diopside",
             densitySolid: 3400,
             hardness: 7700,
-            meltingPoint: 1664.15);
+            meltingPoint: 1664.15)
+        {
+            Categories = new[] { Category_Mineral, Category_Stone }
+        };
 
         /// <summary>
         /// Enstatite
@@ -3737,7 +4425,10 @@ public static class Substances
             densitySolid: 3200,
             hardness: 7700,
             meltingPoint: 1830.15,
-            youngsModulus: 182);
+            youngsModulus: 182)
+        {
+            Categories = new[] { Category_Mineral, Category_Stone }
+        };
 
         /// <summary>
         /// Fayalite
@@ -3748,7 +4439,10 @@ public static class Substances
             "Fayalite",
             densitySolid: 3200,
             hardness: 7000,
-            meltingPoint: 1473.15);
+            meltingPoint: 1473.15)
+        {
+            Categories = new[] { Category_Mineral, Category_Stone }
+        };
 
         /// <summary>
         /// Ferrosilite
@@ -3759,7 +4453,10 @@ public static class Substances
             "Ferrosilite",
             densitySolid: 3200,
             hardness: 7700,
-            meltingPoint: 1830.15);
+            meltingPoint: 1830.15)
+        {
+            Categories = new[] { Category_Mineral, Category_Stone }
+        };
 
         /// <summary>
         /// Forsterite
@@ -3770,7 +4467,10 @@ public static class Substances
             "Forsterite",
             densitySolid: 3270,
             hardness: 7110,
-            meltingPoint: 2163.15);
+            meltingPoint: 2163.15)
+        {
+            Categories = new[] { Category_Mineral, Category_Stone }
+        };
 
         /// <summary>
         /// Galena
@@ -3783,7 +4483,10 @@ public static class Substances
             antoineMinimumTemperature: 1554,
             densitySolid: 7400,
             hardness: 897,
-            meltingPoint: 1391);
+            meltingPoint: 1391)
+        {
+            Categories = new[] { Category_Mineral }
+        };
 
         /// <summary>
         /// Gibbsite
@@ -3796,7 +4499,10 @@ public static class Substances
             antoineMinimumTemperature: 2792,
             densitySolid: 2420,
             hardness: 1200,
-            meltingPoint: 573);
+            meltingPoint: 573)
+        {
+            Categories = new[] { Category_Mineral }
+        };
 
         /// <summary>
         /// Goethite
@@ -3807,7 +4513,10 @@ public static class Substances
             "Goethite",
             densitySolid: 3550,
             hardness: 6541,
-            meltingPoint: 409.15);
+            meltingPoint: 409.15)
+        {
+            Categories = new[] { Category_Mineral }
+        };
 
         /// <summary>
         /// Gypsum
@@ -3818,7 +4527,10 @@ public static class Substances
             "Gypsum",
             densitySolid: 2317,
             hardness: 2000,
-            meltingPoint: 398.15);
+            meltingPoint: 398.15)
+        {
+            Categories = new[] { Category_Mineral }
+        };
 
         /// <summary>
         /// Hematite
@@ -3829,7 +4541,10 @@ public static class Substances
             "Hematite",
             densitySolid: 5300,
             hardness: 10296,
-            meltingPoint: 1838.15);
+            meltingPoint: 1838.15)
+        {
+            Categories = new[] { Category_Mineral }
+        };
 
         /// <summary>
         /// Hydroxyapatite
@@ -3841,7 +4556,10 @@ public static class Substances
             densitySolid: 3180,
             hardness: 3430,
             meltingPoint: 1670,
-            youngsModulus: 125);
+            youngsModulus: 125)
+        {
+            Categories = new[] { Category_Mineral, Category_Stone }
+        };
 
         /// <summary>
         /// Ilmenite
@@ -3852,7 +4570,10 @@ public static class Substances
             "Ilmenite",
             densitySolid: 4745,
             hardness: 6198,
-            meltingPoint: 1323.15);
+            meltingPoint: 1323.15)
+        {
+            Categories = new[] { Category_Mineral }
+        };
 
         /// <summary>
         /// Kaolinite
@@ -3865,7 +4586,10 @@ public static class Substances
             hardness: 42,
             meltingPoint: 2023.15,
             youngsModulus: 3.2,
-            commonNames: new string[] { "Kaolin", "China Clay", "Lithomarge" });
+            commonNames: new string[] { "Kaolin", "China Clay", "Lithomarge" })
+        {
+            Categories = new[] { Category_Mineral, Category_Clay }
+        };
 
         /// <summary>
         /// Magnetite
@@ -3879,7 +4603,10 @@ public static class Substances
             densitySolid: 5150,
             hardness: 7223,
             isConductive: true,
-            meltingPoint: 1870);
+            meltingPoint: 1870)
+        {
+            Categories = new[] { Category_Mineral }
+        };
 
         /// <summary>
         /// Muscovite
@@ -3891,7 +4618,10 @@ public static class Substances
             densitySolid: 2820,
             hardness: 125,
             meltingPoint: 1548.15,
-            youngsModulus: 48);
+            youngsModulus: 48)
+        {
+            Categories = new[] { Category_Mineral, Category_Stone }
+        };
 
         /// <summary>
         /// Orthoclase
@@ -3903,7 +4633,10 @@ public static class Substances
             densitySolid: 2560,
             hardness: 817,
             meltingPoint: 873.15,
-            youngsModulus: 89);
+            youngsModulus: 89)
+        {
+            Categories = new[] { Category_Mineral, Category_Stone }
+        };
 
         /// <summary>
         /// Potassium Nitrate
@@ -3915,7 +4648,10 @@ public static class Substances
             densityLiquid: 2109,
             densitySolid: 2109,
             isFlammable: true, // Strictly speaking, it is an oxidizer, not flammable.
-            meltingPoint: 607);
+            meltingPoint: 607)
+        {
+            Categories = new[] { Category_Mineral, Category_Stone }
+        };
 
         /// <summary>
         /// Pyrite
@@ -3928,7 +4664,10 @@ public static class Substances
             hardness: 1512.5,
             meltingPoint: 1455.65,
             youngsModulus: 291.5,
-            commonNames: new string[] { "Fool's Gold", "Iron Pyrite" });
+            commonNames: new string[] { "Fool's Gold", "Iron Pyrite" })
+        {
+            Categories = new[] { Category_Mineral }
+        };
 
         /// <summary>
         /// Silicon Carbide
@@ -3940,7 +4679,10 @@ public static class Substances
             densitySolid: 3160,
             hardness: 2500,
             meltingPoint: 3100,
-            commonNames: new string[] { "Carborundum" });
+            commonNames: new string[] { "Carborundum" })
+        {
+            Categories = new[] { Category_Mineral, Category_Stone }
+        };
 
         /// <summary>
         /// Silicon Dioxide
@@ -3956,7 +4698,10 @@ public static class Substances
             hardness: 10980,
             meltingPoint: 1923.15,
             youngsModulus: 95.5,
-            commonNames: new string[] { "Sand", "Quartz", "Silica" });
+            commonNames: new string[] { "Sand", "Quartz", "Silica" })
+        {
+            Categories = new[] { Category_Mineral, Category_Stone, Category_Gem }
+        };
 
         /// <summary>
         /// Sodium Chloride
@@ -3974,7 +4719,10 @@ public static class Substances
             hardness: 20,
             meltingPoint: 1073.8,
             youngsModulus: 39.98,
-            commonNames: new string[] { "Salt" });
+            commonNames: new string[] { "Salt" })
+        {
+            Categories = new[] { Category_Mineral, Category_Stone, Category_Consumable }
+        };
 
         /// <summary>
         /// Sperrylite
@@ -3985,7 +4733,10 @@ public static class Substances
             "Sperrylite",
             densitySolid: 10580,
             hardness: 1118.5,
-            meltingPoint: 2041);
+            meltingPoint: 2041)
+        {
+            Categories = new[] { Category_Mineral }
+        };
 
         /// <summary>
         /// Enumerates the default set of chemicals.
@@ -4158,7 +4909,7 @@ public static class Substances
             densityLiquid: 1840,
             densitySolid: 1840,
             meltingPoint: 283,
-            commonNames: new string[] { "Sulphuric Acid", "Oil of Vitriol" });
+            commonNames: new string[] { "Oil of Vitriol" });
 
         /// <summary>
         /// Water
@@ -4177,7 +4928,10 @@ public static class Substances
             greenhousePotential: 1,
             hardness: 8,
             isConductive: true,
-            meltingPoint: 273.15);
+            meltingPoint: 273.15)
+        {
+            Categories = new[] { Category_Aqueous }
+        };
 
         /// <summary>
         /// Zinc Sulfide
@@ -4264,7 +5018,10 @@ public static class Substances
             antoineMaximumTemperature: 494,
             antoineMinimumTemperature: 494,
             densitySolid: 1150,
-            meltingPoint: 305);
+            meltingPoint: 305)
+        {
+            Categories = new[] { Category_Organic }
+        };
 
         /// <summary>
         /// Cellulose
@@ -4275,7 +5032,10 @@ public static class Substances
             "Cellulose",
             densitySolid: 1500,
             isFlammable: true,
-            youngsModulus: 20);
+            youngsModulus: 20)
+        {
+            Categories = new[] { Category_Organic }
+        };
 
         /// <summary>
         /// Chitin
@@ -4286,7 +5046,10 @@ public static class Substances
             "Chitin",
             densitySolid: 1370,
             hardness: 1000,
-            youngsModulus: 6);
+            youngsModulus: 6)
+        {
+            Categories = new[] { Category_Organic }
+        };
 
         /// <summary>
         /// Collagen
@@ -4296,7 +5059,10 @@ public static class Substances
             Formula.Parse("C57H91N19O16"),
             "Collagen",
             densitySolid: 1350,
-            youngsModulus: 2);
+            youngsModulus: 2)
+        {
+            Categories = new[] { Category_Organic }
+        };
 
         /// <summary>
         /// Dibenzothiophene
@@ -4308,7 +5074,10 @@ public static class Substances
             antoineMaximumTemperature: 605.5,
             antoineMinimumTemperature: 605.5,
             densitySolid: 1252,
-            meltingPoint: 371.5);
+            meltingPoint: 371.5)
+        {
+            Categories = new[] { Category_Organic }
+        };
 
         /// <summary>
         /// Elastin
@@ -4319,7 +5088,10 @@ public static class Substances
             "Elastin",
             antoineMaximumTemperature: 373.15,
             antoineMinimumTemperature: 373.15,
-            youngsModulus: 0.001);
+            youngsModulus: 0.001)
+        {
+            Categories = new[] { Category_Organic }
+        };
 
         /// <summary>
         /// Ethanol
@@ -4338,7 +5110,10 @@ public static class Substances
             isConductive: true,
             isFlammable: true,
             meltingPoint: 158.8,
-            commonNames: new string[] { "Alcohol", "Ethyl Alcohol", "Grain Alcohol" });
+            commonNames: new string[] { "Alcohol", "Ethyl Alcohol", "Grain Alcohol" })
+        {
+            Categories = new[] { Category_Organic, Category_Consumable }
+        };
 
         /// <summary>
         /// Fructose
@@ -4350,7 +5125,10 @@ public static class Substances
             densitySolid: 1694,
             isFlammable: true,
             meltingPoint: 376,
-            commonNames: new string[] { "Sugar", "Fruit Sugar" });
+            commonNames: new string[] { "Sugar", "Fruit Sugar" })
+        {
+            Categories = new[] { Category_Organic, Category_Consumable }
+        };
 
         /// <summary>
         /// Galactose
@@ -4360,7 +5138,10 @@ public static class Substances
             Formula.Parse("C6H12O6"),
             "Galactose",
             densitySolid: 1500,
-            meltingPoint: 442);
+            meltingPoint: 442)
+        {
+            Categories = new[] { Category_Organic, Category_Consumable }
+        };
 
         /// <summary>
         /// Glucose
@@ -4372,7 +5153,10 @@ public static class Substances
             densitySolid: 1540,
             isFlammable: true,
             meltingPoint: 423,
-            commonNames: new string[] { "Sugar" });
+            commonNames: new string[] { "Sugar" })
+        {
+            Categories = new[] { Category_Organic, Category_Consumable }
+        };
 
         /// <summary>
         /// Glycogen
@@ -4383,7 +5167,10 @@ public static class Substances
             "Glycogen",
             densitySolid: 1630,
             isFlammable: true,
-            meltingPoint: 548.15);
+            meltingPoint: 548.15)
+        {
+            Categories = new[] { Category_Organic }
+        };
 
         /// <summary>
         /// Isopropyl Alcohol
@@ -4400,7 +5187,10 @@ public static class Substances
             densityLiquid: 786,
             isConductive: true,
             isFlammable: true,
-            meltingPoint: 184);
+            meltingPoint: 184)
+        {
+            Categories = new[] { Category_Organic }
+        };
 
         /// <summary>
         /// Lactose
@@ -4411,7 +5201,10 @@ public static class Substances
             "Lactose",
             densitySolid: 1525,
             isFlammable: true,
-            meltingPoint: 475.9);
+            meltingPoint: 475.9)
+        {
+            Categories = new[] { Category_Organic, Category_Consumable }
+        };
 
         /// <summary>
         /// Lignin
@@ -4422,7 +5215,10 @@ public static class Substances
             "Lignin",
             densitySolid: 1397,
             isFlammable: true,
-            youngsModulus: 3.1);
+            youngsModulus: 3.1)
+        {
+            Categories = new[] { Category_Organic }
+        };
 
         /// <summary>
         /// Maltose
@@ -4432,7 +5228,11 @@ public static class Substances
             Formula.Parse("C12H22O11"),
             "Maltose",
             densitySolid: 1540,
-            meltingPoint: 435.5);
+            meltingPoint: 435.5,
+            commonNames: new string[] { "Malt Sugar", "Maltobiose" })
+        {
+            Categories = new[] { Category_Organic, Category_Consumable }
+        };
 
         /// <summary>
         /// Methanol
@@ -4450,7 +5250,10 @@ public static class Substances
             isConductive: true,
             isFlammable: true,
             meltingPoint: 175.6,
-            commonNames: new string[] { "Methyl Alcohol", "Wood Alcohol", "Wood Spirit", "Pyroxylic Spirit" });
+            commonNames: new string[] { "Methyl Alcohol", "Wood Alcohol", "Wood Spirit", "Pyroxylic Spirit" })
+        {
+            Categories = new[] { Category_Organic }
+        };
 
         /// <summary>
         /// Potassium Carbonate
@@ -4461,7 +5264,10 @@ public static class Substances
             "Potassium Carbonate",
             densityLiquid: 2430,
             densitySolid: 2430,
-            meltingPoint: 1164);
+            meltingPoint: 1164)
+        {
+            Categories = new[] { Category_Organic }
+        };
 
         /// <summary>
         /// Sodium Carbonate
@@ -4474,7 +5280,10 @@ public static class Substances
             antoineMinimumTemperature: 1873.15,
             densitySolid: 2540,
             meltingPoint: 1124,
-            commonNames: new string[] { "Washing Soda", "Soda Ash" });
+            commonNames: new string[] { "Washing Soda", "Soda Ash" })
+        {
+            Categories = new[] { Category_Organic }
+        };
 
         /// <summary>
         /// Sucrose
@@ -4485,7 +5294,10 @@ public static class Substances
             "Sucrose",
             densitySolid: 1587,
             isFlammable: true,
-            commonNames: new string[] { "Sugar" });
+            commonNames: new string[] { "Sugar" })
+        {
+            Categories = new[] { Category_Organic, Category_Consumable }
+        };
 
         /// <summary>
         /// Triolein
@@ -4498,7 +5310,10 @@ public static class Substances
             antoineMinimumTemperature: 827.4,
             densityLiquid: 907.8,
             isFlammable: true,
-            meltingPoint: 278);
+            meltingPoint: 278)
+        {
+            Categories = new[] { Category_Organic, Category_Consumable }
+        };
 
         /// <summary>
         /// Enumerates the default set of chemicals.
@@ -4556,7 +5371,10 @@ public static class Substances
             "Nylon",
             densitySolid: 1314,
             meltingPoint: 537.15,
-            youngsModulus: 3);
+            youngsModulus: 3)
+        {
+            Categories = new[] { Category_Artificial, Category_Plastic, Category_Fabric }
+        };
 
         /// <summary>
         /// Polycarbonate
@@ -4567,7 +5385,10 @@ public static class Substances
             "Polycarbonate",
             densitySolid: 1210,
             meltingPoint: 575.15,
-            youngsModulus: 2.6);
+            youngsModulus: 2.6)
+        {
+            Categories = new[] { Category_Artificial, Category_Plastic }
+        };
 
         /// <summary>
         /// Polyester
@@ -4579,7 +5400,10 @@ public static class Substances
             antoineMaximumTemperature: 623,
             antoineMinimumTemperature: 623,
             densitySolid: 1380,
-            meltingPoint: 523);
+            meltingPoint: 523)
+        {
+            Categories = new[] { Category_Artificial, Category_Plastic, Category_Fabric }
+        };
 
         /// <summary>
         /// Polyethylene
@@ -4590,7 +5414,10 @@ public static class Substances
             "Polyethylene",
             densitySolid: 920,
             meltingPoint: 398,
-            youngsModulus: 1.5);
+            youngsModulus: 1.5)
+        {
+            Categories = new[] { Category_Artificial, Category_Plastic }
+        };
 
         /// <summary>
         /// Polypropylene
@@ -4601,7 +5428,10 @@ public static class Substances
             "Polypropylene",
             densitySolid: 855,
             meltingPoint: 423.5,
-            youngsModulus: 1.75);
+            youngsModulus: 1.75)
+        {
+            Categories = new[] { Category_Artificial, Category_Plastic }
+        };
 
         /// <summary>
         /// Polystyrene
@@ -4612,7 +5442,10 @@ public static class Substances
             "Polystyrene",
             densitySolid: 1000,
             meltingPoint: 513,
-            youngsModulus: 3.25);
+            youngsModulus: 3.25)
+        {
+            Categories = new[] { Category_Artificial, Category_Plastic }
+        };
 
         /// <summary>
         /// Polyvinyl Chloride
@@ -4623,7 +5456,10 @@ public static class Substances
             "Polyvinyl Chloride",
             densitySolid: 1375,
             meltingPoint: 453.15,
-            youngsModulus: 3.25);
+            youngsModulus: 3.25)
+        {
+            Categories = new[] { Category_Artificial, Category_Plastic }
+        };
 
         /// <summary>
         /// Enumerates the default set of chemicals.
@@ -4722,7 +5558,10 @@ public static class Substances
             "Fuzzball",
             antoineMaximumTemperature: 0,
             antoineMinimumTemperature: 0,
-            meltingPoint: 0);
+            meltingPoint: 0)
+        {
+            Categories = new[] { Category_Cosmic }
+        };
 
         /// <summary>
         /// Neutron Degenerate Matter
@@ -4731,7 +5570,10 @@ public static class Substances
             "NeutronDegenerateMatter",
             "Neutron Degenerate Matter",
             densitySpecial: 4e17,
-            fixedPhase: PhaseType.NeutronDegenerateMatter);
+            fixedPhase: PhaseType.NeutronDegenerateMatter)
+        {
+            Categories = new[] { Category_Cosmic }
+        };
 
         /// <summary>
         /// Enumerates the default set of homogeneous substances.
@@ -4772,7 +5614,10 @@ public static class Substances
             densityLiquid: 1060,
             isConductive: true,
             meltingPoint: 271.35,
-            molarMass: 25.2);
+            molarMass: 25.2)
+        {
+            Categories = new[] { Category_Organic, Category_Consumable }
+        };
 
         /// <summary>
         /// Flesh
@@ -4782,7 +5627,10 @@ public static class Substances
             "Flesh",
             densitySolid: 976,
             isFlammable: true,
-            youngsModulus: 0.22);
+            youngsModulus: 0.22)
+        {
+            Categories = new[] { Category_Organic, Category_Consumable }
+        };
 
         /// <summary>
         /// Keratin
@@ -4794,7 +5642,10 @@ public static class Substances
             hardness: 220,
             meltingPoint: 478.15,
             molarMass: 70,
-            youngsModulus: 1.255);
+            youngsModulus: 1.255)
+        {
+            Categories = new[] { Category_Organic }
+        };
 
         /// <summary>
         /// "protein" as a generic substance
@@ -4805,7 +5656,10 @@ public static class Substances
             densitySolid: 1350,
             isFlammable: true,
             molarMass: 53,
-            youngsModulus: 2);
+            youngsModulus: 2)
+        {
+            Categories = new[] { Category_Organic }
+        };
 
         /// <summary>
         /// Enumerates the default set of homogeneous substances.
@@ -4871,7 +5725,10 @@ public static class Substances
             densitySolid: 8730,
             hardness: 1540,
             meltingPoint: 1193.15,
-            youngsModulus: 113.5);
+            youngsModulus: 113.5)
+        {
+            Categories = new[] { Category_Metal }
+        };
 
         /// <summary>
         /// Bronze
@@ -4888,7 +5745,10 @@ public static class Substances
             densitySolid: 8565,
             hardness: 1569,
             meltingPoint: 1223.15,
-            youngsModulus: 108);
+            youngsModulus: 108)
+        {
+            Categories = new[] { Category_Metal }
+        };
 
         /// <summary>
         /// Carbon Steel
@@ -4905,7 +5765,10 @@ public static class Substances
             hardness: 1765,
             meltingPoint: 1643.15,
             youngsModulus: 180,
-            commonNames: new string[] { "Steel" });
+            commonNames: new string[] { "Steel" })
+        {
+            Categories = new[] { Category_Metal }
+        };
 
         /// <summary>
         /// Ferrochrome
@@ -4917,7 +5780,10 @@ public static class Substances
                 (Chromium.GetHomogeneousReference(), 0.6m),
                 (Iron.GetHomogeneousReference(), 0.4m),
             },
-            "Ferrochrome");
+            "Ferrochrome")
+        {
+            Categories = new[] { Category_Metal }
+        };
 
         /// <summary>
         /// Adds an Iron-Nickel alloy similar to that hypothesized to form the Earth's core
@@ -4930,7 +5796,10 @@ public static class Substances
                 (Iron.GetHomogeneousReference(), 0.945m),
                 (Nickel.GetHomogeneousReference(), 0.055m),
             },
-            "Iron-Nickel Alloy");
+            "Iron-Nickel Alloy")
+        {
+            Categories = new[] { Category_Metal }
+        };
 
         /// <summary>
         /// Stainless Steel
@@ -4947,8 +5816,10 @@ public static class Substances
             densitySolid: 7850,
             hardness: 1765,
             meltingPoint: 1643.15,
-            youngsModulus: 180,
-            commonNames: new string[] { "Steel" });
+            youngsModulus: 180)
+        {
+            Categories = new[] { Category_Metal }
+        };
 
         /// <summary>
         /// Enumerates the default set of solutions.
@@ -4999,7 +5870,10 @@ public static class Substances
             },
             "Cement",
             densitySolid: 2320,
-            youngsModulus: 27.5);
+            youngsModulus: 27.5)
+        {
+            Categories = new[] { Category_Artificial }
+        };
 
         /// <summary>
         /// Cotton Cloth
@@ -5011,7 +5885,10 @@ public static class Substances
             densitySolid: 400,
             isFlammable: true,
             youngsModulus: 9.72,
-            commonNames: new string[] { "Cloth" });
+            commonNames: new string[] { "Cloth" })
+        {
+            Categories = new[] { Category_Artificial, Category_Organic, Category_Fabric }
+        };
 
         /// <summary>
         /// Leather
@@ -5022,7 +5899,10 @@ public static class Substances
             "Leather",
             densitySolid: 860,
             isFlammable: true,
-            youngsModulus: 0.094);
+            youngsModulus: 0.094)
+        {
+            Categories = new[] { Category_Artificial, Category_Organic, Category_Fabric }
+        };
 
         /// <summary>
         /// Paper
@@ -5037,7 +5917,10 @@ public static class Substances
             },
             "Paper",
             densitySolid: 1201,
-            isFlammable: true);
+            isFlammable: true)
+        {
+            Categories = new[] { Category_Artificial }
+        };
 
         /// <summary>
         /// Soda-Lime Glass
@@ -5058,7 +5941,10 @@ public static class Substances
             meltingPoint: 1923.15,
             fixedPhase: PhaseType.Glass,
             youngsModulus: 70,
-            commonNames: new string[] { "Glass" });
+            commonNames: new string[] { "Glass" })
+        {
+            Categories = new[] { Category_Artificial }
+        };
 
         /// <summary>
         /// Stoneware
@@ -5079,7 +5965,10 @@ public static class Substances
             densitySolid: 2403,
             hardness: 1200,
             meltingPoint: 2300,
-            fixedPhase: PhaseType.Glass);
+            fixedPhase: PhaseType.Glass)
+        {
+            Categories = new[] { Category_Artificial }
+        };
 
         /// <summary>
         /// Enumerates the default set of solutions.
@@ -5122,8 +6011,10 @@ public static class Substances
                 (Beryl.GetHomogeneousReference(), 0.99m),
                 (Cr3Pos.GetHomogeneousReference(), 0.01m),
             },
-            "Emerald",
-            isGemstone: true);
+            "Emerald")
+        {
+            Categories = new[] { Category_Gem }
+        };
 
         /// <summary>
         /// Opal
@@ -5135,8 +6026,10 @@ public static class Substances
                 (SiliconDioxide.GetHomogeneousReference(), 0.92m),
                 (Water.GetHomogeneousReference(), 0.08m),
             },
-            "Opal",
-            isGemstone: true);
+            "Opal")
+        {
+            Categories = new[] { Category_Gem }
+        };
 
         /// <summary>
         /// Ruby
@@ -5149,8 +6042,10 @@ public static class Substances
                 (Cr3Pos.GetHomogeneousReference(), 0.01m),
             },
             "Ruby",
-            isGemstone: true,
-            youngsModulus: 345);
+            youngsModulus: 345)
+        {
+            Categories = new[] { Category_Gem }
+        };
 
         /// <summary>
         /// Sapphire
@@ -5164,8 +6059,10 @@ public static class Substances
                 (Ti4Pos.GetHomogeneousReference(), 0.0005m),
             },
             "Sapphire",
-            isGemstone: true,
-            youngsModulus: 345);
+            youngsModulus: 345)
+        {
+            Categories = new[] { Category_Gem }
+        };
 
         /// <summary>
         /// Enumerates the default set of solutions.
@@ -5208,7 +6105,10 @@ public static class Substances
             },
             "Vitrinite",
             densitySolid: 833,
-            hardness: 245);
+            hardness: 245)
+        {
+            Categories = new[] { Category_Hydrocarbon }
+        };
 
         /// <summary>
         /// Enumerates the default set of solutions.
@@ -5247,7 +6147,10 @@ public static class Substances
                 (Fayalite.GetHomogeneousReference(), 0.3m),
             },
             "Olivine",
-            youngsModulus: 204);
+            youngsModulus: 204)
+        {
+            Categories = new[] { Category_Mineral, Category_Stone }
+        };
 
         /// <summary>
         /// Cosmic Dust
@@ -5271,7 +6174,10 @@ public static class Substances
                 (Corundum.GetHomogeneousReference(), 0.00002m),
             },
             "Cosmic Dust",
-            densitySolid: 2000);
+            densitySolid: 2000)
+        {
+            Categories = new[] { Category_Mineral, Category_Cosmic }
+        };
 
         /// <summary>
         /// Orthopyroxene
@@ -5283,7 +6189,10 @@ public static class Substances
                 (Enstatite.GetHomogeneousReference(), 0.9m),
                 (Ferrosilite.GetHomogeneousReference(), 0.1m),
             },
-            "Orthopyroxene");
+            "Orthopyroxene")
+        {
+            Categories = new[] { Category_Mineral, Category_Stone }
+        };
 
         /// <summary>
         /// Plagioclase
@@ -5296,7 +6205,10 @@ public static class Substances
                 (Anorthite.GetHomogeneousReference(), 0.5m),
             },
             "Plagioclase",
-            youngsModulus: 80);
+            youngsModulus: 80)
+        {
+            Categories = new[] { Category_Mineral, Category_Stone }
+        };
 
         /// <summary>
         /// Sphalerite
@@ -5311,7 +6223,10 @@ public static class Substances
             "Sphalerite",
             densitySolid: 4050,
             hardness: 2118,
-            meltingPoint: 1973.15);
+            meltingPoint: 1973.15)
+        {
+            Categories = new[] { Category_Mineral }
+        };
 
         /// <summary>
         /// Uraninite
@@ -5327,7 +6242,10 @@ public static class Substances
                 (Radium.GetHomogeneousReference(), 0.0007m),
             },
             "Uraninite",
-            densitySolid: 10790);
+            densitySolid: 10790)
+        {
+            Categories = new[] { Category_Mineral }
+        };
 
         /// <summary>
         /// Enumerates the default set of solutions.
@@ -5386,7 +6304,10 @@ public static class Substances
             densitySolid: 1025,
             hardness: 8,
             isConductive: true,
-            meltingPoint: 271.35);
+            meltingPoint: 271.35)
+        {
+            Categories = new[] { Category_Aqueous }
+        };
 
         /// <summary>
         /// Enumerates the default set of solutions.
@@ -5428,7 +6349,10 @@ public static class Substances
             densitySolid: 787,
             hardness: 25.5,
             isFlammable: true,
-            youngsModulus: 10);
+            youngsModulus: 10)
+        {
+            Categories = new[] { Category_Organic }
+        };
 
         /// <summary>
         /// Wood
@@ -5443,8 +6367,10 @@ public static class Substances
                 (Methane.GetHomogeneousReference(), 0.014m),
                 (AmorphousCarbon.GetHomogeneousReference(), 0.005m),
             },
-            "Wood Smoke",
-            commonNames: new string[] { "Smoke" });
+            "Wood Smoke")
+        {
+            Categories = new[] { Category_Organic }
+        };
 
         /// <summary>
         /// Enumerates the default set of solutions.
@@ -5528,7 +6454,10 @@ public static class Substances
                 (CalciumHydroxide.GetHomogeneousReference(), 0.05m),
                 (Hematite.GetHomogeneousReference(), 0.049m),
             },
-            "Brick");
+            "Brick")
+        {
+            Categories = new[] { Category_Artificial }
+        };
 
         /// <summary>
         /// Concrete
@@ -5543,7 +6472,10 @@ public static class Substances
                 (Plagioclase.GetHomogeneousReference(), 0.1625m),
                 (Orthoclase.GetHomogeneousReference(), 0.0875m),
             },
-            "Concrete");
+            "Concrete")
+        {
+            Categories = new[] { Category_Artificial }
+        };
 
         /// <summary>
         /// Earthenware
@@ -5558,7 +6490,10 @@ public static class Substances
                 (Plagioclase.GetHomogeneousReference(), 0.075m),
                 (Muscovite.GetHomogeneousReference(), 0.045m)
             },
-            "Earthenware");
+            "Earthenware")
+        {
+            Categories = new[] { Category_Artificial }
+        };
 
         /// <summary>
         /// Reinforced Concrete
@@ -5574,7 +6509,10 @@ public static class Substances
                 (Orthoclase.GetHomogeneousReference(), 0.087m),
                 (CarbonSteel.GetHomogeneousReference(), 0.0105m),
             },
-            "Reinforced Concrete");
+            "Reinforced Concrete")
+        {
+            Categories = new[] { Category_Artificial }
+        };
 
         /// <summary>
         /// Enumerates the default set of mixtures.
@@ -5616,7 +6554,10 @@ public static class Substances
                 (AlphaParticle.GetHomogeneousReference(), 0.28m),
                 (CosmicDust.GetHomogeneousReference(), 0.02m),
             },
-            "Interplanetary Medium");
+            "Interplanetary Medium")
+        {
+            Categories = new[] { Category_Cosmic }
+        };
 
         /// <summary>
         /// Interstellar Medium
@@ -5631,7 +6572,10 @@ public static class Substances
                 (Helium.GetHomogeneousReference(), 0.14m),
                 (CosmicDust.GetHomogeneousReference(), 0.02m),
             },
-            "Interstellar Medium");
+            "Interstellar Medium")
+        {
+            Categories = new[] { Category_Cosmic }
+        };
 
         /// <summary>
         /// Intracluster Medium
@@ -5651,7 +6595,10 @@ public static class Substances
                 (Mg2Pos.GetHomogeneousReference(), 0.00025m),
                 (S6Pos.GetHomogeneousReference(), 0.0002m),
             },
-            "Intracluster Medium");
+            "Intracluster Medium")
+        {
+            Categories = new[] { Category_Cosmic }
+        };
 
         /// <summary>
         /// Adds a mixture of ionized gases representative of many cosmic structures, such
@@ -5672,7 +6619,10 @@ public static class Substances
                 (Mg2Pos.GetHomogeneousReference(), 0.00025m),
                 (S6Pos.GetHomogeneousReference(), 0.0002m),
             },
-            "Ionized Cloud");
+            "Ionized Cloud")
+        {
+            Categories = new[] { Category_Cosmic }
+        };
 
         /// <summary>
         /// Molecular Cloud
@@ -5692,7 +6642,10 @@ public static class Substances
                 (Magnesium.GetHomogeneousReference(), 0.00025m),
                 (Sulfur.GetHomogeneousReference(), 0.0002m),
             },
-            "Molecular Cloud");
+            "Molecular Cloud")
+        {
+            Categories = new[] { Category_Cosmic }
+        };
 
         /// <summary>
         /// Warm–Hot Intergalactic Medium
@@ -5712,7 +6665,10 @@ public static class Substances
                 (Mg2Pos.GetHomogeneousReference(), 0.00025m),
                 (S6Pos.GetHomogeneousReference(), 0.0002m),
             },
-            "Warm-Hot Intergalactic Medium");
+            "Warm-Hot Intergalactic Medium")
+        {
+            Categories = new[] { Category_Cosmic }
+        };
 
         /// <summary>
         /// Enumerates the default set of mixtures.
@@ -5768,7 +6724,10 @@ public static class Substances
             },
             "Anthracite",
             densitySolid: 1350,
-            commonNames: new string[] { "Coal", "Anthracite Coal" });
+            commonNames: new string[] { "Coal", "Anthracite Coal" })
+        {
+            Categories = new[] { Category_Hydrocarbon, Category_Mineral, Category_Stone }
+        };
 
         /// <summary>
         /// Bituminous Coal
@@ -5794,7 +6753,10 @@ public static class Substances
             "Bituminous Coal",
             densityLiquid: 1346,
             densitySolid: 833,
-            commonNames: new string[] { "Coal" });
+            commonNames: new string[] { "Coal" })
+        {
+            Categories = new[] { Category_Hydrocarbon, Category_Mineral, Category_Stone }
+        };
 
         /// <summary>
         /// Diesel
@@ -5834,7 +6796,10 @@ public static class Substances
                 (Dibenzothiophene.GetHomogeneousReference(), 0.004m),
             },
             "Diesel",
-            densityLiquid: 832);
+            densityLiquid: 832)
+        {
+            Categories = new[] { Category_Hydrocarbon }
+        };
 
         /// <summary>
         /// Gasoline
@@ -5878,7 +6843,10 @@ public static class Substances
             },
             "Gasoline",
             densityLiquid: 708,
-            commonNames: new string[] { "Gas", "Petrol" });
+            commonNames: new string[] { "Gas", "Petrol" })
+        {
+            Categories = new[] { Category_Hydrocarbon }
+        };
 
         /// <summary>
         /// Kerosine
@@ -5922,7 +6890,10 @@ public static class Substances
                 (Dibenzothiophene.GetHomogeneousReference(), 0.015m),
             },
             "Kerosine",
-            densityLiquid: 810);
+            densityLiquid: 810)
+        {
+            Categories = new[] { Category_Hydrocarbon }
+        };
 
         /// <summary>
         /// Natural Gas
@@ -5942,7 +6913,10 @@ public static class Substances
                 (CarbonDioxide.GetHomogeneousReference(), 0.0004m),
             },
             "Natural Gas",
-            commonNames: new string[] { "Gas", "Fossil Gas" });
+            commonNames: new string[] { "Gas", "Fossil Gas" })
+        {
+            Categories = new[] { Category_Hydrocarbon }
+        };
 
         /// <summary>
         /// Petroleum
@@ -5990,7 +6964,10 @@ public static class Substances
             },
             "Petroleum",
             densityLiquid: 800,
-            commonNames: new string[] { "Oil" });
+            commonNames: new string[] { "Oil" })
+        {
+            Categories = new[] { Category_Hydrocarbon }
+        };
 
         /// <summary>
         /// Enumerates the default set of mixtures.
@@ -6036,7 +7013,10 @@ public static class Substances
                 (Muscovite.GetHomogeneousReference(), 0.175m),
             },
             "Ball Clay",
-            commonNames: new string[] { "Clay" });
+            commonNames: new string[] { "Clay" })
+        {
+            Categories = new[] { Category_Clay }
+        };
 
         /// <summary>
         /// Basalt
@@ -6049,7 +7029,10 @@ public static class Substances
                 (SiliconDioxide.GetHomogeneousReference(), 0.35m),
             },
             "Basalt",
-            densitySolid: 3000);
+            densitySolid: 3000)
+        {
+            Categories = new[] { Category_Mineral, Category_Stone }
+        };
 
         /// <summary>
         /// Bauxite
@@ -6067,7 +7050,10 @@ public static class Substances
                 (Ilmenite.GetHomogeneousReference(), 0.045m),
             },
             "Bauxite",
-            densitySolid: 2700);
+            densitySolid: 2700)
+        {
+            Categories = new[] { Category_Mineral }
+        };
 
         /// <summary>
         /// Granite
@@ -6081,7 +7067,10 @@ public static class Substances
                 (Orthoclase.GetHomogeneousReference(), 0.14m),
             },
             "Granite",
-            densitySolid: 2700);
+            densitySolid: 2700)
+        {
+            Categories = new[] { Category_Mineral, Category_Stone }
+        };
 
         /// <summary>
         /// Loam
@@ -6098,7 +7087,10 @@ public static class Substances
             },
             "Loam",
             densitySolid: 1250,
-            commonNames: new string[] { "Soil", "Dirt" });
+            commonNames: new string[] { "Soil" })
+        {
+            Categories = new[] { Category_Dirt }
+        };
 
         /// <summary>
         /// Peridotite
@@ -6126,7 +7118,10 @@ public static class Substances
                 (Orthoclase.GetHomogeneousReference(), 0.05m),
             },
             "Sandstone",
-            densitySolid: 2300);
+            densitySolid: 2300)
+        {
+            Categories = new[] { Category_Mineral, Category_Stone }
+        };
 
         /// <summary>
         /// Silt
@@ -6140,7 +7135,10 @@ public static class Substances
                 (Albite.GetHomogeneousReference(), 0.167m),
                 (Anorthite.GetHomogeneousReference(), 0.166m),
             },
-            "Silt");
+            "Silt")
+        {
+            Categories = new[] { Category_Dirt }
+        };
 
         /// <summary>
         /// Enumerates the default set of mixtures.
@@ -6189,7 +7187,7 @@ public static class Substances
             },
             "Fly Ash",
             densitySolid: 827,
-            commonNames: new string[] { "Flue ash", "Coal Ash", "Pulverised Fuel Ash" });
+            commonNames: new string[] { "Flue Ash", "Coal Ash", "Pulverised Fuel Ash" });
 
         /// <summary>
         /// Enumerates the default set of mixtures.
@@ -6231,7 +7229,10 @@ public static class Substances
             "Adipose Tissue",
             densityLiquid: 900,
             densitySolid: 900,
-            commonNames: new string[] { "Fat" });
+            commonNames: new string[] { "Fat" })
+        {
+            Categories = new[] { Category_Organic }
+        };
 
         /// <summary>
         /// Bone
@@ -6245,7 +7246,10 @@ public static class Substances
                 (Water.GetHomogeneousReference(), 0.0225m),
             },
             "Bone",
-            densitySolid: 1050);
+            densitySolid: 1050)
+        {
+            Categories = new[] { Category_Organic }
+        };
 
         /// <summary>
         /// Epithelial Tissue
@@ -6262,7 +7266,10 @@ public static class Substances
             "Epithelial Tissue",
             densityLiquid: 1109,
             densitySolid: 1109,
-            commonNames: new string[] { "Skin" });
+            commonNames: new string[] { "Skin" })
+        {
+            Categories = new[] { Category_Organic }
+        };
 
         /// <summary>
         /// Muscle Tissue
@@ -6279,7 +7286,10 @@ public static class Substances
             "Muscle Tissue",
             densityLiquid: 1090,
             densitySolid: 1090,
-            commonNames: new string[] { "Muscle" });
+            commonNames: new string[] { "Muscle" })
+        {
+            Categories = new[] { Category_Organic }
+        };
 
         /// <summary>
         /// Nervous Tissue
@@ -6296,7 +7306,10 @@ public static class Substances
             "Nervous Tissue",
             densityLiquid: 1075,
             densitySolid: 1075,
-            commonNames: new string[] { "Nerve" });
+            commonNames: new string[] { "Nerve" })
+        {
+            Categories = new[] { Category_Organic }
+        };
 
         /// <summary>
         /// Tooth
@@ -6311,7 +7324,10 @@ public static class Substances
             },
             "Tooth",
             densityLiquid: 2180,
-            densitySolid: 2180);
+            densitySolid: 2180)
+        {
+            Categories = new[] { Category_Organic }
+        };
 
         /// <summary>
         /// Wood Ash
@@ -6326,8 +7342,10 @@ public static class Substances
                 (PhosphoricAcid.GetHomogeneousReference(), 0.01m),
             },
             "Wood Ash",
-            densitySolid: 827,
-            commonNames: new string[] { "Ash" });
+            densitySolid: 827)
+        {
+            Categories = new[] { Category_Organic }
+        };
 
         /// <summary>
         /// Enumerates the default set of mixtures.

@@ -17,6 +17,11 @@ namespace Tavenem.Chemistry;
 public interface ISubstance : IIdItem, IEquatable<ISubstance>, IEquatable<ISubstanceReference>
 {
     /// <summary>
+    /// An optional list of categories to which this substance belongs.
+    /// </summary>
+    IReadOnlyList<string>? Categories { get; }
+
+    /// <summary>
     /// An optional list of common names for this substance.
     /// </summary>
     /// <remarks>
@@ -96,11 +101,6 @@ public interface ISubstance : IIdItem, IEquatable<ISubstance>, IEquatable<ISubst
     /// Indicates whether this substance is able to burn.
     /// </summary>
     bool IsFlammable { get; }
-
-    /// <summary>
-    /// Indicates whether this substance is considered a gemstone.
-    /// </summary>
-    bool IsGemstone { get; }
 
     /// <summary>
     /// <para>

@@ -76,7 +76,12 @@ public class SubstanceTests
         var json = System.Text.Json.JsonSerializer.Serialize(chemical);
         Console.WriteLine();
         Console.WriteLine(json);
-        Assert.AreEqual(chemical, System.Text.Json.JsonSerializer.Deserialize<Chemical>(json));
+        var deserialized = System.Text.Json.JsonSerializer.Deserialize<Chemical>(json);
+        Assert.IsNotNull(deserialized);
+        Assert.IsNotNull(chemical.Categories);
+        Assert.IsNotNull(deserialized.Categories);
+        Assert.IsTrue(chemical.Categories.SequenceEqual(deserialized.Categories));
+        Assert.AreEqual(chemical, deserialized);
         Assert.AreEqual(chemical, System.Text.Json.JsonSerializer.Deserialize<IHomogeneous>(json));
         Assert.AreEqual(chemical, System.Text.Json.JsonSerializer.Deserialize<ISubstance>(json));
 

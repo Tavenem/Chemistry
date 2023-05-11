@@ -39,8 +39,8 @@ public class Material<TScalar> : IMaterial<Material<TScalar>, TScalar>, IEquatab
     /// Whether this material is an empty instance.
     /// </summary>
     [JsonIgnore]
-    public bool IsEmpty =>
-        Shape.Equals(SinglePoint<TScalar>.Origin)
+    public bool IsEmpty
+        => Shape.Equals(SinglePoint<TScalar>.Origin)
         && Constituents.Count == 0
         && !Temperature.HasValue
         && Density == 0

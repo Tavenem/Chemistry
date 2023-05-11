@@ -24,6 +24,11 @@ public class Mixture : ISubstance, IEquatable<Mixture>
     public static readonly Mixture Empty = new(Chemical.None);
 
     /// <summary>
+    /// An optional list of categories to which this substance belongs.
+    /// </summary>
+    public IReadOnlyList<string>? Categories { get; init; }
+
+    /// <summary>
     /// An optional list of common names for this substance.
     /// </summary>
     /// <remarks>
@@ -33,14 +38,14 @@ public class Mixture : ISubstance, IEquatable<Mixture>
     /// particularly if no specific usage data is available, or when various names are equally
     /// common in different contexts.
     /// </remarks>
-    public IReadOnlyList<string>? CommonNames { get; }
+    public IReadOnlyList<string>? CommonNames { get; init; }
 
     /// <summary>
     /// The collection of constituents that make up this mixture, along with their relative
     /// proportions (as normalized values between zero and one).
     /// </summary>
     [JsonConverter(typeof(SubstanceConstituentsConverter))]
-    public IReadOnlyDictionary<HomogeneousReference, decimal> Constituents { get; }
+    public IReadOnlyDictionary<HomogeneousReference, decimal> Constituents { get; init; }
 
     /// <summary>
     /// The approximate density of this substance in the liquid phase, in kg/m³.
@@ -48,7 +53,7 @@ public class Mixture : ISubstance, IEquatable<Mixture>
     /// <remarks>
     /// Density varies with pressure and temperature, but not by much in the liquid phase.
     /// </remarks>
-    public double? DensityLiquid { get; }
+    public double? DensityLiquid { get; init; }
 
     /// <summary>
     /// The approximate density of this substance in the solid phase, in kg/m³.
@@ -56,7 +61,7 @@ public class Mixture : ISubstance, IEquatable<Mixture>
     /// <remarks>
     /// Density varies with pressure and temperature, but not by much in the solid phase.
     /// </remarks>
-    public double? DensitySolid { get; }
+    public double? DensitySolid { get; init; }
 
     /// <summary>
     /// The approximate density of this substance when its phase is neither solid, liquid, nor
@@ -65,7 +70,7 @@ public class Mixture : ISubstance, IEquatable<Mixture>
     /// <remarks>
     /// For instance, a substance in the glass phase may have a special density.
     /// </remarks>
-    public double? DensitySpecial { get; }
+    public double? DensitySpecial { get; init; }
 
     /// <summary>
     /// Indicates the average greenhouse potential (a.k.a. global warming potential, GWP) of
@@ -92,7 +97,7 @@ public class Mixture : ISubstance, IEquatable<Mixture>
     /// The ID of this item.
     /// </summary>
     [JsonPropertyName("id"), JsonPropertyOrder(-1)]
-    public string Id { get; }
+    public string Id { get; init; }
 
     /// <summary>
     /// The <see cref="IIdItem.IdItemTypeName"/> for <see cref="Mixture"/>.
@@ -123,18 +128,6 @@ public class Mixture : ISubstance, IEquatable<Mixture>
     public bool IsFlammable => Constituents.Average(x => x.Key.Homogeneous.IsFlammable ? 1.0 : 0.0) >= 0.5;
 
     /// <summary>
-    /// <para>
-    /// Indicates whether this substance is considered a gemstone.
-    /// </para>
-    /// <para>
-    /// Considered <see langword="true"/> for a <see cref="Mixture"/> only if all constituents
-    /// are gemstones.
-    /// </para>
-    /// </summary>
-    [JsonIgnore]
-    public bool IsGemstone => Constituents.All(x => x.Key.Homogeneous.IsGemstone);
-
-    /// <summary>
     /// Indicates whether this substance is a metal.
     /// </summary>
     [JsonIgnore]
@@ -155,7 +148,7 @@ public class Mixture : ISubstance, IEquatable<Mixture>
     /// <summary>
     /// A name for this mixture.
     /// </summary>
-    public string Name { get; }
+    public string Name { get; init; }
 
     /// <summary>
     /// <para>
@@ -963,6 +956,9 @@ public class Mixture : ISubstance, IEquatable<Mixture>
     /// common in different contexts.
     /// </para>
     /// </param>
+    /// <param name="categories">
+    /// An optional list of categories to which this substance belongs.
+    /// </param>
     [JsonConstructor]
     public Mixture(
         string id,
@@ -971,7 +967,8 @@ public class Mixture : ISubstance, IEquatable<Mixture>
         double? densityLiquid = null,
         double? densitySolid = null,
         double? densitySpecial = null,
-        IReadOnlyList<string>? commonNames = null)
+        IReadOnlyList<string>? commonNames = null,
+        IReadOnlyList<string>? categories = null)
     {
         Id = id;
         Constituents = constituents;
@@ -980,6 +977,7 @@ public class Mixture : ISubstance, IEquatable<Mixture>
         DensitySolid = densitySolid;
         DensitySpecial = densitySpecial;
         CommonNames = commonNames;
+        Categories = categories;
     }
 
     /// <summary>

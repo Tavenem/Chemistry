@@ -33,29 +33,34 @@ public class HomogeneousSubstance : IHomogeneous, IEquatable<HomogeneousSubstanc
     /// <summary>
     /// The "A" Antoine coefficient which can be used to determine the vapor pressure of this substance.
     /// </summary>
-    public double? AntoineCoefficientA { get; }
+    public double? AntoineCoefficientA { get; init; }
 
     /// <summary>
     /// The "B" Antoine coefficient which can be used to determine the vapor pressure of this substance.
     /// </summary>
-    public double? AntoineCoefficientB { get; }
+    public double? AntoineCoefficientB { get; init; }
 
     /// <summary>
     /// The "C" Antoine coefficient which can be used to determine the vapor pressure of this substance.
     /// </summary>
-    public double? AntoineCoefficientC { get; }
+    public double? AntoineCoefficientC { get; init; }
 
     /// <summary>
     /// The upper limit of the Antoine coefficients' accuracy for this substance. It is presumed
     /// reasonable to assume that the substance always vaporizes above this temperature.
     /// </summary>
-    public double? AntoineMaximumTemperature { get; }
+    public double? AntoineMaximumTemperature { get; init; }
 
     /// <summary>
     /// The lower limit of the Antoine coefficients' accuracy for this substance. It is presumed
     /// reasonable to assume that the substance always condenses below this temperature.
     /// </summary>
-    public double? AntoineMinimumTemperature { get; }
+    public double? AntoineMinimumTemperature { get; init; }
+
+    /// <summary>
+    /// An optional list of categories to which this substance belongs.
+    /// </summary>
+    public IReadOnlyList<string>? Categories { get; init; }
 
     /// <summary>
     /// An optional list of common names for this substance.
@@ -67,7 +72,7 @@ public class HomogeneousSubstance : IHomogeneous, IEquatable<HomogeneousSubstanc
     /// particularly if no specific usage data is available, or when various names are equally
     /// common in different contexts.
     /// </remarks>
-    public IReadOnlyList<string>? CommonNames { get; }
+    public IReadOnlyList<string>? CommonNames { get; init; }
 
     /// <summary>
     /// <para>
@@ -88,7 +93,7 @@ public class HomogeneousSubstance : IHomogeneous, IEquatable<HomogeneousSubstanc
     /// <remarks>
     /// Density varies with pressure and temperature, but not by much in the liquid phase.
     /// </remarks>
-    public double? DensityLiquid { get; }
+    public double? DensityLiquid { get; init; }
 
     /// <summary>
     /// The approximate density of this substance in the solid phase, in kg/m³.
@@ -96,7 +101,7 @@ public class HomogeneousSubstance : IHomogeneous, IEquatable<HomogeneousSubstanc
     /// <remarks>
     /// Density varies with pressure and temperature, but not by much in the solid phase.
     /// </remarks>
-    public double? DensitySolid { get; }
+    public double? DensitySolid { get; init; }
 
     /// <summary>
     /// The approximate density of this substance when its phase is neither solid, liquid, nor
@@ -105,7 +110,7 @@ public class HomogeneousSubstance : IHomogeneous, IEquatable<HomogeneousSubstanc
     /// <remarks>
     /// For instance, a substance in the glass phase may have a special density.
     /// </remarks>
-    public double? DensitySpecial { get; }
+    public double? DensitySpecial { get; init; }
 
     /// <summary>
     /// If set, indicates an explicitly defined phase for this substance, which overrides the
@@ -116,13 +121,13 @@ public class HomogeneousSubstance : IHomogeneous, IEquatable<HomogeneousSubstanc
     /// as plasma, glass, etc. These phases are not indicated using the standard <see
     /// cref="IHomogeneous.GetPhase(double, double)"/> method.
     /// </remarks>
-    public PhaseType? FixedPhase { get; }
+    public PhaseType? FixedPhase { get; init; }
 
     /// <summary>
     /// Indicates the average greenhouse potential (a.k.a. global warming potential, GWP) of
     /// this substance compared to CO₂, over 100 years.
     /// </summary>
-    public double GreenhousePotential { get; }
+    public double GreenhousePotential { get; init; }
 
     /// <summary>
     /// The hardness of this substance as a solid, in MPa.
@@ -133,13 +138,13 @@ public class HomogeneousSubstance : IHomogeneous, IEquatable<HomogeneousSubstanc
     /// consistent standardization to any unit, but these factors are disregarded in favor of a
     /// single unit with the broadest scope possible.
     /// </remarks>
-    public double Hardness { get; }
+    public double Hardness { get; init; }
 
     /// <summary>
     /// The ID of this item.
     /// </summary>
     [JsonPropertyName("id"), JsonPropertyOrder(-1)]
-    public string Id { get; }
+    public string Id { get; init; }
 
     /// <summary>
     /// The <see cref="IIdItem.IdItemTypeName"/> for <see cref="HomogeneousSubstance"/>.
@@ -154,7 +159,7 @@ public class HomogeneousSubstance : IHomogeneous, IEquatable<HomogeneousSubstanc
     /// <summary>
     /// Indicates whether this substance conducts electricity.
     /// </summary>
-    public bool IsConductive { get; }
+    public bool IsConductive { get; init; }
 
     /// <summary>
     /// Indicates whether this instance is the same as <see cref="None"/>.
@@ -165,12 +170,7 @@ public class HomogeneousSubstance : IHomogeneous, IEquatable<HomogeneousSubstanc
     /// <summary>
     /// Indicates whether this substance is able to burn.
     /// </summary>
-    public bool IsFlammable { get; }
-
-    /// <summary>
-    /// Indicates whether this substance is considered a gemstone.
-    /// </summary>
-    public bool IsGemstone { get; }
+    public bool IsFlammable { get; init; }
 
     /// <summary>
     /// <para>
@@ -181,7 +181,7 @@ public class HomogeneousSubstance : IHomogeneous, IEquatable<HomogeneousSubstanc
     /// least as many metallic elements as non-metallic, not counting metalloids.
     /// </para>
     /// </summary>
-    public bool IsMetal { get; }
+    public bool IsMetal { get; init; }
 
     /// <summary>
     /// <para>
@@ -192,22 +192,22 @@ public class HomogeneousSubstance : IHomogeneous, IEquatable<HomogeneousSubstanc
     /// radioactive isotopes.
     /// </para>
     /// </summary>
-    public bool IsRadioactive { get; }
+    public bool IsRadioactive { get; init; }
 
     /// <summary>
     /// The melting point of this substance at 100 kPa, in K.
     /// </summary>
-    public double? MeltingPoint { get; }
+    public double? MeltingPoint { get; init; }
 
     /// <summary>
     /// The molar mass of this substance, in kg/mol.
     /// </summary>
-    public double MolarMass { get; }
+    public double MolarMass { get; init; }
 
     /// <summary>
     /// The name of this substance.
     /// </summary>
-    public string Name { get; }
+    public string Name { get; init; }
 
     /// <summary>
     /// <para>
@@ -217,7 +217,7 @@ public class HomogeneousSubstance : IHomogeneous, IEquatable<HomogeneousSubstanc
     /// May be <see langword="null"/>, which indicates no known value.
     /// </para>
     /// </summary>
-    public double? YoungsModulus { get; }
+    public double? YoungsModulus { get; init; }
 
     /// <summary>
     /// Initializes a new instance of <see cref="HomogeneousSubstance"/>.
@@ -293,7 +293,6 @@ public class HomogeneousSubstance : IHomogeneous, IEquatable<HomogeneousSubstanc
     /// </para>
     /// </param>
     /// <param name="isFlammable">Whether or not the substance is flammable.</param>
-    /// <param name="isGemstone">Whether this substance is considered a gemstone.</param>
     /// <param name="isMetal">Whether or not the substance is a metal.</param>
     /// <param name="isRadioactive">Indicates whether this substance is radioactive.</param>
     /// <param name="meltingPoint">
@@ -351,7 +350,6 @@ public class HomogeneousSubstance : IHomogeneous, IEquatable<HomogeneousSubstanc
         double? hardness = null,
         bool? isConductive = null,
         bool? isFlammable = null,
-        bool? isGemstone = null,
         bool? isMetal = null,
         bool? isRadioactive = null,
         double? meltingPoint = null,
@@ -373,7 +371,6 @@ public class HomogeneousSubstance : IHomogeneous, IEquatable<HomogeneousSubstanc
             hardness ?? 0,
             isConductive ?? isMetal ?? false,
             isFlammable ?? false,
-            isGemstone ?? false,
             isMetal ?? false,
             isRadioactive ?? false,
             meltingPoint,
@@ -458,7 +455,6 @@ public class HomogeneousSubstance : IHomogeneous, IEquatable<HomogeneousSubstanc
     /// </para>
     /// </param>
     /// <param name="isFlammable">Whether or not the substance is flammable.</param>
-    /// <param name="isGemstone">Whether this substance is considered a gemstone.</param>
     /// <param name="isMetal">Whether or not the substance is a metal.</param>
     /// <param name="isRadioactive">Indicates whether this substance is radioactive.</param>
     /// <param name="meltingPoint">
@@ -502,6 +498,9 @@ public class HomogeneousSubstance : IHomogeneous, IEquatable<HomogeneousSubstanc
     /// common in different contexts.
     /// </para>
     /// </param>
+    /// <param name="categories">
+    /// An optional list of categories to which this substance belongs.
+    /// </param>
     [JsonConstructor]
     public HomogeneousSubstance(
         string id,
@@ -518,14 +517,14 @@ public class HomogeneousSubstance : IHomogeneous, IEquatable<HomogeneousSubstanc
         double hardness = 0,
         bool isConductive = false,
         bool isFlammable = false,
-        bool isGemstone = false,
         bool isMetal = false,
         bool isRadioactive = false,
         double? meltingPoint = null,
         double molarMass = 0,
         PhaseType? fixedPhase = null,
         double? youngsModulus = null,
-        IReadOnlyList<string>? commonNames = null)
+        IReadOnlyList<string>? commonNames = null,
+        IReadOnlyList<string>? categories = null)
     {
         Id = id;
         if (string.IsNullOrWhiteSpace(name))
@@ -550,7 +549,6 @@ public class HomogeneousSubstance : IHomogeneous, IEquatable<HomogeneousSubstanc
         GreenhousePotential = greenhousePotential;
         Hardness = hardness;
         IsFlammable = isFlammable;
-        IsGemstone = isGemstone;
         IsMetal = isMetal;
         IsRadioactive = isRadioactive;
         MeltingPoint = meltingPoint;
@@ -559,6 +557,7 @@ public class HomogeneousSubstance : IHomogeneous, IEquatable<HomogeneousSubstanc
         FixedPhase = fixedPhase;
         YoungsModulus = youngsModulus;
         CommonNames = commonNames;
+        Categories = categories;
     }
 
     /// <summary>
@@ -1057,7 +1056,6 @@ public class HomogeneousSubstance : IHomogeneous, IEquatable<HomogeneousSubstanc
         Hardness,
         IsConductive,
         IsFlammable,
-        IsGemstone,
         IsMetal,
         IsRadioactive,
         MeltingPoint,

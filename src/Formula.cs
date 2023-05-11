@@ -40,17 +40,19 @@ public readonly struct Formula : IEquatable<Formula>
     /// Ignores specific isotopes in the formula, using the average mass of each element.
     /// </para>
     /// </summary>
-    public double AverageMass => _isotopes?.Sum(x => (PeriodicTable.TryGetIsotope(x.Key, out var isotope) ? isotope.AverageMass : 0) * x.Value) ?? 0;
+    public double AverageMass
+        => _isotopes?.Sum(x => (PeriodicTable.TryGetIsotope(x.Key, out var isotope) ? isotope.AverageMass : 0) * x.Value) ?? 0;
 
     /// <summary>
     /// This formula's ionic charge, as an integral multiple of the elementary charge.
     /// </summary>
-    public short Charge { get; }
+    public short Charge { get; init; }
 
     /// <summary>
     /// Enumerates the unique elements included in this formula.
     /// </summary>
-    public IEnumerable<Element> Elements => PeriodicTable.GetIsotopes(_isotopes?.Select(x => x.Key)).Select(x => x.Element).Distinct();
+    public IEnumerable<Element> Elements
+        => PeriodicTable.GetIsotopes(_isotopes?.Select(x => x.Key)).Select(x => x.Element).Distinct();
 
     /// <summary>
     /// Whether this formula contains no nuclides.
@@ -66,12 +68,17 @@ public readonly struct Formula : IEquatable<Formula>
     /// element.
     /// </para>
     /// </summary>
-    public IEnumerable<Isotope> Isotopes => PeriodicTable.GetIsotopes(_isotopes?.Select(x => x.Key));
+    public IEnumerable<Isotope> Isotopes
+    {
+        get => PeriodicTable.GetIsotopes(_isotopes?.Select(x => x.Key));
+        init => _isotopes = value.ToDictionary(IsotopeConverter.ConvertToString, _ => (ushort)1);
+    }
 
     /// <summary>
     /// This formula's monoisotopic mass, in atomic mass units.
     /// </summary>
-    public double MonoisotopicMass => _isotopes?.Sum(x => (PeriodicTable.TryGetIsotope(x.Key, out var isotope) ? isotope.AtomicMass : 0) * x.Value) ?? 0;
+    public double MonoisotopicMass
+        => _isotopes?.Sum(x => (PeriodicTable.TryGetIsotope(x.Key, out var isotope) ? isotope.AtomicMass : 0) * x.Value) ?? 0;
 
     /// <summary>
     /// Enumerates the unique nuclides included in this formula, along with their amounts.
@@ -151,7 +158,7 @@ public readonly struct Formula : IEquatable<Formula>
     /// </para>
     /// </param>
     public Formula(short charge, params Isotope[] isotopes)
-        : this(charge, isotopes.ToDictionary(x => IsotopeConverter.ConvertToString(x), _ => (ushort)1)) { }
+        : this(charge, isotopes.ToDictionary(IsotopeConverter.ConvertToString, _ => (ushort)1)) { }
 
     /// <summary>
     /// Initializes a new instance of <see cref="Formula"/>.

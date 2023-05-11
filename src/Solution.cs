@@ -34,31 +34,36 @@ public class Solution : IHomogeneous, IEquatable<Solution>
     /// <summary>
     /// The "A" Antoine coefficient which can be used to determine the vapor pressure of this substance.
     /// </summary>
-    public double? AntoineCoefficientA { get; }
+    public double? AntoineCoefficientA { get; init; }
 
     /// <summary>
     /// The "B" Antoine coefficient which can be used to determine the vapor pressure of this substance.
     /// </summary>
-    public double? AntoineCoefficientB { get; }
+    public double? AntoineCoefficientB { get; init; }
 
     /// <summary>
     /// The "C" Antoine coefficient which can be used to determine the vapor pressure of this substance.
     /// </summary>
-    public double? AntoineCoefficientC { get; }
+    public double? AntoineCoefficientC { get; init; }
 
     /// <summary>
     /// The upper limit of the Antoine coefficients' accuracy for this substance.
     /// It is presumed reasonable to assume that the substance always vaporizes
     /// above this temperature.
     /// </summary>
-    public double? AntoineMaximumTemperature { get; }
+    public double? AntoineMaximumTemperature { get; init; }
 
     /// <summary>
     /// The lower limit of the Antoine coefficients' accuracy for this substance.
     /// It is presumed reasonable to assume that the substance always condenses
     /// below this temperature.
     /// </summary>
-    public double? AntoineMinimumTemperature { get; }
+    public double? AntoineMinimumTemperature { get; init; }
+
+    /// <summary>
+    /// An optional list of categories to which this substance belongs.
+    /// </summary>
+    public IReadOnlyList<string>? Categories { get; init; }
 
     /// <summary>
     /// An optional list of common names for this substance.
@@ -70,7 +75,7 @@ public class Solution : IHomogeneous, IEquatable<Solution>
     /// particularly if no specific usage data is available, or when various names are equally
     /// common in different contexts.
     /// </remarks>
-    public IReadOnlyList<string>? CommonNames { get; }
+    public IReadOnlyList<string>? CommonNames { get; init; }
 
     /// <summary>
     /// The collection of constituents that make up this solution, along with their relative
@@ -85,7 +90,7 @@ public class Solution : IHomogeneous, IEquatable<Solution>
     /// <remarks>
     /// Density varies with pressure and temperature, but not by much in the liquid phase.
     /// </remarks>
-    public double? DensityLiquid { get; }
+    public double? DensityLiquid { get; init; }
 
     /// <summary>
     /// The approximate density of this substance in the solid phase, in kg/m³.
@@ -93,7 +98,7 @@ public class Solution : IHomogeneous, IEquatable<Solution>
     /// <remarks>
     /// Density varies with pressure and temperature, but not by much in the solid phase.
     /// </remarks>
-    public double? DensitySolid { get; }
+    public double? DensitySolid { get; init; }
 
     /// <summary>
     /// The approximate density of this substance when its phase is neither solid, liquid, nor
@@ -102,7 +107,7 @@ public class Solution : IHomogeneous, IEquatable<Solution>
     /// <remarks>
     /// For instance, a substance in the glass phase may have a special density.
     /// </remarks>
-    public double? DensitySpecial { get; }
+    public double? DensitySpecial { get; init; }
 
     /// <summary>
     /// If set, indicates an explicitly defined phase for this substance, which overrides the
@@ -113,7 +118,7 @@ public class Solution : IHomogeneous, IEquatable<Solution>
     /// as plasma, glass, etc. These phases are not indicated using the standard <see
     /// cref="IHomogeneous.GetPhase(double, double)"/> method.
     /// </remarks>
-    public PhaseType? FixedPhase { get; }
+    public PhaseType? FixedPhase { get; init; }
 
     /// <summary>
     /// Indicates the average greenhouse potential (a.k.a. global warming potential, GWP) of
@@ -131,13 +136,13 @@ public class Solution : IHomogeneous, IEquatable<Solution>
     /// consistent standardization to any unit, but these factors are disregarded in favor of a
     /// single unit with the broadest scope possible.
     /// </remarks>
-    public double Hardness { get; }
+    public double Hardness { get; init; }
 
     /// <summary>
     /// The ID of this item.
     /// </summary>
     [JsonPropertyName("id"), JsonPropertyOrder(-1)]
-    public string Id { get; }
+    public string Id { get; init; }
 
     /// <summary>
     /// The <see cref="IIdItem.IdItemTypeName"/> for <see cref="Solution"/>.
@@ -152,7 +157,7 @@ public class Solution : IHomogeneous, IEquatable<Solution>
     /// <summary>
     /// Indicates whether this substance conducts electricity.
     /// </summary>
-    public bool IsConductive { get; }
+    public bool IsConductive { get; init; }
 
     /// <summary>
     /// Indicates whether this solution contains no constituents.
@@ -163,12 +168,7 @@ public class Solution : IHomogeneous, IEquatable<Solution>
     /// <summary>
     /// Indicates whether this substance is able to burn.
     /// </summary>
-    public bool IsFlammable { get; }
-
-    /// <summary>
-    /// Indicates whether this substance is considered a gemstone.
-    /// </summary>
-    public bool IsGemstone { get; }
+    public bool IsFlammable { get; init; }
 
     /// <summary>
     /// Indicates whether this substance is a metal.
@@ -185,7 +185,7 @@ public class Solution : IHomogeneous, IEquatable<Solution>
     /// <summary>
     /// The melting point of this substance at 100 kPa, in K.
     /// </summary>
-    public double? MeltingPoint { get; }
+    public double? MeltingPoint { get; init; }
 
     /// <summary>
     /// The molar mass of this substance, in kg/mol.
@@ -196,7 +196,7 @@ public class Solution : IHomogeneous, IEquatable<Solution>
     /// <summary>
     /// A name for this solution.
     /// </summary>
-    public string Name { get; }
+    public string Name { get; init; }
 
     /// <summary>
     /// The constituent of this solution with the highest proportion.
@@ -216,7 +216,7 @@ public class Solution : IHomogeneous, IEquatable<Solution>
     /// May be <see langword="null"/>, which indicates no known value.
     /// </para>
     /// </summary>
-    public double? YoungsModulus { get; }
+    public double? YoungsModulus { get; init; }
 
     /// <summary>
     /// Initializes a new instance of <see cref="Solution"/>.
@@ -314,7 +314,6 @@ public class Solution : IHomogeneous, IEquatable<Solution>
     /// </para>
     /// </param>
     /// <param name="isFlammable">Whether or not the chemical is flammable. If omitted, the weighted average value of the constituents is used.</param>
-    /// <param name="isGemstone">Whether this substance is considered a gemstone.</param>
     /// <param name="meltingPoint">
     /// A melting point, in K. If omitted, the weighted average value of the constituents is used.
     /// </param>
@@ -362,7 +361,6 @@ public class Solution : IHomogeneous, IEquatable<Solution>
         double? hardness = null,
         bool? isConductive = null,
         bool? isFlammable = null,
-        bool isGemstone = false,
         double? meltingPoint = null,
         PhaseType? fixedPhase = null,
         double? youngsModulus = null,
@@ -387,7 +385,6 @@ public class Solution : IHomogeneous, IEquatable<Solution>
                 : 0),
             isConductive ?? constituents.Sum(x => x.substance.IsMetal ? x.proportion / constituents.Count() : 0) >= 0.5m,
             isFlammable ?? constituents.Sum(x => x.substance.IsFlammable ? x.proportion / constituents.Count() : 0) >= 0.5m,
-            isGemstone,
             meltingPoint,
             fixedPhase,
             youngsModulus ?? (constituents.Any(x => x.substance.YoungsModulus.HasValue)
@@ -494,7 +491,6 @@ public class Solution : IHomogeneous, IEquatable<Solution>
     /// </para>
     /// </param>
     /// <param name="isFlammable">Whether or not the chemical is flammable. If omitted, the weighted average value of the constituents is used.</param>
-    /// <param name="isGemstone">Whether this substance is considered a gemstone.</param>
     /// <param name="meltingPoint">
     /// A melting point, in K. If omitted, the weighted average value of the constituents is used.
     /// </param>
@@ -542,7 +538,6 @@ public class Solution : IHomogeneous, IEquatable<Solution>
         double? hardness = null,
         bool? isConductive = null,
         bool? isFlammable = null,
-        bool isGemstone = false,
         double? meltingPoint = null,
         PhaseType? fixedPhase = null,
         double? youngsModulus = null,
@@ -567,7 +562,6 @@ public class Solution : IHomogeneous, IEquatable<Solution>
                 : 0),
             isConductive ?? constituents.Sum(x => x.substance.Homogeneous.IsMetal ? x.proportion / constituents.Count() : 0) >= 0.5m,
             isFlammable ?? constituents.Sum(x => x.substance.Homogeneous.IsFlammable ? x.proportion / constituents.Count() : 0) >= 0.5m,
-            isGemstone,
             meltingPoint,
             fixedPhase,
             youngsModulus ?? (constituents.Any(x => x.substance.Homogeneous.YoungsModulus.HasValue)
@@ -668,7 +662,6 @@ public class Solution : IHomogeneous, IEquatable<Solution>
     /// </para>
     /// </param>
     /// <param name="isFlammable">Whether or not the chemical is flammable. If omitted, the weighted average value of the constituents is used.</param>
-    /// <param name="isGemstone">Whether this substance is considered a gemstone.</param>
     /// <param name="meltingPoint">
     /// A melting point, in K. If omitted, the weighted average value of the constituents is used.
     /// </param>
@@ -716,7 +709,6 @@ public class Solution : IHomogeneous, IEquatable<Solution>
         double? hardness = null,
         bool? isConductive = null,
         bool? isFlammable = null,
-        bool isGemstone = false,
         double? meltingPoint = null,
         PhaseType? fixedPhase = null,
         double? youngsModulus = null,
@@ -741,7 +733,6 @@ public class Solution : IHomogeneous, IEquatable<Solution>
                 : 0),
             isConductive ?? constituents.Sum(x => x.IsMetal ? 1m / constituents.Count() : 0) >= 0.5m,
             isFlammable ?? constituents.Sum(x => x.IsFlammable ? 1m / constituents.Count() : 0) >= 0.5m,
-            isGemstone,
             meltingPoint,
             fixedPhase,
             youngsModulus ?? (constituents.Any(x => x.YoungsModulus.HasValue)
@@ -842,7 +833,6 @@ public class Solution : IHomogeneous, IEquatable<Solution>
     /// </para>
     /// </param>
     /// <param name="isFlammable">Whether or not the chemical is flammable. If omitted, the weighted average value of the constituents is used.</param>
-    /// <param name="isGemstone">Whether this substance is considered a gemstone.</param>
     /// <param name="meltingPoint">
     /// A melting point, in K. If omitted, the weighted average value of the constituents is used.
     /// </param>
@@ -890,7 +880,6 @@ public class Solution : IHomogeneous, IEquatable<Solution>
         double? hardness = null,
         bool? isConductive = null,
         bool? isFlammable = null,
-        bool isGemstone = false,
         double? meltingPoint = null,
         PhaseType? fixedPhase = null,
         double? youngsModulus = null,
@@ -915,7 +904,6 @@ public class Solution : IHomogeneous, IEquatable<Solution>
                 : 0),
             isConductive ?? constituents.Sum(x => x.Homogeneous.IsMetal ? 1m / constituents.Count() : 0) >= 0.5m,
             isFlammable ?? constituents.Sum(x => x.Homogeneous.IsFlammable ? 1m / constituents.Count() : 0) >= 0.5m,
-            isGemstone,
             meltingPoint,
             fixedPhase,
             youngsModulus ?? (constituents.Any(x => x.Homogeneous.YoungsModulus.HasValue)
@@ -1012,7 +1000,6 @@ public class Solution : IHomogeneous, IEquatable<Solution>
     /// </para>
     /// </param>
     /// <param name="isFlammable">Whether or not the chemical is flammable. If omitted, the weighted average value of the constituents is used.</param>
-    /// <param name="isGemstone">Whether this substance is considered a gemstone.</param>
     /// <param name="meltingPoint">
     /// A melting point, in K. If omitted, the weighted average value of the constituents is used.
     /// </param>
@@ -1057,7 +1044,6 @@ public class Solution : IHomogeneous, IEquatable<Solution>
         double? hardness = null,
         bool? isConductive = null,
         bool? isFlammable = null,
-        bool isGemstone = false,
         double? meltingPoint = null,
         PhaseType? fixedPhase = null,
         double? youngsModulus = null,
@@ -1082,7 +1068,6 @@ public class Solution : IHomogeneous, IEquatable<Solution>
                 : 0),
             isConductive ?? constituents.Sum(x => x.substance.IsMetal ? x.proportion / constituents.Length : 0) >= 0.5m,
             isFlammable ?? constituents.Sum(x => x.substance.IsFlammable ? x.proportion / constituents.Length : 0) >= 0.5m,
-            isGemstone,
             meltingPoint,
             fixedPhase,
             youngsModulus ?? (constituents.Any(x => x.substance.YoungsModulus.HasValue)
@@ -1178,7 +1163,6 @@ public class Solution : IHomogeneous, IEquatable<Solution>
     /// </para>
     /// </param>
     /// <param name="isFlammable">Whether or not the chemical is flammable. If omitted, the weighted average value of the constituents is used.</param>
-    /// <param name="isGemstone">Whether this substance is considered a gemstone.</param>
     /// <param name="meltingPoint">
     /// A melting point, in K. If omitted, the weighted average value of the constituents is used.
     /// </param>
@@ -1223,7 +1207,6 @@ public class Solution : IHomogeneous, IEquatable<Solution>
         double? hardness = null,
         bool? isConductive = null,
         bool? isFlammable = null,
-        bool isGemstone = false,
         double? meltingPoint = null,
         PhaseType? fixedPhase = null,
         double? youngsModulus = null,
@@ -1248,7 +1231,6 @@ public class Solution : IHomogeneous, IEquatable<Solution>
                 : 0),
             isConductive ?? constituents.Sum(x => x.substance.Homogeneous.IsMetal ? x.proportion / constituents.Length : 0) >= 0.5m,
             isFlammable ?? constituents.Sum(x => x.substance.Homogeneous.IsFlammable ? x.proportion / constituents.Length : 0) >= 0.5m,
-            isGemstone,
             meltingPoint,
             fixedPhase,
             youngsModulus ?? (constituents.Any(x => x.substance.Homogeneous.YoungsModulus.HasValue)
@@ -1344,7 +1326,6 @@ public class Solution : IHomogeneous, IEquatable<Solution>
     /// </para>
     /// </param>
     /// <param name="isFlammable">Whether or not the chemical is flammable. If omitted, the weighted average value of the constituents is used.</param>
-    /// <param name="isGemstone">Whether this substance is considered a gemstone.</param>
     /// <param name="meltingPoint">
     /// A melting point, in K. If omitted, the weighted average value of the constituents is used.
     /// </param>
@@ -1383,7 +1364,6 @@ public class Solution : IHomogeneous, IEquatable<Solution>
         double? hardness = null,
         bool? isConductive = null,
         bool? isFlammable = null,
-        bool isGemstone = false,
         double? meltingPoint = null,
         PhaseType? fixedPhase = null,
         double? youngsModulus = null,
@@ -1408,7 +1388,6 @@ public class Solution : IHomogeneous, IEquatable<Solution>
                 : 0),
             isConductive ?? chemicals.Sum(x => x.IsMetal ? 1m / chemicals.Length : 0) >= 0.5m,
             isFlammable ?? chemicals.Sum(x => x.IsFlammable ? 1m / chemicals.Length : 0) >= 0.5m,
-            isGemstone,
             meltingPoint,
             fixedPhase,
             youngsModulus ?? (chemicals.Any(x => x.YoungsModulus.HasValue)
@@ -1504,7 +1483,6 @@ public class Solution : IHomogeneous, IEquatable<Solution>
     /// </para>
     /// </param>
     /// <param name="isFlammable">Whether or not the chemical is flammable. If omitted, the weighted average value of the constituents is used.</param>
-    /// <param name="isGemstone">Whether this substance is considered a gemstone.</param>
     /// <param name="meltingPoint">
     /// A melting point, in K. If omitted, the weighted average value of the constituents is used.
     /// </param>
@@ -1543,7 +1521,6 @@ public class Solution : IHomogeneous, IEquatable<Solution>
         double? hardness = null,
         bool? isConductive = null,
         bool? isFlammable = null,
-        bool isGemstone = false,
         double? meltingPoint = null,
         PhaseType? fixedPhase = null,
         double? youngsModulus = null,
@@ -1568,7 +1545,6 @@ public class Solution : IHomogeneous, IEquatable<Solution>
                 : 0),
             isConductive ?? chemicals.Sum(x => x.Homogeneous.IsMetal ? 1m / chemicals.Length : 0) >= 0.5m,
             isFlammable ?? chemicals.Sum(x => x.Homogeneous.IsFlammable ? 1m / chemicals.Length : 0) >= 0.5m,
-            isGemstone,
             meltingPoint,
             fixedPhase,
             youngsModulus ?? (chemicals.Any(x => x.Homogeneous.YoungsModulus.HasValue)
@@ -1667,7 +1643,6 @@ public class Solution : IHomogeneous, IEquatable<Solution>
     /// </para>
     /// </param>
     /// <param name="isFlammable">Whether or not the chemical is flammable. If omitted, the weighted average value of the constituents is used.</param>
-    /// <param name="isGemstone">Whether this substance is considered a gemstone.</param>
     /// <param name="meltingPoint">
     /// A melting point, in K. If omitted, the weighted average value of the constituents is used.
     /// </param>
@@ -1715,7 +1690,6 @@ public class Solution : IHomogeneous, IEquatable<Solution>
         double? hardness = null,
         bool? isConductive = null,
         bool? isFlammable = null,
-        bool isGemstone = false,
         double? meltingPoint = null,
         PhaseType? fixedPhase = null,
         double? youngsModulus = null,
@@ -1733,7 +1707,6 @@ public class Solution : IHomogeneous, IEquatable<Solution>
             hardness ?? substance.Hardness,
             isConductive ?? substance.IsConductive,
             isFlammable ?? substance.IsFlammable,
-            isGemstone,
             meltingPoint,
             fixedPhase,
             youngsModulus ?? substance.YoungsModulus,
@@ -1829,7 +1802,6 @@ public class Solution : IHomogeneous, IEquatable<Solution>
     /// </para>
     /// </param>
     /// <param name="isFlammable">Whether or not the chemical is flammable. If omitted, the weighted average value of the constituents is used.</param>
-    /// <param name="isGemstone">Whether this substance is considered a gemstone.</param>
     /// <param name="meltingPoint">
     /// A melting point, in K. If omitted, the weighted average value of the constituents is used.
     /// </param>
@@ -1877,7 +1849,6 @@ public class Solution : IHomogeneous, IEquatable<Solution>
         double? hardness = null,
         bool? isConductive = null,
         bool? isFlammable = null,
-        bool isGemstone = false,
         double? meltingPoint = null,
         PhaseType? fixedPhase = null,
         double? youngsModulus = null,
@@ -1895,7 +1866,6 @@ public class Solution : IHomogeneous, IEquatable<Solution>
             hardness ?? substance.Homogeneous.Hardness,
             isConductive ?? substance.Homogeneous.IsConductive,
             isFlammable ?? substance.Homogeneous.IsFlammable,
-            isGemstone,
             meltingPoint,
             fixedPhase,
             youngsModulus ?? substance.Homogeneous.YoungsModulus,
@@ -1999,7 +1969,6 @@ public class Solution : IHomogeneous, IEquatable<Solution>
     /// </para>
     /// </param>
     /// <param name="isFlammable">Whether or not the chemical is flammable. If omitted, the weighted average value of the constituents is used.</param>
-    /// <param name="isGemstone">Whether this substance is considered a gemstone.</param>
     /// <param name="meltingPoint">
     /// A melting point, in K. If omitted, the weighted average value of the constituents is used.
     /// </param>
@@ -2033,6 +2002,9 @@ public class Solution : IHomogeneous, IEquatable<Solution>
     /// common in different contexts.
     /// </para>
     /// </param>
+    /// <param name="categories">
+    /// An optional list of categories to which this substance belongs.
+    /// </param>
     [JsonConstructor]
     public Solution(
         string id,
@@ -2049,11 +2021,11 @@ public class Solution : IHomogeneous, IEquatable<Solution>
         double hardness,
         bool isConductive,
         bool isFlammable,
-        bool isGemstone,
         double? meltingPoint,
         PhaseType? fixedPhase,
         double? youngsModulus,
-        IReadOnlyList<string>? commonNames = null)
+        IReadOnlyList<string>? commonNames = null,
+        IReadOnlyList<string>? categories = null)
     {
         Id = id;
         Constituents = constituents;
@@ -2075,7 +2047,6 @@ public class Solution : IHomogeneous, IEquatable<Solution>
         Hardness = hardness;
         IsConductive = isConductive;
         IsFlammable = isFlammable;
-        IsGemstone = isGemstone;
         MeltingPoint = meltingPoint;
         FixedPhase = fixedPhase;
         Solvent = Constituents.Count == 0
@@ -2083,6 +2054,7 @@ public class Solution : IHomogeneous, IEquatable<Solution>
             : Constituents.OrderByDescending(x => x.Value).First().Key;
         YoungsModulus = youngsModulus;
         CommonNames = commonNames;
+        Categories = categories;
     }
 
     /// <summary>
@@ -2182,7 +2154,6 @@ public class Solution : IHomogeneous, IEquatable<Solution>
     /// </para>
     /// </param>
     /// <param name="isFlammable">Whether or not the chemical is flammable. If omitted, the weighted average value of the constituents is used.</param>
-    /// <param name="isGemstone">Whether this substance is considered a gemstone.</param>
     /// <param name="meltingPoint">
     /// A melting point, in K. If omitted, the weighted average value of the constituents is used.
     /// </param>
@@ -2231,7 +2202,6 @@ public class Solution : IHomogeneous, IEquatable<Solution>
         double? hardness = null,
         bool? isConductive = null,
         bool? isFlammable = null,
-        bool isGemstone = false,
         double? meltingPoint = null,
         PhaseType? fixedPhase = null,
         double? youngsModulus = null,
@@ -2257,7 +2227,6 @@ public class Solution : IHomogeneous, IEquatable<Solution>
                 : 0),
             isConductive ?? constituents.Sum(x => x.substance.Homogeneous.IsMetal ? x.proportion / constituents.Count() : 0) >= 0.5m,
             isFlammable ?? constituents.Sum(x => x.substance.Homogeneous.IsFlammable ? x.proportion / constituents.Count() : 0) >= 0.5m,
-            isGemstone,
             meltingPoint,
             fixedPhase,
             youngsModulus ?? (constituents.Any(x => x.substance.Homogeneous.YoungsModulus.HasValue)
@@ -2358,7 +2327,6 @@ public class Solution : IHomogeneous, IEquatable<Solution>
     /// </para>
     /// </param>
     /// <param name="isFlammable">Whether or not the chemical is flammable. If omitted, the weighted average value of the constituents is used.</param>
-    /// <param name="isGemstone">Whether this substance is considered a gemstone.</param>
     /// <param name="meltingPoint">
     /// A melting point, in K. If omitted, the weighted average value of the constituents is used.
     /// </param>
@@ -2407,7 +2375,6 @@ public class Solution : IHomogeneous, IEquatable<Solution>
         double? hardness = null,
         bool? isConductive = null,
         bool? isFlammable = null,
-        bool isGemstone = false,
         double? meltingPoint = null,
         PhaseType? fixedPhase = null,
         double? youngsModulus = null,
@@ -2426,7 +2393,6 @@ public class Solution : IHomogeneous, IEquatable<Solution>
             hardness ?? substance.Homogeneous.Hardness,
             isConductive ?? substance.Homogeneous.IsConductive,
             isFlammable ?? substance.Homogeneous.IsFlammable,
-            isGemstone,
             meltingPoint,
             fixedPhase,
             youngsModulus ?? substance.Homogeneous.YoungsModulus,
@@ -2448,7 +2414,6 @@ public class Solution : IHomogeneous, IEquatable<Solution>
         double hardness,
         bool isConductive,
         bool isFlammable,
-        bool isGemstone,
         double? meltingPoint,
         PhaseType? fixedPhase,
         double? youngsModulus,
@@ -2467,7 +2432,6 @@ public class Solution : IHomogeneous, IEquatable<Solution>
             hardness,
             isConductive,
             isFlammable,
-            isGemstone,
             meltingPoint,
             fixedPhase,
             youngsModulus,
@@ -2488,7 +2452,6 @@ public class Solution : IHomogeneous, IEquatable<Solution>
         double hardness,
         bool isConductive,
         bool isFlammable,
-        bool isGemstone,
         double? meltingPoint,
         PhaseType? fixedPhase,
         double? youngsModulus,
@@ -2507,7 +2470,6 @@ public class Solution : IHomogeneous, IEquatable<Solution>
             hardness,
             isConductive,
             isFlammable,
-            isGemstone,
             meltingPoint,
             fixedPhase,
             youngsModulus,
@@ -3300,11 +3262,10 @@ public class Solution : IHomogeneous, IEquatable<Solution>
         Hardness,
         IsConductive,
         IsFlammable,
-        IsGemstone,
         MeltingPoint,
         FixedPhase,
         YoungsModulus,
-        commonNames);
+        CommonNames);
 
     private static string GetName(IReadOnlyDictionary<HomogeneousReference, decimal> chemicals)
     {
