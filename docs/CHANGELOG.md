@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.8.0-preview
+### Added
+- `GetAll` in `Substances.All`
+### Updated
+- Update to .NET 8 preview
+
 ## 0.7.0-preview
 ### Added
 - Categories

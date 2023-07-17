@@ -34,12 +34,29 @@ public class MaterialTests
         Assert.AreEqual(material, JsonSerializer.Deserialize<Material<double>>(json));
         Assert.AreEqual(material, JsonSerializer.Deserialize<IMaterial<double>>(json));
 
-        IMaterial<double> imaterial = material;
-
-        json = JsonSerializer.Serialize(imaterial, imaterial.GetType());
+        json = JsonSerializer.Serialize(material, ChemistrySourceGenerationContext.Default.MaterialDouble);
         Console.WriteLine();
         Console.WriteLine(json);
-        Assert.AreEqual(imaterial, JsonSerializer.Deserialize<IMaterial<double>>(json));
+        Assert.AreEqual(
+            material,
+            JsonSerializer.Deserialize(json, ChemistrySourceGenerationContext.Default.MaterialDouble));
+        Assert.AreEqual(
+            material,
+            JsonSerializer.Deserialize(json, ChemistrySourceGenerationContext.Default.IMaterialDouble));
+
+        IMaterial<double> iMaterial = material;
+
+        json = JsonSerializer.Serialize(iMaterial, iMaterial.GetType());
+        Console.WriteLine();
+        Console.WriteLine(json);
+        Assert.AreEqual(iMaterial, JsonSerializer.Deserialize<IMaterial<double>>(json));
+
+        json = JsonSerializer.Serialize(iMaterial, ChemistrySourceGenerationContext.Default.IMaterialDouble);
+        Console.WriteLine();
+        Console.WriteLine(json);
+        Assert.AreEqual(
+            iMaterial,
+            JsonSerializer.Deserialize(json, ChemistrySourceGenerationContext.Default.IMaterialDouble));
 
         material.Temperature = 5;
 
@@ -49,12 +66,29 @@ public class MaterialTests
         Assert.AreEqual(material, JsonSerializer.Deserialize<Material<double>>(json));
         Assert.AreEqual(material, JsonSerializer.Deserialize<IMaterial<double>>(json));
 
-        imaterial = material;
-
-        json = JsonSerializer.Serialize(imaterial, imaterial.GetType());
+        json = JsonSerializer.Serialize(material, ChemistrySourceGenerationContext.Default.MaterialDouble);
         Console.WriteLine();
         Console.WriteLine(json);
-        Assert.AreEqual(imaterial, JsonSerializer.Deserialize<IMaterial<double>>(json));
+        Assert.AreEqual(
+            material,
+            JsonSerializer.Deserialize(json, ChemistrySourceGenerationContext.Default.MaterialDouble));
+        Assert.AreEqual(
+            material,
+            JsonSerializer.Deserialize(json, ChemistrySourceGenerationContext.Default.IMaterialDouble));
+
+        iMaterial = material;
+
+        json = JsonSerializer.Serialize(iMaterial, iMaterial.GetType());
+        Console.WriteLine();
+        Console.WriteLine(json);
+        Assert.AreEqual(iMaterial, JsonSerializer.Deserialize<IMaterial<double>>(json));
+
+        json = JsonSerializer.Serialize(iMaterial, ChemistrySourceGenerationContext.Default.IMaterialDouble);
+        Console.WriteLine();
+        Console.WriteLine(json);
+        Assert.AreEqual(
+            iMaterial,
+            JsonSerializer.Deserialize(json, ChemistrySourceGenerationContext.Default.IMaterialDouble));
 
         var composite = new Composite<double>(new Cuboid<double>(1, 1, 1), components: material);
 
@@ -64,12 +98,29 @@ public class MaterialTests
         Assert.AreEqual(composite, JsonSerializer.Deserialize<Composite<double>>(json));
         Assert.AreEqual(composite, JsonSerializer.Deserialize<IMaterial<double>>(json));
 
-        imaterial = composite;
-
-        json = JsonSerializer.Serialize(imaterial, imaterial.GetType());
+        json = JsonSerializer.Serialize(composite, ChemistrySourceGenerationContext.Default.CompositeDouble);
         Console.WriteLine();
         Console.WriteLine(json);
-        Assert.AreEqual(imaterial, JsonSerializer.Deserialize<IMaterial<double>>(json));
+        Assert.AreEqual(
+            composite,
+            JsonSerializer.Deserialize(json, ChemistrySourceGenerationContext.Default.CompositeDouble));
+        Assert.AreEqual(
+            composite,
+            JsonSerializer.Deserialize(json, ChemistrySourceGenerationContext.Default.IMaterialDouble));
+
+        iMaterial = composite;
+
+        json = JsonSerializer.Serialize(iMaterial, iMaterial.GetType());
+        Console.WriteLine();
+        Console.WriteLine(json);
+        Assert.AreEqual(iMaterial, JsonSerializer.Deserialize<IMaterial<double>>(json));
+
+        json = JsonSerializer.Serialize(iMaterial, ChemistrySourceGenerationContext.Default.IMaterialDouble);
+        Console.WriteLine();
+        Console.WriteLine(json);
+        Assert.AreEqual(
+            iMaterial,
+            JsonSerializer.Deserialize(json, ChemistrySourceGenerationContext.Default.IMaterialDouble));
 
         composite.Density = 10;
         composite.Mass = 5000;
@@ -81,12 +132,29 @@ public class MaterialTests
         Assert.AreEqual(composite, JsonSerializer.Deserialize<Composite<double>>(json));
         Assert.AreEqual(composite, JsonSerializer.Deserialize<IMaterial<double>>(json));
 
-        imaterial = composite;
-
-        json = JsonSerializer.Serialize(imaterial, imaterial.GetType());
+        json = JsonSerializer.Serialize(composite, ChemistrySourceGenerationContext.Default.CompositeDouble);
         Console.WriteLine();
         Console.WriteLine(json);
-        Assert.AreEqual(imaterial, JsonSerializer.Deserialize<IMaterial<double>>(json));
+        Assert.AreEqual(
+            composite,
+            JsonSerializer.Deserialize(json, ChemistrySourceGenerationContext.Default.CompositeDouble));
+        Assert.AreEqual(
+            composite,
+            JsonSerializer.Deserialize(json, ChemistrySourceGenerationContext.Default.IMaterialDouble));
+
+        iMaterial = composite;
+
+        json = JsonSerializer.Serialize(iMaterial, iMaterial.GetType());
+        Console.WriteLine();
+        Console.WriteLine(json);
+        Assert.AreEqual(iMaterial, JsonSerializer.Deserialize<IMaterial<double>>(json));
+
+        json = JsonSerializer.Serialize(iMaterial, ChemistrySourceGenerationContext.Default.IMaterialDouble);
+        Console.WriteLine();
+        Console.WriteLine(json);
+        Assert.AreEqual(
+            iMaterial,
+            JsonSerializer.Deserialize(json, ChemistrySourceGenerationContext.Default.IMaterialDouble));
     }
 
     [TestMethod]

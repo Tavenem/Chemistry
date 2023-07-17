@@ -135,7 +135,7 @@ public class Chemical : IHomogeneous, IEquatable<Chemical>
     /// <summary>
     /// The ID of this item.
     /// </summary>
-    [JsonPropertyName("id"), JsonPropertyOrder(-1)]
+    [JsonPropertyName("id"), JsonPropertyOrder(-2)]
     public string Id { get; init; }
 
     /// <summary>
@@ -145,7 +145,7 @@ public class Chemical : IHomogeneous, IEquatable<Chemical>
     /// <summary>
     /// A built-in, read-only type discriminator.
     /// </summary>
-    [JsonPropertyName("$type"), JsonPropertyOrder(-2)]
+    [JsonPropertyOrder(-1)]
     public string IdItemTypeName => ChemicalIdItemTypeName;
 
     /// <summary>

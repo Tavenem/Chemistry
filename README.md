@@ -1,4 +1,4 @@
-![build](https://img.shields.io/github/workflow/status/Tavenem/Chemistry/publish/main) [![NuGet downloads](https://img.shields.io/nuget/dt/Tavenem.Chemistry)](https://www.nuget.org/packages/Tavenem.Chemistry/)
+![build](https://img.shields.io/github/actions/workflow/status/Tavenem/Chemistry/publish.yml?branch=main) [![NuGet downloads](https://img.shields.io/nuget/dt/Tavenem.Chemistry)](https://www.nuget.org/packages/Tavenem.Chemistry/)
 
 Tavenem.Chemistry
 ==

@@ -951,7 +951,7 @@ public class Material<TScalar> : IMaterial<Material<TScalar>, TScalar>, IEquatab
     /// </summary>
     /// <param name="substance">
     /// The new substance to add. If the given substance already exists in this material's
-    /// conposition, its proportion is adjusted to the given value.
+    /// composition, its proportion is adjusted to the given value.
     /// </param>
     /// <param name="proportion">
     /// The proportion at which to add the <paramref name="substance"/>.
@@ -966,7 +966,7 @@ public class Material<TScalar> : IMaterial<Material<TScalar>, TScalar>, IEquatab
     /// </summary>
     /// <param name="substance">
     /// The new substance to add. If the given substance already exists in this material's
-    /// conposition, its proportion is adjusted to the given value.
+    /// composition, its proportion is adjusted to the given value.
     /// </param>
     /// <param name="proportion">
     /// The proportion at which to add the <paramref name="substance"/>.
@@ -980,7 +980,7 @@ public class Material<TScalar> : IMaterial<Material<TScalar>, TScalar>, IEquatab
     /// </summary>
     /// <param name="constituents">
     /// The new constituents to add, as a tuple of a substance and the proportion to assign to that
-    /// substance. If a given substance already exists in this material's conposition, its
+    /// substance. If a given substance already exists in this material's composition, its
     /// proportion is adjusted to the given value.
     /// </param>
     /// <returns>This instance.</returns>
@@ -992,7 +992,7 @@ public class Material<TScalar> : IMaterial<Material<TScalar>, TScalar>, IEquatab
     /// </summary>
     /// <param name="constituents">
     /// The new constituents to add, as a tuple of a substance and the proportion to assign to that
-    /// substance. If a given substance already exists in this material's conposition, its
+    /// substance. If a given substance already exists in this material's composition, its
     /// proportion is adjusted to the given value.
     /// </param>
     /// <returns>This instance.</returns>
@@ -1004,7 +1004,7 @@ public class Material<TScalar> : IMaterial<Material<TScalar>, TScalar>, IEquatab
     /// </summary>
     /// <param name="constituents">
     /// The new constituents to add, as a tuple of a substance and the proportion to assign to that
-    /// substance. If a given substance already exists in this material's conposition, its
+    /// substance. If a given substance already exists in this material's composition, its
     /// proportion is adjusted to the given value.
     /// </param>
     /// <returns>This instance.</returns>
@@ -1016,7 +1016,7 @@ public class Material<TScalar> : IMaterial<Material<TScalar>, TScalar>, IEquatab
     /// </summary>
     /// <param name="constituents">
     /// The new constituents to add, as a tuple of a substance and the proportion to assign to that
-    /// substance. If a given substance already exists in this material's conposition, its
+    /// substance. If a given substance already exists in this material's composition, its
     /// proportion is adjusted to the given value.
     /// </param>
     /// <returns>This instance.</returns>
@@ -1029,7 +1029,7 @@ public class Material<TScalar> : IMaterial<Material<TScalar>, TScalar>, IEquatab
     /// </summary>
     /// <param name="substance">
     /// The new substance to add. If the given substance already exists in this material's
-    /// conposition, its proportion is adjusted to the given value.
+    /// composition, its proportion is adjusted to the given value.
     /// </param>
     /// <param name="proportion">
     /// The proportion at which to add the <paramref name="substance"/>.
@@ -1069,7 +1069,7 @@ public class Material<TScalar> : IMaterial<Material<TScalar>, TScalar>, IEquatab
     /// </summary>
     /// <param name="substance">
     /// The new substance to add. If the given substance already exists in this material's
-    /// conposition, its proportion is adjusted to the given value.
+    /// composition, its proportion is adjusted to the given value.
     /// </param>
     /// <param name="proportion">
     /// The proportion at which to add the <paramref name="substance"/>.
@@ -1083,7 +1083,7 @@ public class Material<TScalar> : IMaterial<Material<TScalar>, TScalar>, IEquatab
     /// </summary>
     /// <param name="constituents">The new constituents to add, as a tuple of a substance and
     /// the proportion to assign to that substance. If a given substance already exists in
-    /// this material's conposition, its proportion is adjusted to the given value.</param>
+    /// this material's composition, its proportion is adjusted to the given value.</param>
     /// <returns>This instance.</returns>
     public Material<TScalar> AddConstituents(IEnumerable<(ISubstanceReference substance, decimal proportion)> constituents)
     {
@@ -1127,7 +1127,7 @@ public class Material<TScalar> : IMaterial<Material<TScalar>, TScalar>, IEquatab
     /// </summary>
     /// <param name="constituents">The new constituents to add, as a tuple of a substance and
     /// the proportion to assign to that substance. If a given substance already exists in
-    /// this material's conposition, its proportion is adjusted to the given value.</param>
+    /// this material's composition, its proportion is adjusted to the given value.</param>
     /// <returns>This instance.</returns>
     public Material<TScalar> AddConstituents(IEnumerable<(ISubstance substance, decimal proportion)> constituents)
         => AddConstituents(constituents.Select(x => (x.substance.GetReference(), x.proportion)));
@@ -1137,7 +1137,7 @@ public class Material<TScalar> : IMaterial<Material<TScalar>, TScalar>, IEquatab
     /// </summary>
     /// <param name="constituents">The new constituents to add, as a tuple of a substance and
     /// the proportion to assign to that substance. If a given substance already exists in
-    /// this material's conposition, its proportion is adjusted to the given value.</param>
+    /// this material's composition, its proportion is adjusted to the given value.</param>
     /// <returns>This instance.</returns>
     public Material<TScalar> AddConstituents(params (ISubstanceReference substance, decimal proportion)[] constituents)
         => AddConstituents(constituents.AsEnumerable());
@@ -1147,7 +1147,7 @@ public class Material<TScalar> : IMaterial<Material<TScalar>, TScalar>, IEquatab
     /// </summary>
     /// <param name="constituents">The new constituents to add, as a tuple of a substance and
     /// the proportion to assign to that substance. If a given substance already exists in
-    /// this material's conposition, its proportion is adjusted to the given value.</param>
+    /// this material's composition, its proportion is adjusted to the given value.</param>
     /// <returns>This instance.</returns>
     public Material<TScalar> AddConstituents(params (ISubstance substance, decimal proportion)[] constituents)
         => AddConstituents(constituents.Select(x => (x.substance.GetReference(), x.proportion)));

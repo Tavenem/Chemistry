@@ -367,7 +367,7 @@ public class Composite<TScalar> : IMaterial<Composite<TScalar>, TScalar>, IEquat
     /// </summary>
     /// <param name="constituents">
     /// The new constituents to add, as a tuple of a substance and the proportion to assign to that
-    /// substance. If a given substance already exists in this material's conposition, its
+    /// substance. If a given substance already exists in this material's composition, its
     /// proportion is adjusted to the given value.
     /// </param>
     /// <returns>This instance.</returns>
@@ -385,7 +385,7 @@ public class Composite<TScalar> : IMaterial<Composite<TScalar>, TScalar>, IEquat
     /// </summary>
     /// <param name="constituents">
     /// The new constituents to add, as a tuple of a substance and the proportion to assign to that
-    /// substance. If a given substance already exists in this material's conposition, its
+    /// substance. If a given substance already exists in this material's composition, its
     /// proportion is adjusted to the given value.
     /// </param>
     /// <returns>This instance.</returns>
@@ -397,7 +397,7 @@ public class Composite<TScalar> : IMaterial<Composite<TScalar>, TScalar>, IEquat
     /// </summary>
     /// <param name="constituents">
     /// The new constituents to add, as a tuple of a substance and the proportion to assign to that
-    /// substance. If a given substance already exists in this material's conposition, its
+    /// substance. If a given substance already exists in this material's composition, its
     /// proportion is adjusted to the given value.
     /// </param>
     /// <returns>This instance.</returns>
@@ -409,7 +409,7 @@ public class Composite<TScalar> : IMaterial<Composite<TScalar>, TScalar>, IEquat
     /// </summary>
     /// <param name="constituents">
     /// The new constituents to add, as a tuple of a substance and the proportion to assign to that
-    /// substance. If a given substance already exists in this material's conposition, its
+    /// substance. If a given substance already exists in this material's composition, its
     /// proportion is adjusted to the given value.
     /// </param>
     /// <returns>This instance.</returns>
@@ -442,7 +442,7 @@ public class Composite<TScalar> : IMaterial<Composite<TScalar>, TScalar>, IEquat
     /// </para>
     /// <para>
     /// The masses of the given <paramref name="material"/> and the existing components of this
-    /// substance will be adjusted to accomodate this value.
+    /// substance will be adjusted to accommodate this value.
     /// </para>
     /// </param>
     /// <param name="index">The index at which to add the new component. A negative value
@@ -452,10 +452,7 @@ public class Composite<TScalar> : IMaterial<Composite<TScalar>, TScalar>, IEquat
     /// length of the <see cref="Components"/> collection.</exception>
     public IMaterial<TScalar> AddComponent(IMaterial<TScalar> material, TScalar proportion, int index = -1)
     {
-        if (index > Components.Count)
-        {
-            throw new ArgumentOutOfRangeException(nameof(index));
-        }
+        ArgumentOutOfRangeException.ThrowIfGreaterThan(index, Components.Count);
 
         if (proportion <= TScalar.Zero)
         {
@@ -572,7 +569,7 @@ public class Composite<TScalar> : IMaterial<Composite<TScalar>, TScalar>, IEquat
     /// </para>
     /// <para>
     /// The masses of the new component and the existing components of this substance will be
-    /// adjusted to accomodate this value.
+    /// adjusted to accommodate this value.
     /// </para>
     /// </param>
     /// <returns>This instance.</returns>

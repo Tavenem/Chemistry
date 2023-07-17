@@ -7414,6 +7414,32 @@ public static class Substances
         #endregion Mixtures
 
         /// <summary>
+        /// Enumerates the default set of substances.
+        /// </summary>
+        /// <returns>
+        /// An <see cref="IEnumerable{T}"/> of <see cref="ISubstance"/> instances.
+        /// </returns>
+        public static IEnumerable<ISubstance> GetAll()
+        {
+            foreach (var substance in GetAllChemicals())
+            {
+                yield return substance;
+            }
+            foreach (var substance in GetAllHomogeneousSubstances())
+            {
+                yield return substance;
+            }
+            foreach (var substance in GetAllSolutions())
+            {
+                yield return substance;
+            }
+            foreach (var substance in GetAllMixtures())
+            {
+                yield return substance;
+            }
+        }
+
+        /// <summary>
         /// <para>
         /// Registers the default set of <see cref="ISubstance"/>s in the given <paramref
         /// name="dataStore"/>.

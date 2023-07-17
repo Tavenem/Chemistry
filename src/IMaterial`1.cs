@@ -107,7 +107,7 @@ public interface IMaterial<TScalar> : ICloneable, IEquatable<IMaterial<TScalar>>
     /// </summary>
     /// <param name="constituents">
     /// The new constituents to add, as a tuple of a substance and the proportion to assign to that
-    /// substance. If a given substance already exists in this material's conposition, its
+    /// substance. If a given substance already exists in this material's composition, its
     /// proportion is adjusted to the given value.
     /// </param>
     /// <returns>This instance.</returns>
@@ -118,7 +118,7 @@ public interface IMaterial<TScalar> : ICloneable, IEquatable<IMaterial<TScalar>>
     /// </summary>
     /// <param name="constituents">
     /// The new constituents to add, as a tuple of a substance and the proportion to assign to that
-    /// substance. If a given substance already exists in this material's conposition, its
+    /// substance. If a given substance already exists in this material's composition, its
     /// proportion is adjusted to the given value.
     /// </param>
     /// <returns>This instance.</returns>
@@ -129,7 +129,7 @@ public interface IMaterial<TScalar> : ICloneable, IEquatable<IMaterial<TScalar>>
     /// </summary>
     /// <param name="constituents">
     /// The new constituents to add, as a tuple of a substance and the proportion to assign to that
-    /// substance. If a given substance already exists in this material's conposition, its
+    /// substance. If a given substance already exists in this material's composition, its
     /// proportion is adjusted to the given value.
     /// </param>
     /// <returns>This instance.</returns>
@@ -140,7 +140,7 @@ public interface IMaterial<TScalar> : ICloneable, IEquatable<IMaterial<TScalar>>
     /// </summary>
     /// <param name="constituents">
     /// The new constituents to add, as a tuple of a substance and the proportion to assign to that
-    /// substance. If a given substance already exists in this material's conposition, its
+    /// substance. If a given substance already exists in this material's composition, its
     /// proportion is adjusted to the given value.
     /// </param>
     /// <returns>This instance.</returns>

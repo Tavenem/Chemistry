@@ -196,11 +196,8 @@ public class CompositeConverterFactory : JsonConverterFactory
             {
                 throw new JsonException();
             }
-            var shape = JsonSerializer.Deserialize<IShape<TScalar>>(ref reader, options);
-            if (shape is null)
-            {
-                throw new JsonException();
-            }
+            var shape = JsonSerializer.Deserialize<IShape<TScalar>>(ref reader, options)
+                ?? throw new JsonException();
             if (reader.TokenType != JsonTokenType.EndObject)
             {
                 throw new JsonException();
