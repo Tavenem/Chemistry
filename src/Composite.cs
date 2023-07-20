@@ -654,7 +654,7 @@ public class Composite<TScalar> : IMaterial<Composite<TScalar>, TScalar>, IEquat
     /// The proportion of this instance's mass to assign to the clone.
     /// </para>
     /// <para>
-    /// Values ≤ 0 result in <see cref="Material{TScalar}.Empty"/> being returned.
+    /// Values ≤ 0 result in an empty material being returned.
     /// </para>
     /// </param>
     /// <returns>A deep clone of this instance, possibly with a different mass.</returns>
@@ -662,7 +662,7 @@ public class Composite<TScalar> : IMaterial<Composite<TScalar>, TScalar>, IEquat
     {
         if (massFraction <= TScalar.Zero)
         {
-            return Material<TScalar>.Empty;
+            return new Material<TScalar>();
         }
         else
         {
@@ -790,7 +790,7 @@ public class Composite<TScalar> : IMaterial<Composite<TScalar>, TScalar>, IEquat
         }
         if (Components.Count == 0)
         {
-            return Material<TScalar>.Empty;
+            return new Material<TScalar>();
         }
         else if (Components.Count == 1)
         {
@@ -816,7 +816,7 @@ public class Composite<TScalar> : IMaterial<Composite<TScalar>, TScalar>, IEquat
         }
         if (Components.Count == 0)
         {
-            return Material<TScalar>.Empty;
+            return new Material<TScalar>();
         }
         else if (Components.Count == 1)
         {

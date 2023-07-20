@@ -13,11 +13,6 @@ public class Material<TScalar> : IMaterial<Material<TScalar>, TScalar>, IEquatab
     where TScalar : IFloatingPointIeee754<TScalar>
 {
     /// <summary>
-    /// An empty material, with zero mass and density, and a single point as a shape.
-    /// </summary>
-    public static Material<TScalar> Empty { get; } = new();
-
-    /// <summary>
     /// This material's constituent substances.
     /// </summary>
     [JsonConverter(typeof(MixtureConstituentsConverter))]
@@ -1196,7 +1191,7 @@ public class Material<TScalar> : IMaterial<Material<TScalar>, TScalar>, IEquatab
     /// The proportion of this instance's mass to assign to the clone.
     /// </para>
     /// <para>
-    /// Values ≤ 0 result in <see cref="Material{TScalar}.Empty"/> being returned.
+    /// Values ≤ 0 result in an empty material being returned.
     /// </para>
     /// </param>
     /// <returns>A deep clone of this instance, possibly with a different mass.</returns>
@@ -1255,14 +1250,14 @@ public class Material<TScalar> : IMaterial<Material<TScalar>, TScalar>, IEquatab
     /// The proportion of this instance's mass to assign to the clone.
     /// </para>
     /// <para>
-    /// Values ≤ 0 result in <see cref="Material{TScalar}.Empty"/> being returned.
+    /// Values ≤ 0 result in an empty material being returned.
     /// </para>
     /// </param>
     /// <returns>A deep clone of this instance, possibly with a different mass.</returns>
     public Material<TScalar> GetTypedClone(TScalar massFraction)
         => massFraction <= TScalar.Zero
-        ? Empty
-        : new Material<TScalar>(
+        ? new()
+        : new(
             new ReadOnlyDictionary<ISubstanceReference, decimal>(Constituents.ToDictionary(x => x.Key, x => x.Value)),
             Density,
             massFraction != TScalar.One
@@ -1323,7 +1318,7 @@ public class Material<TScalar> : IMaterial<Material<TScalar>, TScalar>, IEquatab
             Shape = SinglePoint<TScalar>.Origin;
             Constituents = new ReadOnlyDictionary<ISubstanceReference, decimal>(new Dictionary<ISubstanceReference, decimal>());
             Temperature = null;
-            return Empty;
+            return new();
         }
 
         var dictionary = Constituents.ToDictionary(x => x.Key, x => x.Value);
@@ -1367,7 +1362,7 @@ public class Material<TScalar> : IMaterial<Material<TScalar>, TScalar>, IEquatab
             Shape = SinglePoint<TScalar>.Origin;
             Constituents = new ReadOnlyDictionary<ISubstanceReference, decimal>(new Dictionary<ISubstanceReference, decimal>());
             Temperature = null;
-            return Empty;
+            return new();
         }
 
         var dictionary = Constituents.ToDictionary(x => x.Key, x => x.Value);
@@ -1416,7 +1411,7 @@ public class Material<TScalar> : IMaterial<Material<TScalar>, TScalar>, IEquatab
             Shape = SinglePoint<TScalar>.Origin;
             Constituents = new ReadOnlyDictionary<ISubstanceReference, decimal>(new Dictionary<ISubstanceReference, decimal>());
             Temperature = null;
-            return Empty;
+            return new();
         }
 
         var ratio = 1 / total;

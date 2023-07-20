@@ -155,7 +155,7 @@ public interface IMaterial<TScalar> : ICloneable, IEquatable<IMaterial<TScalar>>
     /// The proportion of this instance's mass to assign to the clone.
     /// </para>
     /// <para>
-    /// Values ≤ 0 result in <see cref="Material{TScalar}.Empty"/> being returned.
+    /// Values ≤ 0 result in an empty material being returned.
     /// </para>
     /// </param>
     /// <returns>A deep clone of this instance, possibly with a different mass.</returns>

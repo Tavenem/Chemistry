@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.9.0-preview
+### Removed
+- `Empty` property in `Material`, which was a static, mutable instance. Uses should be replaced by `new Material<T>()`
+
 ## 0.8.0-preview
 ### Added
 - `GetAll` in `Substances.All`
