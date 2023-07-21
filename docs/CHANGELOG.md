@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.9.1-preview
+### Added
+- Support the use of `HomogeneousReference` and `ISubstanceReference` as dictionary keys in JSON (de)serialization
+
 ## 0.9.0-preview
 ### Removed
 - `Empty` property in `Material`, which was a static, mutable instance. Uses should be replaced by `new Material<T>()`

@@ -15,7 +15,6 @@ public class Material<TScalar> : IMaterial<Material<TScalar>, TScalar>, IEquatab
     /// <summary>
     /// This material's constituent substances.
     /// </summary>
-    [JsonConverter(typeof(MixtureConstituentsConverter))]
     public IReadOnlyDictionary<ISubstanceReference, decimal> Constituents { get; private set; }
 
     /// <summary>

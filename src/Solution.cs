@@ -81,7 +81,6 @@ public class Solution : IHomogeneous, IEquatable<Solution>
     /// The collection of constituents that make up this solution, along with their relative
     /// proportions (as normalized values between zero and one).
     /// </summary>
-    [JsonConverter(typeof(SubstanceConstituentsConverter))]
     public IReadOnlyDictionary<HomogeneousReference, decimal> Constituents { get; }
 
     /// <summary>
