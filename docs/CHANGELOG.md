@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0
+### Added
+- Initial production release
+
 ## 0.9.1-preview
 ### Added
 - Support the use of `HomogeneousReference` and `ISubstanceReference` as dictionary keys in JSON (de)serialization
