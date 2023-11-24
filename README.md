@@ -12,13 +12,8 @@ Tavenem.Chemistry is available as a [NuGet package](https://www.nuget.org/packag
 
 ## Roadmap
 
-Tavenem.Chemistry is currently in a **prerelease** state. Development is ongoing, and breaking
-changes are possible before the first production release.
-
-No release date is currently set for v1.0 of Tavenem.Chemistry. The project is currently in a "wait
-and see" phase while [Tavenem.DataStore](https://github.com/Tavenem/DataStore) (a dependency of
-Tavenem.Chemistry) is in prerelease. When that project has a stable release, a production release of
-Tavenem.Chemistry will follow.
+Development of Tavenem.Chemistry is ongoing. Major release versions with breaking changes are
+possible on an unpredictable cadence.
 
 ## Contributing
 
