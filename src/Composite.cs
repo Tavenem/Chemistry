@@ -545,7 +545,7 @@ public class Composite<TScalar> : IMaterial<Composite<TScalar>, TScalar>, IEquat
             var list = Components as ImmutableList<IMaterial<TScalar>>;
             if (list is not null)
             {
-                Components = list.SetItem(index, new Composite<TScalar>(Components[index].Shape, components: new IMaterial<TScalar>[] { Components[index], material }));
+                Components = list.SetItem(index, new Composite<TScalar>(Components[index].Shape, components: [Components[index], material]));
             }
         }
         return this;
@@ -962,11 +962,11 @@ public class Composite<TScalar> : IMaterial<Composite<TScalar>, TScalar>, IEquat
         if (proportions.Length == 0)
         {
             var half = NumberValues.Half<TScalar>();
-            proportions = new TScalar[] { half, half };
+            proportions = [half, half];
         }
         else if (proportions.Length == 1)
         {
-            proportions = new TScalar[] { proportions[0], TScalar.One - proportions[0] };
+            proportions = [proportions[0], TScalar.One - proportions[0]];
         }
         else
         {

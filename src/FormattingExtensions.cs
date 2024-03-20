@@ -111,7 +111,7 @@ internal static class FormattingExtensions
         var sb = new StringBuilder();
         foreach (var c in s)
         {
-            if (separator.Equals(new ReadOnlySpan<char>(new[] { c }), StringComparison.InvariantCulture))
+            if (separator.Equals(new ReadOnlySpan<char>([c]), StringComparison.InvariantCulture))
             {
                 break;
             }
@@ -211,7 +211,7 @@ internal static class FormattingExtensions
         }
         foreach (var c in s)
         {
-            if (separator.Equals(new ReadOnlySpan<char>(new[] { c }), StringComparison.InvariantCulture))
+            if (separator.Equals(new ReadOnlySpan<char>([c]), StringComparison.InvariantCulture))
             {
                 break;
             }

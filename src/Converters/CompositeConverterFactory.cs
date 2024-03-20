@@ -42,7 +42,7 @@ public class CompositeConverterFactory : JsonConverterFactory
 
         return (JsonConverter)Activator.CreateInstance(
             typeof(CompositeConverter<>).MakeGenericType(
-                new Type[] { type }),
+                [type]),
             BindingFlags.Instance | BindingFlags.Public,
             binder: null,
             args: null,

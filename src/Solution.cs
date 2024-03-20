@@ -2906,9 +2906,8 @@ public class Solution : IHomogeneous, IEquatable<Solution>
             foreach (var chemical in constituent.Key.Homogeneous.GetChemicalConstituents())
             {
                 var hash = chemical.GetHashCode();
-                if (!hashSet.Contains(hash))
+                if (hashSet.Add(hash))
                 {
-                    hashSet.Add(hash);
                     yield return chemical;
                 }
             }

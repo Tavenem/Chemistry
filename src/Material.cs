@@ -1039,7 +1039,7 @@ public class Material<TScalar> : IMaterial<Material<TScalar>, TScalar>, IEquatab
         {
             Constituents = new ReadOnlyDictionary<ISubstanceReference, decimal>(
                 new Dictionary<ISubstanceReference, decimal>(
-                    new[] { new KeyValuePair<ISubstanceReference, decimal>(substance, 1) }));
+                    [new KeyValuePair<ISubstanceReference, decimal>(substance, 1)]));
             return this;
         }
 
@@ -1456,11 +1456,11 @@ public class Material<TScalar> : IMaterial<Material<TScalar>, TScalar>, IEquatab
         if (proportions.Length == 0)
         {
             var half = NumberValues.Half<TScalar>();
-            proportions = new TScalar[] { half, half };
+            proportions = [half, half];
         }
         else if (proportions.Length == 1)
         {
-            proportions = new TScalar[] { proportions[0], TScalar.One - proportions[0] };
+            proportions = [proportions[0], TScalar.One - proportions[0]];
         }
         else
         {

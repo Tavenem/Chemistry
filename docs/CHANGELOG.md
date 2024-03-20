@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1
+### Changed
+- Use `JsonTypeInfo` for registration
+
 ## 1.0
 ### Added
 - Initial production release

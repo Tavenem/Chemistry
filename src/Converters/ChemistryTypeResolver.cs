@@ -10,14 +10,14 @@ namespace Tavenem.Chemistry;
 /// </summary>
 public class ChemistryTypeResolver : DefaultJsonTypeInfoResolver
 {
-    private static readonly List<JsonDerivedType> _derivedTypes = new()
-    {
+    private static readonly List<JsonDerivedType> _derivedTypes =
+    [
         new(typeof(ISubstance), $":{nameof(ISubstance)}:"),
         new(typeof(Chemical), Chemical.ChemicalIdItemTypeName),
         new(typeof(HomogeneousSubstance), HomogeneousSubstance.HomogeneousSubstanceIdItemTypeName),
         new(typeof(Mixture), Mixture.MixtureIdItemTypeName),
         new(typeof(Solution), Solution.SolutionIdItemTypeName),
-    };
+    ];
 
     /// <inheritdoc />
     public override JsonTypeInfo GetTypeInfo(Type type, JsonSerializerOptions options)

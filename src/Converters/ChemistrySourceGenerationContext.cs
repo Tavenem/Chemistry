@@ -82,5 +82,4 @@ namespace Tavenem.Chemistry;
 [JsonSerializable(typeof(Torus<float>))]
 [JsonSerializable(typeof(Torus<NFloat>))]
 public partial class ChemistrySourceGenerationContext
-    : JsonSerializerContext
-{ }
+    : JsonSerializerContext;

@@ -42,7 +42,7 @@ public class MaterialConverterFactory : JsonConverterFactory
 
         return (JsonConverter)Activator.CreateInstance(
             typeof(MaterialConverter<>).MakeGenericType(
-                new Type[] { type }),
+                [type]),
             BindingFlags.Instance | BindingFlags.Public,
             binder: null,
             args: null,

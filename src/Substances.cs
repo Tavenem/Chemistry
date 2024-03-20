@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using System.Text.Json.Serialization.Metadata;
 using Tavenem.Chemistry.Elements;
 using Tavenem.DataStorage;
 
@@ -180,7 +181,7 @@ public static class Substances
     /// </remarks>
     public static T Register<T>(this T substance) where T : class, ISubstance
     {
-        DataStore.StoreItem(substance);
+        DataStore.StoreItem(substance, ChemistrySourceGenerationContext.Default.ISubstance);
         return substance;
     }
 
@@ -206,7 +207,7 @@ public static class Substances
     /// </remarks>
     public static T Register<T>(this T substance, IDataStore dataStore) where T : class, ISubstance
     {
-        dataStore.StoreItem(substance);
+        dataStore.StoreItem(substance, ChemistrySourceGenerationContext.Default.ISubstance);
         return substance;
     }
 
@@ -231,12 +232,12 @@ public static class Substances
             substance = null;
             return false;
         }
-        if (!AlwaysUseDataStore && _InternalDataStore.GetItem<ISubstance>(id) is ISubstance internalResult)
+        if (!AlwaysUseDataStore && _InternalDataStore.GetItem(id, ChemistrySourceGenerationContext.Default.ISubstance) is ISubstance internalResult)
         {
             substance = internalResult;
             return true;
         }
-        if (DataStore.GetItem<ISubstance>(id) is ISubstance result)
+        if (DataStore.GetItem(id, ChemistrySourceGenerationContext.Default.ISubstance) is ISubstance result)
         {
             substance = result;
             return true;
@@ -258,21 +259,24 @@ public static class Substances
     /// <param name="id">The id of the substance to be retrieved.</param>
     /// <param name="substance">When the method returns, will be set to the retrieved
     /// substance.</param>
+    /// <param name="typeInfo">
+    /// <see cref="JsonTypeInfo{T}"/> for <typeparamref name="T"/>.
+    /// </param>
     /// <returns><see langword="true"/> if a substance with the given <paramref name="id"/>
     /// was found in the registry; otherwise <see langword="false"/>.</returns>
-    public static bool TryGetSubstance<T>(string id, [NotNullWhen(true)] out T? substance) where T : class, ISubstance
+    public static bool TryGetSubstance<T>(string id, [NotNullWhen(true)] out T? substance, JsonTypeInfo<T>? typeInfo = null) where T : class, ISubstance
     {
         if (string.IsNullOrEmpty(id))
         {
             substance = null;
             return false;
         }
-        if (!AlwaysUseDataStore && _InternalDataStore.GetItem<T>(id) is T internalResult)
+        if (!AlwaysUseDataStore && _InternalDataStore.GetItem(id, typeInfo) is T internalResult)
         {
             substance = internalResult;
             return true;
         }
-        if (DataStore.GetItem<T>(id) is T result)
+        if (DataStore.GetItem(id, typeInfo) is T result)
         {
             substance = result;
             return true;
@@ -307,7 +311,7 @@ public static class Substances
             isFlammable: true,
             meltingPoint: 195.42)
         {
-            Categories = new[] { Category_Atmospheric }
+            Categories = [Category_Atmospheric]
         };
 
         /// <summary>
@@ -327,7 +331,7 @@ public static class Substances
             isFlammable: true,
             meltingPoint: 329.8)
         {
-            Categories = new[] { Category_Atmospheric }
+            Categories = [Category_Atmospheric]
         };
 
         /// <summary>
@@ -347,7 +351,7 @@ public static class Substances
             isFlammable: true,
             meltingPoint: 191.15)
         {
-            Categories = new[] { Category_Atmospheric }
+            Categories = [Category_Atmospheric]
         };
 
         /// <summary>
@@ -367,7 +371,7 @@ public static class Substances
             isFlammable: true,
             meltingPoint: 140.35)
         {
-            Categories = new[] { Category_Atmospheric }
+            Categories = [Category_Atmospheric]
         };
 
         /// <summary>
@@ -386,7 +390,7 @@ public static class Substances
             densitySolid: 1377,
             meltingPoint: 202.15)
         {
-            Categories = new[] { Category_Atmospheric }
+            Categories = [Category_Atmospheric]
         };
 
         /// <summary>
@@ -438,7 +442,7 @@ public static class Substances
             isFlammable: true,
             meltingPoint: 14.01)
         {
-            Categories = new[] { Category_Elements, Category_Atmospheric }
+            Categories = [Category_Elements, Category_Atmospheric]
         };
 
         /// <summary>
@@ -459,7 +463,7 @@ public static class Substances
             isFlammable: true,
             meltingPoint: 14.01)
         {
-            Categories = new[] { Category_Elements, Category_Cosmic }
+            Categories = [Category_Elements, Category_Cosmic]
         };
 
         /// <summary>
@@ -474,7 +478,7 @@ public static class Substances
             densitySolid: 145,
             meltingPoint: 0.95)
         {
-            Categories = new[] { Category_Elements, Category_Atmospheric }
+            Categories = [Category_Elements, Category_Atmospheric]
         };
 
         /// <summary>
@@ -496,7 +500,7 @@ public static class Substances
             meltingPoint: 453.65,
             youngsModulus: 4.91)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -515,7 +519,7 @@ public static class Substances
             meltingPoint: 1560,
             youngsModulus: 318)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -533,7 +537,7 @@ public static class Substances
             meltingPoint: 2349,
             youngsModulus: 440)
         {
-            Categories = new[] { Category_Elements, Category_Metalloid }
+            Categories = [Category_Elements, Category_Metalloid]
         };
 
         /// <summary>
@@ -551,9 +555,9 @@ public static class Substances
             isFlammable: true,
             meltingPoint: 3915,
             youngsModulus: 15.85,
-            commonNames: new string[] { "Graphite" })
+            commonNames: ["Graphite"])
         {
-            Categories = new[] { Category_Elements }
+            Categories = [Category_Elements]
         };
 
         /// <summary>
@@ -571,7 +575,7 @@ public static class Substances
             meltingPoint: 3915,
             youngsModulus: 1220)
         {
-            Categories = new[] { Category_Elements, Category_Gem }
+            Categories = [Category_Elements, Category_Gem]
         };
 
         /// <summary>
@@ -590,7 +594,7 @@ public static class Substances
             densitySolid: 808,
             meltingPoint: 63.15)
         {
-            Categories = new[] { Category_Elements, Category_Atmospheric }
+            Categories = [Category_Elements, Category_Atmospheric]
         };
 
         /// <summary>
@@ -612,7 +616,7 @@ public static class Substances
             isFlammable: true,
             meltingPoint: 54.36)
         {
-            Categories = new[] { Category_Elements, Category_Atmospheric }
+            Categories = [Category_Elements, Category_Atmospheric]
         };
 
         /// <summary>
@@ -633,7 +637,7 @@ public static class Substances
             isFlammable: true,
             meltingPoint: 81.15)
         {
-            Categories = new[] { Category_Elements, Category_Atmospheric }
+            Categories = [Category_Elements, Category_Atmospheric]
         };
 
         /// <summary>
@@ -654,7 +658,7 @@ public static class Substances
             isFlammable: true,
             meltingPoint: 53.48)
         {
-            Categories = new[] { Category_Elements }
+            Categories = [Category_Elements]
         };
 
         /// <summary>
@@ -673,7 +677,7 @@ public static class Substances
             densitySolid: 1207,
             meltingPoint: 24.55)
         {
-            Categories = new[] { Category_Elements, Category_Atmospheric }
+            Categories = [Category_Elements, Category_Atmospheric]
         };
 
         /// <summary>
@@ -696,7 +700,7 @@ public static class Substances
             meltingPoint: 370.944,
             youngsModulus: 6.8)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -716,7 +720,7 @@ public static class Substances
             meltingPoint: 370.944,
             youngsModulus: 44.7)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -737,9 +741,9 @@ public static class Substances
             isConductive: true,
             meltingPoint: 933.45,
             youngsModulus: 70.2,
-            commonNames: new string[] { "Aluminum" })
+            commonNames: ["Aluminum"])
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -760,7 +764,7 @@ public static class Substances
             meltingPoint: 1687,
             youngsModulus: 113)
         {
-            Categories = new[] { Category_Elements, Category_Metalloid }
+            Categories = [Category_Elements, Category_Metalloid]
         };
 
         /// <summary>
@@ -780,9 +784,9 @@ public static class Substances
             isFlammable: true,
             meltingPoint: 317.3,
             youngsModulus: 30.4,
-            commonNames: new string[] { "Phosphorus" })
+            commonNames: ["Phosphorus"])
         {
-            Categories = new[] { Category_Elements }
+            Categories = [Category_Elements]
         };
 
         /// <summary>
@@ -802,9 +806,9 @@ public static class Substances
             isFlammable: true,
             meltingPoint: 860,
             youngsModulus: 30.4,
-            commonNames: new string[] { "Phosphorus" })
+            commonNames: ["Phosphorus"])
         {
-            Categories = new[] { Category_Elements }
+            Categories = [Category_Elements]
         };
 
         /// <summary>
@@ -823,7 +827,7 @@ public static class Substances
             meltingPoint: 388.36,
             youngsModulus: 17.8)
         {
-            Categories = new[] { Category_Elements }
+            Categories = [Category_Elements]
         };
 
         /// <summary>
@@ -844,7 +848,7 @@ public static class Substances
             isFlammable: true,
             meltingPoint: 171.6)
         {
-            Categories = new[] { Category_Elements }
+            Categories = [Category_Elements]
         };
 
         /// <summary>
@@ -863,7 +867,7 @@ public static class Substances
             densitySolid: 1395.4,
             meltingPoint: 83.8)
         {
-            Categories = new[] { Category_Elements, Category_Atmospheric }
+            Categories = [Category_Elements, Category_Atmospheric]
         };
 
         /// <summary>
@@ -886,7 +890,7 @@ public static class Substances
             meltingPoint: 336.7,
             youngsModulus: 3.175)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -909,7 +913,7 @@ public static class Substances
             meltingPoint: 1115,
             youngsModulus: 19.6)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -929,7 +933,7 @@ public static class Substances
             meltingPoint: 1814,
             youngsModulus: 74.4)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -948,7 +952,7 @@ public static class Substances
             meltingPoint: 1941,
             youngsModulus: 120.2)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -967,7 +971,7 @@ public static class Substances
             meltingPoint: 2183,
             youngsModulus: 127.6)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -989,7 +993,7 @@ public static class Substances
             meltingPoint: 2180,
             youngsModulus: 279)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -1008,7 +1012,7 @@ public static class Substances
             meltingPoint: 1519,
             youngsModulus: 191)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -1027,7 +1031,7 @@ public static class Substances
             meltingPoint: 1811.15,
             youngsModulus: 208.2)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -1046,7 +1050,7 @@ public static class Substances
             meltingPoint: 1768,
             youngsModulus: 211)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -1068,7 +1072,7 @@ public static class Substances
             meltingPoint: 1728.15,
             youngsModulus: 199.5)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -1087,7 +1091,7 @@ public static class Substances
             meltingPoint: 1357.95,
             youngsModulus: 129.8)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -1106,7 +1110,7 @@ public static class Substances
             meltingPoint: 692.68,
             youngsModulus: 104.5)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -1125,7 +1129,7 @@ public static class Substances
             meltingPoint: 302.9146,
             youngsModulus: 9.81)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -1143,7 +1147,7 @@ public static class Substances
             meltingPoint: 1211.40,
             youngsModulus: 79.9)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -1161,7 +1165,7 @@ public static class Substances
             meltingPoint: 887,
             youngsModulus: 22)
         {
-            Categories = new[] { Category_Elements, Category_Metalloid }
+            Categories = [Category_Elements, Category_Metalloid]
         };
 
         /// <summary>
@@ -1182,7 +1186,7 @@ public static class Substances
             meltingPoint: 494,
             youngsModulus: 58)
         {
-            Categories = new[] { Category_Elements }
+            Categories = [Category_Elements]
         };
 
         /// <summary>
@@ -1200,7 +1204,7 @@ public static class Substances
             densityLiquid: 3102.8,
             meltingPoint: 265.8)
         {
-            Categories = new[] { Category_Elements }
+            Categories = [Category_Elements]
         };
 
         /// <summary>
@@ -1218,7 +1222,7 @@ public static class Substances
             densityLiquid: 2413,
             meltingPoint: 115.75)
         {
-            Categories = new[] { Category_Elements, Category_Atmospheric }
+            Categories = [Category_Elements, Category_Atmospheric]
         };
 
         /// <summary>
@@ -1238,7 +1242,7 @@ public static class Substances
             meltingPoint: 312.45,
             youngsModulus: 2.35)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -1258,7 +1262,7 @@ public static class Substances
             meltingPoint: 1050,
             youngsModulus: 15.7)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -1277,7 +1281,7 @@ public static class Substances
             meltingPoint: 1799,
             youngsModulus: 63.5)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -1296,7 +1300,7 @@ public static class Substances
             meltingPoint: 2128,
             youngsModulus: 97.1)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -1314,7 +1318,7 @@ public static class Substances
             meltingPoint: 2750,
             youngsModulus: 104.9)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -1333,7 +1337,7 @@ public static class Substances
             meltingPoint: 2896,
             youngsModulus: 324.8)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -1350,7 +1354,7 @@ public static class Substances
             meltingPoint: 2430,
             youngsModulus: 407)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -1369,7 +1373,7 @@ public static class Substances
             meltingPoint: 2607,
             youngsModulus: 432)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -1388,7 +1392,7 @@ public static class Substances
             meltingPoint: 2237,
             youngsModulus: 379)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -1407,7 +1411,7 @@ public static class Substances
             meltingPoint: 1828.05,
             youngsModulus: 121)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -1429,7 +1433,7 @@ public static class Substances
             meltingPoint: 1234.95,
             youngsModulus: 82.7)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -1448,7 +1452,7 @@ public static class Substances
             meltingPoint: 594.22,
             youngsModulus: 62.6)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -1467,7 +1471,7 @@ public static class Substances
             meltingPoint: 429.7485,
             youngsModulus: 10.6)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -1488,9 +1492,9 @@ public static class Substances
             isConductive: true,
             meltingPoint: 505.08,
             youngsModulus: 49.9,
-            commonNames: new string[] { "Tin" })
+            commonNames: ["Tin"])
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -1509,9 +1513,9 @@ public static class Substances
             densitySolid: 5769,
             hardness: 245,
             meltingPoint: 505.08,
-            commonNames: new string[] { "Tin" })
+            commonNames: ["Tin"])
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -1533,7 +1537,7 @@ public static class Substances
             meltingPoint: 903.78,
             youngsModulus: 54.7)
         {
-            Categories = new[] { Category_Elements, Category_Metalloid }
+            Categories = [Category_Elements, Category_Metalloid]
         };
 
         /// <summary>
@@ -1551,7 +1555,7 @@ public static class Substances
             meltingPoint: 722.66,
             youngsModulus: 47.1)
         {
-            Categories = new[] { Category_Elements, Category_Metalloid }
+            Categories = [Category_Elements, Category_Metalloid]
         };
 
         /// <summary>
@@ -1570,7 +1574,7 @@ public static class Substances
             densitySolid: 4933,
             meltingPoint: 386.85)
         {
-            Categories = new[] { Category_Elements }
+            Categories = [Category_Elements]
         };
 
         /// <summary>
@@ -1588,7 +1592,7 @@ public static class Substances
             densityLiquid: 2942,
             meltingPoint: 161.35)
         {
-            Categories = new[] { Category_Elements, Category_Atmospheric }
+            Categories = [Category_Elements, Category_Atmospheric]
         };
 
         /// <summary>
@@ -1610,9 +1614,9 @@ public static class Substances
             isFlammable: true,
             meltingPoint: 301.7,
             youngsModulus: 1.69,
-            commonNames: new string[] { "Cesium" })
+            commonNames: ["Cesium"])
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -1635,7 +1639,7 @@ public static class Substances
             meltingPoint: 1000,
             youngsModulus: 12.8)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -1655,7 +1659,7 @@ public static class Substances
             meltingPoint: 1193,
             youngsModulus: 36.6)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -1675,7 +1679,7 @@ public static class Substances
             meltingPoint: 1068,
             youngsModulus: 33.6)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -1695,7 +1699,7 @@ public static class Substances
             meltingPoint: 1208,
             youngsModulus: 37.3)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -1715,7 +1719,7 @@ public static class Substances
             meltingPoint: 1297,
             youngsModulus: 41.4)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -1733,7 +1737,7 @@ public static class Substances
             meltingPoint: 1315,
             youngsModulus: 46)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -1753,7 +1757,7 @@ public static class Substances
             meltingPoint: 1345,
             youngsModulus: 49.7)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -1772,7 +1776,7 @@ public static class Substances
             meltingPoint: 1099,
             youngsModulus: 18.2)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -1791,7 +1795,7 @@ public static class Substances
             meltingPoint: 1585,
             youngsModulus: 54.8)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -1810,7 +1814,7 @@ public static class Substances
             meltingPoint: 1629,
             youngsModulus: 55.7)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -1830,7 +1834,7 @@ public static class Substances
             meltingPoint: 1680,
             youngsModulus: 61.4)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -1850,7 +1854,7 @@ public static class Substances
             meltingPoint: 1734,
             youngsModulus: 64.8)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -1870,7 +1874,7 @@ public static class Substances
             meltingPoint: 1802,
             youngsModulus: 69.9)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -1890,7 +1894,7 @@ public static class Substances
             meltingPoint: 1818,
             youngsModulus: 74)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -1910,7 +1914,7 @@ public static class Substances
             meltingPoint: 1097,
             youngsModulus: 23.9)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -1930,7 +1934,7 @@ public static class Substances
             meltingPoint: 1925,
             youngsModulus: 68.6)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -1950,7 +1954,7 @@ public static class Substances
             meltingPoint: 2506,
             youngsModulus: 141)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -1969,7 +1973,7 @@ public static class Substances
             meltingPoint: 3290,
             youngsModulus: 185.7)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -1988,7 +1992,7 @@ public static class Substances
             meltingPoint: 3695,
             youngsModulus: 411)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -2007,7 +2011,7 @@ public static class Substances
             meltingPoint: 3459,
             youngsModulus: 520)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -2026,7 +2030,7 @@ public static class Substances
             meltingPoint: 3306,
             youngsModulus: 558.6)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -2045,7 +2049,7 @@ public static class Substances
             meltingPoint: 2719,
             youngsModulus: 528)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -2067,7 +2071,7 @@ public static class Substances
             meltingPoint: 2041.15,
             youngsModulus: 172.4)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -2089,7 +2093,7 @@ public static class Substances
             meltingPoint: 1337.15,
             youngsModulus: 78.5)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -2109,7 +2113,7 @@ public static class Substances
             isConductive: true,
             meltingPoint: 234.321)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -2128,7 +2132,7 @@ public static class Substances
             meltingPoint: 577,
             youngsModulus: 7.9)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -2147,7 +2151,7 @@ public static class Substances
             meltingPoint: 600.61,
             youngsModulus: 16.1)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -2167,7 +2171,7 @@ public static class Substances
             meltingPoint: 544.7,
             youngsModulus: 34)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -2184,7 +2188,7 @@ public static class Substances
             meltingPoint: 527,
             youngsModulus: 26)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -2199,7 +2203,7 @@ public static class Substances
             densitySolid: 6350,
             meltingPoint: 575)
         {
-            Categories = new[] { Category_Elements }
+            Categories = [Category_Elements]
         };
 
         /// <summary>
@@ -2217,7 +2221,7 @@ public static class Substances
             densityLiquid: 4400,
             meltingPoint: 544.7)
         {
-            Categories = new[] { Category_Elements }
+            Categories = [Category_Elements]
         };
 
         /// <summary>
@@ -2233,7 +2237,7 @@ public static class Substances
             isConductive: true,
             meltingPoint: 300)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -2250,7 +2254,7 @@ public static class Substances
             meltingPoint: 973,
             youngsModulus: 13.2)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -2267,7 +2271,7 @@ public static class Substances
             meltingPoint: 1500,
             youngsModulus: 25)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -2285,7 +2289,7 @@ public static class Substances
             meltingPoint: 2023,
             youngsModulus: 78.3)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -2302,7 +2306,7 @@ public static class Substances
             meltingPoint: 1841,
             youngsModulus: 76)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -2321,7 +2325,7 @@ public static class Substances
             meltingPoint: 1405.3,
             youngsModulus: 177)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -2341,7 +2345,7 @@ public static class Substances
             meltingPoint: 912,
             youngsModulus: 68)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -2359,7 +2363,7 @@ public static class Substances
             meltingPoint: 912.5,
             youngsModulus: 87.5)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -2375,7 +2379,7 @@ public static class Substances
             isConductive: true,
             meltingPoint: 1449)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -2391,7 +2395,7 @@ public static class Substances
             isConductive: true,
             meltingPoint: 1613)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -2406,7 +2410,7 @@ public static class Substances
             densitySolid: 13250,
             meltingPoint: 1259)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -2421,7 +2425,7 @@ public static class Substances
             densitySolid: 13250,
             meltingPoint: 1259)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -2446,7 +2450,7 @@ public static class Substances
             densitySolid: 9710,
             meltingPoint: 1800)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -2459,7 +2463,7 @@ public static class Substances
             densitySolid: 10370,
             meltingPoint: 1100)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -2472,7 +2476,7 @@ public static class Substances
             densitySolid: 9940,
             meltingPoint: 1100)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -2485,7 +2489,7 @@ public static class Substances
             densitySolid: 16100,
             meltingPoint: 1900)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -2500,7 +2504,7 @@ public static class Substances
             densitySolid: 23200,
             meltingPoint: 2400)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -2512,7 +2516,7 @@ public static class Substances
             "Dubnium",
             densitySolid: 29300)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -2524,7 +2528,7 @@ public static class Substances
             "Seaborgium",
             densitySolid: 35000)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -2536,7 +2540,7 @@ public static class Substances
             "Bohrium",
             densitySolid: 37100)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -2548,7 +2552,7 @@ public static class Substances
             "Hassium",
             densitySolid: 41000)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -2560,7 +2564,7 @@ public static class Substances
             "Meitnerium",
             densitySolid: 37400)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -2572,7 +2576,7 @@ public static class Substances
             "Darmstadtium",
             densitySolid: 34800)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -2584,7 +2588,7 @@ public static class Substances
             "Roentgenium",
             densitySolid: 28700)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -2598,7 +2602,7 @@ public static class Substances
             antoineMinimumTemperature: 357,
             densityLiquid: 23700)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -2613,7 +2617,7 @@ public static class Substances
             densitySolid: 16000,
             meltingPoint: 700)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -2627,7 +2631,7 @@ public static class Substances
             antoineMinimumTemperature: 210,
             densityLiquid: 14000)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -2642,7 +2646,7 @@ public static class Substances
             densitySolid: 13500,
             meltingPoint: 670)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -2657,7 +2661,7 @@ public static class Substances
             densitySolid: 12900,
             meltingPoint: 708.5)
         {
-            Categories = new[] { Category_Elements, Category_Metal }
+            Categories = [Category_Elements, Category_Metal]
         };
 
         /// <summary>
@@ -2672,7 +2676,7 @@ public static class Substances
             densitySolid: 7250,
             meltingPoint: 723)
         {
-            Categories = new[] { Category_Elements }
+            Categories = [Category_Elements]
         };
 
         /// <summary>
@@ -2686,7 +2690,7 @@ public static class Substances
             antoineMinimumTemperature: 350,
             densityLiquid: 5500)
         {
-            Categories = new[] { Category_Elements }
+            Categories = [Category_Elements]
         };
 
         /// <summary>
@@ -2874,9 +2878,9 @@ public static class Substances
             hardness: 1500,
             meltingPoint: 2570,
             youngsModulus: 211,
-            commonNames: new string[] { "Aquamarine" })
+            commonNames: ["Aquamarine"])
         {
-            Categories = new[] { Category_Gem }
+            Categories = [Category_Gem]
         };
 
         /// <summary>
@@ -2892,7 +2896,7 @@ public static class Substances
             meltingPoint: 2323.15,
             youngsModulus: 400)
         {
-            Categories = new[] { Category_Gem, Category_Mineral, Category_Stone }
+            Categories = [Category_Gem, Category_Mineral, Category_Stone]
         };
 
         /// <summary>
@@ -2908,7 +2912,7 @@ public static class Substances
             meltingPoint: 688.45,
             youngsModulus: 290)
         {
-            Categories = new[] { Category_Gem }
+            Categories = [Category_Gem]
         };
 
         /// <summary>
@@ -2954,7 +2958,7 @@ public static class Substances
             isFlammable: true,
             meltingPoint: 543)
         {
-            Categories = new[] { Category_Hydrocarbon }
+            Categories = [Category_Hydrocarbon]
         };
 
         /// <summary>
@@ -2974,7 +2978,7 @@ public static class Substances
             isFlammable: true,
             meltingPoint: 489)
         {
-            Categories = new[] { Category_Hydrocarbon }
+            Categories = [Category_Hydrocarbon]
         };
 
         /// <summary>
@@ -2993,7 +2997,7 @@ public static class Substances
             isFlammable: true,
             meltingPoint: 278.68)
         {
-            Categories = new[] { Category_Hydrocarbon }
+            Categories = [Category_Hydrocarbon]
         };
 
         /// <summary>
@@ -3012,7 +3016,7 @@ public static class Substances
             isFlammable: true,
             meltingPoint: 342.3)
         {
-            Categories = new[] { Category_Hydrocarbon }
+            Categories = [Category_Hydrocarbon]
         };
 
         /// <summary>
@@ -3031,7 +3035,7 @@ public static class Substances
             isFlammable: true,
             meltingPoint: 136)
         {
-            Categories = new[] { Category_Hydrocarbon }
+            Categories = [Category_Hydrocarbon]
         };
 
         /// <summary>
@@ -3051,7 +3055,7 @@ public static class Substances
             greenhousePotential: 1,
             meltingPoint: 195.15)
         {
-            Categories = new[] { Category_Hydrocarbon, Category_Atmospheric }
+            Categories = [Category_Hydrocarbon, Category_Atmospheric]
         };
 
         /// <summary>
@@ -3071,7 +3075,7 @@ public static class Substances
             isFlammable: true,
             meltingPoint: 68.15)
         {
-            Categories = new[] { Category_Hydrocarbon, Category_Atmospheric }
+            Categories = [Category_Hydrocarbon, Category_Atmospheric]
         };
 
         /// <summary>
@@ -3089,7 +3093,7 @@ public static class Substances
             isFlammable: true,
             meltingPoint: 182)
         {
-            Categories = new[] { Category_Hydrocarbon }
+            Categories = [Category_Hydrocarbon]
         };
 
         /// <summary>
@@ -3105,7 +3109,7 @@ public static class Substances
             isFlammable: true,
             meltingPoint: 282.5)
         {
-            Categories = new[] { Category_Hydrocarbon }
+            Categories = [Category_Hydrocarbon]
         };
 
         /// <summary>
@@ -3121,7 +3125,7 @@ public static class Substances
             isFlammable: true,
             meltingPoint: 333.9)
         {
-            Categories = new[] { Category_Hydrocarbon }
+            Categories = [Category_Hydrocarbon]
         };
 
         /// <summary>
@@ -3140,7 +3144,7 @@ public static class Substances
             isFlammable: true,
             meltingPoint: 261)
         {
-            Categories = new[] { Category_Hydrocarbon }
+            Categories = [Category_Hydrocarbon]
         };
 
         /// <summary>
@@ -3159,7 +3163,7 @@ public static class Substances
             isFlammable: true,
             meltingPoint: 279.62)
         {
-            Categories = new[] { Category_Hydrocarbon }
+            Categories = [Category_Hydrocarbon]
         };
 
         /// <summary>
@@ -3175,7 +3179,7 @@ public static class Substances
             isFlammable: true,
             meltingPoint: 283.65)
         {
-            Categories = new[] { Category_Hydrocarbon }
+            Categories = [Category_Hydrocarbon]
         };
 
         /// <summary>
@@ -3194,7 +3198,7 @@ public static class Substances
             isFlammable: true,
             meltingPoint: 287.74)
         {
-            Categories = new[] { Category_Hydrocarbon }
+            Categories = [Category_Hydrocarbon]
         };
 
         /// <summary>
@@ -3213,7 +3217,7 @@ public static class Substances
             isFlammable: true,
             meltingPoint: 179.2)
         {
-            Categories = new[] { Category_Hydrocarbon }
+            Categories = [Category_Hydrocarbon]
         };
 
         /// <summary>
@@ -3231,7 +3235,7 @@ public static class Substances
             isFlammable: true,
             meltingPoint: 145)
         {
-            Categories = new[] { Category_Hydrocarbon }
+            Categories = [Category_Hydrocarbon]
         };
 
         /// <summary>
@@ -3247,7 +3251,7 @@ public static class Substances
             isFlammable: true,
             meltingPoint: 327.15)
         {
-            Categories = new[] { Category_Hydrocarbon }
+            Categories = [Category_Hydrocarbon]
         };
 
         /// <summary>
@@ -3263,7 +3267,7 @@ public static class Substances
             isFlammable: true,
             meltingPoint: 296.15)
         {
-            Categories = new[] { Category_Hydrocarbon }
+            Categories = [Category_Hydrocarbon]
         };
 
         /// <summary>
@@ -3279,7 +3283,7 @@ public static class Substances
             isFlammable: true,
             meltingPoint: 266.15)
         {
-            Categories = new[] { Category_Hydrocarbon }
+            Categories = [Category_Hydrocarbon]
         };
 
         /// <summary>
@@ -3298,7 +3302,7 @@ public static class Substances
             isFlammable: true,
             meltingPoint: 177)
         {
-            Categories = new[] { Category_Hydrocarbon }
+            Categories = [Category_Hydrocarbon]
         };
 
         /// <summary>
@@ -3317,7 +3321,7 @@ public static class Substances
             isFlammable: true,
             meltingPoint: 242.7)
         {
-            Categories = new[] { Category_Hydrocarbon }
+            Categories = [Category_Hydrocarbon]
         };
 
         /// <summary>
@@ -3336,7 +3340,7 @@ public static class Substances
             isFlammable: true,
             meltingPoint: 243.3)
         {
-            Categories = new[] { Category_Hydrocarbon }
+            Categories = [Category_Hydrocarbon]
         };
 
         /// <summary>
@@ -3352,7 +3356,7 @@ public static class Substances
             isFlammable: true,
             meltingPoint: 263.5)
         {
-            Categories = new[] { Category_Hydrocarbon }
+            Categories = [Category_Hydrocarbon]
         };
 
         /// <summary>
@@ -3371,7 +3375,7 @@ public static class Substances
             isFlammable: true,
             meltingPoint: 352.3)
         {
-            Categories = new[] { Category_Hydrocarbon }
+            Categories = [Category_Hydrocarbon]
         };
 
         /// <summary>
@@ -3391,7 +3395,7 @@ public static class Substances
             isFlammable: true,
             meltingPoint: 90.15)
         {
-            Categories = new[] { Category_Hydrocarbon }
+            Categories = [Category_Hydrocarbon]
         };
 
         /// <summary>
@@ -3410,7 +3414,7 @@ public static class Substances
             isFlammable: true,
             meltingPoint: 178)
         {
-            Categories = new[] { Category_Hydrocarbon }
+            Categories = [Category_Hydrocarbon]
         };
 
         /// <summary>
@@ -3428,7 +3432,7 @@ public static class Substances
             isFlammable: true,
             meltingPoint: 104)
         {
-            Categories = new[] { Category_Hydrocarbon }
+            Categories = [Category_Hydrocarbon]
         };
 
         /// <summary>
@@ -3447,7 +3451,7 @@ public static class Substances
             isFlammable: true,
             meltingPoint: 182.601)
         {
-            Categories = new[] { Category_Hydrocarbon }
+            Categories = [Category_Hydrocarbon]
         };
 
         /// <summary>
@@ -3463,7 +3467,7 @@ public static class Substances
             isFlammable: true,
             meltingPoint: 291)
         {
-            Categories = new[] { Category_Hydrocarbon }
+            Categories = [Category_Hydrocarbon]
         };
 
         /// <summary>
@@ -3482,7 +3486,7 @@ public static class Substances
             isFlammable: true,
             meltingPoint: 178)
         {
-            Categories = new[] { Category_Hydrocarbon }
+            Categories = [Category_Hydrocarbon]
         };
 
         /// <summary>
@@ -3501,7 +3505,7 @@ public static class Substances
             isFlammable: true,
             meltingPoint: 133.3)
         {
-            Categories = new[] { Category_Hydrocarbon }
+            Categories = [Category_Hydrocarbon]
         };
 
         /// <summary>
@@ -3517,7 +3521,7 @@ public static class Substances
             isFlammable: true,
             meltingPoint: 221.8)
         {
-            Categories = new[] { Category_Hydrocarbon }
+            Categories = [Category_Hydrocarbon]
         };
 
         /// <summary>
@@ -3536,7 +3540,7 @@ public static class Substances
             isFlammable: true,
             meltingPoint: 271.3)
         {
-            Categories = new[] { Category_Hydrocarbon }
+            Categories = [Category_Hydrocarbon]
         };
 
         /// <summary>
@@ -3557,7 +3561,7 @@ public static class Substances
             isFlammable: true,
             meltingPoint: 91.15)
         {
-            Categories = new[] { Category_Hydrocarbon, Category_Atmospheric }
+            Categories = [Category_Hydrocarbon, Category_Atmospheric]
         };
 
         /// <summary>
@@ -3576,7 +3580,7 @@ public static class Substances
             isFlammable: true,
             meltingPoint: 225)
         {
-            Categories = new[] { Category_Hydrocarbon }
+            Categories = [Category_Hydrocarbon]
         };
 
         /// <summary>
@@ -3596,7 +3600,7 @@ public static class Substances
             isFlammable: true,
             meltingPoint: 351.3)
         {
-            Categories = new[] { Category_Hydrocarbon }
+            Categories = [Category_Hydrocarbon]
         };
 
         /// <summary>
@@ -3615,7 +3619,7 @@ public static class Substances
             isFlammable: true,
             meltingPoint: 219.5)
         {
-            Categories = new[] { Category_Hydrocarbon }
+            Categories = [Category_Hydrocarbon]
         };
 
         /// <summary>
@@ -3634,7 +3638,7 @@ public static class Substances
             isFlammable: true,
             meltingPoint: 216.3)
         {
-            Categories = new[] { Category_Hydrocarbon }
+            Categories = [Category_Hydrocarbon]
         };
 
         /// <summary>
@@ -3653,7 +3657,7 @@ public static class Substances
             isFlammable: true,
             meltingPoint: 249)
         {
-            Categories = new[] { Category_Hydrocarbon }
+            Categories = [Category_Hydrocarbon]
         };
 
         /// <summary>
@@ -3669,7 +3673,7 @@ public static class Substances
             isFlammable: true,
             meltingPoint: 290)
         {
-            Categories = new[] { Category_Hydrocarbon }
+            Categories = [Category_Hydrocarbon]
         };
 
         /// <summary>
@@ -3688,7 +3692,7 @@ public static class Substances
             isFlammable: true,
             meltingPoint: 143.4)
         {
-            Categories = new[] { Category_Hydrocarbon }
+            Categories = [Category_Hydrocarbon]
         };
 
         /// <summary>
@@ -3707,7 +3711,7 @@ public static class Substances
             isFlammable: true,
             meltingPoint: 374)
         {
-            Categories = new[] { Category_Hydrocarbon }
+            Categories = [Category_Hydrocarbon]
         };
 
         /// <summary>
@@ -3726,7 +3730,7 @@ public static class Substances
             isFlammable: true,
             meltingPoint: 85.5)
         {
-            Categories = new[] { Category_Hydrocarbon }
+            Categories = [Category_Hydrocarbon]
         };
 
         /// <summary>
@@ -3745,7 +3749,7 @@ public static class Substances
             isFlammable: true,
             meltingPoint: 286.3)
         {
-            Categories = new[] { Category_Hydrocarbon }
+            Categories = [Category_Hydrocarbon]
         };
 
         /// <summary>
@@ -3761,7 +3765,7 @@ public static class Substances
             isFlammable: true,
             meltingPoint: 278)
         {
-            Categories = new[] { Category_Hydrocarbon }
+            Categories = [Category_Hydrocarbon]
         };
 
         /// <summary>
@@ -3780,7 +3784,7 @@ public static class Substances
             isFlammable: true,
             meltingPoint: 178)
         {
-            Categories = new[] { Category_Hydrocarbon }
+            Categories = [Category_Hydrocarbon]
         };
 
         /// <summary>
@@ -3796,7 +3800,7 @@ public static class Substances
             isFlammable: true,
             meltingPoint: 268)
         {
-            Categories = new[] { Category_Hydrocarbon }
+            Categories = [Category_Hydrocarbon]
         };
 
         /// <summary>
@@ -3812,7 +3816,7 @@ public static class Substances
             isFlammable: true,
             meltingPoint: 247.4)
         {
-            Categories = new[] { Category_Hydrocarbon }
+            Categories = [Category_Hydrocarbon]
         };
 
         /// <summary>
@@ -3904,7 +3908,7 @@ public static class Substances
             meltingPoint: 0.95,
             fixedPhase: PhaseType.Plasma)
         {
-            Categories = new[] { Category_Ion, Category_Plasma }
+            Categories = [Category_Ion, Category_Plasma]
         };
 
         /// <summary>
@@ -3919,7 +3923,7 @@ public static class Substances
             densitySolid: 2200,
             meltingPoint: 336.12)
         {
-            Categories = new[] { Category_Ion }
+            Categories = [Category_Ion]
         };
 
         /// <summary>
@@ -3938,7 +3942,7 @@ public static class Substances
             isFlammable: true,
             meltingPoint: 3915)
         {
-            Categories = new[] { Category_Ion }
+            Categories = [Category_Ion]
         };
 
         /// <summary>
@@ -3960,7 +3964,7 @@ public static class Substances
             isFlammable: true,
             meltingPoint: 1115)
         {
-            Categories = new[] { Category_Ion }
+            Categories = [Category_Ion]
         };
 
         /// <summary>
@@ -3980,7 +3984,7 @@ public static class Substances
             isFlammable: true,
             meltingPoint: 171.6)
         {
-            Categories = new[] { Category_Ion }
+            Categories = [Category_Ion]
         };
 
         /// <summary>
@@ -4001,7 +4005,7 @@ public static class Substances
             isConductive: true,
             meltingPoint: 2180)
         {
-            Categories = new[] { Category_Ion }
+            Categories = [Category_Ion]
         };
 
         /// <summary>
@@ -4019,7 +4023,7 @@ public static class Substances
             isConductive: true,
             meltingPoint: 1811.15)
         {
-            Categories = new[] { Category_Ion }
+            Categories = [Category_Ion]
         };
 
         /// <summary>
@@ -4041,7 +4045,7 @@ public static class Substances
             meltingPoint: 14.15,
             fixedPhase: PhaseType.Plasma)
         {
-            Categories = new[] { Category_Ion, Category_Plasma }
+            Categories = [Category_Ion, Category_Plasma]
         };
 
         /// <summary>
@@ -4063,7 +4067,7 @@ public static class Substances
             isFlammable: true,
             meltingPoint: 336.7)
         {
-            Categories = new[] { Category_Ion }
+            Categories = [Category_Ion]
         };
 
         /// <summary>
@@ -4082,7 +4086,7 @@ public static class Substances
             isFlammable: true,
             meltingPoint: 370.944)
         {
-            Categories = new[] { Category_Ion }
+            Categories = [Category_Ion]
         };
 
         /// <summary>
@@ -4101,7 +4105,7 @@ public static class Substances
             densitySolid: 808,
             meltingPoint: 63.15)
         {
-            Categories = new[] { Category_Ion }
+            Categories = [Category_Ion]
         };
 
         /// <summary>
@@ -4123,7 +4127,7 @@ public static class Substances
             isFlammable: true,
             meltingPoint: 370.944)
         {
-            Categories = new[] { Category_Ion }
+            Categories = [Category_Ion]
         };
 
         /// <summary>
@@ -4144,7 +4148,7 @@ public static class Substances
             isFlammable: true,
             meltingPoint: 54.36)
         {
-            Categories = new[] { Category_Ion }
+            Categories = [Category_Ion]
         };
 
         /// <summary>
@@ -4162,7 +4166,7 @@ public static class Substances
             isFlammable: true,
             meltingPoint: 388.36)
         {
-            Categories = new[] { Category_Ion }
+            Categories = [Category_Ion]
         };
 
         /// <summary>
@@ -4182,7 +4186,7 @@ public static class Substances
             hardness: 1224,
             meltingPoint: 1687)
         {
-            Categories = new[] { Category_Ion }
+            Categories = [Category_Ion]
         };
 
         /// <summary>
@@ -4196,7 +4200,7 @@ public static class Substances
             antoineMinimumTemperature: 897.04,
             meltingPoint: 543.62)
         {
-            Categories = new[] { Category_Ion }
+            Categories = [Category_Ion]
         };
 
         /// <summary>
@@ -4214,7 +4218,7 @@ public static class Substances
             isConductive: true,
             meltingPoint: 1941)
         {
-            Categories = new[] { Category_Ion }
+            Categories = [Category_Ion]
         };
 
         /// <summary>
@@ -4274,7 +4278,7 @@ public static class Substances
             hardness: 226,
             meltingPoint: 1109)
         {
-            Categories = new[] { Category_Mineral }
+            Categories = [Category_Mineral]
         };
 
         /// <summary>
@@ -4289,7 +4293,7 @@ public static class Substances
             meltingPoint: 1110,
             youngsModulus: 73.4)
         {
-            Categories = new[] { Category_Mineral, Category_Stone }
+            Categories = [Category_Mineral, Category_Stone]
         };
 
         /// <summary>
@@ -4304,7 +4308,7 @@ public static class Substances
             meltingPoint: 1110,
             youngsModulus: 100)
         {
-            Categories = new[] { Category_Mineral, Category_Stone }
+            Categories = [Category_Mineral, Category_Stone]
         };
 
         /// <summary>
@@ -4321,7 +4325,7 @@ public static class Substances
             meltingPoint: 2323.15,
             youngsModulus: 140)
         {
-            Categories = new[] { Category_Mineral }
+            Categories = [Category_Mineral]
         };
 
         /// <summary>
@@ -4338,9 +4342,9 @@ public static class Substances
             hardness: 250,
             meltingPoint: 1612,
             youngsModulus: 80.7,
-            commonNames: new string[] { "Limestone", "Calcite", "Aragonite", "Limescale" })
+            commonNames: ["Limestone", "Calcite", "Aragonite", "Limescale"])
         {
-            Categories = new[] { Category_Mineral, Category_Stone }
+            Categories = [Category_Mineral, Category_Stone]
         };
 
         /// <summary>
@@ -4356,7 +4360,7 @@ public static class Substances
             hardness: 13268,
             meltingPoint: 1900)
         {
-            Categories = new[] { Category_Mineral }
+            Categories = [Category_Mineral]
         };
 
         /// <summary>
@@ -4370,7 +4374,7 @@ public static class Substances
             hardness: 1834,
             meltingPoint: 1223.15)
         {
-            Categories = new[] { Category_Mineral }
+            Categories = [Category_Mineral]
         };
 
         /// <summary>
@@ -4384,7 +4388,7 @@ public static class Substances
             hardness: 13405,
             meltingPoint: 2500)
         {
-            Categories = new[] { Category_Mineral }
+            Categories = [Category_Mineral]
         };
 
         /// <summary>
@@ -4398,7 +4402,7 @@ public static class Substances
             hardness: 554,
             meltingPoint: 853)
         {
-            Categories = new[] { Category_Mineral }
+            Categories = [Category_Mineral]
         };
 
         /// <summary>
@@ -4412,7 +4416,7 @@ public static class Substances
             hardness: 7700,
             meltingPoint: 1664.15)
         {
-            Categories = new[] { Category_Mineral, Category_Stone }
+            Categories = [Category_Mineral, Category_Stone]
         };
 
         /// <summary>
@@ -4427,7 +4431,7 @@ public static class Substances
             meltingPoint: 1830.15,
             youngsModulus: 182)
         {
-            Categories = new[] { Category_Mineral, Category_Stone }
+            Categories = [Category_Mineral, Category_Stone]
         };
 
         /// <summary>
@@ -4441,7 +4445,7 @@ public static class Substances
             hardness: 7000,
             meltingPoint: 1473.15)
         {
-            Categories = new[] { Category_Mineral, Category_Stone }
+            Categories = [Category_Mineral, Category_Stone]
         };
 
         /// <summary>
@@ -4455,7 +4459,7 @@ public static class Substances
             hardness: 7700,
             meltingPoint: 1830.15)
         {
-            Categories = new[] { Category_Mineral, Category_Stone }
+            Categories = [Category_Mineral, Category_Stone]
         };
 
         /// <summary>
@@ -4469,7 +4473,7 @@ public static class Substances
             hardness: 7110,
             meltingPoint: 2163.15)
         {
-            Categories = new[] { Category_Mineral, Category_Stone }
+            Categories = [Category_Mineral, Category_Stone]
         };
 
         /// <summary>
@@ -4485,7 +4489,7 @@ public static class Substances
             hardness: 897,
             meltingPoint: 1391)
         {
-            Categories = new[] { Category_Mineral }
+            Categories = [Category_Mineral]
         };
 
         /// <summary>
@@ -4501,7 +4505,7 @@ public static class Substances
             hardness: 1200,
             meltingPoint: 573)
         {
-            Categories = new[] { Category_Mineral }
+            Categories = [Category_Mineral]
         };
 
         /// <summary>
@@ -4515,7 +4519,7 @@ public static class Substances
             hardness: 6541,
             meltingPoint: 409.15)
         {
-            Categories = new[] { Category_Mineral }
+            Categories = [Category_Mineral]
         };
 
         /// <summary>
@@ -4529,7 +4533,7 @@ public static class Substances
             hardness: 2000,
             meltingPoint: 398.15)
         {
-            Categories = new[] { Category_Mineral }
+            Categories = [Category_Mineral]
         };
 
         /// <summary>
@@ -4543,7 +4547,7 @@ public static class Substances
             hardness: 10296,
             meltingPoint: 1838.15)
         {
-            Categories = new[] { Category_Mineral }
+            Categories = [Category_Mineral]
         };
 
         /// <summary>
@@ -4558,7 +4562,7 @@ public static class Substances
             meltingPoint: 1670,
             youngsModulus: 125)
         {
-            Categories = new[] { Category_Mineral, Category_Stone }
+            Categories = [Category_Mineral, Category_Stone]
         };
 
         /// <summary>
@@ -4572,7 +4576,7 @@ public static class Substances
             hardness: 6198,
             meltingPoint: 1323.15)
         {
-            Categories = new[] { Category_Mineral }
+            Categories = [Category_Mineral]
         };
 
         /// <summary>
@@ -4586,9 +4590,9 @@ public static class Substances
             hardness: 42,
             meltingPoint: 2023.15,
             youngsModulus: 3.2,
-            commonNames: new string[] { "Kaolin", "China Clay", "Lithomarge" })
+            commonNames: ["Kaolin", "China Clay", "Lithomarge"])
         {
-            Categories = new[] { Category_Mineral, Category_Clay }
+            Categories = [Category_Mineral, Category_Clay]
         };
 
         /// <summary>
@@ -4605,7 +4609,7 @@ public static class Substances
             isConductive: true,
             meltingPoint: 1870)
         {
-            Categories = new[] { Category_Mineral }
+            Categories = [Category_Mineral]
         };
 
         /// <summary>
@@ -4620,7 +4624,7 @@ public static class Substances
             meltingPoint: 1548.15,
             youngsModulus: 48)
         {
-            Categories = new[] { Category_Mineral, Category_Stone }
+            Categories = [Category_Mineral, Category_Stone]
         };
 
         /// <summary>
@@ -4635,7 +4639,7 @@ public static class Substances
             meltingPoint: 873.15,
             youngsModulus: 89)
         {
-            Categories = new[] { Category_Mineral, Category_Stone }
+            Categories = [Category_Mineral, Category_Stone]
         };
 
         /// <summary>
@@ -4650,7 +4654,7 @@ public static class Substances
             isFlammable: true, // Strictly speaking, it is an oxidizer, not flammable.
             meltingPoint: 607)
         {
-            Categories = new[] { Category_Mineral, Category_Stone }
+            Categories = [Category_Mineral, Category_Stone]
         };
 
         /// <summary>
@@ -4664,9 +4668,9 @@ public static class Substances
             hardness: 1512.5,
             meltingPoint: 1455.65,
             youngsModulus: 291.5,
-            commonNames: new string[] { "Fool's Gold", "Iron Pyrite" })
+            commonNames: ["Fool's Gold", "Iron Pyrite"])
         {
-            Categories = new[] { Category_Mineral }
+            Categories = [Category_Mineral]
         };
 
         /// <summary>
@@ -4679,9 +4683,9 @@ public static class Substances
             densitySolid: 3160,
             hardness: 2500,
             meltingPoint: 3100,
-            commonNames: new string[] { "Carborundum" })
+            commonNames: ["Carborundum"])
         {
-            Categories = new[] { Category_Mineral, Category_Stone }
+            Categories = [Category_Mineral, Category_Stone]
         };
 
         /// <summary>
@@ -4698,9 +4702,9 @@ public static class Substances
             hardness: 10980,
             meltingPoint: 1923.15,
             youngsModulus: 95.5,
-            commonNames: new string[] { "Sand", "Quartz", "Silica" })
+            commonNames: ["Sand", "Quartz", "Silica"])
         {
-            Categories = new[] { Category_Mineral, Category_Stone, Category_Gem }
+            Categories = [Category_Mineral, Category_Stone, Category_Gem]
         };
 
         /// <summary>
@@ -4719,9 +4723,9 @@ public static class Substances
             hardness: 20,
             meltingPoint: 1073.8,
             youngsModulus: 39.98,
-            commonNames: new string[] { "Salt" })
+            commonNames: ["Salt"])
         {
-            Categories = new[] { Category_Mineral, Category_Stone, Category_Consumable }
+            Categories = [Category_Mineral, Category_Stone, Category_Consumable]
         };
 
         /// <summary>
@@ -4735,7 +4739,7 @@ public static class Substances
             hardness: 1118.5,
             meltingPoint: 2041)
         {
-            Categories = new[] { Category_Mineral }
+            Categories = [Category_Mineral]
         };
 
         /// <summary>
@@ -4807,7 +4811,7 @@ public static class Substances
             antoineMinimumTemperature: 3250,
             densitySolid: 3987,
             meltingPoint: 2345,
-            commonNames: new string[] { "Alumina", "Aluminum Oxide", "Aloxide", "Aloxite", "Alundum" });
+            commonNames: ["Alumina", "Aluminum Oxide", "Aloxide", "Aloxite", "Alundum"]);
 
         /// <summary>
         /// Calcium Hydroxide
@@ -4820,7 +4824,7 @@ public static class Substances
             antoineMinimumTemperature: 3123.15,
             densitySolid: 2211,
             meltingPoint: 853,
-            commonNames: new string[] { "Hydrated Lime", "Caustic Lime", "Builders' Lime", "Slaked Lime", "Pickling Lime" });
+            commonNames: ["Hydrated Lime", "Caustic Lime", "Builders' Lime", "Slaked Lime", "Pickling Lime"]);
 
         /// <summary>
         /// Calcium Oxide
@@ -4836,7 +4840,7 @@ public static class Substances
             antoineMinimumTemperature: 3120,
             densitySolid: 3340,
             meltingPoint: 2886,
-            commonNames: new string[] { "Quicklime", "Burnt Lime" });
+            commonNames: ["Quicklime", "Burnt Lime"]);
 
         /// <summary>
         /// Iron Sulfide
@@ -4909,7 +4913,7 @@ public static class Substances
             densityLiquid: 1840,
             densitySolid: 1840,
             meltingPoint: 283,
-            commonNames: new string[] { "Oil of Vitriol" });
+            commonNames: ["Oil of Vitriol"]);
 
         /// <summary>
         /// Water
@@ -4930,7 +4934,7 @@ public static class Substances
             isConductive: true,
             meltingPoint: 273.15)
         {
-            Categories = new[] { Category_Aqueous }
+            Categories = [Category_Aqueous]
         };
 
         /// <summary>
@@ -5020,7 +5024,7 @@ public static class Substances
             densitySolid: 1150,
             meltingPoint: 305)
         {
-            Categories = new[] { Category_Organic }
+            Categories = [Category_Organic]
         };
 
         /// <summary>
@@ -5034,7 +5038,7 @@ public static class Substances
             isFlammable: true,
             youngsModulus: 20)
         {
-            Categories = new[] { Category_Organic }
+            Categories = [Category_Organic]
         };
 
         /// <summary>
@@ -5048,7 +5052,7 @@ public static class Substances
             hardness: 1000,
             youngsModulus: 6)
         {
-            Categories = new[] { Category_Organic }
+            Categories = [Category_Organic]
         };
 
         /// <summary>
@@ -5061,7 +5065,7 @@ public static class Substances
             densitySolid: 1350,
             youngsModulus: 2)
         {
-            Categories = new[] { Category_Organic }
+            Categories = [Category_Organic]
         };
 
         /// <summary>
@@ -5076,7 +5080,7 @@ public static class Substances
             densitySolid: 1252,
             meltingPoint: 371.5)
         {
-            Categories = new[] { Category_Organic }
+            Categories = [Category_Organic]
         };
 
         /// <summary>
@@ -5090,7 +5094,7 @@ public static class Substances
             antoineMinimumTemperature: 373.15,
             youngsModulus: 0.001)
         {
-            Categories = new[] { Category_Organic }
+            Categories = [Category_Organic]
         };
 
         /// <summary>
@@ -5110,9 +5114,9 @@ public static class Substances
             isConductive: true,
             isFlammable: true,
             meltingPoint: 158.8,
-            commonNames: new string[] { "Alcohol", "Ethyl Alcohol", "Grain Alcohol" })
+            commonNames: ["Alcohol", "Ethyl Alcohol", "Grain Alcohol"])
         {
-            Categories = new[] { Category_Organic, Category_Consumable }
+            Categories = [Category_Organic, Category_Consumable]
         };
 
         /// <summary>
@@ -5125,9 +5129,9 @@ public static class Substances
             densitySolid: 1694,
             isFlammable: true,
             meltingPoint: 376,
-            commonNames: new string[] { "Sugar", "Fruit Sugar" })
+            commonNames: ["Sugar", "Fruit Sugar"])
         {
-            Categories = new[] { Category_Organic, Category_Consumable }
+            Categories = [Category_Organic, Category_Consumable]
         };
 
         /// <summary>
@@ -5140,7 +5144,7 @@ public static class Substances
             densitySolid: 1500,
             meltingPoint: 442)
         {
-            Categories = new[] { Category_Organic, Category_Consumable }
+            Categories = [Category_Organic, Category_Consumable]
         };
 
         /// <summary>
@@ -5153,9 +5157,9 @@ public static class Substances
             densitySolid: 1540,
             isFlammable: true,
             meltingPoint: 423,
-            commonNames: new string[] { "Sugar" })
+            commonNames: ["Sugar"])
         {
-            Categories = new[] { Category_Organic, Category_Consumable }
+            Categories = [Category_Organic, Category_Consumable]
         };
 
         /// <summary>
@@ -5169,7 +5173,7 @@ public static class Substances
             isFlammable: true,
             meltingPoint: 548.15)
         {
-            Categories = new[] { Category_Organic }
+            Categories = [Category_Organic]
         };
 
         /// <summary>
@@ -5189,7 +5193,7 @@ public static class Substances
             isFlammable: true,
             meltingPoint: 184)
         {
-            Categories = new[] { Category_Organic }
+            Categories = [Category_Organic]
         };
 
         /// <summary>
@@ -5203,7 +5207,7 @@ public static class Substances
             isFlammable: true,
             meltingPoint: 475.9)
         {
-            Categories = new[] { Category_Organic, Category_Consumable }
+            Categories = [Category_Organic, Category_Consumable]
         };
 
         /// <summary>
@@ -5217,7 +5221,7 @@ public static class Substances
             isFlammable: true,
             youngsModulus: 3.1)
         {
-            Categories = new[] { Category_Organic }
+            Categories = [Category_Organic]
         };
 
         /// <summary>
@@ -5229,9 +5233,9 @@ public static class Substances
             "Maltose",
             densitySolid: 1540,
             meltingPoint: 435.5,
-            commonNames: new string[] { "Malt Sugar", "Maltobiose" })
+            commonNames: ["Malt Sugar", "Maltobiose"])
         {
-            Categories = new[] { Category_Organic, Category_Consumable }
+            Categories = [Category_Organic, Category_Consumable]
         };
 
         /// <summary>
@@ -5250,9 +5254,9 @@ public static class Substances
             isConductive: true,
             isFlammable: true,
             meltingPoint: 175.6,
-            commonNames: new string[] { "Methyl Alcohol", "Wood Alcohol", "Wood Spirit", "Pyroxylic Spirit" })
+            commonNames: ["Methyl Alcohol", "Wood Alcohol", "Wood Spirit", "Pyroxylic Spirit"])
         {
-            Categories = new[] { Category_Organic }
+            Categories = [Category_Organic]
         };
 
         /// <summary>
@@ -5266,7 +5270,7 @@ public static class Substances
             densitySolid: 2430,
             meltingPoint: 1164)
         {
-            Categories = new[] { Category_Organic }
+            Categories = [Category_Organic]
         };
 
         /// <summary>
@@ -5280,9 +5284,9 @@ public static class Substances
             antoineMinimumTemperature: 1873.15,
             densitySolid: 2540,
             meltingPoint: 1124,
-            commonNames: new string[] { "Washing Soda", "Soda Ash" })
+            commonNames: ["Washing Soda", "Soda Ash"])
         {
-            Categories = new[] { Category_Organic }
+            Categories = [Category_Organic]
         };
 
         /// <summary>
@@ -5294,9 +5298,9 @@ public static class Substances
             "Sucrose",
             densitySolid: 1587,
             isFlammable: true,
-            commonNames: new string[] { "Sugar" })
+            commonNames: ["Sugar"])
         {
-            Categories = new[] { Category_Organic, Category_Consumable }
+            Categories = [Category_Organic, Category_Consumable]
         };
 
         /// <summary>
@@ -5312,7 +5316,7 @@ public static class Substances
             isFlammable: true,
             meltingPoint: 278)
         {
-            Categories = new[] { Category_Organic, Category_Consumable }
+            Categories = [Category_Organic, Category_Consumable]
         };
 
         /// <summary>
@@ -5373,7 +5377,7 @@ public static class Substances
             meltingPoint: 537.15,
             youngsModulus: 3)
         {
-            Categories = new[] { Category_Artificial, Category_Plastic, Category_Fabric }
+            Categories = [Category_Artificial, Category_Plastic, Category_Fabric]
         };
 
         /// <summary>
@@ -5387,7 +5391,7 @@ public static class Substances
             meltingPoint: 575.15,
             youngsModulus: 2.6)
         {
-            Categories = new[] { Category_Artificial, Category_Plastic }
+            Categories = [Category_Artificial, Category_Plastic]
         };
 
         /// <summary>
@@ -5402,7 +5406,7 @@ public static class Substances
             densitySolid: 1380,
             meltingPoint: 523)
         {
-            Categories = new[] { Category_Artificial, Category_Plastic, Category_Fabric }
+            Categories = [Category_Artificial, Category_Plastic, Category_Fabric]
         };
 
         /// <summary>
@@ -5416,7 +5420,7 @@ public static class Substances
             meltingPoint: 398,
             youngsModulus: 1.5)
         {
-            Categories = new[] { Category_Artificial, Category_Plastic }
+            Categories = [Category_Artificial, Category_Plastic]
         };
 
         /// <summary>
@@ -5430,7 +5434,7 @@ public static class Substances
             meltingPoint: 423.5,
             youngsModulus: 1.75)
         {
-            Categories = new[] { Category_Artificial, Category_Plastic }
+            Categories = [Category_Artificial, Category_Plastic]
         };
 
         /// <summary>
@@ -5444,7 +5448,7 @@ public static class Substances
             meltingPoint: 513,
             youngsModulus: 3.25)
         {
-            Categories = new[] { Category_Artificial, Category_Plastic }
+            Categories = [Category_Artificial, Category_Plastic]
         };
 
         /// <summary>
@@ -5458,7 +5462,7 @@ public static class Substances
             meltingPoint: 453.15,
             youngsModulus: 3.25)
         {
-            Categories = new[] { Category_Artificial, Category_Plastic }
+            Categories = [Category_Artificial, Category_Plastic]
         };
 
         /// <summary>
@@ -5560,7 +5564,7 @@ public static class Substances
             antoineMinimumTemperature: 0,
             meltingPoint: 0)
         {
-            Categories = new[] { Category_Cosmic }
+            Categories = [Category_Cosmic]
         };
 
         /// <summary>
@@ -5572,7 +5576,7 @@ public static class Substances
             densitySpecial: 4e17,
             fixedPhase: PhaseType.NeutronDegenerateMatter)
         {
-            Categories = new[] { Category_Cosmic }
+            Categories = [Category_Cosmic]
         };
 
         /// <summary>
@@ -5616,7 +5620,7 @@ public static class Substances
             meltingPoint: 271.35,
             molarMass: 25.2)
         {
-            Categories = new[] { Category_Organic, Category_Consumable }
+            Categories = [Category_Organic, Category_Consumable]
         };
 
         /// <summary>
@@ -5629,7 +5633,7 @@ public static class Substances
             isFlammable: true,
             youngsModulus: 0.22)
         {
-            Categories = new[] { Category_Organic, Category_Consumable }
+            Categories = [Category_Organic, Category_Consumable]
         };
 
         /// <summary>
@@ -5644,7 +5648,7 @@ public static class Substances
             molarMass: 70,
             youngsModulus: 1.255)
         {
-            Categories = new[] { Category_Organic }
+            Categories = [Category_Organic]
         };
 
         /// <summary>
@@ -5658,7 +5662,7 @@ public static class Substances
             molarMass: 53,
             youngsModulus: 2)
         {
-            Categories = new[] { Category_Organic }
+            Categories = [Category_Organic]
         };
 
         /// <summary>
@@ -5715,11 +5719,10 @@ public static class Substances
         /// </summary>
         public static readonly Solution Brass = new(
             "Brass",
-            new (HomogeneousReference, decimal)[]
-            {
+            [
                 (Copper.GetHomogeneousReference(), 0.65m),
                 (Zinc.GetHomogeneousReference(), 0.35m),
-            },
+            ],
             "Brass",
             densityLiquid: 8730,
             densitySolid: 8730,
@@ -5727,7 +5730,7 @@ public static class Substances
             meltingPoint: 1193.15,
             youngsModulus: 113.5)
         {
-            Categories = new[] { Category_Metal }
+            Categories = [Category_Metal]
         };
 
         /// <summary>
@@ -5735,11 +5738,10 @@ public static class Substances
         /// </summary>
         public static readonly Solution Bronze = new(
             "Bronze",
-            new (HomogeneousReference, decimal)[]
-            {
+            [
                 (Copper.GetHomogeneousReference(), 0.88m),
                 (WhiteTin.GetHomogeneousReference(), 0.12m),
-            },
+            ],
             "Bronze",
             densityLiquid: 8565,
             densitySolid: 8565,
@@ -5747,7 +5749,7 @@ public static class Substances
             meltingPoint: 1223.15,
             youngsModulus: 108)
         {
-            Categories = new[] { Category_Metal }
+            Categories = [Category_Metal]
         };
 
         /// <summary>
@@ -5755,19 +5757,18 @@ public static class Substances
         /// </summary>
         public static readonly Solution CarbonSteel = new(
             "CarbonSteel",
-            new (HomogeneousReference, decimal)[]
-            {
+            [
                 (Iron.GetHomogeneousReference(), 0.9975m),
                 (AmorphousCarbon.GetHomogeneousReference(), 0.0025m),
-            },
+            ],
             "Carbon Steel",
             densitySolid: 7850,
             hardness: 1765,
             meltingPoint: 1643.15,
             youngsModulus: 180,
-            commonNames: new string[] { "Steel" })
+            commonNames: ["Steel"])
         {
-            Categories = new[] { Category_Metal }
+            Categories = [Category_Metal]
         };
 
         /// <summary>
@@ -5775,14 +5776,13 @@ public static class Substances
         /// </summary>
         public static readonly Solution Ferrochrome = new(
             "Ferrochrome",
-            new (HomogeneousReference, decimal)[]
-            {
+            [
                 (Chromium.GetHomogeneousReference(), 0.6m),
                 (Iron.GetHomogeneousReference(), 0.4m),
-            },
+            ],
             "Ferrochrome")
         {
-            Categories = new[] { Category_Metal }
+            Categories = [Category_Metal]
         };
 
         /// <summary>
@@ -5791,14 +5791,13 @@ public static class Substances
         /// </summary>
         public static readonly Solution IronNickelAlloy = new(
             "IronNickelAlloy",
-            new (HomogeneousReference, decimal)[]
-            {
+            [
                 (Iron.GetHomogeneousReference(), 0.945m),
                 (Nickel.GetHomogeneousReference(), 0.055m),
-            },
+            ],
             "Iron-Nickel Alloy")
         {
-            Categories = new[] { Category_Metal }
+            Categories = [Category_Metal]
         };
 
         /// <summary>
@@ -5806,19 +5805,18 @@ public static class Substances
         /// </summary>
         public static readonly Solution StainlessSteel = new(
             "StainlessSteel",
-            new (HomogeneousReference, decimal)[]
-            {
+            [
                 (Iron.GetHomogeneousReference(), 0.883m),
                 (Chromium.GetHomogeneousReference(), 0.105m),
                 (AmorphousCarbon.GetHomogeneousReference(), 0.012m),
-            },
+            ],
             "Stainless Steel",
             densitySolid: 7850,
             hardness: 1765,
             meltingPoint: 1643.15,
             youngsModulus: 180)
         {
-            Categories = new[] { Category_Metal }
+            Categories = [Category_Metal]
         };
 
         /// <summary>
@@ -5857,8 +5855,7 @@ public static class Substances
         /// </summary>
         public static readonly Solution Cement = new(
             "Cement",
-            new (HomogeneousReference, decimal)[]
-            {
+            [
                 (CalciumCarbonate.GetHomogeneousReference(), 0.85m),
                 (Gypsum.GetHomogeneousReference(), 0.05m),
                 (SiliconDioxide.GetHomogeneousReference(), 0.026m),
@@ -5867,12 +5864,12 @@ public static class Substances
                 (AmorphousCarbon.GetHomogeneousReference(), 0.008m),
                 (AluminiumOxide.GetHomogeneousReference(), 0.008m),
                 (CalciumOxide.GetHomogeneousReference(), 0.008m),
-            },
+            ],
             "Cement",
             densitySolid: 2320,
             youngsModulus: 27.5)
         {
-            Categories = new[] { Category_Artificial }
+            Categories = [Category_Artificial]
         };
 
         /// <summary>
@@ -5885,9 +5882,9 @@ public static class Substances
             densitySolid: 400,
             isFlammable: true,
             youngsModulus: 9.72,
-            commonNames: new string[] { "Cloth" })
+            commonNames: ["Cloth"])
         {
-            Categories = new[] { Category_Artificial, Category_Organic, Category_Fabric }
+            Categories = [Category_Artificial, Category_Organic, Category_Fabric]
         };
 
         /// <summary>
@@ -5901,7 +5898,7 @@ public static class Substances
             isFlammable: true,
             youngsModulus: 0.094)
         {
-            Categories = new[] { Category_Artificial, Category_Organic, Category_Fabric }
+            Categories = [Category_Artificial, Category_Organic, Category_Fabric]
         };
 
         /// <summary>
@@ -5909,17 +5906,16 @@ public static class Substances
         /// </summary>
         public static readonly Solution Paper = new(
             "Paper",
-            new (HomogeneousReference, decimal)[]
-            {
+            [
                 (Cellulose.GetHomogeneousReference(), 0.825m),
                 (CalciumCarbonate.GetHomogeneousReference(), 0.14m),
                 (Kaolinite.GetHomogeneousReference(), 0.035m),
-            },
+            ],
             "Paper",
             densitySolid: 1201,
             isFlammable: true)
         {
-            Categories = new[] { Category_Artificial }
+            Categories = [Category_Artificial]
         };
 
         /// <summary>
@@ -5927,13 +5923,12 @@ public static class Substances
         /// </summary>
         public static readonly Solution SodaLimeGlass = new(
             "SodaLimeGlass",
-            new (HomogeneousReference, decimal)[]
-            {
+            [
                 (SiliconDioxide.GetHomogeneousReference(), 0.75m),
                 (SodiumOxide.GetHomogeneousReference(), 0.13m),
                 (CalciumOxide.GetHomogeneousReference(), 0.105m),
                 (Corundum.GetHomogeneousReference(), 0.015m),
-            },
+            ],
             "Soda Lime Glass",
             densityLiquid: 2520,
             densitySolid: 2520,
@@ -5941,9 +5936,9 @@ public static class Substances
             meltingPoint: 1923.15,
             fixedPhase: PhaseType.Glass,
             youngsModulus: 70,
-            commonNames: new string[] { "Glass" })
+            commonNames: ["Glass"])
         {
-            Categories = new[] { Category_Artificial }
+            Categories = [Category_Artificial]
         };
 
         /// <summary>
@@ -5951,15 +5946,14 @@ public static class Substances
         /// </summary>
         public static readonly Solution Stoneware = new(
             "Stoneware",
-            new (HomogeneousReference, decimal)[]
-            {
+            [
                 (Kaolinite.GetHomogeneousReference(), 0.74m),
                 (SiliconDioxide.GetHomogeneousReference(), 0.17m),
                 (Orthoclase.GetHomogeneousReference(), 0.075m),
                 (Albite.GetHomogeneousReference(), 0.0375m),
                 (Anorthite.GetHomogeneousReference(), 0.0375m),
                 (Muscovite.GetHomogeneousReference(), 0.015m),
-            },
+            ],
             "Stoneware",
             densityLiquid: 2403,
             densitySolid: 2403,
@@ -5967,7 +5961,7 @@ public static class Substances
             meltingPoint: 2300,
             fixedPhase: PhaseType.Glass)
         {
-            Categories = new[] { Category_Artificial }
+            Categories = [Category_Artificial]
         };
 
         /// <summary>
@@ -6006,14 +6000,13 @@ public static class Substances
         /// </summary>
         public static readonly Solution Emerald = new(
             "Emerald",
-            new (HomogeneousReference, decimal)[]
-            {
+            [
                 (Beryl.GetHomogeneousReference(), 0.99m),
                 (Cr3Pos.GetHomogeneousReference(), 0.01m),
-            },
+            ],
             "Emerald")
         {
-            Categories = new[] { Category_Gem }
+            Categories = [Category_Gem]
         };
 
         /// <summary>
@@ -6021,14 +6014,13 @@ public static class Substances
         /// </summary>
         public static readonly Solution Opal = new(
             "Opal",
-            new (HomogeneousReference, decimal)[]
-            {
+            [
                 (SiliconDioxide.GetHomogeneousReference(), 0.92m),
                 (Water.GetHomogeneousReference(), 0.08m),
-            },
+            ],
             "Opal")
         {
-            Categories = new[] { Category_Gem }
+            Categories = [Category_Gem]
         };
 
         /// <summary>
@@ -6036,15 +6028,14 @@ public static class Substances
         /// </summary>
         public static readonly Solution Ruby = new(
             "Ruby",
-            new (HomogeneousReference, decimal)[]
-            {
+            [
                 (Corundum.GetHomogeneousReference(), 0.99m),
                 (Cr3Pos.GetHomogeneousReference(), 0.01m),
-            },
+            ],
             "Ruby",
             youngsModulus: 345)
         {
-            Categories = new[] { Category_Gem }
+            Categories = [Category_Gem]
         };
 
         /// <summary>
@@ -6052,16 +6043,15 @@ public static class Substances
         /// </summary>
         public static readonly Solution Sapphire = new(
             "Sapphire",
-            new (HomogeneousReference, decimal)[]
-            {
+            [
                 (Corundum.GetHomogeneousReference(), 0.999m),
                 (Fe2Pos.GetHomogeneousReference(), 0.0005m),
                 (Ti4Pos.GetHomogeneousReference(), 0.0005m),
-            },
+            ],
             "Sapphire",
             youngsModulus: 345)
         {
-            Categories = new[] { Category_Gem }
+            Categories = [Category_Gem]
         };
 
         /// <summary>
@@ -6097,17 +6087,16 @@ public static class Substances
         /// </summary>
         public static readonly Solution Vitrinite = new(
             "Vitrinite",
-            new (HomogeneousReference, decimal)[]
-            {
+            [
                 (Naphthalene.GetHomogeneousReference(), 0.4m),
                 (Toluene.GetHomogeneousReference(), 0.3m),
                 (Biphenyl.GetHomogeneousReference(), 0.3m),
-            },
+            ],
             "Vitrinite",
             densitySolid: 833,
             hardness: 245)
         {
-            Categories = new[] { Category_Hydrocarbon }
+            Categories = [Category_Hydrocarbon]
         };
 
         /// <summary>
@@ -6141,15 +6130,14 @@ public static class Substances
         /// </summary>
         public static readonly Solution Olivine = new(
             "Olivine",
-            new (HomogeneousReference, decimal)[]
-            {
+            [
                 (Forsterite.GetHomogeneousReference(), 0.7m),
                 (Fayalite.GetHomogeneousReference(), 0.3m),
-            },
+            ],
             "Olivine",
             youngsModulus: 204)
         {
-            Categories = new[] { Category_Mineral, Category_Stone }
+            Categories = [Category_Mineral, Category_Stone]
         };
 
         /// <summary>
@@ -6157,8 +6145,7 @@ public static class Substances
         /// </summary>
         public static readonly Solution CosmicDust = new(
             "CosmicDust",
-            new (HomogeneousReference, decimal)[]
-            {
+            [
                 (Olivine.GetHomogeneousReference(), 0.43518m),
                 (SiliconDioxide.GetHomogeneousReference(), 0.43m),
                 (Water.GetHomogeneousReference(), 0.125m),
@@ -6172,11 +6159,11 @@ public static class Substances
                 (Iron.GetHomogeneousReference(), 0.001m),
                 (AmorphousCarbon.GetHomogeneousReference(), 0.001m),
                 (Corundum.GetHomogeneousReference(), 0.00002m),
-            },
+            ],
             "Cosmic Dust",
             densitySolid: 2000)
         {
-            Categories = new[] { Category_Mineral, Category_Cosmic }
+            Categories = [Category_Mineral, Category_Cosmic]
         };
 
         /// <summary>
@@ -6184,14 +6171,13 @@ public static class Substances
         /// </summary>
         public static readonly Solution Orthopyroxene = new(
             "Orthopyroxene",
-            new (HomogeneousReference, decimal)[]
-            {
+            [
                 (Enstatite.GetHomogeneousReference(), 0.9m),
                 (Ferrosilite.GetHomogeneousReference(), 0.1m),
-            },
+            ],
             "Orthopyroxene")
         {
-            Categories = new[] { Category_Mineral, Category_Stone }
+            Categories = [Category_Mineral, Category_Stone]
         };
 
         /// <summary>
@@ -6199,15 +6185,14 @@ public static class Substances
         /// </summary>
         public static readonly Solution Plagioclase = new(
             "Plagioclase",
-            new (HomogeneousReference, decimal)[]
-            {
+            [
                 (Albite.GetHomogeneousReference(), 0.5m),
                 (Anorthite.GetHomogeneousReference(), 0.5m),
-            },
+            ],
             "Plagioclase",
             youngsModulus: 80)
         {
-            Categories = new[] { Category_Mineral, Category_Stone }
+            Categories = [Category_Mineral, Category_Stone]
         };
 
         /// <summary>
@@ -6215,17 +6200,16 @@ public static class Substances
         /// </summary>
         public static readonly Solution Sphalerite = new(
             "Sphalerite",
-            new (HomogeneousReference, decimal)[]
-            {
+            [
                 (ZincSulfide.GetHomogeneousReference(), 0.95m),
                 (IronSulfide.GetHomogeneousReference(), 0.05m),
-            },
+            ],
             "Sphalerite",
             densitySolid: 4050,
             hardness: 2118,
             meltingPoint: 1973.15)
         {
-            Categories = new[] { Category_Mineral }
+            Categories = [Category_Mineral]
         };
 
         /// <summary>
@@ -6233,18 +6217,17 @@ public static class Substances
         /// </summary>
         public static readonly Solution Uraninite = new(
             "Uraninite",
-            new (HomogeneousReference, decimal)[]
-            {
+            [
                 (UraniumDioxide.GetHomogeneousReference(), 0.9368m),
                 (Lead206Oxide.GetHomogeneousReference(), 0.052m),
                 (Uranium235Dioxide.GetHomogeneousReference(), 0.0068m),
                 (Helium.GetHomogeneousReference(), 0.0037m),
                 (Radium.GetHomogeneousReference(), 0.0007m),
-            },
+            ],
             "Uraninite",
             densitySolid: 10790)
         {
-            Categories = new[] { Category_Mineral }
+            Categories = [Category_Mineral]
         };
 
         /// <summary>
@@ -6283,8 +6266,7 @@ public static class Substances
         /// </summary>
         public static readonly Solution Seawater = new(
             "Seawater",
-            new (HomogeneousReference, decimal)[]
-            {
+            [
                 (Water.GetHomogeneousReference(), 0.965m),
                 (Cl1Neg.GetHomogeneousReference(), 0.019354m),
                 (Na1Pos.GetHomogeneousReference(), 0.01077m),
@@ -6293,7 +6275,7 @@ public static class Substances
                 (Ca2Pos.GetHomogeneousReference(), 0.0004121m),
                 (K1Pos.GetHomogeneousReference(), 0.000399m),
                 (Bicarbonate.GetHomogeneousReference(), 0.0001424m),
-            },
+            ],
             "Seawater",
             antoineCoefficientA: 4.6543,
             antoineCoefficientB: 1435.264,
@@ -6306,7 +6288,7 @@ public static class Substances
             isConductive: true,
             meltingPoint: 271.35)
         {
-            Categories = new[] { Category_Aqueous }
+            Categories = [Category_Aqueous]
         };
 
         /// <summary>
@@ -6340,18 +6322,17 @@ public static class Substances
         /// </summary>
         public static readonly Solution Wood = new(
             "Wood",
-            new (HomogeneousReference, decimal)[]
-            {
+            [
                 (Cellulose.GetHomogeneousReference(), 0.7m),
                 (Lignin.GetHomogeneousReference(), 0.3m),
-            },
+            ],
             "Wood",
             densitySolid: 787,
             hardness: 25.5,
             isFlammable: true,
             youngsModulus: 10)
         {
-            Categories = new[] { Category_Organic }
+            Categories = [Category_Organic]
         };
 
         /// <summary>
@@ -6359,17 +6340,16 @@ public static class Substances
         /// </summary>
         public static readonly Solution WoodSmoke = new(
             "WoodSmoke",
-            new (HomogeneousReference, decimal)[]
-            {
+            [
                 (CarbonDioxide.GetHomogeneousReference(), 0.451m),
                 (Water.GetHomogeneousReference(), 0.45m),
                 (CarbonMonoxide.GetHomogeneousReference(), 0.08m),
                 (Methane.GetHomogeneousReference(), 0.014m),
                 (AmorphousCarbon.GetHomogeneousReference(), 0.005m),
-            },
+            ],
             "Wood Smoke")
         {
-            Categories = new[] { Category_Organic }
+            Categories = [Category_Organic]
         };
 
         /// <summary>
@@ -6446,17 +6426,16 @@ public static class Substances
         /// </summary>
         public static readonly Mixture Brick = new(
             "Brick",
-            new (HomogeneousReference, decimal)[]
-            {
+            [
                 (Kaolinite.GetHomogeneousReference(), 0.226m),
                 (SiliconDioxide.GetHomogeneousReference(), 0.6m),
                 (Muscovite.GetHomogeneousReference(), 0.075m),
                 (CalciumHydroxide.GetHomogeneousReference(), 0.05m),
                 (Hematite.GetHomogeneousReference(), 0.049m),
-            },
+            ],
             "Brick")
         {
-            Categories = new[] { Category_Artificial }
+            Categories = [Category_Artificial]
         };
 
         /// <summary>
@@ -6464,17 +6443,16 @@ public static class Substances
         /// </summary>
         public static readonly Mixture Concrete = new(
             "Concrete",
-            new (HomogeneousReference, decimal)[]
-            {
+            [
                 (SiliconDioxide.GetHomogeneousReference(), 0.333m),
                 (CalciumCarbonate.GetHomogeneousReference(), 0.25m),
                 (Cement.GetHomogeneousReference(), 0.167m),
                 (Plagioclase.GetHomogeneousReference(), 0.1625m),
                 (Orthoclase.GetHomogeneousReference(), 0.0875m),
-            },
+            ],
             "Concrete")
         {
-            Categories = new[] { Category_Artificial }
+            Categories = [Category_Artificial]
         };
 
         /// <summary>
@@ -6482,17 +6460,16 @@ public static class Substances
         /// </summary>
         public static readonly Mixture Earthenware = new(
             "Earthenware",
-            new (HomogeneousReference, decimal)[]
-            {
+            [
                 (SiliconDioxide.GetHomogeneousReference(), 0.42m),
                 (Kaolinite.GetHomogeneousReference(), 0.385m),
                 (Orthoclase.GetHomogeneousReference(), 0.075m),
                 (Plagioclase.GetHomogeneousReference(), 0.075m),
                 (Muscovite.GetHomogeneousReference(), 0.045m)
-            },
+            ],
             "Earthenware")
         {
-            Categories = new[] { Category_Artificial }
+            Categories = [Category_Artificial]
         };
 
         /// <summary>
@@ -6500,18 +6477,17 @@ public static class Substances
         /// </summary>
         public static readonly Mixture ReinforcedConcrete = new(
             "ReinforcedConcrete",
-            new (HomogeneousReference, decimal)[]
-            {
+            [
                 (SiliconDioxide.GetHomogeneousReference(), 0.33m),
                 (CalciumCarbonate.GetHomogeneousReference(), 0.2475m),
                 (Cement.GetHomogeneousReference(), 0.165m),
                 (Plagioclase.GetHomogeneousReference(), 0.16m),
                 (Orthoclase.GetHomogeneousReference(), 0.087m),
                 (CarbonSteel.GetHomogeneousReference(), 0.0105m),
-            },
+            ],
             "Reinforced Concrete")
         {
-            Categories = new[] { Category_Artificial }
+            Categories = [Category_Artificial]
         };
 
         /// <summary>
@@ -6548,15 +6524,14 @@ public static class Substances
         /// </summary>
         public static readonly Mixture InterplanetaryMedium = new(
             "InterplanetaryMedium",
-            new (HomogeneousReference, decimal)[]
-            {
+            [
                 (HydrogenPlasma.GetHomogeneousReference(), 0.7m),
                 (AlphaParticle.GetHomogeneousReference(), 0.28m),
                 (CosmicDust.GetHomogeneousReference(), 0.02m),
-            },
+            ],
             "Interplanetary Medium")
         {
-            Categories = new[] { Category_Cosmic }
+            Categories = [Category_Cosmic]
         };
 
         /// <summary>
@@ -6564,17 +6539,16 @@ public static class Substances
         /// </summary>
         public static readonly Mixture InterstellarMedium = new(
             "InterstellarMedium",
-            new (HomogeneousReference, decimal)[]
-            {
+            [
                 (HydrogenPlasma.GetHomogeneousReference(), 0.35m),
                 (Hydrogen.GetHomogeneousReference(), 0.35m),
                 (AlphaParticle.GetHomogeneousReference(), 0.14m),
                 (Helium.GetHomogeneousReference(), 0.14m),
                 (CosmicDust.GetHomogeneousReference(), 0.02m),
-            },
+            ],
             "Interstellar Medium")
         {
-            Categories = new[] { Category_Cosmic }
+            Categories = [Category_Cosmic]
         };
 
         /// <summary>
@@ -6582,8 +6556,7 @@ public static class Substances
         /// </summary>
         public static readonly Mixture IntraclusterMedium = new(
             "IntraclusterMedium",
-            new (HomogeneousReference, decimal)[]
-            {
+            [
                 (HydrogenPlasma.GetHomogeneousReference(), 0.74m),
                 (AlphaParticle.GetHomogeneousReference(), 0.252m),
                 (O2Pos.GetHomogeneousReference(), 0.0039m),
@@ -6594,10 +6567,10 @@ public static class Substances
                 (Si4Pos.GetHomogeneousReference(), 0.00035m),
                 (Mg2Pos.GetHomogeneousReference(), 0.00025m),
                 (S6Pos.GetHomogeneousReference(), 0.0002m),
-            },
+            ],
             "Intracluster Medium")
         {
-            Categories = new[] { Category_Cosmic }
+            Categories = [Category_Cosmic]
         };
 
         /// <summary>
@@ -6606,8 +6579,7 @@ public static class Substances
         /// </summary>
         public static readonly Mixture IonizedCloud = new(
             "IonizedCloud",
-            new (HomogeneousReference, decimal)[]
-            {
+            [
                 (HydrogenPlasma.GetHomogeneousReference(), 0.74m),
                 (AlphaParticle.GetHomogeneousReference(), 0.252m),
                 (O2Pos.GetHomogeneousReference(), 0.0039m),
@@ -6618,10 +6590,10 @@ public static class Substances
                 (Si4Pos.GetHomogeneousReference(), 0.00035m),
                 (Mg2Pos.GetHomogeneousReference(), 0.00025m),
                 (S6Pos.GetHomogeneousReference(), 0.0002m),
-            },
+            ],
             "Ionized Cloud")
         {
-            Categories = new[] { Category_Cosmic }
+            Categories = [Category_Cosmic]
         };
 
         /// <summary>
@@ -6629,8 +6601,7 @@ public static class Substances
         /// </summary>
         public static readonly Mixture MolecularCloud = new(
             "MolecularCloud",
-            new (HomogeneousReference, decimal)[]
-            {
+            [
                 (Hydrogen.GetHomogeneousReference(), 0.74m),
                 (Helium.GetHomogeneousReference(), 0.252m),
                 (Oxygen.GetHomogeneousReference(), 0.0039m),
@@ -6641,10 +6612,10 @@ public static class Substances
                 (Silicon.GetHomogeneousReference(), 0.00035m),
                 (Magnesium.GetHomogeneousReference(), 0.00025m),
                 (Sulfur.GetHomogeneousReference(), 0.0002m),
-            },
+            ],
             "Molecular Cloud")
         {
-            Categories = new[] { Category_Cosmic }
+            Categories = [Category_Cosmic]
         };
 
         /// <summary>
@@ -6652,8 +6623,7 @@ public static class Substances
         /// </summary>
         public static readonly Mixture WarmHotIntergalacticMedium = new(
             "WarmHotIntergalacticMedium",
-            new (HomogeneousReference, decimal)[]
-            {
+            [
                 (HydrogenPlasma.GetHomogeneousReference(), 0.74m),
                 (AlphaParticle.GetHomogeneousReference(), 0.252m),
                 (O2Pos.GetHomogeneousReference(), 0.0039m),
@@ -6664,10 +6634,10 @@ public static class Substances
                 (Si4Pos.GetHomogeneousReference(), 0.00035m),
                 (Mg2Pos.GetHomogeneousReference(), 0.00025m),
                 (S6Pos.GetHomogeneousReference(), 0.0002m),
-            },
+            ],
             "Warm-Hot Intergalactic Medium")
         {
-            Categories = new[] { Category_Cosmic }
+            Categories = [Category_Cosmic]
         };
 
         /// <summary>
@@ -6706,8 +6676,7 @@ public static class Substances
         /// </summary>
         public static readonly Mixture Anthracite = new(
             "Anthracite",
-            new (HomogeneousReference, decimal)[]
-            {
+            [
                 (AmorphousCarbon.GetHomogeneousReference(), 0.5m),
                 (Vitrinite.GetHomogeneousReference(), 0.345m),
                 (Water.GetHomogeneousReference(), 0.045m),
@@ -6721,12 +6690,12 @@ public static class Substances
                 (CarbonDioxide.GetHomogeneousReference(), 0.0045m),
                 (Hydrogen.GetHomogeneousReference(), 0.003m),
                 (Ammonia.GetHomogeneousReference(), 0.002m)
-            },
+            ],
             "Anthracite",
             densitySolid: 1350,
-            commonNames: new string[] { "Coal", "Anthracite Coal" })
+            commonNames: ["Coal", "Anthracite Coal"])
         {
-            Categories = new[] { Category_Hydrocarbon, Category_Mineral, Category_Stone }
+            Categories = [Category_Hydrocarbon, Category_Mineral, Category_Stone]
         };
 
         /// <summary>
@@ -6734,8 +6703,7 @@ public static class Substances
         /// </summary>
         public static readonly Mixture BituminousCoal = new(
             "BituminousCoal",
-            new (HomogeneousReference, decimal)[]
-            {
+            [
                 (Vitrinite.GetHomogeneousReference(), 0.6m),
                 (AmorphousCarbon.GetHomogeneousReference(), 0.1m),
                 (Water.GetHomogeneousReference(), 0.085m),
@@ -6749,13 +6717,13 @@ public static class Substances
                 (Hydrogen.GetHomogeneousReference(), 0.013m),
                 (Ammonia.GetHomogeneousReference(), 0.01m),
                 (HydrogenSulfide.GetHomogeneousReference(), 0.01m),
-            },
+            ],
             "Bituminous Coal",
             densityLiquid: 1346,
             densitySolid: 833,
-            commonNames: new string[] { "Coal" })
+            commonNames: ["Coal"])
         {
-            Categories = new[] { Category_Hydrocarbon, Category_Mineral, Category_Stone }
+            Categories = [Category_Hydrocarbon, Category_Mineral, Category_Stone]
         };
 
         /// <summary>
@@ -6763,8 +6731,7 @@ public static class Substances
         /// </summary>
         public static readonly Mixture Diesel = new(
             "Diesel",
-            new (HomogeneousReference, decimal)[]
-            {
+            [
                 (Nonane.GetHomogeneousReference(), 0.045m),
                 (Decane.GetHomogeneousReference(), 0.05m),
                 (Undecane.GetHomogeneousReference(), 0.065m),
@@ -6794,11 +6761,11 @@ public static class Substances
                 (Phenanthrene.GetHomogeneousReference(), 0.004m),
                 (Benzothiophene.GetHomogeneousReference(), 0.004m),
                 (Dibenzothiophene.GetHomogeneousReference(), 0.004m),
-            },
+            ],
             "Diesel",
             densityLiquid: 832)
         {
-            Categories = new[] { Category_Hydrocarbon }
+            Categories = [Category_Hydrocarbon]
         };
 
         /// <summary>
@@ -6806,8 +6773,7 @@ public static class Substances
         /// </summary>
         public static readonly Mixture Gasoline = new(
             "Gasoline",
-            new (HomogeneousReference, decimal)[]
-            {
+            [
                 (Butane.GetHomogeneousReference(), 0.022m),
                 (Pentane.GetHomogeneousReference(), 0.181m),
                 (Hexane.GetHomogeneousReference(), 0.196m),
@@ -6840,12 +6806,12 @@ public static class Substances
                 (Methanol.GetHomogeneousReference(), 0.02m),
                 (PhosphoricAcid.GetHomogeneousReference(), 0.02m),
                 (IsopropylAlcohol.GetHomogeneousReference(), 0.02m),
-            },
+            ],
             "Gasoline",
             densityLiquid: 708,
-            commonNames: new string[] { "Gas", "Petrol" })
+            commonNames: ["Gas", "Petrol"])
         {
-            Categories = new[] { Category_Hydrocarbon }
+            Categories = [Category_Hydrocarbon]
         };
 
         /// <summary>
@@ -6853,8 +6819,7 @@ public static class Substances
         /// </summary>
         public static readonly Mixture Kerosine = new(
             "Kerosine",
-            new (HomogeneousReference, decimal)[]
-            {
+            [
                 (Hexane.GetHomogeneousReference(), 0.04m),
                 (Heptane.GetHomogeneousReference(), 0.043m),
                 (Octane.GetHomogeneousReference(), 0.048m),
@@ -6888,11 +6853,11 @@ public static class Substances
                 (Naphthalene.GetHomogeneousReference(), 0.028m),
                 (Benzothiophene.GetHomogeneousReference(), 0.015m),
                 (Dibenzothiophene.GetHomogeneousReference(), 0.015m),
-            },
+            ],
             "Kerosine",
             densityLiquid: 810)
         {
-            Categories = new[] { Category_Hydrocarbon }
+            Categories = [Category_Hydrocarbon]
         };
 
         /// <summary>
@@ -6900,8 +6865,7 @@ public static class Substances
         /// </summary>
         public static readonly Mixture NaturalGas = new(
             "NaturalGas",
-            new (HomogeneousReference, decimal)[]
-            {
+            [
                 (Methane.GetHomogeneousReference(), 0.8819m),
                 (Ethane.GetHomogeneousReference(), 0.0517m),
                 (Propane.GetHomogeneousReference(), 0.0187m),
@@ -6911,11 +6875,11 @@ public static class Substances
                 (Helium.GetHomogeneousReference(), 0.001m),
                 (Nitrogen.GetHomogeneousReference(), 0.0354m),
                 (CarbonDioxide.GetHomogeneousReference(), 0.0004m),
-            },
+            ],
             "Natural Gas",
-            commonNames: new string[] { "Gas", "Fossil Gas" })
+            commonNames: ["Gas", "Fossil Gas"])
         {
-            Categories = new[] { Category_Hydrocarbon }
+            Categories = [Category_Hydrocarbon]
         };
 
         /// <summary>
@@ -6923,8 +6887,7 @@ public static class Substances
         /// </summary>
         public static readonly Mixture Petroleum = new(
             "Petroleum",
-            new (HomogeneousReference, decimal)[]
-            {
+            [
                 (Pentane.GetHomogeneousReference(), 0.021m),
                 (Hexane.GetHomogeneousReference(), 0.021m),
                 (Heptane.GetHomogeneousReference(), 0.021m),
@@ -6961,12 +6924,12 @@ public static class Substances
                 (MXylene.GetHomogeneousReference(), 0.005m),
                 (OXylene.GetHomogeneousReference(), 0.005m),
                 (PXylene.GetHomogeneousReference(), 0.005m),
-            },
+            ],
             "Petroleum",
             densityLiquid: 800,
-            commonNames: new string[] { "Oil" })
+            commonNames: ["Oil"])
         {
-            Categories = new[] { Category_Hydrocarbon }
+            Categories = [Category_Hydrocarbon]
         };
 
         /// <summary>
@@ -7006,16 +6969,15 @@ public static class Substances
         /// </summary>
         public static readonly Mixture BallClay = new(
             "BallClay",
-            new (HomogeneousReference, decimal)[]
-            {
+            [
                 (Kaolinite.GetHomogeneousReference(), 0.53m),
                 (SiliconDioxide.GetHomogeneousReference(), 0.295m),
                 (Muscovite.GetHomogeneousReference(), 0.175m),
-            },
+            ],
             "Ball Clay",
-            commonNames: new string[] { "Clay" })
+            commonNames: ["Clay"])
         {
-            Categories = new[] { Category_Clay }
+            Categories = [Category_Clay]
         };
 
         /// <summary>
@@ -7023,15 +6985,14 @@ public static class Substances
         /// </summary>
         public static readonly Mixture Basalt = new(
             "Basalt",
-            new (HomogeneousReference, decimal)[]
-            {
+            [
                 (Plagioclase.GetHomogeneousReference(), 0.65m),
                 (SiliconDioxide.GetHomogeneousReference(), 0.35m),
-            },
+            ],
             "Basalt",
             densitySolid: 3000)
         {
-            Categories = new[] { Category_Mineral, Category_Stone }
+            Categories = [Category_Mineral, Category_Stone]
         };
 
         /// <summary>
@@ -7039,8 +7000,7 @@ public static class Substances
         /// </summary>
         public static readonly Mixture Bauxite = new(
             "Bauxite",
-            new (HomogeneousReference, decimal)[]
-            {
+            [
                 (Gibbsite.GetHomogeneousReference(), 0.287m),
                 (Boehmite.GetHomogeneousReference(), 0.287m),
                 (Kaolinite.GetHomogeneousReference(), 0.116m),
@@ -7048,11 +7008,11 @@ public static class Substances
                 (Hematite.GetHomogeneousReference(), 0.09m),
                 (SiliconDioxide.GetHomogeneousReference(), 0.085m),
                 (Ilmenite.GetHomogeneousReference(), 0.045m),
-            },
+            ],
             "Bauxite",
             densitySolid: 2700)
         {
-            Categories = new[] { Category_Mineral }
+            Categories = [Category_Mineral]
         };
 
         /// <summary>
@@ -7060,16 +7020,15 @@ public static class Substances
         /// </summary>
         public static readonly Mixture Granite = new(
             "Granite",
-            new (HomogeneousReference, decimal)[]
-            {
+            [
                 (SiliconDioxide.GetHomogeneousReference(), 0.6m),
                 (Plagioclase.GetHomogeneousReference(), 0.26m),
                 (Orthoclase.GetHomogeneousReference(), 0.14m),
-            },
+            ],
             "Granite",
             densitySolid: 2700)
         {
-            Categories = new[] { Category_Mineral, Category_Stone }
+            Categories = [Category_Mineral, Category_Stone]
         };
 
         /// <summary>
@@ -7077,19 +7036,18 @@ public static class Substances
         /// </summary>
         public static readonly Mixture Loam = new(
             "Loam",
-            new (HomogeneousReference, decimal)[]
-            {
+            [
                 (SiliconDioxide.GetHomogeneousReference(), 0.5m),
                 (Kaolinite.GetHomogeneousReference(), 0.333m),
                 (Orthoclase.GetHomogeneousReference(), 0.056m),
                 (Albite.GetHomogeneousReference(), 0.056m),
                 (Anorthite.GetHomogeneousReference(), 0.055m),
-            },
+            ],
             "Loam",
             densitySolid: 1250,
-            commonNames: new string[] { "Soil" })
+            commonNames: ["Soil"])
         {
-            Categories = new[] { Category_Dirt }
+            Categories = [Category_Dirt]
         };
 
         /// <summary>
@@ -7097,12 +7055,11 @@ public static class Substances
         /// </summary>
         public static readonly Mixture Peridotite = new(
             "Peridotite",
-            new (HomogeneousReference, decimal)[]
-            {
+            [
                 (Olivine.GetHomogeneousReference(), 0.7m),
                 (Orthopyroxene.GetHomogeneousReference(), 0.18m),
                 (Diopside.GetHomogeneousReference(), 0.12m),
-            },
+            ],
             "Peridotite",
             densitySolid: 3130);
 
@@ -7111,16 +7068,15 @@ public static class Substances
         /// </summary>
         public static readonly Mixture Sandstone = new(
             "Sandstone",
-            new (HomogeneousReference, decimal)[]
-            {
+            [
                 (SiliconDioxide.GetHomogeneousReference(), 0.9m),
                 (Plagioclase.GetHomogeneousReference(), 0.05m),
                 (Orthoclase.GetHomogeneousReference(), 0.05m),
-            },
+            ],
             "Sandstone",
             densitySolid: 2300)
         {
-            Categories = new[] { Category_Mineral, Category_Stone }
+            Categories = [Category_Mineral, Category_Stone]
         };
 
         /// <summary>
@@ -7128,16 +7084,15 @@ public static class Substances
         /// </summary>
         public static readonly Mixture Silt = new(
             "Silt",
-            new (HomogeneousReference, decimal)[]
-            {
+            [
                 (SiliconDioxide.GetHomogeneousReference(), 0.5m),
                 (Orthoclase.GetHomogeneousReference(), 0.167m),
                 (Albite.GetHomogeneousReference(), 0.167m),
                 (Anorthite.GetHomogeneousReference(), 0.166m),
-            },
+            ],
             "Silt")
         {
-            Categories = new[] { Category_Dirt }
+            Categories = [Category_Dirt]
         };
 
         /// <summary>
@@ -7178,16 +7133,15 @@ public static class Substances
         /// </summary>
         public static readonly Mixture FlyAsh = new(
             "FlyAsh",
-            new (HomogeneousReference, decimal)[]
-            {
+            [
                 (AmorphousCarbon.GetHomogeneousReference(), 0.59m),
                 (SiliconDioxide.GetHomogeneousReference(), 0.3m),
                 (AluminiumOxide.GetHomogeneousReference(), 0.1m),
                 (CalciumOxide.GetHomogeneousReference(), 0.01m),
-            },
+            ],
             "Fly Ash",
             densitySolid: 827,
-            commonNames: new string[] { "Flue Ash", "Coal Ash", "Pulverised Fuel Ash" });
+            commonNames: ["Flue Ash", "Coal Ash", "Pulverised Fuel Ash"]);
 
         /// <summary>
         /// Enumerates the default set of mixtures.
@@ -7220,18 +7174,17 @@ public static class Substances
         /// </summary>
         public static readonly Mixture AdiposeTissue = new(
             "AdiposeTissue",
-            new (HomogeneousReference, decimal)[]
-            {
+            [
                 (Triolein.GetHomogeneousReference(), 0.87m),
                 (Water.GetHomogeneousReference(), 0.08m),
                 (Protein.GetHomogeneousReference(), 0.05m),
-            },
+            ],
             "Adipose Tissue",
             densityLiquid: 900,
             densitySolid: 900,
-            commonNames: new string[] { "Fat" })
+            commonNames: ["Fat"])
         {
-            Categories = new[] { Category_Organic }
+            Categories = [Category_Organic]
         };
 
         /// <summary>
@@ -7239,16 +7192,15 @@ public static class Substances
         /// </summary>
         public static readonly Mixture Bone = new(
             "Bone",
-            new (HomogeneousReference, decimal)[]
-            {
+            [
                 (Hydroxyapatite.GetHomogeneousReference(), 0.7m),
                 (Collagen.GetHomogeneousReference(), 0.2775m),
                 (Water.GetHomogeneousReference(), 0.0225m),
-            },
+            ],
             "Bone",
             densitySolid: 1050)
         {
-            Categories = new[] { Category_Organic }
+            Categories = [Category_Organic]
         };
 
         /// <summary>
@@ -7256,19 +7208,18 @@ public static class Substances
         /// </summary>
         public static readonly Mixture EpithelialTissue = new(
             "EpithelialTissue",
-            new (HomogeneousReference, decimal)[]
-            {
+            [
                 (Water.GetHomogeneousReference(), 0.7m),
                 (Keratin.GetHomogeneousReference(), 0.23m),
                 (Triolein.GetHomogeneousReference(), 0.02m),
                 (Protein.GetHomogeneousReference(), 0.02m),
-            },
+            ],
             "Epithelial Tissue",
             densityLiquid: 1109,
             densitySolid: 1109,
-            commonNames: new string[] { "Skin" })
+            commonNames: ["Skin"])
         {
-            Categories = new[] { Category_Organic }
+            Categories = [Category_Organic]
         };
 
         /// <summary>
@@ -7276,19 +7227,18 @@ public static class Substances
         /// </summary>
         public static readonly Mixture MuscleTissue = new(
             "MuscleTissue",
-            new (HomogeneousReference, decimal)[]
-            {
+            [
                 (Water.GetHomogeneousReference(), 0.75m),
                 (Protein.GetHomogeneousReference(), 0.2m),
                 (Triolein.GetHomogeneousReference(), 0.04m),
                 (Glycogen.GetHomogeneousReference(), 0.01m),
-            },
+            ],
             "Muscle Tissue",
             densityLiquid: 1090,
             densitySolid: 1090,
-            commonNames: new string[] { "Muscle" })
+            commonNames: ["Muscle"])
         {
-            Categories = new[] { Category_Organic }
+            Categories = [Category_Organic]
         };
 
         /// <summary>
@@ -7296,19 +7246,18 @@ public static class Substances
         /// </summary>
         public static readonly Mixture NervousTissue = new(
             "NervousTissue",
-            new (HomogeneousReference, decimal)[]
-            {
+            [
                 (Water.GetHomogeneousReference(), 0.8m),
                 (Triolein.GetHomogeneousReference(), 0.104m),
                 (Protein.GetHomogeneousReference(), 0.078m),
                 (Glycogen.GetHomogeneousReference(), 0.018m),
-            },
+            ],
             "Nervous Tissue",
             densityLiquid: 1075,
             densitySolid: 1075,
-            commonNames: new string[] { "Nerve" })
+            commonNames: ["Nerve"])
         {
-            Categories = new[] { Category_Organic }
+            Categories = [Category_Organic]
         };
 
         /// <summary>
@@ -7316,17 +7265,16 @@ public static class Substances
         /// </summary>
         public static readonly Mixture Tooth = new(
             "Tooth",
-            new (HomogeneousReference, decimal)[]
-            {
+            [
                 (Hydroxyapatite.GetHomogeneousReference(), 0.792m),
                 (Collagen.GetHomogeneousReference(), 0.126m),
                 (Water.GetHomogeneousReference(), 0.082m),
-            },
+            ],
             "Tooth",
             densityLiquid: 2180,
             densitySolid: 2180)
         {
-            Categories = new[] { Category_Organic }
+            Categories = [Category_Organic]
         };
 
         /// <summary>
@@ -7334,17 +7282,16 @@ public static class Substances
         /// </summary>
         public static readonly Mixture WoodAsh = new(
             "WoodAsh",
-            new (HomogeneousReference, decimal)[]
-            {
+            [
                 (AmorphousCarbon.GetHomogeneousReference(), 0.59m),
                 (CalciumCarbonate.GetHomogeneousReference(), 0.3m),
                 (PotassiumCarbonate.GetHomogeneousReference(), 0.1m),
                 (PhosphoricAcid.GetHomogeneousReference(), 0.01m),
-            },
+            ],
             "Wood Ash",
             densitySolid: 827)
         {
-            Categories = new[] { Category_Organic }
+            Categories = [Category_Organic]
         };
 
         /// <summary>
